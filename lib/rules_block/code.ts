@@ -1,9 +1,11 @@
 // Code block (4 spaces padded)
 
+import StateBlock from "./state_block";
+
 export default function code(
-  state: unknown,
+  state: StateBlock,
   startLine: number,
-  endLine: number /*, silent */,
+  endLine: number,
 ) {
   if (state.sCount[startLine] - state.blkIndent < 4) {
     return false;

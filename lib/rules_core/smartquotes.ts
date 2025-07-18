@@ -2,6 +2,7 @@
 //
 
 import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "../common/utils";
+import Token from "../token";
 import StateCore from "./state_core";
 
 const QUOTE_TEST_RE = /['"]/;
@@ -12,7 +13,7 @@ function replaceAt(str: string, index: number, ch: string) {
   return str.slice(0, index) + ch + str.slice(index + 1);
 }
 
-function process_inlines(tokens: Array<unknown>, state: unknown) {
+function process_inlines(tokens: Array<Token>, state: StateCore) {
   let j;
 
   const stack = [];

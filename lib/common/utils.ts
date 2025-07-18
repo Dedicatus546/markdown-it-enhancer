@@ -21,8 +21,8 @@ function has(object: unknown, key: string) {
   return hasOwnProperty.call(object, key);
 }
 
-function arrayReplaceAt<T>(src: Array<T>, pos: number, newElements: T) {
-  return src.toSpliced(pos, 1, newElements);
+function arrayReplaceAt<T>(src: Array<T>, pos: number, newElements: Array<T>) {
+  return src.toSpliced(pos, 1, ...newElements);
 }
 
 function isValidEntityCode(c: number) {

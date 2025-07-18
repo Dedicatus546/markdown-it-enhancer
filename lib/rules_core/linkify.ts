@@ -4,6 +4,7 @@
 //
 
 import { arrayReplaceAt } from "../common/utils";
+import Token from "../token";
 import StateCore from "./state_core";
 
 function isLinkOpen(str: string) {
@@ -70,7 +71,7 @@ export default function linkify(state: StateCore) {
         let links = state.md.linkify.match(text);
 
         // Now split string to nodes
-        const nodes = [];
+        const nodes: Array<Token> = [];
         let level = currentToken.level;
         let lastPos = 0;
 
@@ -117,25 +118,25 @@ export default function linkify(state: StateCore) {
           const pos = links[ln].index;
 
           if (pos > lastPos) {
-            const token = new state.Token("text", "", 0);
+            const token = new Token("text", "", 0);
             token.content = text.slice(lastPos, pos);
             token.level = level;
             nodes.push(token);
           }
 
-          const token_o = new state.Token("link_open", "a", 1);
+          const token_o = new Token("link_open", "a", 1);
           token_o.attrs = [["href", fullUrl]];
           token_o.level = level++;
           token_o.markup = "linkify";
           token_o.info = "auto";
           nodes.push(token_o);
 
-          const token_t = new state.Token("text", "", 0);
+          const token_t = new Token("text", "", 0);
           token_t.content = urlText;
           token_t.level = level;
           nodes.push(token_t);
 
-          const token_c = new state.Token("link_close", "a", -1);
+          const token_c = new Token("link_close", "a", -1);
           token_c.level = --level;
           token_c.markup = "linkify";
           token_c.info = "auto";
@@ -144,7 +145,7 @@ export default function linkify(state: StateCore) {
           lastPos = links[ln].lastIndex;
         }
         if (lastPos < text.length) {
-          const token = new state.Token("text", "", 0);
+          const token = new Token("text", "", 0);
           token.content = text.slice(lastPos);
           token.level = level;
           nodes.push(token);

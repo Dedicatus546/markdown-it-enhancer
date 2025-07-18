@@ -126,8 +126,8 @@ export default function link_pairs(state: StateInline) {
   processDelimiters(state.delimiters);
 
   for (let curr = 0; curr < max; curr++) {
-    if (tokens_meta[curr] && tokens_meta[curr].delimiters) {
-      processDelimiters(tokens_meta[curr].delimiters);
+    if (tokens_meta[curr]?.delimiters) {
+      processDelimiters(tokens_meta[curr]!.delimiters);
     }
   }
 }

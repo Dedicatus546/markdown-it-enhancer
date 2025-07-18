@@ -9,6 +9,7 @@
 // -- → &ndash;, --- → &mdash;
 //
 
+import Token from "../token";
 import StateCore from "./state_core";
 
 // TODO:
@@ -32,7 +33,7 @@ function replaceFn(_match: string, name: string) {
   return SCOPED_ABBR[name.toLowerCase() as keyof typeof SCOPED_ABBR];
 }
 
-function replace_scoped(inlineTokens: Array<unknown>) {
+function replace_scoped(inlineTokens: Array<Token>) {
   let inside_autolink = 0;
 
   for (let i = inlineTokens.length - 1; i >= 0; i--) {
@@ -52,7 +53,7 @@ function replace_scoped(inlineTokens: Array<unknown>) {
   }
 }
 
-function replace_rare(inlineTokens: Array<unknown>) {
+function replace_rare(inlineTokens: Array<Token>) {
   let inside_autolink = 0;
 
   for (let i = inlineTokens.length - 1; i >= 0; i--) {

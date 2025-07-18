@@ -36,7 +36,7 @@ const _rules = [
   ["heading", r_heading, ["paragraph", "reference", "blockquote"]],
   ["lheading", r_lheading],
   ["paragraph", r_paragraph],
-];
+] as const;
 
 class ParserBlock {
   /**
@@ -44,7 +44,7 @@ class ParserBlock {
    *
    * [[Ruler]] instance. Keep configuration of block rules.
    **/
-  ruler = new Ruler();
+  ruler = new Ruler<StateBlock>();
 
   static State = StateBlock;
 
@@ -58,7 +58,9 @@ class ParserBlock {
 
   // Generate tokens for input range
   //
-  tokenize(state: StateBlock, startLine: number, endLine: number) {
+
+  // TODO unknown _ arg
+  tokenize(state: StateBlock, startLine: number, endLine: number, _?: boolean) {
     const rules = this.ruler.getRules("");
     const len = rules.length;
     const maxNesting = state.md.options.maxNesting;

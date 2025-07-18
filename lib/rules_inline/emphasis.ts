@@ -1,7 +1,7 @@
 // Process *this* and _that_
 //
 
-import StateInline from "./state_inline";
+import StateInline, { Delimiter } from "./state_inline";
 
 // Insert each marker as a separate text token, and add it to delimiter list
 //
@@ -54,7 +54,7 @@ function emphasis_tokenize(state: StateInline, silent: boolean = false) {
   return true;
 }
 
-function postProcess(state: StateInline, delimiters: Array<unknown>) {
+function postProcess(state: StateInline, delimiters: Array<Delimiter>) {
   const max = delimiters.length;
 
   for (let i = max - 1; i >= 0; i--) {
@@ -121,8 +121,8 @@ function emphasis_post_process(state: StateInline) {
   postProcess(state, state.delimiters);
 
   for (let curr = 0; curr < max; curr++) {
-    if (tokens_meta[curr] && tokens_meta[curr].delimiters) {
-      postProcess(state, tokens_meta[curr].delimiters);
+    if (tokens_meta[curr]?.delimiters) {
+      postProcess(state, tokens_meta[curr]!.delimiters);
     }
   }
 }

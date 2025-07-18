@@ -4,12 +4,37 @@ import MarkdownIt from "..";
 import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "../common/utils";
 import Token, { Nesting } from "../token";
 
+export interface Delimiter {
+  // Char code of the starting marker (number).
+  //
+  marker: number;
+
+  // Total length of these series of delimiters.
+  //
+  length: number;
+
+  // A position of the token this delimiter corresponds to.
+  //
+  token: number;
+
+  // If this delimiter is matched as a valid opener, `end` will be
+  // equal to its position, otherwise it's `-1`.
+  //
+  end: number;
+
+  // Boolean flags that determine if this delimiter could open or close
+  // an emphasis.
+  //
+  open: boolean;
+  close: boolean;
+}
+
 class StateInline {
   src: string;
   env: Record<string, any>;
   md: MarkdownIt;
   tokens: Array<Token>;
-  tokens_meta: Array<unknown>;
+  tokens_meta: Array<{ delimiters: Array<Delimiter> } | null>;
   pos = 0;
   posMax = 0;
   level = 0;
@@ -21,10 +46,10 @@ class StateInline {
   cache: Record<number, number> = {};
 
   // List of emphasis-like delimiters for current tag
-  delimiters = [];
+  delimiters: Array<Delimiter> = [];
 
   // Stack of delimiter lists for upper level tags
-  _prev_delimiters = [];
+  _prev_delimiters: Array<Delimiter[]> = [];
 
   // backtick length => last seen position
   backticks: Record<number, number> = {};
@@ -75,7 +100,7 @@ class StateInline {
     if (nesting < 0) {
       // closing tag
       this.level--;
-      this.delimiters = this._prev_delimiters.pop();
+      this.delimiters = this._prev_delimiters.pop() ?? [];
     }
 
     token.level = this.level;

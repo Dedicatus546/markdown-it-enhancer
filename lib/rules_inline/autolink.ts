@@ -8,7 +8,7 @@ const EMAIL_RE =
 /* eslint-disable-next-line no-control-regex */
 const AUTOLINK_RE = /^([a-zA-Z][a-zA-Z0-9+.-]{1,31}):([^<>\x00-\x20]*)$/;
 
-export default function autolink(state: StateInline, silent: boolean) {
+export default function autolink(state: StateInline, silent: boolean = false) {
   let pos = state.pos;
 
   if (state.src.charCodeAt(pos) !== 0x3c /* < */) {

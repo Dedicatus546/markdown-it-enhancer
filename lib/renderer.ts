@@ -104,7 +104,7 @@ default_rules.image = function (tokens, idx, options, env, slf) {
 
   if (token.attrs) {
     token.attrs[token.attrIndex("alt")][1] = slf.renderInlineAsText(
-      token.children ?? [],
+      token.children,
       options,
       env,
     );
@@ -312,11 +312,7 @@ class Renderer {
           result += tokens[i].content;
           break;
         case "image":
-          result += this.renderInlineAsText(
-            tokens[i].children ?? [],
-            options,
-            env,
-          );
+          result += this.renderInlineAsText(tokens[i].children, options, env);
           break;
         case "html_inline":
         case "html_block":
@@ -355,7 +351,7 @@ class Renderer {
       const type = tokens[i].type;
 
       if (type === "inline") {
-        result += this.renderInline(tokens[i].children ?? [], options, env);
+        result += this.renderInline(tokens[i].children, options, env);
       } else if (typeof rules[type] !== "undefined") {
         result += rules[type](tokens, i, options, env, this);
       } else {

@@ -64,7 +64,7 @@ class Token {
    *
    * An array of child nodes (inline and img tokens)
    **/
-  children: Array<Token> | null = null;
+  children: Array<Token> = [];
 
   /**
    * Token#content -> String

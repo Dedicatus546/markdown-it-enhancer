@@ -147,7 +147,7 @@ export default function list(
 
   // Detect list type and position after marker
   let isOrdered;
-  let markerValue;
+  let markerValue: number = 0;
   let posAfterMarker;
   if ((posAfterMarker = skipOrderedListMarker(state, nextLine)) >= 0) {
     isOrdered = true;

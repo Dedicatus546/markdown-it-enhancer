@@ -6,7 +6,7 @@ import StateBlock from "./state_block";
 export default function heading(
   state: StateBlock,
   startLine: number,
-  _endLine: number,
+  endLine: number,
   silent: boolean = false,
 ) {
   let pos = state.bMarks[startLine] + state.tShift[startLine];

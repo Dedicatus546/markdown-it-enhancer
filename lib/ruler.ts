@@ -15,11 +15,11 @@ export interface StateBlockRuleFn<T> {
     startLine: number,
     endLine: number,
     silent?: boolean,
-  ): void | boolean;
+  ): undefined | void | boolean;
 }
 
 export interface StateInlineRuleFn<T> {
-  (state: T, silent?: boolean): void | boolean;
+  (state: T, silent?: boolean): undefined | void | boolean;
 }
 
 export type RuleFn<T> = T extends StateBlock

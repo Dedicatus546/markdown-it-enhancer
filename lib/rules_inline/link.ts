@@ -1,6 +1,7 @@
 // Process [link](<to> "stuff")
 
 import { isSpace, normalizeReference } from "../common/utils";
+import { Attr } from "../token";
 import StateInline from "./state_inline";
 
 export default function link(state: StateInline, silent: boolean = false) {
@@ -137,7 +138,7 @@ export default function link(state: StateInline, silent: boolean = false) {
     state.posMax = labelEnd;
 
     const token_o = state.push("link_open", "a", 1);
-    const attrs = [["href", href]];
+    const attrs: Array<Attr> = [["href", href]];
     token_o.attrs = attrs;
     if (title) {
       attrs.push(["title", title]);
