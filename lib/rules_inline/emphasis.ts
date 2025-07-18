@@ -1,9 +1,11 @@
 // Process *this* and _that_
 //
 
+import StateInline from "./state_inline";
+
 // Insert each marker as a separate text token, and add it to delimiter list
 //
-function emphasis_tokenize(state: unknown, silent: boolean) {
+function emphasis_tokenize(state: StateInline, silent: boolean) {
   const start = state.pos;
   const marker = state.src.charCodeAt(start);
 
@@ -52,7 +54,7 @@ function emphasis_tokenize(state: unknown, silent: boolean) {
   return true;
 }
 
-function postProcess(state: unknown, delimiters: Array<unknown>) {
+function postProcess(state: StateInline, delimiters: Array<unknown>) {
   const max = delimiters.length;
 
   for (let i = max - 1; i >= 0; i--) {
@@ -112,7 +114,7 @@ function postProcess(state: unknown, delimiters: Array<unknown>) {
 
 // Walk through delimiter list and replace text tokens with tags
 //
-function emphasis_post_process(state: unknown) {
+function emphasis_post_process(state: StateInline) {
   const tokens_meta = state.tokens_meta;
   const max = state.tokens_meta.length;
 

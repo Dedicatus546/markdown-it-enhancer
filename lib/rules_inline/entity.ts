@@ -3,11 +3,12 @@
 import { decodeHTML } from "entities";
 
 import { fromCodePoint, isValidEntityCode } from "../common/utils";
+import StateInline from "./state_inline";
 
 const DIGITAL_RE = /^&#((?:x[a-f0-9]{1,6}|[0-9]{1,7}));/i;
 const NAMED_RE = /^&([a-z][a-z0-9]{1,31});/i;
 
-export default function entity(state: unknown, silent: boolean) {
+export default function entity(state: StateInline, silent: boolean) {
   const pos = state.pos;
   const max = state.posMax;
 

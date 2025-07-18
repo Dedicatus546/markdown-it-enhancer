@@ -1,9 +1,11 @@
 // ~~strike through~~
 //
 
+import StateInline from "./state_inline";
+
 // Insert each marker as a separate text token, and add it to delimiter list
 //
-function strikethrough_tokenize(state: unknown, silent: boolean) {
+function strikethrough_tokenize(state: StateInline, silent: boolean) {
   const start = state.pos;
   const marker = state.src.charCodeAt(start);
 

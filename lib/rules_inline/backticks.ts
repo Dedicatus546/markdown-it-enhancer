@@ -1,6 +1,8 @@
 // Parse backticks
 
-export default function backtick(state: unknown, silent: boolean) {
+import StateInline from "./state_inline";
+
+export default function backtick(state: StateInline, silent: boolean) {
   let pos = state.pos;
   const ch = state.src.charCodeAt(pos);
 

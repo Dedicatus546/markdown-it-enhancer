@@ -1,6 +1,7 @@
 // Process html tags
 
 import { HTML_TAG_RE } from "../common/html_re";
+import StateInline from "./state_inline";
 
 function isLinkOpen(str: string) {
   return /^<a[>\s]/i.test(str);
@@ -15,7 +16,7 @@ function isLetter(ch: number) {
   return lc >= 0x61 /* a */ && lc <= 0x7a /* z */;
 }
 
-export default function html_inline(state: unknown, silent: boolean) {
+export default function html_inline(state: StateInline, silent: boolean) {
   if (!state.md.options.html) {
     return false;
   }

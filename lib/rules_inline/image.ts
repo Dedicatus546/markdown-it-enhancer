@@ -1,8 +1,10 @@
 // Process ![image](<src> "title")
 
 import { isSpace, normalizeReference } from "../common/utils";
+import Token, { Attr } from "../token";
+import StateInline from "./state_inline";
 
-export default function image(state: unknown, silent: boolean) {
+export default function image(state: StateInline, silent: boolean = false) {
   let code, content, label, pos, ref, res, title, start;
   let href = "";
   const oldPos = state.pos;
@@ -131,11 +133,11 @@ export default function image(state: unknown, silent: boolean) {
   if (!silent) {
     content = state.src.slice(labelStart, labelEnd);
 
-    const tokens = [];
+    const tokens: Array<Token> = [];
     state.md.inline.parse(content, state.md, state.env, tokens);
 
     const token = state.push("image", "img", 0);
-    const attrs = [
+    const attrs: Array<Attr> = [
       ["src", href],
       ["alt", ""],
     ];
