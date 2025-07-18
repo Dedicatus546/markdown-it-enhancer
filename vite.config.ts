@@ -1,3 +1,5 @@
+/// <reference types="vitest/config" />
+
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
@@ -17,5 +19,17 @@ export default defineConfig({
       entry: resolve(__dirname, "lib", "index.ts"),
       formats: ["es"],
     },
+  },
+  test: {
+    // 
+    globals: true,
+    include: [
+      "test/**/utils.test.ts",
+      "test/**/token.test.ts",
+      "test/**/ruler.test.ts",
+      "test/**/misc.test.ts",
+      "test/**/commonmark.test.ts",
+      "test/**/markdown-it.test.ts",
+    ],
   },
 });
