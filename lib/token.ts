@@ -1,12 +1,12 @@
 // Token class
 
-enum Nesting {
+export enum Nesting {
   OPENING = 1,
   SELF_CLOSING = 0,
   CLOSING = -1,
 }
 
-type Attr = [name: string, value: string];
+export type Attr = [name: string, value: string];
 
 /**
  * class Token

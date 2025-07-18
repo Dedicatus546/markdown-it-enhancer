@@ -4,6 +4,7 @@
 //
 
 import { arrayReplaceAt } from "../common/utils";
+import StateCore from "./state_core";
 
 function isLinkOpen(str: string) {
   return /^<a[>\s]/i.test(str);
@@ -12,7 +13,7 @@ function isLinkClose(str: string) {
   return /^<\/a\s*>/i.test(str);
 }
 
-export default function linkify(state: unknown) {
+export default function linkify(state: StateCore) {
   const blockTokens = state.tokens;
 
   if (!state.md.options.linkify) {

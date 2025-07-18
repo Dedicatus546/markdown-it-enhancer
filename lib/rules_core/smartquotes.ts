@@ -2,6 +2,7 @@
 //
 
 import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "../common/utils";
+import StateCore from "./state_core";
 
 const QUOTE_TEST_RE = /['"]/;
 const QUOTE_RE = /['"]/g;
@@ -194,7 +195,7 @@ function process_inlines(tokens: Array<unknown>, state: unknown) {
   }
 }
 
-export default function smartquotes(state: unknown) {
+export default function smartquotes(state: StateCore) {
   /* eslint max-depth:0 */
   if (!state.md.options.typographer) {
     return;

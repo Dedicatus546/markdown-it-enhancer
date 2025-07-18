@@ -1,6 +1,7 @@
 // GFM table, https://github.github.com/gfm/#tables-extension-
 
 import { isSpace } from "../common/utils";
+import StateBlock from "./state_block";
 
 // Limit the amount of empty autocompleted cells in a table,
 // see https://github.com/markdown-it/markdown-it/issues/1000,
@@ -10,7 +11,7 @@ import { isSpace } from "../common/utils";
 // (256x256 square is 1.8kB expanded into 650kB).
 const MAX_AUTOCOMPLETED_CELLS = 0x10000;
 
-function getLine(state, line: number) {
+function getLine(state: StateBlock, line: number) {
   const pos = state.bMarks[line] + state.tShift[line];
   const max = state.eMarks[line];
 
@@ -53,10 +54,10 @@ function escapedSplit(str: string) {
 }
 
 export default function table(
-  state: unknown,
+  state: StateBlock,
   startLine: number,
   endLine: number,
-  silent: boolean,
+  silent: boolean = false,
 ) {
   // should have at least two lines
   if (startLine + 2 > endLine) {

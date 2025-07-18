@@ -1,8 +1,10 @@
-export default function block(state: unknown) {
+import StateCore from "./state_core";
+
+export default function block(state: StateCore) {
   let token;
 
   if (state.inlineMode) {
-    token = new state.Token("inline", "", 0);
+    token = new StateCore.Token("inline", "", 0);
     token.content = state.src;
     token.map = [0, 1];
     token.children = [];

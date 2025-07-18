@@ -2,6 +2,7 @@
 
 import block_names from "../common/html_blocks";
 import { HTML_OPEN_CLOSE_TAG_RE } from "../common/html_re";
+import StateBlock from "./state_block";
 
 // An array of opening and corresponding closing sequences for html tags,
 // last argument defines whether it can terminate a paragraph or not
@@ -22,13 +23,13 @@ const HTML_SEQUENCES = [
     true,
   ],
   [new RegExp(HTML_OPEN_CLOSE_TAG_RE.source + "\\s*$"), /^$/, false],
-];
+] as const;
 
 export default function html_block(
-  state: unknown,
+  state: StateBlock,
   startLine: number,
   endLine: number,
-  silent: boolean,
+  silent: boolean = false,
 ) {
   let pos = state.bMarks[startLine] + state.tShift[startLine];
   let max = state.eMarks[startLine];

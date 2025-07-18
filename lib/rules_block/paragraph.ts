@@ -1,7 +1,9 @@
 // Paragraph
 
+import StateBlock from "./state_block";
+
 export default function paragraph(
-  state: unknown,
+  state: StateBlock,
   startLine: number,
   endLine: number,
 ) {

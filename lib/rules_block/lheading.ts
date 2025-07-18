@@ -1,9 +1,12 @@
 // lheading (---, ===)
 
+import StateBlock from "./state_block";
+
 export default function lheading(
-  state: unknown,
+  state: StateBlock,
   startLine: number,
-  endLine: number /*, silent */,
+  endLine: number,
+  // silent: boolean = false,
 ) {
   const terminatorRules = state.md.block.ruler.getRules("paragraph");
 
@@ -17,7 +20,7 @@ export default function lheading(
 
   // jump line-by-line until empty one or EOF
   let level = 0;
-  let marker;
+  let marker: number = 0;
   let nextLine = startLine + 1;
 
   for (; nextLine < endLine && !state.isEmpty(nextLine); nextLine++) {

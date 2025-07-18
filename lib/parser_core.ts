@@ -48,7 +48,7 @@ class Core {
    *
    * Executes core chain rules.
    **/
-  process(state) {
+  process(state: StateCore) {
     const rules = this.ruler.getRules("");
 
     for (let i = 0, l = rules.length; i < l; i++) {

@@ -1,12 +1,13 @@
 // Block quotes
 
 import { isSpace } from "../common/utils";
+import StateBlock from "./state_block";
 
 export default function blockquote(
-  state: unknown,
+  state: StateBlock,
   startLine: number,
   endLine: number,
-  silent: boolean,
+  silent: boolean = false,
 ) {
   let pos = state.bMarks[startLine] + state.tShift[startLine];
   let max = state.eMarks[startLine];

@@ -119,14 +119,14 @@ function normalizeLinkText(url: string) {
 type PresetName = "default" | "commonmark" | "zero";
 
 export type MarkdownItOptions = {
-  html: boolean;
-  xhtmlOut: boolean;
-  breaks: boolean;
-  langPrefix: string;
-  linkify: boolean;
-  typographer: boolean;
-  quotes: string;
-  highlight: (str: string, lang: string) => string;
+  html?: boolean;
+  xhtmlOut?: boolean;
+  breaks?: boolean;
+  langPrefix?: string;
+  linkify?: boolean;
+  typographer?: boolean;
+  quotes?: string;
+  highlight?: (str: string, lang: string) => string;
 };
 
 class MarkdownIt {
@@ -140,7 +140,7 @@ class MarkdownIt {
   normalizeLinkText = normalizeLinkText;
   utils = utils;
   helpers = utils.assign({}, helpers);
-  options = {};
+  options: MarkdownItOptions = {};
 
   constructor(
     presetNameOrOptions: PresetName | MarkdownItOptions,

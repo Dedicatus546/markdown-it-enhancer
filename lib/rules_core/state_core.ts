@@ -8,7 +8,7 @@ class StateCore {
   src: string;
   md: MarkdownIt;
   env: Record<string, any>;
-  tokens: Array<unknown> = [];
+  tokens: Array<Token> = [];
   inlineMode = false;
 
   static Token = Token;

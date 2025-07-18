@@ -9,6 +9,8 @@
 // -- → &ndash;, --- → &mdash;
 //
 
+import StateCore from "./state_core";
+
 // TODO:
 // - fractionals 1/2, 1/4, 3/4 -> ½, ¼, ¾
 // - multiplications 2 x 4 -> 2 × 4
@@ -84,7 +86,7 @@ function replace_rare(inlineTokens: Array<unknown>) {
   }
 }
 
-export default function replace(state: unknown) {
+export default function replace(state: StateCore) {
   let blkIdx;
 
   if (!state.md.options.typographer) {

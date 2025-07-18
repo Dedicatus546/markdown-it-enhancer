@@ -1,12 +1,13 @@
 // Horizontal rule
 
 import { isSpace } from "../common/utils";
+import StateBlock from "./state_block";
 
 export default function hr(
-  state: unknown,
+  state: StateBlock,
   startLine: number,
   endLine: number,
-  silent: boolean,
+  silent: boolean = false,
 ) {
   const max = state.eMarks[startLine];
   // if it's indented more than 3 spaces, it should be a code block

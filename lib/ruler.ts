@@ -1,11 +1,12 @@
 import { MarkdownItOptions } from ".";
 import Renderer from "./renderer";
+import Token from "./token";
 
 export interface Rule {
   name: string;
   enabled: boolean;
   fn: (
-    tokens: Array<unknown>,
+    tokens: Array<Token>,
     idx: number,
     options: MarkdownItOptions,
     env: Record<string, any>,

@@ -10,7 +10,7 @@ export default function parseLinkTitle(
   str: string,
   start: number,
   max: number,
-  prev_state: unknown,
+  prev_state?: unknown,
 ) {
   let code;
   let pos = start;

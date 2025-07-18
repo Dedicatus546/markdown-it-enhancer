@@ -1,10 +1,11 @@
 // Lists
 
 import { isSpace } from "../common/utils";
+import StateBlock from "./state_block";
 
 // Search `[-+*][\n ]`, returns next pos after marker on success
 // or -1 on fail.
-function skipBulletListMarker(state: unknown, startLine: number) {
+function skipBulletListMarker(state: StateBlock, startLine: number) {
   const max = state.eMarks[startLine];
   let pos = state.bMarks[startLine] + state.tShift[startLine];
 
@@ -32,7 +33,7 @@ function skipBulletListMarker(state: unknown, startLine: number) {
 
 // Search `\d+[.)][\n ]`, returns next pos after marker on success
 // or -1 on fail.
-function skipOrderedListMarker(state, startLine) {
+function skipOrderedListMarker(state: StateBlock, startLine: number) {
   const start = state.bMarks[startLine] + state.tShift[startLine];
   const max = state.eMarks[startLine];
   let pos = start;
@@ -85,7 +86,7 @@ function skipOrderedListMarker(state, startLine) {
   return pos;
 }
 
-function markTightParagraphs(state, idx) {
+function markTightParagraphs(state: StateBlock, idx: number) {
   const level = state.level + 2;
 
   for (let i = idx + 2, l = state.tokens.length - 2; i < l; i++) {
@@ -100,7 +101,12 @@ function markTightParagraphs(state, idx) {
   }
 }
 
-export default function list(state, startLine, endLine, silent) {
+export default function list(
+  state: StateBlock,
+  startLine: number,
+  endLine: number,
+  silent: boolean = false,
+) {
   let max, pos, start, token;
   let nextLine = startLine;
   let tight = true;
