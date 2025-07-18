@@ -1,8 +1,8 @@
 import { fileURLToPath } from "node:url";
 import { relative } from "node:path";
-import { load } from "markdown-it-testgen";
-import markdownit from "../index.mjs";
-import { assert } from "chai";
+import { load } from "./markdown-it-testgen";
+import MarkdownIt from "../lib";
+import { assert, describe, it } from "vitest";
 
 function normalize(text) {
   return text.replace(
@@ -11,7 +11,7 @@ function normalize(text) {
   );
 }
 
-function generate(path, md) {
+function generate(path: string, md: MarkdownIt) {
   load(path, function (data) {
     data.meta = data.meta || {};
 
@@ -36,7 +36,7 @@ function generate(path, md) {
 }
 
 describe("CommonMark", function () {
-  const md = markdownit("commonmark");
+  const md = new MarkdownIt("commonmark");
 
   generate(
     fileURLToPath(new URL("fixtures/commonmark/good.txt", import.meta.url)),

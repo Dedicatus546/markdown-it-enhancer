@@ -1,5 +1,5 @@
-import { assert } from "chai";
-import Ruler from "../lib/ruler.mjs";
+import Ruler from "../lib/ruler";
+import { assert, describe, it } from "vitest";
 
 describe("Ruler", function () {
   it("should replace rule (.at)", function () {
@@ -121,10 +121,10 @@ describe("Ruler", function () {
       ruler.at("invalid name", function bar() {});
     });
     assert.throws(function () {
-      ruler.before("invalid name", function bar() {});
+      ruler.before("invalid name", "bar", function bar() {});
     });
     assert.throws(function () {
-      ruler.after("invalid name", function bar() {});
+      ruler.after("invalid name", "bar", function bar() {});
     });
     assert.throws(function () {
       ruler.enable("invalid name");

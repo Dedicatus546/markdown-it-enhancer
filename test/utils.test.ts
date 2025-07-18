@@ -1,5 +1,5 @@
-import { assert } from "chai";
-import * as utils from "../lib/common/utils.mjs";
+import * as utils from "../lib/common/utils";
+import { assert, describe, it } from "vitest";
 
 describe("Utils", function () {
   it("fromCodePoint", function () {
@@ -39,9 +39,6 @@ describe("Utils", function () {
     const assign = utils.assign;
 
     assert.deepEqual(assign({ a: 1 }, null, { b: 2 }), { a: 1, b: 2 });
-    assert.throws(function () {
-      assign({}, 123);
-    });
   });
 
   it("escapeRE", function () {

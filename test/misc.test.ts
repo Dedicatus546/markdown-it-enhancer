@@ -1,20 +1,21 @@
-import { assert } from "chai";
-import markdownit from "../index.mjs";
+import MarkdownIt from "../lib";
 import forInline from "markdown-it-for-inline";
+import { assert, describe, it } from "vitest";
 
 describe("API", function () {
   it("constructor", function () {
     assert.throws(function () {
-      markdownit("bad preset");
+      // @ts-expect-error ignore
+      new MarkdownIt("bad preset");
     });
 
     // options should override preset
-    const md = markdownit("commonmark", { html: false });
+    const md = new MarkdownIt("commonmark", { html: false });
     assert.strictEqual(md.render("<!-- -->"), "<p>&lt;!-- --&gt;</p>\n");
   });
 
   it("configure coverage", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     // conditions coverage
     md.configure({});
@@ -34,7 +35,7 @@ describe("API", function () {
       }
     }
 
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     md.use(plugin, "foo");
     assert.strictEqual(succeeded, false);
@@ -43,7 +44,7 @@ describe("API", function () {
   });
 
   it("highlight", function () {
-    const md = markdownit({
+    const md = new MarkdownIt({
       highlight: function (str) {
         return "<pre><code>==" + str + "==</code></pre>";
       },
@@ -56,7 +57,7 @@ describe("API", function () {
   });
 
   it("highlight escape by default", function () {
-    const md = markdownit({
+    const md = new MarkdownIt({
       highlight: function () {
         return "";
       },
@@ -69,7 +70,7 @@ describe("API", function () {
   });
 
   it("highlight arguments", function () {
-    const md = markdownit({
+    const md = new MarkdownIt({
       highlight: function (str, lang, attrs) {
         assert.strictEqual(lang, "a");
         assert.strictEqual(attrs, "b  c  d");
@@ -84,7 +85,7 @@ describe("API", function () {
   });
 
   it("force hardbreaks", function () {
-    const md = markdownit({ breaks: true });
+    const md = new MarkdownIt({ breaks: true });
 
     assert.strictEqual(md.render("a\nb"), "<p>a<br>\nb</p>\n");
     md.set({ xhtmlOut: true });
@@ -92,7 +93,7 @@ describe("API", function () {
   });
 
   it("xhtmlOut enabled", function () {
-    const md = markdownit({ xhtmlOut: true });
+    const md = new MarkdownIt({ xhtmlOut: true });
 
     assert.strictEqual(md.render("---"), "<hr />\n");
     assert.strictEqual(md.render("![]()"), '<p><img src="" alt="" /></p>\n');
@@ -100,7 +101,7 @@ describe("API", function () {
   });
 
   it("xhtmlOut disabled", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     assert.strictEqual(md.render("---"), "<hr>\n");
     assert.strictEqual(md.render("![]()"), '<p><img src="" alt=""></p>\n');
@@ -108,7 +109,7 @@ describe("API", function () {
   });
 
   it("bulk enable/disable rules in different chains", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     const was = {
       core: md.core.ruler.getRules("").length,
@@ -140,7 +141,7 @@ describe("API", function () {
   });
 
   it("bulk enable/disable with errors control", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     assert.throws(function () {
       md.enable(["link", "code", "invalid"]);
@@ -157,7 +158,7 @@ describe("API", function () {
   });
 
   it("bulk enable/disable should understand strings", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     md.disable("emphasis");
     assert(md.renderInline("_foo_"), "_foo_");
@@ -167,7 +168,7 @@ describe("API", function () {
   });
 
   it("input type check", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     assert.throws(function () {
       md.render(null);
@@ -177,7 +178,7 @@ describe("API", function () {
 
 describe("Plugins", function () {
   it("should not loop infinitely if all rules are disabled", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     md.inline.ruler.enableOnly([]);
     md.inline.ruler2.enableOnly([]);
@@ -190,7 +191,7 @@ describe("Plugins", function () {
   });
 
   it("should not loop infinitely if inline rule doesn't increment pos", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     md.inline.ruler.after("text", "custom", function (state /*, silent */) {
       if (state.src.charCodeAt(state.pos) !== 0x40 /* @ */) return false;
@@ -208,7 +209,7 @@ describe("Plugins", function () {
   });
 
   it("should not loop infinitely if block rule doesn't increment pos", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     md.block.ruler.before(
       "paragraph",
@@ -234,13 +235,13 @@ describe("Plugins", function () {
 
 describe("Misc", function () {
   it("Should replace NULL characters", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     assert.strictEqual(md.render("foo\u0000bar"), "<p>foo\uFFFDbar</p>\n");
   });
 
   it("Should correctly parse strings without tailing \\n", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     assert.strictEqual(md.render("123"), "<p>123</p>\n");
     assert.strictEqual(md.render("123\n"), "<p>123</p>\n");
@@ -256,19 +257,19 @@ describe("Misc", function () {
   });
 
   it("Should quickly exit on empty string", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     assert.strictEqual(md.render(""), "");
   });
 
   it("Should parse inlines only", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     assert.strictEqual(md.renderInline("a *b* c"), "a <em>b</em> c");
   });
 
   it("Renderer should have pluggable inline and block rules", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     md.renderer.rules.em_open = function () {
       return "<it>";
@@ -287,7 +288,7 @@ describe("Misc", function () {
   });
 
   it("Zero preset should disable everything", function () {
-    const md = markdownit("zero");
+    const md = new MarkdownIt("zero");
 
     assert.strictEqual(md.render("___foo___"), "<p>___foo___</p>\n");
     assert.strictEqual(md.renderInline("___foo___"), "___foo___");
@@ -305,13 +306,13 @@ describe("Misc", function () {
   });
 
   it("Should correctly check block termination rules when those are disabled (#13)", function () {
-    const md = markdownit("zero");
+    const md = new MarkdownIt("zero");
 
     assert.strictEqual(md.render("foo\nbar"), "<p>foo\nbar</p>\n");
   });
 
   it("Should render link target attr", function () {
-    const md = markdownit().use(
+    const md = new MarkdownIt().use(
       forInline,
       "target",
       "link_open",
@@ -327,7 +328,7 @@ describe("Misc", function () {
   });
 
   it("Should normalize CR to LF", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     assert.strictEqual(
       md.render("# test\r\r - hello\r - world\r"),
@@ -336,7 +337,7 @@ describe("Misc", function () {
   });
 
   it("Should normalize CR+LF to LF", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     assert.strictEqual(
       md.render("# test\r\n\r\n - hello\r\n - world\r\n"),
@@ -345,7 +346,7 @@ describe("Misc", function () {
   });
 
   it("Should escape surrogate pairs (coverage)", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     assert.strictEqual(md.render("\\\uD835\uDC9C"), "<p>\\\uD835\uDC9C</p>\n");
     assert.strictEqual(md.render("\\\uD835x"), "<p>\\\uD835x</p>\n");
@@ -355,7 +356,7 @@ describe("Misc", function () {
 
 describe("Url normalization", function () {
   it("Should be overridable", function () {
-    const md = markdownit({ linkify: true });
+    const md = new MarkdownIt({ linkify: true });
 
     md.normalizeLink = function (url) {
       assert(url.match(/example\.com/), "wrong url passed");
@@ -395,7 +396,7 @@ describe("Url normalization", function () {
 
 describe("Links validation", function () {
   it("Override validator, disable everything", function () {
-    const md = markdownit({ linkify: true });
+    const md = new MarkdownIt({ linkify: true });
 
     md.validateLink = function () {
       return false;
@@ -430,7 +431,7 @@ describe("Links validation", function () {
 
 describe("maxNesting", function () {
   it("Block parser should not nest above limit", function () {
-    const md = markdownit({ maxNesting: 2 });
+    const md = new MarkdownIt({ maxNesting: 2 });
     assert.strictEqual(
       md.render(">foo\n>>bar\n>>>baz"),
       "<blockquote>\n<p>foo</p>\n<blockquote></blockquote>\n</blockquote>\n",
@@ -438,12 +439,12 @@ describe("maxNesting", function () {
   });
 
   it("Inline parser should not nest above limit", function () {
-    const md = markdownit({ maxNesting: 1 });
+    const md = new MarkdownIt({ maxNesting: 1 });
     assert.strictEqual(md.render("[`foo`]()"), '<p><a href="">`foo`</a></p>\n');
   });
 
   it("Inline nesting coverage", function () {
-    const md = markdownit({ maxNesting: 2 });
+    const md = new MarkdownIt({ maxNesting: 2 });
     assert.strictEqual(
       md.render("[[[[[[[[[[[[[[[[[[foo]()"),
       "<p>[[[[[[[[[[[[[[[[[[foo]()</p>\n",
@@ -452,7 +453,7 @@ describe("maxNesting", function () {
 });
 
 describe("smartquotes", function () {
-  const md = markdownit({
+  const md = new MarkdownIt({
     typographer: true,
 
     // all strings have different length to make sure
@@ -483,7 +484,7 @@ describe("smartquotes", function () {
 });
 
 describe("Ordered list info", function () {
-  const md = markdownit();
+  const md = new MarkdownIt();
 
   function type_filter(tokens, type) {
     return tokens.filter(function (t) {
@@ -520,7 +521,7 @@ describe("Ordered list info", function () {
 
 describe("Token attributes", function () {
   it(".attrJoin", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     const tokens = md.parse("```");
     const t = tokens[0];
@@ -535,7 +536,7 @@ describe("Token attributes", function () {
   });
 
   it(".attrSet", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     const tokens = md.parse("```");
     const t = tokens[0];
@@ -556,7 +557,7 @@ describe("Token attributes", function () {
   });
 
   it(".attrGet", function () {
-    const md = markdownit();
+    const md = new MarkdownIt();
 
     const tokens = md.parse("```");
     const t = tokens[0];

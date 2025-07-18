@@ -1,5 +1,5 @@
-import { assert } from "chai";
-import Token from "../lib/token.mjs";
+import Token from "../lib/token";
+import { assert, describe, it } from "vitest";
 
 describe("Token", function () {
   it("attr", function () {

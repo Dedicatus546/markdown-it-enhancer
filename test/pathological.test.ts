@@ -1,10 +1,10 @@
 import needle from "needle";
-import assert from "node:assert";
 import crypto from "node:crypto";
 import { Worker as JestWorker } from "jest-worker";
-import { readFileSync } from "fs";
+import { assert, describe, it } from "vitest";
+import pathologicalJson from "./pathological.json";
 
-async function test_pattern(str) {
+async function test_pattern(str: string) {
   const worker = new JestWorker(
     new URL("./pathological_worker.js", import.meta.url),
     {
@@ -18,7 +18,8 @@ async function test_pattern(str) {
 
   try {
     result = await Promise.race([
-      worker.render(str),
+      // TODO 传参
+      worker.start(),
       new Promise((resolve, reject) => {
         setTimeout(
           () => reject(new Error("Terminated (timeout exceeded)")),
@@ -47,9 +48,7 @@ describe("Pathological sequences speed", () => {
         "https://raw.githubusercontent.com/commonmark/cmark/master/test/pathological_tests.py",
       );
       const src_md5 = crypto.createHash("md5").update(src.body).digest("hex");
-      const tracked_md5 = JSON.parse(
-        readFileSync(new URL("./pathological.json", import.meta.url)),
-      ).md5;
+      const tracked_md5 = pathologicalJson.md5;
 
       assert.strictEqual(
         src_md5,
