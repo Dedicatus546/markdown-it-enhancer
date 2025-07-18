@@ -2,7 +2,7 @@
 
 import StateInline from "./state_inline";
 
-export default function backtick(state: StateInline, silent: boolean) {
+export default function backtick(state: StateInline, silent: boolean = false) {
   let pos = state.pos;
   const ch = state.src.charCodeAt(pos);
 

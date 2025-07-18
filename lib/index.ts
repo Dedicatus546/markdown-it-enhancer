@@ -5,6 +5,7 @@ import * as mdurl from "mdurl";
 import punycode from "punycode.js";
 
 import * as utils from "./common/utils";
+import { assign, isString } from "./common/utils";
 import * as helpers from "./helpers/index";
 import ParserBlock from "./parser_block";
 import ParserCore from "./parser_core";
@@ -126,7 +127,7 @@ export type MarkdownItOptions = {
   linkify?: boolean;
   typographer?: boolean;
   quotes?: string;
-  highlight?: (str: string, lang: string) => string;
+  highlight?: (str: string, lang: string, langAttrs: unknown) => string;
 };
 
 class MarkdownIt {
@@ -139,7 +140,7 @@ class MarkdownIt {
   normalizeLink = normalizeLink;
   normalizeLinkText = normalizeLinkText;
   utils = utils;
-  helpers = utils.assign({}, helpers);
+  helpers = assign({}, helpers);
   options: MarkdownItOptions = {};
 
   constructor(
@@ -149,7 +150,7 @@ class MarkdownIt {
     let presetName = "default";
 
     if (!options) {
-      if (!utils.isString(presetNameOrOptions)) {
+      if (!isString(presetNameOrOptions)) {
         options = presetName || {};
         presetName = "default";
       }
@@ -176,7 +177,7 @@ class MarkdownIt {
    * config.
    **/
   set(options) {
-    utils.assign(this.options, options);
+    assign(this.options, options);
     return this;
   }
 
@@ -191,7 +192,7 @@ class MarkdownIt {
    * will give better compatibility with next versions.
    **/
   configure(presets) {
-    if (utils.isString(presets)) {
+    if (isString(presets)) {
       const presetName = presets;
       presets = config[presetName];
       if (!presets) {

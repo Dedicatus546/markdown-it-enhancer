@@ -9,11 +9,11 @@ for (let i = 0; i < 256; i++) {
   ESCAPED.push(0);
 }
 
-"\\!\"#$%&'()*+,./:;<=>?@[]^_`{|}~-".split("").forEach(function (ch) {
+"\\!\"#$%&'()*+,./:;<=>?@[]^_`{|}~-".split("").forEach((ch) => {
   ESCAPED[ch.charCodeAt(0)] = 1;
 });
 
-export default function escape(state: StateInline, silent: boolean) {
+export default function escape(state: StateInline, silent: boolean = false) {
   let pos = state.pos;
   const max = state.posMax;
 

@@ -16,7 +16,10 @@ function isLetter(ch: number) {
   return lc >= 0x61 /* a */ && lc <= 0x7a /* z */;
 }
 
-export default function html_inline(state: StateInline, silent: boolean) {
+export default function html_inline(
+  state: StateInline,
+  silent: boolean = false,
+) {
   if (!state.md.options.html) {
     return false;
   }

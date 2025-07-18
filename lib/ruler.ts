@@ -1,19 +1,34 @@
-import { MarkdownItOptions } from ".";
-import Renderer from "./renderer";
-import Token from "./token";
+import StateBlock from "./rules_block/state_block";
+import StateCore from "./rules_core/state_core";
+import StateInline from "./rules_inline/state_inline";
 
-export interface Rule {
+export interface Rule<T> {
   name: string;
   enabled: boolean;
-  fn: (
-    tokens: Array<Token>,
-    idx: number,
-    options: MarkdownItOptions,
-    env: Record<string, any>,
-    slf: Renderer,
-  ) => void;
+  fn: RuleFn<T>;
   alt: Array<string>;
 }
+
+export interface StateBlockRuleFn<T> {
+  (
+    state: T,
+    startLine: number,
+    endLine: number,
+    silent?: boolean,
+  ): void | boolean;
+}
+
+export interface StateInlineRuleFn<T> {
+  (state: T, silent?: boolean): void | boolean;
+}
+
+export type RuleFn<T> = T extends StateBlock
+  ? StateBlockRuleFn<T>
+  : T extends StateInline
+    ? StateInlineRuleFn<T>
+    : T extends StateCore
+      ? (state: T) => void
+      : never;
 
 /**
  * class Ruler
@@ -32,7 +47,7 @@ export interface Rule {
  * rules control use [[MarkdownIt.disable]], [[MarkdownIt.enable]] and
  * [[MarkdownIt.use]].
  **/
-class Ruler {
+class Ruler<T> {
   // List of added rules. Each element is:
   //
   // {
@@ -41,13 +56,13 @@ class Ruler {
   //   fn: Function(),
   //   alt: [ name2, name3 ]
   // }
-  #rules: Array<Rule> = [];
+  #rules: Array<Rule<T>> = [];
 
   // Cached rule chains.
   //
   // First level - chain name, '' for default.
   // Second level - diginal anchor for fast filtering by charcodes.
-  #cache: Record<string, Array<Rule["fn"]>> | null = null;
+  #cache: Record<string, Array<RuleFn<T>>> | null = null;
 
   // Helper methods, should not be used directly
 
@@ -121,7 +136,7 @@ class Ruler {
    * });
    * ```
    **/
-  at(name: string, fn: Rule["fn"], options: Partial<Pick<Rule, "alt">>) {
+  at(name: string, fn: RuleFn<T>, options: Partial<Pick<Rule<T>, "alt">>) {
     const index = this.#find(name);
     const opt = options || {};
 
@@ -161,8 +176,8 @@ class Ruler {
   before(
     beforeName: string,
     ruleName: string,
-    fn: Rule["fn"],
-    options: Partial<Pick<Rule, "alt">>,
+    fn: RuleFn<T>,
+    options: Partial<Pick<Rule<T>, "alt">>,
   ) {
     const index = this.#find(beforeName);
     const opt = options || {};
@@ -208,8 +223,8 @@ class Ruler {
   after(
     afterName: string,
     ruleName: string,
-    fn: Rule["fn"],
-    options: Partial<Pick<Rule, "alt">>,
+    fn: RuleFn<T>,
+    options: Partial<Pick<Rule<T>, "alt">>,
   ) {
     const index = this.#find(afterName);
     const opt = options || {};
@@ -251,7 +266,11 @@ class Ruler {
    * });
    * ```
    **/
-  push(ruleName: string, fn: Rule["fn"], options?: Partial<Pick<Rule, "alt">>) {
+  push(
+    ruleName: string,
+    fn: RuleFn<T>,
+    options?: Partial<Pick<Rule<T>, "alt">>,
+  ) {
     const opt = options || {};
 
     this.#rules.push({

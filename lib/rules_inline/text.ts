@@ -41,7 +41,7 @@ function isTerminatorChar(ch: number) {
   }
 }
 
-export default function text(state: StateInline, silent: boolean) {
+export default function text(state: StateInline, silent: boolean = false) {
   let pos = state.pos;
 
   while (pos < state.posMax && !isTerminatorChar(state.src.charCodeAt(pos))) {

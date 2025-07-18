@@ -6,10 +6,19 @@
  * rules if you create plugin and adds new token types.
  **/
 
+import { MarkdownItOptions } from ".";
 import { assign, escapeHtml, unescapeAll } from "./common/utils";
-import { Rule } from "./ruler";
+import Token, { Attr } from "./token";
 
-const default_rules: Record<string, Rule["fn"]> = {};
+export type RendererFn = (
+  tokens: Array<Token>,
+  idx: number,
+  options: MarkdownItOptions,
+  env: Record<string, any>,
+  slf: Renderer,
+) => string;
+
+const default_rules: Record<string, RendererFn> = {};
 
 default_rules.code_inline = function (tokens, idx, options, env, slf) {
   const token = tokens[idx];
@@ -70,7 +79,7 @@ default_rules.fence = function (tokens, idx, options, env, slf) {
     if (i < 0) {
       tmpAttrs.push(["class", options.langPrefix + langName]);
     } else {
-      tmpAttrs[i] = tmpAttrs[i].slice();
+      tmpAttrs[i] = tmpAttrs[i].slice() as Attr;
       tmpAttrs[i][1] += " " + options.langPrefix + langName;
     }
 
@@ -93,11 +102,13 @@ default_rules.image = function (tokens, idx, options, env, slf) {
   //
   // Replace content with actual value
 
-  token.attrs[token.attrIndex("alt")][1] = slf.renderInlineAsText(
-    token.children,
-    options,
-    env,
-  );
+  if (token.attrs) {
+    token.attrs[token.attrIndex("alt")][1] = slf.renderInlineAsText(
+      token.children ?? [],
+      options,
+      env,
+    );
+  }
 
   return slf.renderToken(tokens, idx, options);
 };
@@ -161,7 +172,7 @@ class Renderer {
    *
    * Render token attributes to string.
    **/
-  renderAttrs(token) {
+  renderAttrs(token: Pick<Token, "attrs">) {
     let i, l, result;
 
     if (!token.attrs) {
@@ -191,7 +202,7 @@ class Renderer {
    * Default token renderer. Can be overriden by custom function
    * in [[Renderer#rules]].
    **/
-  renderToken(tokens, idx: number, options: unknown) {
+  renderToken(tokens: Array<Token>, idx: number, options: MarkdownItOptions) {
     const token = tokens[idx];
     let result = "";
 
@@ -257,7 +268,11 @@ class Renderer {
    *
    * The same as [[Renderer.render]], but for single token of `inline` type.
    **/
-  renderInline(tokens, options, env) {
+  renderInline(
+    tokens: Array<Token>,
+    options: MarkdownItOptions,
+    env: Record<string, any>,
+  ) {
     let result = "";
     const rules = this.rules;
 
@@ -284,7 +299,11 @@ class Renderer {
    * Don't try to use it! Spec requires to show `alt` content with stripped markup,
    * instead of simple escaping.
    **/
-  renderInlineAsText(tokens, options, env) {
+  renderInlineAsText(
+    tokens: Array<Token>,
+    options: MarkdownItOptions,
+    env: Record<string, any>,
+  ) {
     let result = "";
 
     for (let i = 0, len = tokens.length; i < len; i++) {
@@ -293,7 +312,11 @@ class Renderer {
           result += tokens[i].content;
           break;
         case "image":
-          result += this.renderInlineAsText(tokens[i].children, options, env);
+          result += this.renderInlineAsText(
+            tokens[i].children ?? [],
+            options,
+            env,
+          );
           break;
         case "html_inline":
         case "html_block":
@@ -320,7 +343,11 @@ class Renderer {
    * Takes token stream and generates HTML. Probably, you will never need to call
    * this method directly.
    **/
-  render(tokens, options, env) {
+  render(
+    tokens: Array<Token>,
+    options: MarkdownItOptions,
+    env: Record<string, any>,
+  ) {
     let result = "";
     const rules = this.rules;
 
@@ -328,11 +355,11 @@ class Renderer {
       const type = tokens[i].type;
 
       if (type === "inline") {
-        result += this.renderInline(tokens[i].children, options, env);
+        result += this.renderInline(tokens[i].children ?? [], options, env);
       } else if (typeof rules[type] !== "undefined") {
         result += rules[type](tokens, i, options, env, this);
       } else {
-        result += this.renderToken(tokens, i, options, env);
+        result += this.renderToken(tokens, i, options);
       }
     }
 

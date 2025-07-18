@@ -4,6 +4,7 @@
  * Tokenizes paragraph content.
  **/
 
+import MarkdownIt from ".";
 import Ruler from "./ruler";
 import r_autolink from "./rules_inline/autolink";
 import r_backticks from "./rules_inline/backticks";
@@ -20,6 +21,7 @@ import r_newline from "./rules_inline/newline";
 import StateInline from "./rules_inline/state_inline";
 import r_strikethrough from "./rules_inline/strikethrough";
 import r_text from "./rules_inline/text";
+import Token from "./token";
 
 // Parser rules
 
@@ -36,7 +38,7 @@ const _rules = [
   ["autolink", r_autolink],
   ["html_inline", r_html_inline],
   ["entity", r_entity],
-];
+] as const;
 
 // `rule2` ruleset was created specifically for emphasis/strikethrough
 // post-processing and may be changed in the future.
@@ -44,13 +46,13 @@ const _rules = [
 // Don't use this for anything except pairs (plugins working with `balance_pairs`).
 //
 const _rules2 = [
-  ["balance_pairs", r_balance_pairs],
   ["strikethrough", r_strikethrough.postProcess],
+  ["balance_pairs", r_balance_pairs],
   ["emphasis", r_emphasis.postProcess],
   // rules for pairs separate '**' into its own text tokens, which may be left unused,
   // rule below merges unused segments back with the rest of the text
   ["fragments_join", r_fragments_join],
-];
+] as const;
 
 class ParserInline {
   /**
@@ -58,7 +60,7 @@ class ParserInline {
    *
    * [[Ruler]] instance. Keep configuration of inline rules.
    **/
-  ruler = new Ruler();
+  ruler = new Ruler<StateInline>();
 
   /**
    * ParserInline#ruler2 -> Ruler
@@ -66,7 +68,7 @@ class ParserInline {
    * [[Ruler]] instance. Second ruler used for post-processing
    * (e.g. in emphasis-like rules).
    **/
-  ruler2 = new Ruler();
+  ruler2 = new Ruler<StateInline>();
 
   static State = StateInline;
 
@@ -83,7 +85,7 @@ class ParserInline {
   // Skip single token by running all rules in validation mode;
   // returns `true` if any rule reported success
   //
-  skipToken(state) {
+  skipToken(state: StateInline) {
     const pos = state.pos;
     const rules = this.ruler.getRules("");
     const len = rules.length;
@@ -104,7 +106,7 @@ class ParserInline {
         // we'd need a separate private state variable for this purpose.
         //
         state.level++;
-        ok = rules[i](state, true);
+        ok = rules[i](state, true) as boolean;
         state.level--;
 
         if (ok) {
@@ -137,7 +139,7 @@ class ParserInline {
 
   // Generate tokens for input range
   //
-  tokenize(state) {
+  tokenize(state: StateInline) {
     const rules = this.ruler.getRules("");
     const len = rules.length;
     const end = state.posMax;
@@ -185,8 +187,13 @@ class ParserInline {
    *
    * Process input string and push inline tokens into `outTokens`
    **/
-  parse(str, md, env, outTokens) {
-    const state = new this.State(str, md, env, outTokens);
+  parse(
+    str: string,
+    md: MarkdownIt,
+    env: Record<string, any>,
+    outTokens: Array<Token>,
+  ) {
+    const state = new StateInline(str, md, env, outTokens);
 
     this.tokenize(state);
 

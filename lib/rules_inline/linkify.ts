@@ -5,7 +5,7 @@ import StateInline from "./state_inline";
 // RFC3986: scheme = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
 const SCHEME_RE = /(?:^|[^a-z0-9.+-])([a-z][a-z0-9.+-]*)$/i;
 
-export default function linkify(state: StateInline, silent: boolean) {
+export default function linkify(state: StateInline, silent: boolean = false) {
   if (!state.md.options.linkify) return false;
   if (state.linkLevel > 0) return false;
 

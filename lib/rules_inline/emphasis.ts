@@ -5,7 +5,7 @@ import StateInline from "./state_inline";
 
 // Insert each marker as a separate text token, and add it to delimiter list
 //
-function emphasis_tokenize(state: StateInline, silent: boolean) {
+function emphasis_tokenize(state: StateInline, silent: boolean = false) {
   const start = state.pos;
   const marker = state.src.charCodeAt(start);
 

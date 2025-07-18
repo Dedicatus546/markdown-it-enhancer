@@ -3,7 +3,7 @@
 import { isSpace } from "../common/utils";
 import StateInline from "./state_inline";
 
-export default function newline(state: StateInline, silent: boolean) {
+export default function newline(state: StateInline, silent: boolean = false) {
   let pos = state.pos;
 
   if (state.src.charCodeAt(pos) !== 0x0a /* \n */) {

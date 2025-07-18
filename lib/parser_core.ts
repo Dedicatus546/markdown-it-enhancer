@@ -33,7 +33,7 @@ class Core {
    *
    * [[Ruler]] instance. Keep configuration of core rules.
    **/
-  ruler = new Ruler();
+  ruler = new Ruler<StateCore>();
 
   static State = StateCore;
 
