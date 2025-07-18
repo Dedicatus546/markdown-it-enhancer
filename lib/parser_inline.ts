@@ -190,7 +190,7 @@ class ParserInline {
   parse(
     str: string,
     md: MarkdownIt,
-    env: Record<string, any>,
+    env: Record<string, any> = {},
     outTokens: Array<Token>,
   ) {
     const state = new StateInline(str, md, env, outTokens);

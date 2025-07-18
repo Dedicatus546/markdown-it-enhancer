@@ -7,7 +7,7 @@ import Token, { Nesting } from "../token";
 class StateBlock {
   src: string;
   md: MarkdownIt;
-  env: Record<string, any>;
+  env: Record<string, any> = {};
   /**
    * Internal state vartiables
    */
@@ -77,7 +77,7 @@ class StateBlock {
   constructor(
     src: string,
     md: MarkdownIt,
-    env: Record<string, any>,
+    env: Record<string, any> = {},
     tokens: Array<Token>,
   ) {
     this.src = src;

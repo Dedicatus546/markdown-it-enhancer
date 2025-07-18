@@ -4,6 +4,7 @@
  * Block-level tokenizer.
  **/
 
+import MarkdownIt from ".";
 import Ruler from "./ruler";
 import r_blockquote from "./rules_block/blockquote";
 import r_code from "./rules_block/code";
@@ -17,6 +18,7 @@ import r_paragraph from "./rules_block/paragraph";
 import r_reference from "./rules_block/reference";
 import StateBlock from "./rules_block/state_block";
 import r_table from "./rules_block/table";
+import Token from "./token";
 
 const _rules = [
   // First 2 params - rule name & source. Secondary array - list of rules,
@@ -132,12 +134,17 @@ class ParserBlock {
    *
    * Process input string and push block tokens into `outTokens`
    **/
-  parse(src, md, env, outTokens) {
+  parse(
+    src: string,
+    md: MarkdownIt,
+    env: Record<string, any> = {},
+    outTokens: Array<Token>,
+  ) {
     if (!src) {
       return;
     }
 
-    const state = new this.State(src, md, env, outTokens);
+    const state = new StateBlock(src, md, env, outTokens);
 
     this.tokenize(state, state.line, state.lineMax);
   }

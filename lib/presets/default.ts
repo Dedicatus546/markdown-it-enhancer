@@ -1,5 +1,7 @@
 // markdown-it default options
 
+import { PresetsConfig } from "..";
+
 export default {
   options: {
     // Enable HTML tags in source
@@ -44,4 +46,4 @@ export default {
     block: {},
     inline: {},
   },
-};
+} satisfies PresetsConfig;

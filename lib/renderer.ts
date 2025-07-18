@@ -271,7 +271,7 @@ class Renderer {
   renderInline(
     tokens: Array<Token>,
     options: MarkdownItOptions,
-    env: Record<string, any>,
+    env: Record<string, any> = {},
   ) {
     let result = "";
     const rules = this.rules;
@@ -302,7 +302,7 @@ class Renderer {
   renderInlineAsText(
     tokens: Array<Token>,
     options: MarkdownItOptions,
-    env: Record<string, any>,
+    env: Record<string, any> = {},
   ) {
     let result = "";
 
@@ -342,7 +342,7 @@ class Renderer {
   render(
     tokens: Array<Token>,
     options: MarkdownItOptions,
-    env: Record<string, any>,
+    env: Record<string, any> = {},
   ) {
     let result = "";
     const rules = this.rules;

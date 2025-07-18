@@ -1,5 +1,7 @@
 // Commonmark default options
 
+import { PresetsConfig } from "..";
+
 export default {
   options: {
     // Enable HTML tags in source
@@ -75,4 +77,4 @@ export default {
       rules2: ["balance_pairs", "emphasis", "fragments_join"],
     },
   },
-};
+} satisfies PresetsConfig;

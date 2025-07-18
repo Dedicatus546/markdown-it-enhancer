@@ -27,8 +27,8 @@ export type RuleFn<T> = T extends StateBlock
   : T extends StateInline
     ? StateInlineRuleFn<T>
     : T extends StateCore
-      ? (state: T) => void
-      : never;
+      ? (state: T) => undefined | void | boolean
+      : () => undefined | void | boolean;
 
 /**
  * class Ruler
@@ -136,7 +136,7 @@ class Ruler<T> {
    * });
    * ```
    **/
-  at(name: string, fn: RuleFn<T>, options: Partial<Pick<Rule<T>, "alt">>) {
+  at(name: string, fn: RuleFn<T>, options?: Partial<Pick<Rule<T>, "alt">>) {
     const index = this.#find(name);
     const opt = options || {};
 
@@ -177,7 +177,7 @@ class Ruler<T> {
     beforeName: string,
     ruleName: string,
     fn: RuleFn<T>,
-    options: Partial<Pick<Rule<T>, "alt">>,
+    options?: Partial<Pick<Rule<T>, "alt">>,
   ) {
     const index = this.#find(beforeName);
     const opt = options || {};
@@ -224,7 +224,7 @@ class Ruler<T> {
     afterName: string,
     ruleName: string,
     fn: RuleFn<T>,
-    options: Partial<Pick<Rule<T>, "alt">>,
+    options?: Partial<Pick<Rule<T>, "alt">>,
   ) {
     const index = this.#find(afterName);
     const opt = options || {};

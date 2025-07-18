@@ -1,7 +1,10 @@
 // Main parser class
 
+// @ts-expect-error lack linkify-it type
 import LinkifyIt from "linkify-it";
+// @ts-expect-error lack mdurl type
 import * as mdurl from "mdurl";
+// @ts-expect-error lack punycode.js type
 import punycode from "punycode.js";
 
 import * as utils from "./common/utils";
@@ -14,12 +17,19 @@ import cfg_commonmark from "./presets/commonmark";
 import cfg_default from "./presets/default";
 import cfg_zero from "./presets/zero";
 import Renderer from "./renderer";
+import StateCore from "./rules_core/state_core";
 
-const config = {
+const configs = {
   default: cfg_default,
   zero: cfg_zero,
   commonmark: cfg_commonmark,
-};
+} as const;
+
+type ConfigKey = keyof typeof configs;
+
+function isValidPresetName(presetName: string): presetName is ConfigKey {
+  return Object.keys(configs).includes(presetName);
+}
 
 //
 // This validator can prohibit more than really needed to prevent XSS. It's a
@@ -117,9 +127,9 @@ function normalizeLinkText(url: string) {
  * ```
  **/
 
-type PresetName = "default" | "commonmark" | "zero";
+type PresetName = ConfigKey;
 
-export type MarkdownItOptions = {
+export interface MarkdownItOptions {
   html?: boolean;
   xhtmlOut?: boolean;
   breaks?: boolean;
@@ -127,8 +137,32 @@ export type MarkdownItOptions = {
   linkify?: boolean;
   typographer?: boolean;
   quotes?: string;
-  highlight?: (str: string, lang: string, langAttrs: unknown) => string;
-};
+  highlight?:
+    | ((str: string, lang: string, langAttrs: unknown) => string)
+    | null;
+}
+
+export interface MarkdownItNormalizedOptions
+  extends Required<Omit<MarkdownItOptions, "highlight">> {
+  highlight: MarkdownItOptions["highlight"];
+  maxNesting: number;
+}
+
+export interface PresetsConfig {
+  options: MarkdownItNormalizedOptions;
+  components: {
+    core: {
+      rules?: Array<string>;
+    };
+    block: {
+      rules?: Array<string>;
+    };
+    inline: {
+      rules?: Array<string>;
+      rules2?: Array<string>;
+    };
+  };
+}
 
 class MarkdownIt {
   inline = new ParserInline();
@@ -141,19 +175,24 @@ class MarkdownIt {
   normalizeLinkText = normalizeLinkText;
   utils = utils;
   helpers = assign({}, helpers);
-  options: MarkdownItOptions = {};
+  options: MarkdownItNormalizedOptions;
 
   constructor(
-    presetNameOrOptions: PresetName | MarkdownItOptions,
+    presetNameOrOptions?: PresetName | MarkdownItOptions,
     options?: MarkdownItOptions,
   ) {
-    let presetName = "default";
-
     if (!options) {
       if (!isString(presetNameOrOptions)) {
-        options = presetName || {};
-        presetName = "default";
+        options = presetNameOrOptions || {};
+        presetNameOrOptions = "default";
       }
+    }
+
+    this.options = {} as MarkdownItNormalizedOptions;
+    this.configure(presetNameOrOptions as string);
+
+    if (options) {
+      this.set(options);
     }
   }
 
@@ -176,7 +215,7 @@ class MarkdownIt {
    * it's best to create multiple instances and initialize each with separate
    * config.
    **/
-  set(options) {
+  set(options: MarkdownItOptions) {
     assign(this.options, options);
     return this;
   }
@@ -191,32 +230,38 @@ class MarkdownIt {
    * We strongly recommend to use presets instead of direct config loads. That
    * will give better compatibility with next versions.
    **/
-  configure(presets) {
-    if (isString(presets)) {
-      const presetName = presets;
-      presets = config[presetName];
-      if (!presets) {
+  configure(presetsNameOrConfig?: string | PresetsConfig) {
+    let config: PresetsConfig | undefined;
+
+    if (isString(presetsNameOrConfig)) {
+      const presetName = presetsNameOrConfig;
+      if (!isValidPresetName(presetName)) {
         throw new Error(
           'Wrong `markdown-it` preset "' + presetName + '", check name',
         );
       }
+      config = configs[presetName];
+    } else {
+      config = presetsNameOrConfig;
     }
 
-    if (!presets) {
+    if (!config) {
       throw new Error("Wrong `markdown-it` preset, can't be empty");
     }
 
-    if (presets.options) {
-      this.set(presets.options);
+    if (config.options) {
+      this.set(config.options);
     }
 
-    if (presets.components) {
-      Object.keys(presets.components).forEach((name) => {
-        if (presets.components[name].rules) {
-          this[name].ruler.enableOnly(presets.components[name].rules);
+    if (config.components) {
+      (
+        Object.keys(config.components) as Array<"core" | "block" | "inline">
+      ).forEach((name) => {
+        if (config.components[name].rules) {
+          this[name].ruler.enableOnly(config.components[name].rules);
         }
-        if (presets.components[name].rules2) {
-          this[name].ruler2.enableOnly(presets.components[name].rules2);
+        if (name === "inline" && config.components[name].rules2) {
+          this[name].ruler2.enableOnly(config.components[name].rules2);
         }
       });
     }
@@ -240,14 +285,14 @@ class MarkdownIt {
    *             .disable('smartquotes');
    * ```
    **/
-  enable(list, ignoreInvalid) {
-    let result = [];
+  enable(list: Array<string> | string, ignoreInvalid: boolean = false) {
+    let result: Array<string> = [];
 
     if (!Array.isArray(list)) {
       list = [list];
     }
 
-    ["core", "block", "inline"].forEach(function (chain) {
+    (["core", "block", "inline"] as const).forEach((chain) => {
       result = result.concat(this[chain].ruler.enable(list, true));
     }, this);
 
@@ -273,14 +318,14 @@ class MarkdownIt {
    *
    * The same as [[MarkdownIt.enable]], but turn specified rules off.
    **/
-  disable(list, ignoreInvalid) {
-    let result = [];
+  disable(list: Array<string> | string, ignoreInvalid: boolean = false) {
+    let result: Array<string> = [];
 
     if (!Array.isArray(list)) {
       list = [list];
     }
 
-    ["core", "block", "inline"].forEach(function (chain) {
+    (["core", "block", "inline"] as const).forEach((chain) => {
       result = result.concat(this[chain].ruler.disable(list, true));
     }, this);
 
@@ -314,8 +359,7 @@ class MarkdownIt {
    *             });
    * ```
    **/
-  use(plugin /*, params, ... */) {
-    const args = [this].concat(Array.prototype.slice.call(arguments, 1));
+  use(plugin: (...args: any[]) => any, ...args: any[]) {
     plugin.apply(plugin, args);
     return this;
   }
@@ -335,12 +379,13 @@ class MarkdownIt {
    * inject data in specific cases. Usually, you will be ok to pass `{}`,
    * and then pass updated object to renderer.
    **/
-  parse(src, env) {
+  parse(src: string, env?: Record<string, any>) {
     if (typeof src !== "string") {
       throw new Error("Input data should be a String");
     }
 
-    const state = new this.core.State(src, this, env);
+    env = env || {};
+    const state = new StateCore(src, this, env);
 
     this.core.process(state);
 
@@ -358,7 +403,7 @@ class MarkdownIt {
    * But you will not need it with high probability. See also comment
    * in [[MarkdownIt.parse]].
    **/
-  render(src, env) {
+  render(src: string, env?: Record<string, any>) {
     env = env || {};
     return this.renderer.render(this.parse(src, env), this.options, env);
   }
@@ -372,8 +417,8 @@ class MarkdownIt {
    * block tokens list with the single `inline` element, containing parsed inline
    * tokens in `children` property. Also updates `env` object.
    **/
-  parseInline(src, env) {
-    const state = new this.core.State(src, this, env);
+  parseInline(src: string, env: Record<string, any> = {}) {
+    const state = new StateCore(src, this, env);
 
     state.inlineMode = true;
     this.core.process(state);
@@ -389,7 +434,7 @@ class MarkdownIt {
    * Similar to [[MarkdownIt.render]] but for single paragraph content. Result
    * will NOT be wrapped into `<p>` tags.
    **/
-  renderInline(src, env) {
+  renderInline(src: string, env?: Record<string, any>) {
     env = env || {};
 
     return this.renderer.render(this.parseInline(src, env), this.options, env);

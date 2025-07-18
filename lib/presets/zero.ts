@@ -1,6 +1,8 @@
 // "Zero" preset, with nothing enabled. Useful for manual configuring of simple
 // modes. For example, to parse bold/italic only.
 
+import { PresetsConfig } from "..";
+
 export default {
   options: {
     // Enable HTML tags in source
@@ -54,4 +56,4 @@ export default {
       rules2: ["balance_pairs", "fragments_join"],
     },
   },
-};
+} satisfies PresetsConfig;
