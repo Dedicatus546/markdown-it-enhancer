@@ -1,6 +1,6 @@
-import nodeResolve from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
-import terser from '@rollup/plugin-terser'
+import nodeResolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import terser from "@rollup/plugin-terser";
 
 const plugins = [
   nodeResolve({ preferBuiltins: true }),
@@ -10,31 +10,31 @@ const plugins = [
     mangle: false,
     compress: false,
     format: {
-      comments: 'all',
+      comments: "all",
       beautify: true,
       ascii_only: true,
-      indent_level: 2
-    }
-  })
-]
+      indent_level: 2,
+    },
+  }),
+];
 
 export default [
   {
-    input: 'index.mjs',
+    input: "index.mjs",
     output: {
-      file: 'demo/markdown-it.js',
-      format: 'umd',
-      name: 'markdownit'
+      file: "demo/markdown-it.js",
+      format: "umd",
+      name: "markdownit",
     },
-    plugins
+    plugins,
   },
   {
-    input: 'support/demo_template/index.mjs',
+    input: "support/demo_template/index.mjs",
     output: {
-      file: 'demo/index.js',
-      format: 'iife',
-      name: 'demo'
+      file: "demo/index.js",
+      format: "iife",
+      name: "demo",
     },
-    plugins
-  }
-]
+    plugins,
+  },
+];
