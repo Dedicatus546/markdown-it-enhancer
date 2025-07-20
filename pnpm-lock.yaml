@@ -75,6 +75,9 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
+      markdown-it:
+        specifier: ^14.1.0
+        version: 14.1.0
       markdown-it-abbr:
         specifier: ^2.0.0
         version: 2.0.0

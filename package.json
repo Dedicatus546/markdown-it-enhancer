@@ -65,6 +65,7 @@
     "jest-worker": "^30.0.2",
     "jiti": "^2.4.2",
     "js-yaml": "^4.1.0",
+    "markdown-it": "^14.1.0",
     "markdown-it-abbr": "^2.0.0",
     "markdown-it-container": "^4.0.0",
     "markdown-it-deflist": "^3.0.0",
