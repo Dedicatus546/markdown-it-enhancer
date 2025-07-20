@@ -19,6 +19,7 @@ export default defineConfig({
       entry: resolve(__dirname, "lib", "index.ts"),
       formats: ["es"],
     },
+    minify: false,
   },
   test: {
     // 
