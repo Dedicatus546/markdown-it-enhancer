@@ -27,6 +27,10 @@ const _rules = [
   ["text_join", r_text_join],
 ] as const;
 
+interface Core {
+  State: typeof StateCore;
+}
+
 class Core {
   /**
    * Core#ruler -> Ruler
@@ -34,8 +38,6 @@ class Core {
    * [[Ruler]] instance. Keep configuration of core rules.
    **/
   ruler = new Ruler<StateCore>();
-
-  static State = StateCore;
 
   constructor() {
     for (let i = 0; i < _rules.length; i++) {
@@ -56,5 +58,7 @@ class Core {
     }
   }
 }
+
+Core.prototype.State = StateCore;
 
 export default Core;

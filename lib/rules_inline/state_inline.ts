@@ -29,6 +29,10 @@ export interface Delimiter {
   close: boolean;
 }
 
+interface StateInline {
+  Token: typeof Token;
+}
+
 class StateInline {
   src: string;
   env: Record<string, any> = {};
@@ -58,8 +62,6 @@ class StateInline {
   // Counter used to disable inline linkify-it execution
   // inside <a> and markdown links
   linkLevel = 0;
-
-  static Token = Token;
 
   constructor(
     src: string,
@@ -165,5 +167,7 @@ class StateInline {
     return { can_open, can_close, length: count };
   }
 }
+
+StateInline.prototype.Token = Token;
 
 export default StateInline;

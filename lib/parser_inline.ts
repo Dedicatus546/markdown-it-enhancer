@@ -54,6 +54,10 @@ const _rules2 = [
   ["fragments_join", r_fragments_join],
 ] as const;
 
+interface ParserInline {
+  State: typeof StateInline;
+}
+
 class ParserInline {
   /**
    * ParserInline#ruler -> Ruler
@@ -69,8 +73,6 @@ class ParserInline {
    * (e.g. in emphasis-like rules).
    **/
   ruler2 = new Ruler<StateInline>();
-
-  static State = StateInline;
 
   constructor() {
     for (let i = 0; i < _rules.length; i++) {
@@ -205,5 +207,7 @@ class ParserInline {
     }
   }
 }
+
+ParserInline.prototype.State = StateInline;
 
 export default ParserInline;

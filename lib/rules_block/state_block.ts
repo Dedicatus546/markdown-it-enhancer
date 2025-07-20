@@ -4,6 +4,10 @@ import MarkdownIt from "..";
 import { isSpace } from "../common/utils";
 import Token, { Nesting } from "../token";
 
+interface StateBlock {
+  Token: typeof Token;
+}
+
 class StateBlock {
   src: string;
   md: MarkdownIt;
@@ -71,8 +75,6 @@ class StateBlock {
    **/
   parentType = "root";
   level = 0;
-
-  static Token = Token;
 
   constructor(
     src: string,
@@ -278,5 +280,7 @@ class StateBlock {
     return queue.join("");
   }
 }
+
+StateBlock.prototype.Token = Token;
 
 export default StateBlock;
