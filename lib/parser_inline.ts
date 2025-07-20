@@ -46,8 +46,8 @@ const _rules = [
 // Don't use this for anything except pairs (plugins working with `balance_pairs`).
 //
 const _rules2 = [
-  ["strikethrough", r_strikethrough.postProcess],
   ["balance_pairs", r_balance_pairs],
+  ["strikethrough", r_strikethrough.postProcess],
   ["emphasis", r_emphasis.postProcess],
   // rules for pairs separate '**' into its own text tokens, which may be left unused,
   // rule below merges unused segments back with the rest of the text
