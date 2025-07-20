@@ -136,7 +136,7 @@ export interface MarkdownItOptions {
   langPrefix?: string;
   linkify?: boolean;
   typographer?: boolean;
-  quotes?: string;
+  quotes?: Array<string> | string;
   highlight?:
     | ((str: string, lang: string, langAttrs: unknown) => string)
     | null;
@@ -360,7 +360,7 @@ class MarkdownIt {
    * ```
    **/
   use(plugin: (...args: any[]) => any, ...args: any[]) {
-    plugin.apply(plugin, args);
+    plugin.apply(plugin, [this, ...args]);
     return this;
   }
 

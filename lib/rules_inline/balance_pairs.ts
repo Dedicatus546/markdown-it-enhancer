@@ -1,10 +1,10 @@
 // For each opening emphasis-like marker find a matching closing one
 //
 
-import StateInline from "./state_inline";
+import StateInline, { Delimiter } from "./state_inline";
 
-function processDelimiters(delimiters: Array<unknown>) {
-  const openersBottom = {};
+function processDelimiters(delimiters: Array<Delimiter>) {
+  const openersBottom: Record<number, Array<number>> = {};
   const max = delimiters.length;
 
   if (!max) return;
@@ -12,7 +12,7 @@ function processDelimiters(delimiters: Array<unknown>) {
   // headerIdx is the first delimiter of the current (where closer is) delimiter run
   let headerIdx = 0;
   let lastTokenIdx = -2; // needs any value lower than -1
-  const jumps = [];
+  const jumps: Array<number> = [];
 
   for (let closerIdx = 0; closerIdx < max; closerIdx++) {
     const closer = delimiters[closerIdx];

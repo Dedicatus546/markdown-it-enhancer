@@ -184,7 +184,7 @@ export default function list(
   if (isOrdered) {
     token = state.push("ordered_list_open", "ol", 1);
     if (markerValue !== 1) {
-      token.attrs = [["start", markerValue]];
+      token.attrs = [["start", String(markerValue)]];
     }
   } else {
     token = state.push("bullet_list_open", "ul", 1);

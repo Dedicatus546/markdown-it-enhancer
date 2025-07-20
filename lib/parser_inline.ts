@@ -153,7 +153,7 @@ class ParserInline {
       // - update `state.tokens`
       // - return true
       const prevPos = state.pos;
-      let ok = false;
+      let ok: boolean | undefined | void = false;
 
       if (state.level < maxNesting) {
         for (let i = 0; i < len; i++) {

@@ -60,9 +60,13 @@ class ParserBlock {
 
   // Generate tokens for input range
   //
-
-  // TODO unknown _ arg
-  tokenize(state: StateBlock, startLine: number, endLine: number, _?: boolean) {
+  tokenize(
+    state: StateBlock,
+    startLine: number,
+    endLine: number,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _: boolean = false,
+  ) {
     const rules = this.ruler.getRules("");
     const len = rules.length;
     const maxNesting = state.md.options.maxNesting;
@@ -95,7 +99,7 @@ class ParserBlock {
       // - update `state.tokens`
       // - return true
       const prevLine = state.line;
-      let ok = false;
+      let ok: boolean | undefined | void = false;
 
       for (let i = 0; i < len; i++) {
         ok = rules[i](state, line, endLine, false);
