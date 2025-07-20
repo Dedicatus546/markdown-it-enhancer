@@ -450,9 +450,9 @@ interface MarkdownItConstructor {
   (): MarkdownIt;
 }
 
-const MarkdownItFactory = function (this: any) {
+const MarkdownItFactory = function (this: any, ...args: any[]) {
   if (new.target) {
-    return Reflect.construct(MarkdownIt, [], new.target);
+    return Reflect.construct(MarkdownIt, [...args], new.target);
   }
   return new (MarkdownIt as any)();
 } as any as MarkdownItConstructor;
