@@ -18,6 +18,7 @@ describe("API", function () {
     const md = new MarkdownIt();
 
     // conditions coverage
+    // @ts-expect-error ignore
     md.configure({});
     assert.strictEqual(md.render("123"), "<p>123</p>\n");
 
@@ -171,6 +172,7 @@ describe("API", function () {
     const md = new MarkdownIt();
 
     assert.throws(function () {
+      // @ts-expect-error ignore
       md.render(null);
     }, /Input data should be a String/);
   });
@@ -431,6 +433,7 @@ describe("Links validation", function () {
 
 describe("maxNesting", function () {
   it("Block parser should not nest above limit", function () {
+    // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 2 });
     assert.strictEqual(
       md.render(">foo\n>>bar\n>>>baz"),
@@ -439,11 +442,13 @@ describe("maxNesting", function () {
   });
 
   it("Inline parser should not nest above limit", function () {
+    // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 1 });
     assert.strictEqual(md.render("[`foo`]()"), '<p><a href="">`foo`</a></p>\n');
   });
 
   it("Inline nesting coverage", function () {
+    // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 2 });
     assert.strictEqual(
       md.render("[[[[[[[[[[[[[[[[[[foo]()"),
