@@ -30,6 +30,7 @@ export default defineConfig([
     extends: [tseslint.configs.recommended],
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unsafe-declaration-merging": "off",
     },
   },
   pluginPrettierRecomended,
