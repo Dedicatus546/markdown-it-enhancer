@@ -3,7 +3,7 @@
 
 import fs from "node:fs";
 import argparse from "argparse";
-import markdownit from "../index.mjs";
+import markdownit from "../dist/markdown-it-enhancer.js";
 
 const cli = new argparse.ArgumentParser({
   prog: "markdown-it",
