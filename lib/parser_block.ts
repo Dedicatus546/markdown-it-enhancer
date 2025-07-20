@@ -4,7 +4,7 @@
  * Block-level tokenizer.
  **/
 
-import MarkdownIt from ".";
+import { MarkdownIt } from ".";
 import Ruler from "./ruler";
 import r_blockquote from "./rules_block/blockquote";
 import r_code from "./rules_block/code";

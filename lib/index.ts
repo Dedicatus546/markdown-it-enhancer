@@ -164,7 +164,7 @@ export interface PresetsConfig {
   };
 }
 
-class MarkdownIt {
+export class MarkdownIt {
   inline = new ParserInline();
   block = new ParserBlock();
   core = new ParserCore();
@@ -439,6 +439,30 @@ class MarkdownIt {
 
     return this.renderer.render(this.parseInline(src, env), this.options, env);
   }
+
+  static [Symbol.hasInstance](instance: unknown): instance is MarkdownIt {
+    return instance instanceof MarkdownIt;
+  }
 }
 
-export default MarkdownIt;
+interface MarkdownItConstructor {
+  new (): MarkdownIt;
+  (): MarkdownIt;
+}
+
+const MarkdownItFactory = function (this: any) {
+  if (new.target) {
+    return Reflect.construct(MarkdownIt, [], new.target);
+  }
+  return new (MarkdownIt as any)();
+} as any as MarkdownItConstructor;
+
+Object.setPrototypeOf(MarkdownItFactory, MarkdownIt);
+Object.assign(MarkdownItFactory, MarkdownIt);
+MarkdownItFactory.prototype = MarkdownIt.prototype;
+
+// 使用
+const MarkdownItExport = MarkdownItFactory as typeof MarkdownIt &
+  (() => MarkdownIt);
+
+export default MarkdownItExport;

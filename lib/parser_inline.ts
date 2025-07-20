@@ -4,7 +4,7 @@
  * Tokenizes paragraph content.
  **/
 
-import MarkdownIt from ".";
+import { MarkdownIt } from ".";
 import Ruler from "./ruler";
 import r_autolink from "./rules_inline/autolink";
 import r_backticks from "./rules_inline/backticks";
