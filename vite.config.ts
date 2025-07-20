@@ -22,7 +22,6 @@ export default defineConfig({
     minify: false,
   },
   test: {
-    // 
     globals: true,
     include: [
       "test/**/utils.test.ts",
