@@ -23,13 +23,12 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    include: [
-      "test/**/utils.test.ts",
-      "test/**/token.test.ts",
-      "test/**/ruler.test.ts",
-      "test/**/misc.test.ts",
-      "test/**/commonmark.test.ts",
-      "test/**/markdown-it.test.ts",
-    ],
+    include: ["test/**/*.test.ts"],
+    coverage: {
+      enabled: true,
+      include: ["lib/**/*.ts"],
+      reporter: "html",
+    },
+    ui: true,
   },
 });
