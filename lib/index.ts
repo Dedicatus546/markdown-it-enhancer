@@ -331,9 +331,7 @@ export class MarkdownIt {
 
     result = result.concat(this.inline.ruler2.disable(list, true));
 
-    const missed = list.filter(function (name) {
-      return result.indexOf(name) < 0;
-    });
+    const missed = list.filter((name) => result.indexOf(name) < 0);
 
     if (missed.length && !ignoreInvalid) {
       throw new Error(
