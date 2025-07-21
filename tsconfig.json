@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "composite": true,
+    "baseUrl": ".",
     "skipLibCheck": true,
     "lib": ["ESNext"],
     "target": "esnext",
@@ -10,6 +10,8 @@
     "strict": true
   },
   "include": [
-    "./lib"
+    "./lib",
+    "./vite-env.d.ts",
+    "./test"
   ]
 }
