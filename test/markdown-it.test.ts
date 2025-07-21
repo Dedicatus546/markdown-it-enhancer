@@ -11,9 +11,5 @@ describe("markdown-it", function () {
     linkify: true,
   });
 
-  generate(
-    fileURLToPath(new URL("fixtures/markdown-it", import.meta.url)),
-    {},
-    md,
-  );
+  generate(fileURLToPath(new URL("fixtures/markdown-it", import.meta.url)), md);
 });

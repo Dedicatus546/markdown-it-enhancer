@@ -1,10 +1,10 @@
 import { fileURLToPath } from "node:url";
 import { relative } from "node:path";
 import { load } from "./markdown-it-testgen";
-import MarkdownIt from "../lib";
+import { MarkdownIt } from "../lib";
 import { assert, describe, it } from "vitest";
 
-function normalize(text) {
+function normalize(text: string) {
   return text.replace(
     /<blockquote>\n<\/blockquote>/g,
     "<blockquote></blockquote>",
@@ -14,10 +14,11 @@ function normalize(text) {
 function generate(path: string, md: MarkdownIt) {
   load(path, function (data) {
     data.meta = data.meta || {};
+    const recordMeta = data.meta as Record<string, any>;
 
-    const desc = data.meta.desc || relative(path, data.file);
+    const desc = recordMeta.desc || relative(path, data.file);
 
-    (data.meta.skip ? describe.skip : describe)(desc, function () {
+    (recordMeta.skip ? describe.skip : describe)(desc, function () {
       data.fixtures.forEach(function (fixture) {
         it(
           fixture.header

@@ -1,4 +1,5 @@
 import MarkdownIt from "../lib";
+// @ts-expect-error ignore
 import forInline from "markdown-it-for-inline";
 import { assert, describe, it } from "vitest";
 

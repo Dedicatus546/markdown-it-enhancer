@@ -1,10 +1,9 @@
 import { describe, it, assert } from "vitest";
 import fs from "fs";
 import p from "path";
+// @ts-expect-error ignore
 import yaml from "js-yaml";
-import MarkdownIt from "../lib";
-
-const assign = Object.assign;
+import { MarkdownIt } from "../lib";
 
 function toString(obj: unknown): string {
   return Object.prototype.toString.call(obj);
@@ -24,20 +23,38 @@ function fixLF(str: string) {
   return str.length ? str + "\n" : str;
 }
 
-function parse(input, options) {
+interface ParsedData {
+  fixtures: Array<{
+    type: string;
+    header: string;
+    first: {
+      text: string;
+      range: Array<number>;
+    };
+    second: {
+      text: string;
+      range: Array<number>;
+    };
+  }>;
+  meta: string | Record<string, any> | null;
+  file: string;
+}
+
+function parse(input: string, options: { sep: Array<string> }) {
   const lines = input.split(/\r?\n/g),
     max = lines.length;
   let min = 0,
     line = 0,
-    fixture,
-    i,
-    l,
-    currentSep,
-    blockStart;
+    fixture: ParsedData["fixtures"][number],
+    i: number,
+    l: string,
+    currentSep: string,
+    blockStart: number;
 
-  const result = {
-    fixtures: [] as Array<any>,
+  const result: ParsedData = {
+    fixtures: [],
     meta: "",
+    file: "",
   };
 
   const sep = options.sep || ["."];
@@ -74,11 +91,11 @@ function parse(input, options) {
       header: "",
       first: {
         text: "",
-        range: [],
+        range: [] as Array<number>,
       },
       second: {
         text: "",
-        range: [],
+        range: [] as Array<number>,
       },
     };
 
@@ -142,23 +159,30 @@ function parse(input, options) {
 // - meta (Mixed):  metadata from header, if exists
 // - fixtures
 //
-function load(path, options, iterator) {
+function load(
+  path: string,
+  options: string | Array<string> | ((data: ParsedData) => void),
+  iterator?: (data: ParsedData) => void,
+) {
   let input, parsed;
   const stat = fs.statSync(path);
 
+  const normalizedOptions = {
+    sep: ["."],
+  };
+
   if (isFunction(options)) {
     iterator = options;
-    options = { sep: ["."] };
   } else if (isString(options)) {
-    options = { sep: options.split("") };
+    normalizedOptions.sep = options.split("");
   } else if (isArray(options)) {
-    options = { sep: options };
+    normalizedOptions.sep = options;
   }
 
   if (stat.isFile()) {
     input = fs.readFileSync(path, "utf8");
 
-    parsed = parse(input, options);
+    parsed = parse(input, normalizedOptions);
 
     if (!parsed) {
       return null;
@@ -177,7 +201,7 @@ function load(path, options, iterator) {
     return parsed;
   }
 
-  let result, res;
+  let result: Array<ParsedData>, res;
   if (stat.isDirectory()) {
     result = [];
 
@@ -197,28 +221,21 @@ function load(path, options, iterator) {
   return null;
 }
 
-function generate(path: string, options: any, md: MarkdownIt) {
-  if (!md) {
-    md = options;
-    options = {};
-  }
-
-  options = assign({}, options);
-  options.assert = options.assert || assert;
-
-  load(path, options, function (data) {
+function generate(path: string, md: MarkdownIt) {
+  load(path, function (data) {
     data.meta = data.meta || {};
+    const recordMeta = data.meta as Record<string, any>;
 
-    const desc = data.meta.desc || p.relative(path, data.file);
+    const desc = recordMeta.desc || p.relative(path, data.file);
 
-    (data.meta.skip ? describe.skip : describe)(desc, function () {
+    (recordMeta.skip ? describe.skip : describe)(desc, function () {
       data.fixtures.forEach(function (fixture) {
         it(
-          fixture.header && options.header
+          fixture.header
             ? fixture.header
             : "line " + (fixture.first.range[0] - 1),
           function () {
-            options.assert.strictEqual(
+            assert.strictEqual(
               md.render(fixture.first.text),
               fixture.second.text,
             );
