@@ -15,12 +15,6 @@ function isString(obj: unknown): obj is string {
   return toString(obj) === "[object String]";
 }
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-
-function has(object: unknown, key: string) {
-  return hasOwnProperty.call(object, key);
-}
-
 function arrayReplaceAt<T>(src: Array<T>, pos: number, newElements: Array<T>) {
   return src.toSpliced(pos, 1, ...newElements);
 }
@@ -251,9 +245,10 @@ function normalizeReference(str: string) {
   // So treat this one as a special case
   // (remove this when node v10 is no longer supported).
   //
-  if ("ẞ".toLowerCase() === "Ṿ") {
-    str = str.replace(/ẞ/g, "ß");
-  }
+  // 20250721 v10 已结束声明周期，去除该代码
+  // if ("ẞ".toLowerCase() === "Ṿ") {
+  //   str = str.replace(/ẞ/g, "ß");
+  // }
 
   // .toLowerCase().toUpperCase() should get rid of all differences
   // between letter variants.
@@ -304,7 +299,6 @@ export {
   escapeHtml,
   escapeRE,
   fromCodePoint,
-  has,
   isMdAsciiPunct,
   isPunctChar,
   isSpace,
