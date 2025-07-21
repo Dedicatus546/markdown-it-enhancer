@@ -464,3 +464,4 @@ const MarkdownItExport = MarkdownItFactory as typeof MarkdownIt &
   (() => MarkdownIt);
 
 export default MarkdownItExport;
+export { setTableMaxAutoCompletedCells } from "./rules_block/table";

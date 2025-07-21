@@ -9,7 +9,11 @@ import StateBlock from "./state_block";
 // Both pulldown-cmark and commonmark-hs limit the number of cells this way to ~200k.
 // We set it to 65k, which can expand user input by a factor of x370
 // (256x256 square is 1.8kB expanded into 650kB).
-const MAX_AUTOCOMPLETED_CELLS = 0x10000;
+let MAX_AUTOCOMPLETED_CELLS = 0x10000;
+
+export const setTableMaxAutoCompletedCells = (maxValue: number) => {
+  MAX_AUTOCOMPLETED_CELLS = maxValue;
+};
 
 function getLine(state: StateBlock, line: number) {
   const pos = state.bMarks[line] + state.tShift[line];
@@ -244,6 +248,9 @@ export default function table(
     // but that does not affect intended use (which is limiting expansion)
     autocompletedCells += columnCount - columns.length;
     if (autocompletedCells > MAX_AUTOCOMPLETED_CELLS) {
+      console.warn(
+        "autocompletedCells more than MAX_AUTOCOMPLETED_CELLS. rest rows of table would not render.",
+      );
       break;
     }
 
