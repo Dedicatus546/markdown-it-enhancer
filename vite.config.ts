@@ -18,6 +18,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "lib", "index.ts"),
       formats: ["es"],
+      fileName: "index",
     },
     minify: false,
   },
@@ -28,6 +29,7 @@ export default defineConfig({
       enabled: true,
       include: ["lib/**/*.ts"],
       reporter: "html",
+      provider: "istanbul",
     },
     ui: true,
   },
