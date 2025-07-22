@@ -29,7 +29,7 @@ export default defineConfig([
     // @ts-expect-error ignore
     extends: [tseslint.configs.recommended],
     rules: {
-      "@typescript-eslint/no-explicit-any": "off",
+      // "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unsafe-declaration-merging": "off",
     },
   },
