@@ -35,7 +35,7 @@ interface StateInline {
 
 class StateInline {
   src: string;
-  env: Record<string, any> = {};
+  env: Record<string, unknown> = {};
   md: MarkdownIt;
   tokens: Array<Token>;
   tokens_meta: Array<{ delimiters: Array<Delimiter> } | null>;
@@ -66,7 +66,7 @@ class StateInline {
   constructor(
     src: string,
     md: MarkdownIt,
-    env: Record<string, any> = {},
+    env: Record<string, unknown> = {},
     outTokens: Array<Token>,
   ) {
     this.src = src;

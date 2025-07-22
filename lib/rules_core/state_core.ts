@@ -11,11 +11,11 @@ interface StateCore {
 class StateCore {
   src: string;
   md: MarkdownIt;
-  env: Record<string, any> = {};
+  env: Record<string, unknown> = {};
   tokens: Array<Token> = [];
   inlineMode = false;
 
-  constructor(src: string, md: MarkdownIt, env: Record<string, any> = {}) {
+  constructor(src: string, md: MarkdownIt, env: Record<string, unknown> = {}) {
     this.src = src;
     this.env = env;
     this.md = md; // link to parser instance

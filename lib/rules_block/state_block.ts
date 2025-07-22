@@ -11,7 +11,7 @@ interface StateBlock {
 class StateBlock {
   src: string;
   md: MarkdownIt;
-  env: Record<string, any> = {};
+  env: Record<string, unknown> = {};
   /**
    * Internal state vartiables
    */
@@ -79,7 +79,7 @@ class StateBlock {
   constructor(
     src: string,
     md: MarkdownIt,
-    env: Record<string, any> = {},
+    env: Record<string, unknown> = {},
     tokens: Array<Token>,
   ) {
     this.src = src;

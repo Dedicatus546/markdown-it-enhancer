@@ -19,6 +19,10 @@ import cfg_zero from "./presets/zero";
 import Renderer from "./renderer";
 import StateCore from "./rules_core/state_core";
 
+type RemoveFirst<T extends unknown[]> = T extends [unknown, ...infer Rest]
+  ? Rest
+  : never;
+
 const configs = {
   default: cfg_default,
   zero: cfg_zero,
@@ -357,7 +361,12 @@ export class MarkdownIt {
    *             });
    * ```
    **/
-  use(plugin: (...args: any[]) => any, ...args: any[]) {
+  use<
+    PluginArgs extends [MarkdownIt, ...rest: Array<unknown>] = [
+      MarkdownIt,
+      Array<unknown>,
+    ],
+  >(plugin: (...args: [PluginArgs]) => void, ...args: RemoveFirst<PluginArgs>) {
     plugin.apply(plugin, [this, ...args]);
     return this;
   }
@@ -377,7 +386,7 @@ export class MarkdownIt {
    * inject data in specific cases. Usually, you will be ok to pass `{}`,
    * and then pass updated object to renderer.
    **/
-  parse(src: string, env?: Record<string, any>) {
+  parse(src: string, env: Record<string, unknown> = {}) {
     if (typeof src !== "string") {
       throw new Error("Input data should be a String");
     }
@@ -401,8 +410,7 @@ export class MarkdownIt {
    * But you will not need it with high probability. See also comment
    * in [[MarkdownIt.parse]].
    **/
-  render(src: string, env?: Record<string, any>) {
-    env = env || {};
+  render(src: string, env: Record<string, unknown> = {}) {
     return this.renderer.render(this.parse(src, env), this.options, env);
   }
 
@@ -415,7 +423,7 @@ export class MarkdownIt {
    * block tokens list with the single `inline` element, containing parsed inline
    * tokens in `children` property. Also updates `env` object.
    **/
-  parseInline(src: string, env: Record<string, any> = {}) {
+  parseInline(src: string, env: Record<string, unknown> = {}) {
     const state = new StateCore(src, this, env);
 
     state.inlineMode = true;
@@ -432,9 +440,7 @@ export class MarkdownIt {
    * Similar to [[MarkdownIt.render]] but for single paragraph content. Result
    * will NOT be wrapped into `<p>` tags.
    **/
-  renderInline(src: string, env?: Record<string, any>) {
-    env = env || {};
-
+  renderInline(src: string, env: Record<string, unknown> = {}) {
     return this.renderer.render(this.parseInline(src, env), this.options, env);
   }
 
@@ -448,18 +454,17 @@ interface MarkdownItConstructor {
   (): MarkdownIt;
 }
 
-const MarkdownItFactory = function (this: any, ...args: any[]) {
+const MarkdownItFactory = function (this: unknown, ...args: unknown[]) {
   if (new.target) {
     return Reflect.construct(MarkdownIt, [...args], new.target);
   }
-  return new (MarkdownIt as any)();
-} as any as MarkdownItConstructor;
+  return new MarkdownIt();
+} as MarkdownItConstructor;
 
 Object.setPrototypeOf(MarkdownItFactory, MarkdownIt);
 Object.assign(MarkdownItFactory, MarkdownIt);
 MarkdownItFactory.prototype = MarkdownIt.prototype;
 
-// 使用
 const MarkdownItExport = MarkdownItFactory as typeof MarkdownIt &
   (() => MarkdownIt);
 

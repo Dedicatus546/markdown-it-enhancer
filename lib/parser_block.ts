@@ -143,7 +143,7 @@ class ParserBlock {
   parse(
     src: string,
     md: MarkdownIt,
-    env: Record<string, any> = {},
+    env: Record<string, unknown> = {},
     outTokens: Array<Token>,
   ) {
     if (!src) {
