@@ -3,7 +3,7 @@
 import { isSpace } from "../common/utils";
 import StateBlock from "./state_block";
 
-export default function blockquote(
+export default async function blockquote(
   state: StateBlock,
   startLine: number,
   endLine: number,
@@ -203,7 +203,7 @@ export default function blockquote(
   const lines = [startLine, 0];
   token_o.map = lines;
 
-  state.md.block.tokenize(state, startLine, nextLine);
+  await state.md.block.tokenize(state, startLine, nextLine);
 
   const token_c = state.push("blockquote_close", "blockquote", -1);
   token_c.markup = ">";

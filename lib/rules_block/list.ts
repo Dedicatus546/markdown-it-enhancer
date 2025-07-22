@@ -101,7 +101,7 @@ function markTightParagraphs(state: StateBlock, idx: number) {
   }
 }
 
-export default function list(
+export default async function list(
   state: StateBlock,
   startLine: number,
   endLine: number,
@@ -284,7 +284,7 @@ export default function list(
       // ~~~~~~~~
       state.line = Math.min(state.line + 2, endLine);
     } else {
-      state.md.block.tokenize(state, nextLine, endLine, true);
+      await state.md.block.tokenize(state, nextLine, endLine, true);
     }
 
     // If any of list item is tight, mark list as tight

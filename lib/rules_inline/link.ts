@@ -4,7 +4,10 @@ import { isSpace, normalizeReference } from "../common/utils";
 import { Attr } from "../token";
 import StateInline from "./state_inline";
 
-export default function link(state: StateInline, silent: boolean = false) {
+export default async function link(
+  state: StateInline,
+  silent: boolean = false,
+) {
   let code, label, res, ref;
   let href = "";
   let title = "";
@@ -145,7 +148,7 @@ export default function link(state: StateInline, silent: boolean = false) {
     }
 
     state.linkLevel++;
-    state.md.inline.tokenize(state);
+    await state.md.inline.tokenize(state);
     state.linkLevel--;
 
     state.push("link_close", "a", -1);

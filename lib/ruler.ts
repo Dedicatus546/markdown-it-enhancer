@@ -1,6 +1,7 @@
 import StateBlock from "./rules_block/state_block";
 import StateCore from "./rules_core/state_core";
 import StateInline from "./rules_inline/state_inline";
+import { Awaitable } from "./type_utils";
 
 export interface Rule<T> {
   name: string;
@@ -15,11 +16,11 @@ export interface StateBlockRuleFn<T> {
     startLine: number,
     endLine: number,
     silent?: boolean,
-  ): undefined | void | boolean;
+  ): Awaitable<undefined | void | boolean>;
 }
 
 export interface StateInlineRuleFn<T> {
-  (state: T, silent?: boolean): undefined | void | boolean;
+  (state: T, silent?: boolean): Awaitable<undefined | void | boolean>;
 }
 
 export type RuleFn<T> = T extends StateBlock
@@ -27,8 +28,8 @@ export type RuleFn<T> = T extends StateBlock
   : T extends StateInline
     ? StateInlineRuleFn<T>
     : T extends StateCore
-      ? (state: T) => undefined | void | boolean
-      : () => undefined | void | boolean;
+      ? (state: T) => Awaitable<undefined | void | boolean>
+      : () => Awaitable<void>;
 
 /**
  * class Ruler

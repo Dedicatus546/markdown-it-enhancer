@@ -141,7 +141,7 @@ class ParserInline {
 
   // Generate tokens for input range
   //
-  tokenize(state: StateInline) {
+  async tokenize(state: StateInline) {
     const rules = this.ruler.getRules("");
     const len = rules.length;
     const end = state.posMax;
@@ -159,7 +159,7 @@ class ParserInline {
 
       if (state.level < maxNesting) {
         for (let i = 0; i < len; i++) {
-          ok = rules[i](state, false);
+          ok = await rules[i](state, false);
           if (ok) {
             if (prevPos >= state.pos) {
               throw new Error("inline rule didn't increment state.pos");
@@ -189,7 +189,7 @@ class ParserInline {
    *
    * Process input string and push inline tokens into `outTokens`
    **/
-  parse(
+  async parse(
     str: string,
     md: MarkdownIt,
     env: Record<string, unknown> = {},
@@ -197,13 +197,13 @@ class ParserInline {
   ) {
     const state = new StateInline(str, md, env, outTokens);
 
-    this.tokenize(state);
+    await this.tokenize(state);
 
     const rules = this.ruler2.getRules("");
     const len = rules.length;
 
     for (let i = 0; i < len; i++) {
-      rules[i](state);
+      await rules[i](state);
     }
   }
 }

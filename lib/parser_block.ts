@@ -62,7 +62,7 @@ class ParserBlock {
 
   // Generate tokens for input range
   //
-  tokenize(
+  async tokenize(
     state: StateBlock,
     startLine: number,
     endLine: number,
@@ -104,7 +104,7 @@ class ParserBlock {
       let ok: boolean | undefined | void = false;
 
       for (let i = 0; i < len; i++) {
-        ok = rules[i](state, line, endLine, false);
+        ok = await rules[i](state, line, endLine, false);
         if (ok) {
           if (prevLine >= state.line) {
             throw new Error("block rule didn't increment state.line");
@@ -140,7 +140,7 @@ class ParserBlock {
    *
    * Process input string and push block tokens into `outTokens`
    **/
-  parse(
+  async parse(
     src: string,
     md: MarkdownIt,
     env: Record<string, unknown> = {},
@@ -152,7 +152,7 @@ class ParserBlock {
 
     const state = new StateBlock(src, md, env, outTokens);
 
-    this.tokenize(state, state.line, state.lineMax);
+    await this.tokenize(state, state.line, state.lineMax);
   }
 }
 
