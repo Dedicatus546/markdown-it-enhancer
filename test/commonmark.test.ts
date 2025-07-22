@@ -14,7 +14,7 @@ function normalize(text: string) {
 function generate(path: string, md: MarkdownIt) {
   load(path, function (data) {
     data.meta = data.meta || {};
-    const recordMeta = data.meta as Record<string, any>;
+    const recordMeta = data.meta as Record<string, string>;
 
     const desc = recordMeta.desc || relative(path, data.file);
 

@@ -1,7 +1,6 @@
 import { describe, it, assert } from "vitest";
 import fs from "fs";
 import p from "path";
-// @ts-expect-error ignore
 import yaml from "js-yaml";
 import { MarkdownIt } from "../lib";
 
@@ -12,7 +11,7 @@ function toString(obj: unknown): string {
 function isString(obj: unknown): obj is string {
   return toString(obj) === "[object String]";
 }
-function isFunction(obj: unknown): obj is (...args: any[]) => any {
+function isFunction(obj: unknown): obj is (...args: unknown[]) => unknown {
   return toString(obj) === "[object Function]";
 }
 function isArray(obj: unknown): obj is Array<unknown> {
@@ -36,7 +35,7 @@ interface ParsedData {
       range: Array<number>;
     };
   }>;
-  meta: string | Record<string, any> | null;
+  meta: string | Record<string, unknown> | null;
   file: string;
 }
 
@@ -190,7 +189,8 @@ function load(
 
     parsed.file = path;
     try {
-      parsed.meta = yaml.load(parsed.meta || "");
+      // @ts-expect-error no-check
+      parsed.meta = yaml.load((parsed.meta as string | null) ?? "");
     } catch {
       parsed.meta = null;
     }
@@ -224,7 +224,7 @@ function load(
 function generate(path: string, md: MarkdownIt) {
   load(path, function (data) {
     data.meta = data.meta || {};
-    const recordMeta = data.meta as Record<string, any>;
+    const recordMeta = data.meta as Record<string, string>;
 
     const desc = recordMeta.desc || p.relative(path, data.file);
 
