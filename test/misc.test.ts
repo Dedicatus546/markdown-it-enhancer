@@ -1,11 +1,12 @@
-import Token from "../lib/token";
+// @ts-expect-error ignore
+import forInline from "markdown-it-for-inline";
+import { assert, describe, expect, it } from "vitest";
+
 import MarkdownIt, {
   MarkdownIt as MarkdownItClass,
   MarkdownItPlugin,
 } from "../lib";
-// @ts-expect-error ignore
-import forInline from "markdown-it-for-inline";
-import { assert, describe, expect, it } from "vitest";
+import Token from "../lib/token";
 
 declare function forInline(
   md: MarkdownItClass,

@@ -1,5 +1,6 @@
-import Token from "../lib/token";
 import { assert, describe, it } from "vitest";
+
+import Token from "../lib/token";
 
 describe("Token", function () {
   it("attr", function () {

@@ -1,5 +1,6 @@
+import { assert, describe, it } from "vitest";
+
 import MarkdownIt, { setTableMaxAutoCompletedCells } from "../lib";
-import { describe, assert, it } from "vitest";
 
 describe("markdown-it-extra", () => {
   it("don't parse when --- indented more than 3 spaces", async () => {

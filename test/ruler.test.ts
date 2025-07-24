@@ -1,5 +1,6 @@
-import Ruler from "../lib/ruler";
 import { assert, describe, it } from "vitest";
+
+import Ruler from "../lib/ruler";
 
 describe("Ruler", function () {
   it("should replace rule (.at)", function () {

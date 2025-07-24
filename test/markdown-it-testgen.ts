@@ -1,7 +1,8 @@
-import { describe, it, assert } from "vitest";
 import fs from "fs";
-import p from "path";
 import yaml from "js-yaml";
+import p from "path";
+import { assert, describe, it } from "vitest";
+
 import { MarkdownIt } from "../lib";
 
 function toString(obj: unknown): string {

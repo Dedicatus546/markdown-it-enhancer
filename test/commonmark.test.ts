@@ -1,8 +1,10 @@
-import { fileURLToPath } from "node:url";
 import { relative } from "node:path";
-import { load } from "./markdown-it-testgen";
-import { MarkdownIt } from "../lib";
+import { fileURLToPath } from "node:url";
+
 import { assert, describe, it } from "vitest";
+
+import { MarkdownIt } from "../lib";
+import { load } from "./markdown-it-testgen";
 
 function normalize(text: string) {
   return text.replace(

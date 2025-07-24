@@ -1,5 +1,6 @@
+import { assert, describe, it } from "vitest";
+
 import MarkdownIt from "../lib";
-import { describe, it, assert } from "vitest";
 
 describe("test", () => {
   it("don't parse when reference indented more than 3 spaces", async () => {

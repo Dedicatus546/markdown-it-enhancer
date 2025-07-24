@@ -1,5 +1,7 @@
 import crypto from "node:crypto";
+
 import { assert, describe, it } from "vitest";
+
 import MarkdownIt from "../lib";
 
 const pathologicalMd5 = "80e12450752e4667b3656fa2cd12e9d5";

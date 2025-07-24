@@ -1,5 +1,6 @@
-import * as utils from "../lib/common/utils";
 import { assert, describe, it } from "vitest";
+
+import * as utils from "../lib/common/utils";
 
 describe("Utils", function () {
   it("fromCodePoint", function () {

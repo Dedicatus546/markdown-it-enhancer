@@ -1,7 +1,9 @@
 import { fileURLToPath } from "node:url";
-import generate from "./markdown-it-testgen";
-import MarkdownIt from "../lib";
+
 import { describe } from "vitest";
+
+import MarkdownIt from "../lib";
+import generate from "./markdown-it-testgen";
 
 describe("markdown-it", function () {
   const md = new MarkdownIt({
