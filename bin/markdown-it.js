@@ -2,7 +2,9 @@
 /* eslint no-console:0 */
 
 import fs from "node:fs";
+
 import argparse from "argparse";
+
 import markdownit from "../dist/index.js";
 
 const cli = new argparse.ArgumentParser({
