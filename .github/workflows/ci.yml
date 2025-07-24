@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ '18' ]
+        node-version: [ '24' ]
 
     steps:
     - uses: actions/checkout@v4
@@ -23,10 +23,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - run: npm install
+    - run: pnpm install
 
     - name: Test
-      run: npm test
+      run: pnpm test
 
     - name: Upload coverage report to coveralls.io
       uses: coverallsapp/github-action@master
