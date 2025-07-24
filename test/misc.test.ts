@@ -240,8 +240,7 @@ describe("Misc", function () {
   it("Should replace NULL characters", async () => {
     const md = new MarkdownIt();
 
-    assert.strictEqual(
-      await md.render("foo\u0000bar"),
+    await expect(md.render("foo\u0000bar")).resolves.toBe(
       "<p>foo\uFFFDbar</p>\n",
     );
   });
@@ -249,15 +248,13 @@ describe("Misc", function () {
   it("Should correctly parse strings without tailing \\n", async () => {
     const md = new MarkdownIt();
 
-    assert.strictEqual(await md.render("123"), "<p>123</p>\n");
-    assert.strictEqual(await md.render("123\n"), "<p>123</p>\n");
+    await expect(md.render("123")).resolves.toBe("<p>123</p>\n");
+    await expect(md.render("123\n")).resolves.toBe("<p>123</p>\n");
 
-    assert.strictEqual(
-      await md.render("    codeblock"),
+    await expect(md.render("    codeblock")).resolves.toBe(
       "<pre><code>codeblock\n</code></pre>\n",
     );
-    assert.strictEqual(
-      await md.render("    codeblock\n"),
+    await expect(md.render("    codeblock\n")).resolves.toBe(
       "<pre><code>codeblock\n</code></pre>\n",
     );
   });
@@ -265,13 +262,13 @@ describe("Misc", function () {
   it("Should quickly exit on empty string", async () => {
     const md = new MarkdownIt();
 
-    assert.strictEqual(await md.render(""), "");
+    await expect(md.render("")).resolves.toBe("");
   });
 
   it("Should parse inlines only", async () => {
     const md = new MarkdownIt();
 
-    assert.strictEqual(await md.renderInline("a *b* c"), "a <em>b</em> c");
+    await expect(md.renderInline("a *b* c")).resolves.toBe("a <em>b</em> c");
   });
 
   it("Renderer should have pluggable inline and block rules", async () => {
@@ -290,23 +287,21 @@ describe("Misc", function () {
       return "</par>";
     };
 
-    assert.strictEqual(await md.render("*b*"), "<par><it>b</it></par>");
+    await expect(md.render("*b*")).resolves.toBe("<par><it>b</it></par>");
   });
 
   it("Zero preset should disable everything", async () => {
     const md = new MarkdownIt("zero");
 
-    assert.strictEqual(await md.render("___foo___"), "<p>___foo___</p>\n");
-    assert.strictEqual(await md.renderInline("___foo___"), "___foo___");
+    await expect(md.render("___foo___")).resolves.toBe("<p>___foo___</p>\n");
+    await expect(md.renderInline("___foo___")).resolves.toBe("___foo___");
 
     md.enable("emphasis");
 
-    assert.strictEqual(
-      await md.render("___foo___"),
+    await expect(md.render("___foo___")).resolves.toBe(
       "<p><em><strong>foo</strong></em></p>\n",
     );
-    assert.strictEqual(
-      await md.renderInline("___foo___"),
+    await expect(md.renderInline("___foo___")).resolves.toBe(
       "<em><strong>foo</strong></em>",
     );
   });
@@ -314,7 +309,7 @@ describe("Misc", function () {
   it("Should correctly check block termination rules when those are disabled (#13)", async () => {
     const md = new MarkdownIt("zero");
 
-    assert.strictEqual(await md.render("foo\nbar"), "<p>foo\nbar</p>\n");
+    await expect(md.render("foo\nbar")).resolves.toBe("<p>foo\nbar</p>\n");
   });
 
   it("Should render link target attr", async () => {
@@ -327,8 +322,7 @@ describe("Misc", function () {
       },
     );
 
-    assert.strictEqual(
-      await md.render("[foo](bar)"),
+    await expect(md.render("[foo](bar)")).resolves.toBe(
       '<p><a href="bar" target="_blank">foo</a></p>\n',
     );
   });
@@ -336,30 +330,33 @@ describe("Misc", function () {
   it("Should normalize CR to LF", async () => {
     const md = new MarkdownIt();
 
-    assert.strictEqual(
-      await md.render("# test\r\r - hello\r - world\r"),
-      await md.render("# test\n\n - hello\n - world\n"),
-    );
+    const [v1, v2] = await Promise.all([
+      md.render("# test\r\r - hello\r - world\r"),
+      md.render("# test\n\n - hello\n - world\n"),
+    ]);
+
+    expect(v1).toBe(v2);
   });
 
   it("Should normalize CR+LF to LF", async () => {
     const md = new MarkdownIt();
 
-    assert.strictEqual(
-      await md.render("# test\r\n\r\n - hello\r\n - world\r\n"),
-      await md.render("# test\n\n - hello\n - world\n"),
-    );
+    const [v1, v2] = await Promise.all([
+      md.render("# test\r\n\r\n - hello\r\n - world\r\n"),
+      md.render("# test\n\n - hello\n - world\n"),
+    ]);
+
+    expect(v1).toBe(v2);
   });
 
   it("Should escape surrogate pairs (coverage)", async () => {
     const md = new MarkdownIt();
 
-    assert.strictEqual(
-      await md.render("\\\uD835\uDC9C"),
+    await expect(md.render("\\\uD835\uDC9C")).resolves.toBe(
       "<p>\\\uD835\uDC9C</p>\n",
     );
-    assert.strictEqual(await md.render("\\\uD835x"), "<p>\\\uD835x</p>\n");
-    assert.strictEqual(await md.render("\\\uD835"), "<p>\\\uD835</p>\n");
+    await expect(md.render("\\\uD835x")).resolves.toBe("<p>\\\uD835x</p>\n");
+    await expect(md.render("\\\uD835")).resolves.toBe("<p>\\\uD835</p>\n");
   });
 });
 
@@ -376,28 +373,22 @@ describe("Url normalization", function () {
       return "TEXT";
     };
 
-    assert.strictEqual(
-      await md.render("foo@example.com"),
+    await expect(md.render("foo@example.com")).resolves.toBe(
       '<p><a href="LINK">TEXT</a></p>\n',
     );
-    assert.strictEqual(
-      await md.render("http://example.com"),
+    await expect(md.render("http://example.com")).resolves.toBe(
       '<p><a href="LINK">TEXT</a></p>\n',
     );
-    assert.strictEqual(
-      await md.render("<foo@example.com>"),
+    await expect(md.render("<foo@example.com>")).resolves.toBe(
       '<p><a href="LINK">TEXT</a></p>\n',
     );
-    assert.strictEqual(
-      await md.render("<http://example.com>"),
+    await expect(md.render("<http://example.com>")).resolves.toBe(
       '<p><a href="LINK">TEXT</a></p>\n',
     );
-    assert.strictEqual(
-      await md.render("[test](http://example.com)"),
+    await expect(md.render("[test](http://example.com)")).resolves.toBe(
       '<p><a href="LINK">test</a></p>\n',
     );
-    assert.strictEqual(
-      await md.render("![test](http://example.com)"),
+    await expect(md.render("![test](http://example.com)")).resolves.toBe(
       '<p><img src="LINK" alt="test"></p>\n',
     );
   });
@@ -411,28 +402,22 @@ describe("Links validation", function () {
       return false;
     };
 
-    assert.strictEqual(
-      await md.render("foo@example.com"),
+    await expect(md.render("foo@example.com")).resolves.toBe(
       "<p>foo@example.com</p>\n",
     );
-    assert.strictEqual(
-      await md.render("http://example.com"),
+    await expect(md.render("http://example.com")).resolves.toBe(
       "<p>http://example.com</p>\n",
     );
-    assert.strictEqual(
-      await md.render("<foo@example.com>"),
+    await expect(md.render("<foo@example.com>")).resolves.toBe(
       "<p>&lt;foo@example.com&gt;</p>\n",
     );
-    assert.strictEqual(
-      await md.render("<http://example.com>"),
+    await expect(md.render("<http://example.com>")).resolves.toBe(
       "<p>&lt;http://example.com&gt;</p>\n",
     );
-    assert.strictEqual(
-      await md.render("[test](http://example.com)"),
+    await expect(md.render("[test](http://example.com)")).resolves.toBe(
       "<p>[test](http://example.com)</p>\n",
     );
-    assert.strictEqual(
-      await md.render("![test](http://example.com)"),
+    await expect(md.render("![test](http://example.com)")).resolves.toBe(
       "<p>![test](http://example.com)</p>\n",
     );
   });
@@ -442,8 +427,7 @@ describe("maxNesting", function () {
   it("Block parser should not nest above limit", async () => {
     // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 2 });
-    assert.strictEqual(
-      await md.render(">foo\n>>bar\n>>>baz"),
+    expect(md.render(">foo\n>>bar\n>>>baz")).resolves.toBe(
       "<blockquote>\n<p>foo</p>\n<blockquote></blockquote>\n</blockquote>\n",
     );
   });
@@ -451,8 +435,7 @@ describe("maxNesting", function () {
   it("Inline parser should not nest above limit", async () => {
     // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 1 });
-    assert.strictEqual(
-      await md.render("[`foo`]()"),
+    await expect(md.render("[`foo`]()")).resolves.toBe(
       '<p><a href="">`foo`</a></p>\n',
     );
   });
@@ -460,8 +443,7 @@ describe("maxNesting", function () {
   it("Inline nesting coverage", async () => {
     // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 2 });
-    assert.strictEqual(
-      await md.render("[[[[[[[[[[[[[[[[[[foo]()"),
+    await expect(md.render("[[[[[[[[[[[[[[[[[[foo]()")).resolves.toBe(
       "<p>[[[[[[[[[[[[[[[[[[foo]()</p>\n",
     );
   });
@@ -477,22 +459,19 @@ describe("smartquotes", function () {
   });
 
   it("Should support multi-character quotes", async () => {
-    assert.strictEqual(
-      await md.render("\"foo\" 'bar'"),
+    await expect(md.render("\"foo\" 'bar'")).resolves.toBe(
       "<p>[[[foo]] (((((bar))))</p>\n",
     );
   });
 
   it("Should support nested multi-character quotes", async () => {
-    assert.strictEqual(
-      await md.render("\"foo 'bar' baz\""),
+    await expect(md.render("\"foo 'bar' baz\"")).resolves.toBe(
       "<p>[[[foo (((((bar)))) baz]]</p>\n",
     );
   });
 
   it("Should support multi-character quotes in different tags", async () => {
-    assert.strictEqual(
-      await md.render("\"a *b 'c *d* e' f* g\""),
+    await expect(md.render("\"a *b 'c *d* e' f* g\"")).resolves.toBe(
       "<p>[[[a <em>b (((((c <em>d</em> e)))) f</em> g]]</p>\n",
     );
   });
@@ -509,28 +488,28 @@ describe("Ordered list info", function () {
 
   it("Should mark ordered list item tokens with info", async () => {
     let tokens = await md.parse("1. Foo\n2. Bar\n20. Fuzz");
-    assert.strictEqual(type_filter(tokens, "ordered_list_open").length, 1);
+    expect(type_filter(tokens, "ordered_list_open").length).toBe(1);
     tokens = type_filter(tokens, "list_item_open");
-    assert.strictEqual(tokens.length, 3);
-    assert.strictEqual(tokens[0].info, "1");
-    assert.strictEqual(tokens[0].markup, ".");
-    assert.strictEqual(tokens[1].info, "2");
-    assert.strictEqual(tokens[1].markup, ".");
-    assert.strictEqual(tokens[2].info, "20");
-    assert.strictEqual(tokens[2].markup, ".");
+    expect(tokens.length).toBe(3);
+    expect(tokens[0].info).toBe("1");
+    expect(tokens[0].markup).toBe(".");
+    expect(tokens[1].info).toBe("2");
+    expect(tokens[1].markup).toBe(".");
+    expect(tokens[2].info).toBe("20");
+    expect(tokens[2].markup).toBe(".");
 
     tokens = await md.parse(" 1. Foo\n2. Bar\n  20. Fuzz\n 199. Flp");
-    assert.strictEqual(type_filter(tokens, "ordered_list_open").length, 1);
+    expect(type_filter(tokens, "ordered_list_open").length).toBe(1);
     tokens = type_filter(tokens, "list_item_open");
-    assert.strictEqual(tokens.length, 4);
-    assert.strictEqual(tokens[0].info, "1");
-    assert.strictEqual(tokens[0].markup, ".");
-    assert.strictEqual(tokens[1].info, "2");
-    assert.strictEqual(tokens[1].markup, ".");
-    assert.strictEqual(tokens[2].info, "20");
-    assert.strictEqual(tokens[2].markup, ".");
-    assert.strictEqual(tokens[3].info, "199");
-    assert.strictEqual(tokens[3].markup, ".");
+    expect(tokens.length).toBe(4);
+    expect(tokens[0].info).toBe("1");
+    expect(tokens[0].markup).toBe(".");
+    expect(tokens[1].info).toBe("2");
+    expect(tokens[1].markup).toBe(".");
+    expect(tokens[2].info).toBe("20");
+    expect(tokens[2].markup).toBe(".");
+    expect(tokens[3].info).toBe("199");
+    expect(tokens[3].markup).toBe(".");
   });
 });
 
@@ -544,8 +523,7 @@ describe("Token attributes", function () {
     t.attrJoin("class", "foo");
     t.attrJoin("class", "bar");
 
-    assert.strictEqual(
-      await md.renderer.render(tokens, md.options),
+    await expect(md.renderer.render(tokens, md.options)).resolves.toBe(
       '<pre><code class="foo bar"></code></pre>\n',
     );
   });
@@ -558,15 +536,13 @@ describe("Token attributes", function () {
 
     t.attrSet("class", "foo");
 
-    assert.strictEqual(
-      await md.renderer.render(tokens, md.options),
+    await expect(md.renderer.render(tokens, md.options)).resolves.toBe(
       '<pre><code class="foo"></code></pre>\n',
     );
 
     t.attrSet("class", "bar");
 
-    assert.strictEqual(
-      await md.renderer.render(tokens, md.options),
+    await expect(md.renderer.render(tokens, md.options)).resolves.toBe(
       '<pre><code class="bar"></code></pre>\n',
     );
   });
@@ -577,10 +553,10 @@ describe("Token attributes", function () {
     const tokens = await md.parse("```");
     const t = tokens[0];
 
-    assert.strictEqual(t.attrGet("myattr"), null);
+    expect(t.attrGet("myattr")).toBe(null);
 
     t.attrSet("myattr", "myvalue");
 
-    assert.strictEqual(t.attrGet("myattr"), "myvalue");
+    expect(t.attrGet("myattr")).toBe("myvalue");
   });
 });
