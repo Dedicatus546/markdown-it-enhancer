@@ -1,7 +1,18 @@
-import MarkdownIt, { MarkdownItPlugin } from "../lib";
+import Token from "../lib/token";
+import MarkdownIt, {
+  MarkdownIt as MarkdownItClass,
+  MarkdownItPlugin,
+} from "../lib";
 // @ts-expect-error ignore
 import forInline from "markdown-it-for-inline";
 import { assert, describe, expect, it } from "vitest";
+
+declare function forInline(
+  md: MarkdownItClass,
+  ruleName: string,
+  tokenType: string,
+  iterator: (tokenList: Array<Token>, i: number) => void,
+): void;
 
 describe("API", function () {
   it("constructor", async function () {
@@ -312,7 +323,7 @@ describe("Misc", function () {
       "target",
       "link_open",
       function (tokens, idx) {
-        tokens[idx].attrs.push(["target", "_blank"]);
+        tokens[idx].attrPush(["target", "_blank"]);
       },
     );
 
@@ -490,7 +501,7 @@ describe("smartquotes", function () {
 describe("Ordered list info", function () {
   const md = new MarkdownIt();
 
-  function type_filter(tokens, type) {
+  function type_filter(tokens: Array<Token>, type: string) {
     return tokens.filter(function (t) {
       return t.type === type;
     });
