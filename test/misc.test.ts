@@ -15,7 +15,7 @@ declare function forInline(
   iterator: (tokenList: Array<Token>, i: number) => void,
 ): void;
 
-describe("API", function () {
+describe("API", () => {
   it("constructor", async () => {
     // @ts-expect-error no-check
     expect(() => new MarkdownIt("bad preset")).throws();
@@ -69,7 +69,7 @@ describe("API", function () {
 
   it("highlight escape by default", async () => {
     const md = new MarkdownIt({
-      highlight: function () {
+      highlight() {
         return "";
       },
     });
@@ -123,7 +123,7 @@ describe("API", function () {
     assert.strictEqual(await md.render("a  \\\nb"), "<p>a  <br>\nb</p>\n");
   });
 
-  it("bulk enable/disable rules in different chains", function () {
+  it("bulk enable/disable rules in different chains", () => {
     const md = new MarkdownIt();
 
     const was = {
@@ -155,7 +155,7 @@ describe("API", function () {
     assert.deepEqual(was, back);
   });
 
-  it("bulk enable/disable with errors control", function () {
+  it("bulk enable/disable with errors control", () => {
     const md = new MarkdownIt();
 
     expect(() => md.enable(["link", "code", "invalid"])).throws();
@@ -184,7 +184,7 @@ describe("API", function () {
   });
 });
 
-describe("Plugins", function () {
+describe("Plugins", () => {
   it("should not loop infinitely if all rules are disabled", async () => {
     const md = new MarkdownIt();
 
@@ -236,7 +236,7 @@ describe("Plugins", function () {
   });
 });
 
-describe("Misc", function () {
+describe("Misc", () => {
   it("Should replace NULL characters", async () => {
     const md = new MarkdownIt();
 
@@ -274,16 +274,16 @@ describe("Misc", function () {
   it("Renderer should have pluggable inline and block rules", async () => {
     const md = new MarkdownIt();
 
-    md.renderer.rules.em_open = function () {
+    md.renderer.rules.em_open = () => {
       return "<it>";
     };
-    md.renderer.rules.em_close = function () {
+    md.renderer.rules.em_close = () => {
       return "</it>";
     };
-    md.renderer.rules.paragraph_open = function () {
+    md.renderer.rules.paragraph_open = () => {
       return "<par>";
     };
-    md.renderer.rules.paragraph_close = function () {
+    md.renderer.rules.paragraph_close = () => {
       return "</par>";
     };
 
@@ -360,7 +360,7 @@ describe("Misc", function () {
   });
 });
 
-describe("Url normalization", function () {
+describe("Url normalization", () => {
   it("Should be overridable", async () => {
     const md = new MarkdownIt({ linkify: true });
 
@@ -394,11 +394,11 @@ describe("Url normalization", function () {
   });
 });
 
-describe("Links validation", function () {
+describe("Links validation", () => {
   it("Override validator, disable everything", async () => {
     const md = new MarkdownIt({ linkify: true });
 
-    md.validateLink = function () {
+    md.validateLink = () => {
       return false;
     };
 
@@ -423,7 +423,7 @@ describe("Links validation", function () {
   });
 });
 
-describe("maxNesting", function () {
+describe("maxNesting", () => {
   it("Block parser should not nest above limit", async () => {
     // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 2 });
@@ -449,7 +449,7 @@ describe("maxNesting", function () {
   });
 });
 
-describe("smartquotes", function () {
+describe("smartquotes", () => {
   const md = new MarkdownIt({
     typographer: true,
 
@@ -477,7 +477,7 @@ describe("smartquotes", function () {
   });
 });
 
-describe("Ordered list info", function () {
+describe("Ordered list info", () => {
   const md = new MarkdownIt();
 
   function type_filter(tokens: Array<Token>, type: string) {
@@ -513,7 +513,7 @@ describe("Ordered list info", function () {
   });
 });
 
-describe("Token attributes", function () {
+describe("Token attributes", () => {
   it(".attrJoin", async () => {
     const md = new MarkdownIt();
 

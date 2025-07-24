@@ -20,13 +20,13 @@ function generate(path: string, md: MarkdownIt) {
 
     const desc = recordMeta.desc || relative(path, data.file);
 
-    (recordMeta.skip ? describe.skip : describe)(desc, function () {
+    (recordMeta.skip ? describe.skip : describe)(desc, () => {
       data.fixtures.forEach(function (fixture) {
         it(
           fixture.header
             ? fixture.header
             : "line " + (fixture.first.range[0] - 1),
-          async function () {
+          async () => {
             const target = normalize(fixture.second.text);
             await expect(md.render(fixture.first.text)).resolves.toBe(target);
           },
@@ -36,7 +36,7 @@ function generate(path: string, md: MarkdownIt) {
   });
 }
 
-describe("CommonMark", function () {
+describe("CommonMark", () => {
   const md = new MarkdownIt("commonmark");
 
   generate(

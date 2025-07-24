@@ -1,9 +1,9 @@
-import { assert, describe, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import Ruler from "../lib/ruler";
 
-describe("Ruler", function () {
-  it("should replace rule (.at)", function () {
+describe("Ruler", () => {
+  it("should replace rule (.at)", () => {
     const ruler = new Ruler();
     let res = 0;
 
@@ -16,12 +16,12 @@ describe("Ruler", function () {
 
     const rules = ruler.getRules("");
 
-    assert.strictEqual(rules.length, 1);
+    expect(rules.length).toBe(1);
     rules[0]();
-    assert.strictEqual(res, 2);
+    expect(res).toBe(2);
   });
 
-  it("should inject before/after rule", function () {
+  it("should inject before/after rule", () => {
     const ruler = new Ruler();
     let res = 0;
 
@@ -37,16 +37,16 @@ describe("Ruler", function () {
 
     const rules = ruler.getRules("");
 
-    assert.strictEqual(rules.length, 3);
+    expect(rules.length).toBe(3);
     rules[0]();
-    assert.strictEqual(res, -10);
+    expect(res).toBe(-10);
     rules[1]();
-    assert.strictEqual(res, 1);
+    expect(res).toBe(1);
     rules[2]();
-    assert.strictEqual(res, 10);
+    expect(res).toBe(10);
   });
 
-  it("should enable/disable rule", function () {
+  it("should enable/disable rule", () => {
     const ruler = new Ruler();
     let rules;
 
@@ -54,24 +54,24 @@ describe("Ruler", function () {
     ruler.push("test2", function bar() {});
 
     rules = ruler.getRules("");
-    assert.strictEqual(rules.length, 2);
+    expect(rules.length).toBe(2);
 
     ruler.disable("test");
     rules = ruler.getRules("");
-    assert.strictEqual(rules.length, 1);
+    expect(rules.length).toBe(1);
     ruler.disable("test2");
     rules = ruler.getRules("");
-    assert.strictEqual(rules.length, 0);
+    expect(rules.length).toBe(0);
 
     ruler.enable("test");
     rules = ruler.getRules("");
-    assert.strictEqual(rules.length, 1);
+    expect(rules.length).toBe(1);
     ruler.enable("test2");
     rules = ruler.getRules("");
-    assert.strictEqual(rules.length, 2);
+    expect(rules.length).toBe(2);
   });
 
-  it("should enable/disable multiple rule", function () {
+  it("should enable/disable multiple rule", () => {
     const ruler = new Ruler();
     let rules;
 
@@ -80,13 +80,13 @@ describe("Ruler", function () {
 
     ruler.disable(["test", "test2"]);
     rules = ruler.getRules("");
-    assert.strictEqual(rules.length, 0);
+    expect(rules.length).toBe(0);
     ruler.enable(["test", "test2"]);
     rules = ruler.getRules("");
-    assert.strictEqual(rules.length, 2);
+    expect(rules.length).toBe(2);
   });
 
-  it("should enable rules by whitelist", function () {
+  it("should enable rules by whitelist", () => {
     const ruler = new Ruler();
 
     ruler.push("test", function foo() {});
@@ -94,10 +94,10 @@ describe("Ruler", function () {
 
     ruler.enableOnly("test");
     const rules = ruler.getRules("");
-    assert.strictEqual(rules.length, 1);
+    expect(rules.length).toBe(1);
   });
 
-  it("should support multiple chains", function () {
+  it("should support multiple chains", () => {
     const ruler = new Ruler();
     let rules;
 
@@ -106,48 +106,36 @@ describe("Ruler", function () {
     ruler.push("test2", function bar() {}, { alt: ["alt1", "alt2"] });
 
     rules = ruler.getRules("");
-    assert.strictEqual(rules.length, 3);
+    expect(rules.length).toBe(3);
     rules = ruler.getRules("alt1");
-    assert.strictEqual(rules.length, 2);
+    expect(rules.length).toBe(2);
     rules = ruler.getRules("alt2");
-    assert.strictEqual(rules.length, 1);
+    expect(rules.length).toBe(1);
   });
 
-  it("should fail on invalid rule name", function () {
+  it("should fail on invalid rule name", () => {
     const ruler = new Ruler();
 
     ruler.push("test", function foo() {});
 
-    assert.throws(function () {
-      ruler.at("invalid name", function bar() {});
-    });
-    assert.throws(function () {
-      ruler.before("invalid name", "bar", function bar() {});
-    });
-    assert.throws(function () {
-      ruler.after("invalid name", "bar", function bar() {});
-    });
-    assert.throws(function () {
-      ruler.enable("invalid name");
-    });
-    assert.throws(function () {
-      ruler.disable("invalid name");
-    });
+    expect(() => ruler.at("invalid name", function bar() {})).throws();
+    expect(() =>
+      ruler.before("invalid name", "bar", function bar() {}),
+    ).throws();
+    expect(() =>
+      ruler.after("invalid name", "bar", function bar() {}),
+    ).throws();
+    expect(() => ruler.enable("invalid name")).throws();
+    expect(() => ruler.disable("invalid name")).throws();
   });
 
-  it("should not fail on invalid rule name in silent mode", function () {
+  it("should not fail on invalid rule name in silent mode", () => {
     const ruler = new Ruler();
 
     ruler.push("test", function foo() {});
 
-    assert.doesNotThrow(function () {
-      ruler.enable("invalid name", true);
-    });
-    assert.doesNotThrow(function () {
-      ruler.enableOnly("invalid name", true);
-    });
-    assert.doesNotThrow(function () {
-      ruler.disable("invalid name", true);
-    });
+    expect(() => ruler.enable("invalid name", true)).not.throws();
+    expect(() => ruler.enableOnly("invalid name", true)).not.throws();
+    expect(() => ruler.disable("invalid name", true)).not.throws();
   });
 });

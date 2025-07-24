@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 
-import { assert, describe, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import MarkdownIt from "../lib";
 
@@ -14,7 +14,7 @@ async function render(str: string) {
 
 describe("Pathological sequences speed", () => {
   it("Integrity check", async () => {
-    assert.strictEqual(await render("foo"), "<p>foo</p>\n");
+    await expect(render("foo")).resolves.toBe("<p>foo</p>\n");
   });
 
   // Ported from cmark, https://github.com/commonmark/cmark/blob/master/test/pathological_tests.py
@@ -32,11 +32,10 @@ describe("Pathological sequences speed", () => {
         .update(await src.text())
         .digest("hex");
 
-      assert.strictEqual(
+      expect(
         src_md5,
-        pathologicalMd5,
         "CRC or cmark pathological tests hanged. Verify and update pathological.json",
-      );
+      ).toBe(pathologicalMd5);
     });
 
     it("nested inlines", async () => {

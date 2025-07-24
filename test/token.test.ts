@@ -1,19 +1,19 @@
-import { assert, describe, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import Token from "../lib/token";
 
-describe("Token", function () {
-  it("attr", function () {
+describe("Token", () => {
+  it("attr", () => {
     const t = new Token("test_token", "tok", 1);
 
-    assert.strictEqual(t.attrs, null);
-    assert.equal(t.attrIndex("foo"), -1);
+    expect(t.attrs).toBe(null);
+    expect(t.attrIndex("foo")).toBe(-1);
 
     t.attrPush(["foo", "bar"]);
     t.attrPush(["baz", "bad"]);
 
-    assert.equal(t.attrIndex("foo"), 0);
-    assert.equal(t.attrIndex("baz"), 1);
-    assert.equal(t.attrIndex("none"), -1);
+    expect(t.attrIndex("foo")).toBe(0);
+    expect(t.attrIndex("baz")).toBe(1);
+    expect(t.attrIndex("none")).toBe(-1);
   });
 });

@@ -229,13 +229,13 @@ function generate(path: string, md: MarkdownIt) {
 
     const desc = recordMeta.desc || p.relative(path, data.file);
 
-    (recordMeta.skip ? describe.skip : describe)(desc, function () {
+    (recordMeta.skip ? describe.skip : describe)(desc, () => {
       data.fixtures.forEach(function (fixture) {
         it(
           fixture.header
             ? fixture.header
             : "line " + (fixture.first.range[0] - 1),
-          async function () {
+          async () => {
             await expect(md.render(fixture.first.text)).resolves.toBe(
               fixture.second.text,
             );

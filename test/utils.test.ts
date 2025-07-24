@@ -1,83 +1,70 @@
-import { assert, describe, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import * as utils from "../lib/common/utils";
 
-describe("Utils", function () {
-  it("fromCodePoint", function () {
+describe("Utils", () => {
+  it("fromCodePoint", () => {
     const fromCodePoint = utils.fromCodePoint;
 
-    assert.strictEqual(fromCodePoint(0x20), " ");
-    assert.strictEqual(fromCodePoint(0x1f601), "😁");
+    expect(fromCodePoint(0x20)).toBe(" ");
+    expect(fromCodePoint(0x1f601)).toBe("😁");
   });
 
-  it("isValidEntityCode", function () {
+  it("isValidEntityCode", () => {
     const isValidEntityCode = utils.isValidEntityCode;
 
-    assert.strictEqual(isValidEntityCode(0x20), true);
-    assert.strictEqual(isValidEntityCode(0xd800), false);
-    assert.strictEqual(isValidEntityCode(0xfdd0), false);
-    assert.strictEqual(isValidEntityCode(0x1ffff), false);
-    assert.strictEqual(isValidEntityCode(0x1fffe), false);
-    assert.strictEqual(isValidEntityCode(0x00), false);
-    assert.strictEqual(isValidEntityCode(0x0b), false);
-    assert.strictEqual(isValidEntityCode(0x0e), false);
-    assert.strictEqual(isValidEntityCode(0x7f), false);
+    expect(isValidEntityCode(0x20)).toBe(true);
+    expect(isValidEntityCode(0xd800)).toBe(false);
+    expect(isValidEntityCode(0xfdd0)).toBe(false);
+    expect(isValidEntityCode(0x1ffff)).toBe(false);
+    expect(isValidEntityCode(0x1fffe)).toBe(false);
+    expect(isValidEntityCode(0x00)).toBe(false);
+    expect(isValidEntityCode(0x0b)).toBe(false);
+    expect(isValidEntityCode(0x0e)).toBe(false);
+    expect(isValidEntityCode(0x7f)).toBe(false);
   });
 
-  /* it('replaceEntities', function () {
-    var replaceEntities = utils.replaceEntities;
-
-    assert.strictEqual(replaceEntities('&amp;'), '&');
-    assert.strictEqual(replaceEntities('&#32;'), ' ');
-    assert.strictEqual(replaceEntities('&#x20;'), ' ');
-    assert.strictEqual(replaceEntities('&amp;&amp;'), '&&');
-
-    assert.strictEqual(replaceEntities('&am;'), '&am;');
-    assert.strictEqual(replaceEntities('&#00;'), '&#00;');
-  }); */
-
-  it("assign", function () {
+  it("assign", () => {
     const assign = utils.assign;
 
-    assert.deepEqual(assign({ a: 1 }, null, { b: 2 }), { a: 1, b: 2 });
+    expect(assign({ a: 1 }, null, { b: 2 })).toStrictEqual({ a: 1, b: 2 });
   });
 
-  it("escapeRE", function () {
+  it("escapeRE", () => {
     const escapeRE = utils.escapeRE;
 
-    assert.strictEqual(
-      escapeRE(" .?*+^$[]\\(){}|-"),
+    expect(escapeRE(" .?*+^$[]\\(){}|-")).toBe(
       " \\.\\?\\*\\+\\^\\$\\[\\]\\\\\\(\\)\\{\\}\\|\\-",
     );
   });
 
-  it("isWhiteSpace", function () {
+  it("isWhiteSpace", () => {
     const isWhiteSpace = utils.isWhiteSpace;
 
-    assert.strictEqual(isWhiteSpace(0x2000), true);
-    assert.strictEqual(isWhiteSpace(0x09), true);
+    expect(isWhiteSpace(0x2000)).toBe(true);
+    expect(isWhiteSpace(0x09)).toBe(true);
 
-    assert.strictEqual(isWhiteSpace(0x30), false);
+    expect(isWhiteSpace(0x30)).toBe(false);
   });
 
-  it("isMdAsciiPunct", function () {
+  it("isMdAsciiPunct", () => {
     const isMdAsciiPunct = utils.isMdAsciiPunct;
 
-    assert.strictEqual(isMdAsciiPunct(0x30), false);
+    expect(isMdAsciiPunct(0x30)).toBe(false);
 
     "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~".split("").forEach(function (ch) {
-      assert.strictEqual(isMdAsciiPunct(ch.charCodeAt(0)), true);
+      expect(isMdAsciiPunct(ch.charCodeAt(0))).toBe(true);
     });
   });
 
-  it("unescapeMd", function () {
+  it("unescapeMd", () => {
     const unescapeMd = utils.unescapeMd;
 
-    assert.strictEqual(unescapeMd("\\foo"), "\\foo");
-    assert.strictEqual(unescapeMd("foo"), "foo");
+    expect(unescapeMd("\\foo")).toBe("\\foo");
+    expect(unescapeMd("foo")).toBe("foo");
 
     "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~".split("").forEach(function (ch) {
-      assert.strictEqual(unescapeMd("\\" + ch), ch);
+      expect(unescapeMd("\\" + ch)).toBe(ch);
     });
   });
 });
