@@ -1,5 +1,5 @@
 {
-  "name": "markdown-it-enhancer",
+  "name": "markdown-it-async",
   "version": "14.1.0",
   "description": "Markdown-it - modern pluggable markdown parser.",
   "type": "module",
@@ -8,9 +8,10 @@
     "parser",
     "commonmark",
     "markdown-it",
-    "markdown-it-plugin"
+    "markdown-it-plugin",
+    "markdown-it-async"
   ],
-  "repository": "markdown-it/markdown-it",
+  "repository": "Dedicatus546/markdown-it-async",
   "license": "MIT",
   "main": "dist/markdown-it-enhancer.js",
   "exports": {
@@ -24,11 +25,12 @@
   "scripts": {
     "lint": "eslint",
     "test": "vitest --open",
-    "build": "vite build"
+    "build": "vite build",
+    "build:dev": "vite build --watch"
   },
   "files": [
     "lib/",
-    "bin",
+    "bin/",
     "dist/"
   ],
   "dependencies": {
