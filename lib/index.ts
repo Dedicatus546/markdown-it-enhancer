@@ -6,6 +6,7 @@ import {
   isString,
   normalizeLink,
   normalizeLinkText,
+  resolvePromiseLike,
   validateLink,
 } from "./common/utils";
 import * as helpers from "./helpers/index";
@@ -227,7 +228,7 @@ export class MarkdownIt {
     ...args: Args
   ) {
     const allArgs = [this, ...args] as const;
-    await utils.resolvePromiseLike(plugin.call(plugin, ...allArgs));
+    await resolvePromiseLike(plugin.call(plugin, ...allArgs));
     return this;
   }
 

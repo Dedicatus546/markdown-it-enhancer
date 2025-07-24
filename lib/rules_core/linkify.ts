@@ -68,7 +68,7 @@ export default function linkify(state: StateCore) {
         state.md.linkify.test(currentToken.content)
       ) {
         const text = currentToken.content;
-        let links = state.md.linkify.match(text);
+        let links = state.md.linkify.match(text) ?? [];
 
         // Now split string to nodes
         const nodes: Array<Token> = [];
