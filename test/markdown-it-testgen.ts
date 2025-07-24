@@ -1,7 +1,7 @@
 import fs from "fs";
 import yaml from "js-yaml";
 import p from "path";
-import { assert, describe, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { MarkdownIt } from "../lib";
 
@@ -236,8 +236,7 @@ function generate(path: string, md: MarkdownIt) {
             ? fixture.header
             : "line " + (fixture.first.range[0] - 1),
           async function () {
-            assert.strictEqual(
-              await md.render(fixture.first.text),
+            await expect(md.render(fixture.first.text)).resolves.toBe(
               fixture.second.text,
             );
           },

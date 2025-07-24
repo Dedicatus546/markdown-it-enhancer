@@ -1,4 +1,4 @@
-import { assert, describe, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import MarkdownIt, { setTableMaxAutoCompletedCells } from "../lib";
 
@@ -10,7 +10,7 @@ describe("markdown-it-extra", () => {
     const source = "    const val = 1\n---";
     const target = "<p>const val = 1\n---</p>\n";
 
-    assert.strictEqual(await md.render(source), target);
+    await expect(md.render(source)).resolves.toBe(target);
   });
 
   it("don't parse when === indented more than 3 spaces", async () => {
@@ -20,7 +20,7 @@ describe("markdown-it-extra", () => {
     const source = "    const val = 1\n===";
     const target = "<p>const val = 1\n===</p>\n";
 
-    assert.strictEqual(await md.render(source), target);
+    await expect(md.render(source)).resolves.toBe(target);
   });
 
   it("don't parse when reference indented more than 3 spaces", async () => {
@@ -30,7 +30,7 @@ describe("markdown-it-extra", () => {
     const source = "    [reference_title][reference_url]";
     const target = "<p>[reference_title][reference_url]</p>\n";
 
-    assert.strictEqual(await md.render(source), target);
+    await expect(md.render(source)).resolves.toBe(target);
   });
 
   it("don't parse to token when table max autocomplete cells > MAX_AUTOCOMPLETED_CELLS", async () => {
@@ -71,7 +71,7 @@ describe("markdown-it-extra", () => {
       "<p>|1|2|</p>",
       "",
     ].join("\n");
-    assert.strictEqual(await md.render(source), target);
+    await expect(md.render(source)).resolves.toBe(target);
   });
 
   it("don't render table when second line is |a|", async () => {
@@ -81,6 +81,6 @@ describe("markdown-it-extra", () => {
     const source = ["|title1|", "|1|"].join("\n");
     const target = "<p>|title1|\n|1|</p>\n";
 
-    assert.strictEqual(await md.render(source), target);
+    await expect(md.render(source)).resolves.toBe(target);
   });
 });

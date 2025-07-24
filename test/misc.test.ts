@@ -16,27 +16,29 @@ declare function forInline(
 ): void;
 
 describe("API", function () {
-  it("constructor", async function () {
+  it("constructor", async () => {
     // @ts-expect-error no-check
     expect(() => new MarkdownIt("bad preset")).throws();
 
     // options should override preset
     const md = new MarkdownIt("commonmark", { html: false });
-    assert.strictEqual(await md.render("<!-- -->"), "<p>&lt;!-- --&gt;</p>\n");
+    await expect(md.render("<!-- -->")).resolves.toBe(
+      "<p>&lt;!-- --&gt;</p>\n",
+    );
   });
 
-  it("configure coverage", async function () {
+  it("configure coverage", async () => {
     const md = new MarkdownIt();
 
     // conditions coverage
     // @ts-expect-error ignore
     md.configure({});
-    assert.strictEqual(await md.render("123"), "<p>123</p>\n");
+    await expect(md.render("123")).resolves.toBe("<p>123</p>\n");
 
     expect(() => md.configure()).throws();
   });
 
-  it("plugin", async function () {
+  it("plugin", async () => {
     let succeeded = false;
 
     const plugin: MarkdownItPlugin = function plugin(slf, opts) {
@@ -47,54 +49,51 @@ describe("API", function () {
 
     const md = new MarkdownIt();
 
-    md.use(plugin, "foo");
-    assert.strictEqual(succeeded, false);
-    md.use(plugin, "bar");
-    assert.strictEqual(succeeded, true);
+    await md.use(plugin, "foo");
+    expect(succeeded).toBe(false);
+    await md.use(plugin, "bar");
+    expect(succeeded).toBe(true);
   });
 
-  it("highlight", async function () {
+  it("highlight", async () => {
     const md = new MarkdownIt({
-      highlight: function (str) {
+      highlight(str) {
         return "<pre><code>==" + str + "==</code></pre>";
       },
     });
 
-    assert.strictEqual(
-      await md.render("```\nhl\n```"),
+    await expect(md.render("```\nhl\n```")).resolves.toBe(
       "<pre><code>==hl\n==</code></pre>\n",
     );
   });
 
-  it("highlight escape by default", async function () {
+  it("highlight escape by default", async () => {
     const md = new MarkdownIt({
       highlight: function () {
         return "";
       },
     });
 
-    assert.strictEqual(
-      await md.render("```\n&\n```"),
+    await expect(md.render("```\n&\n```")).resolves.toBe(
       "<pre><code>&amp;\n</code></pre>\n",
     );
   });
 
-  it("highlight arguments", async function () {
+  it("highlight arguments", async () => {
     const md = new MarkdownIt({
-      highlight: function (str, lang, attrs) {
-        assert.strictEqual(lang, "a");
-        assert.strictEqual(attrs, "b  c  d");
+      highlight(str, lang, attrs) {
+        expect(lang).toBe("a");
+        expect(attrs).toBe("b  c  d");
         return "<pre><code>==" + str + "==</code></pre>";
       },
     });
 
-    assert.strictEqual(
-      await md.render("``` a  b  c  d \nhl\n```"),
+    await expect(md.render("``` a  b  c  d \nhl\n```")).resolves.toBe(
       "<pre><code>==hl\n==</code></pre>\n",
     );
   });
 
-  it("force hardbreaks", async function () {
+  it("force hardbreaks", async () => {
     const md = new MarkdownIt({ breaks: true });
 
     assert.strictEqual(await md.render("a\nb"), "<p>a<br>\nb</p>\n");
@@ -102,7 +101,7 @@ describe("API", function () {
     assert.strictEqual(await md.render("a\nb"), "<p>a<br />\nb</p>\n");
   });
 
-  it("xhtmlOut enabled", async function () {
+  it("xhtmlOut enabled", async () => {
     const md = new MarkdownIt({ xhtmlOut: true });
 
     assert.strictEqual(await md.render("---"), "<hr />\n");
@@ -113,7 +112,7 @@ describe("API", function () {
     assert.strictEqual(await md.render("a  \\\nb"), "<p>a  <br />\nb</p>\n");
   });
 
-  it("xhtmlOut disabled", async function () {
+  it("xhtmlOut disabled", async () => {
     const md = new MarkdownIt();
 
     assert.strictEqual(await md.render("---"), "<hr>\n");
@@ -165,7 +164,7 @@ describe("API", function () {
     expect(() => md.disable(["link", "code"])).not.throws();
   });
 
-  it("bulk enable/disable should understand strings", async function () {
+  it("bulk enable/disable should understand strings", async () => {
     const md = new MarkdownIt();
 
     md.disable("emphasis");
@@ -175,7 +174,7 @@ describe("API", function () {
     assert(await md.renderInline("_foo_"), "<em>foo</em>");
   });
 
-  it("input type check", async function () {
+  it("input type check", async () => {
     const md = new MarkdownIt();
 
     // @ts-expect-error no-check
@@ -186,7 +185,7 @@ describe("API", function () {
 });
 
 describe("Plugins", function () {
-  it("should not loop infinitely if all rules are disabled", async function () {
+  it("should not loop infinitely if all rules are disabled", async () => {
     const md = new MarkdownIt();
 
     md.inline.ruler.enableOnly([]);
@@ -198,7 +197,7 @@ describe("Plugins", function () {
     );
   });
 
-  it("should not loop infinitely if inline rule doesn't increment pos", async function () {
+  it("should not loop infinitely if inline rule doesn't increment pos", async () => {
     const md = new MarkdownIt();
 
     md.inline.ruler.after("text", "custom", function (state /*, silent */) {
@@ -214,7 +213,7 @@ describe("Plugins", function () {
     );
   });
 
-  it("should not loop infinitely if block rule doesn't increment pos", async function () {
+  it("should not loop infinitely if block rule doesn't increment pos", async () => {
     const md = new MarkdownIt();
 
     md.block.ruler.before(
@@ -238,7 +237,7 @@ describe("Plugins", function () {
 });
 
 describe("Misc", function () {
-  it("Should replace NULL characters", async function () {
+  it("Should replace NULL characters", async () => {
     const md = new MarkdownIt();
 
     assert.strictEqual(
@@ -247,7 +246,7 @@ describe("Misc", function () {
     );
   });
 
-  it("Should correctly parse strings without tailing \\n", async function () {
+  it("Should correctly parse strings without tailing \\n", async () => {
     const md = new MarkdownIt();
 
     assert.strictEqual(await md.render("123"), "<p>123</p>\n");
@@ -263,19 +262,19 @@ describe("Misc", function () {
     );
   });
 
-  it("Should quickly exit on empty string", async function () {
+  it("Should quickly exit on empty string", async () => {
     const md = new MarkdownIt();
 
     assert.strictEqual(await md.render(""), "");
   });
 
-  it("Should parse inlines only", async function () {
+  it("Should parse inlines only", async () => {
     const md = new MarkdownIt();
 
     assert.strictEqual(await md.renderInline("a *b* c"), "a <em>b</em> c");
   });
 
-  it("Renderer should have pluggable inline and block rules", async function () {
+  it("Renderer should have pluggable inline and block rules", async () => {
     const md = new MarkdownIt();
 
     md.renderer.rules.em_open = function () {
@@ -294,7 +293,7 @@ describe("Misc", function () {
     assert.strictEqual(await md.render("*b*"), "<par><it>b</it></par>");
   });
 
-  it("Zero preset should disable everything", async function () {
+  it("Zero preset should disable everything", async () => {
     const md = new MarkdownIt("zero");
 
     assert.strictEqual(await md.render("___foo___"), "<p>___foo___</p>\n");
@@ -312,13 +311,13 @@ describe("Misc", function () {
     );
   });
 
-  it("Should correctly check block termination rules when those are disabled (#13)", async function () {
+  it("Should correctly check block termination rules when those are disabled (#13)", async () => {
     const md = new MarkdownIt("zero");
 
     assert.strictEqual(await md.render("foo\nbar"), "<p>foo\nbar</p>\n");
   });
 
-  it("Should render link target attr", async function () {
+  it("Should render link target attr", async () => {
     const md = await new MarkdownIt().use(
       forInline,
       "target",
@@ -334,7 +333,7 @@ describe("Misc", function () {
     );
   });
 
-  it("Should normalize CR to LF", async function () {
+  it("Should normalize CR to LF", async () => {
     const md = new MarkdownIt();
 
     assert.strictEqual(
@@ -343,7 +342,7 @@ describe("Misc", function () {
     );
   });
 
-  it("Should normalize CR+LF to LF", async function () {
+  it("Should normalize CR+LF to LF", async () => {
     const md = new MarkdownIt();
 
     assert.strictEqual(
@@ -352,7 +351,7 @@ describe("Misc", function () {
     );
   });
 
-  it("Should escape surrogate pairs (coverage)", async function () {
+  it("Should escape surrogate pairs (coverage)", async () => {
     const md = new MarkdownIt();
 
     assert.strictEqual(
@@ -365,7 +364,7 @@ describe("Misc", function () {
 });
 
 describe("Url normalization", function () {
-  it("Should be overridable", async function () {
+  it("Should be overridable", async () => {
     const md = new MarkdownIt({ linkify: true });
 
     md.normalizeLink = function (url) {
@@ -405,7 +404,7 @@ describe("Url normalization", function () {
 });
 
 describe("Links validation", function () {
-  it("Override validator, disable everything", async function () {
+  it("Override validator, disable everything", async () => {
     const md = new MarkdownIt({ linkify: true });
 
     md.validateLink = function () {
@@ -440,7 +439,7 @@ describe("Links validation", function () {
 });
 
 describe("maxNesting", function () {
-  it("Block parser should not nest above limit", async function () {
+  it("Block parser should not nest above limit", async () => {
     // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 2 });
     assert.strictEqual(
@@ -449,7 +448,7 @@ describe("maxNesting", function () {
     );
   });
 
-  it("Inline parser should not nest above limit", async function () {
+  it("Inline parser should not nest above limit", async () => {
     // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 1 });
     assert.strictEqual(
@@ -458,7 +457,7 @@ describe("maxNesting", function () {
     );
   });
 
-  it("Inline nesting coverage", async function () {
+  it("Inline nesting coverage", async () => {
     // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 2 });
     assert.strictEqual(
@@ -477,21 +476,21 @@ describe("smartquotes", function () {
     quotes: ["[[[", "]]", "(((((", "))))"],
   });
 
-  it("Should support multi-character quotes", async function () {
+  it("Should support multi-character quotes", async () => {
     assert.strictEqual(
       await md.render("\"foo\" 'bar'"),
       "<p>[[[foo]] (((((bar))))</p>\n",
     );
   });
 
-  it("Should support nested multi-character quotes", async function () {
+  it("Should support nested multi-character quotes", async () => {
     assert.strictEqual(
       await md.render("\"foo 'bar' baz\""),
       "<p>[[[foo (((((bar)))) baz]]</p>\n",
     );
   });
 
-  it("Should support multi-character quotes in different tags", async function () {
+  it("Should support multi-character quotes in different tags", async () => {
     assert.strictEqual(
       await md.render("\"a *b 'c *d* e' f* g\""),
       "<p>[[[a <em>b (((((c <em>d</em> e)))) f</em> g]]</p>\n",
@@ -508,7 +507,7 @@ describe("Ordered list info", function () {
     });
   }
 
-  it("Should mark ordered list item tokens with info", async function () {
+  it("Should mark ordered list item tokens with info", async () => {
     let tokens = await md.parse("1. Foo\n2. Bar\n20. Fuzz");
     assert.strictEqual(type_filter(tokens, "ordered_list_open").length, 1);
     tokens = type_filter(tokens, "list_item_open");
@@ -536,7 +535,7 @@ describe("Ordered list info", function () {
 });
 
 describe("Token attributes", function () {
-  it(".attrJoin", async function () {
+  it(".attrJoin", async () => {
     const md = new MarkdownIt();
 
     const tokens = await md.parse("```");
@@ -551,7 +550,7 @@ describe("Token attributes", function () {
     );
   });
 
-  it(".attrSet", async function () {
+  it(".attrSet", async () => {
     const md = new MarkdownIt();
 
     const tokens = await md.parse("```");
@@ -572,7 +571,7 @@ describe("Token attributes", function () {
     );
   });
 
-  it(".attrGet", async function () {
+  it(".attrGet", async () => {
     const md = new MarkdownIt();
 
     const tokens = await md.parse("```");

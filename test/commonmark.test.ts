@@ -1,7 +1,7 @@
 import { relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { assert, describe, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { MarkdownIt } from "../lib";
 import { load } from "./markdown-it-testgen";
@@ -27,13 +27,8 @@ function generate(path: string, md: MarkdownIt) {
             ? fixture.header
             : "line " + (fixture.first.range[0] - 1),
           async function () {
-            const result = await md.render(fixture.first.text);
             const target = normalize(fixture.second.text);
-            assert.strictEqual(
-              result,
-              target,
-              `\n---\n${fixture.first.text}---\n`,
-            );
+            await expect(md.render(fixture.first.text)).resolves.toBe(target);
           },
         );
       });
