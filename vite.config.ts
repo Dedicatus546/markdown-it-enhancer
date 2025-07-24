@@ -21,6 +21,7 @@ export default defineConfig({
       fileName: "index",
     },
     minify: false,
+    sourcemap: true,
   },
   test: {
     globals: true,
