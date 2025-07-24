@@ -10,8 +10,8 @@
     "strict": true
   },
   "include": [
-    "./lib",
+    "./lib/**/*.ts",
     "./vite-env.d.ts",
-    "./test"
+    "./test/**/*.ts"
   ]
 }
