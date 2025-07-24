@@ -1,12 +1,24 @@
-// Token class
-
-export enum Nesting {
+/**
+ * Token#nesting -> Number
+ *
+ * Level change (number in {-1, 0, 1} set), where:
+ *
+ * -  `1` means the tag is opening
+ * -  `0` means the tag is self-closing
+ * - `-1` means the tag is closing
+ **/
+export enum TokenNesting {
   OPENING = 1,
   SELF_CLOSING = 0,
   CLOSING = -1,
 }
 
-export type Attr = [name: string, value: string];
+/**
+ * Token#attrs -> Array
+ *
+ * Html attributes. Format: `[ [ name1, value1 ], [ name2, value2 ] ]`
+ **/
+export type TokenAttr = [name: string, value: string];
 
 /**
  * class Token
@@ -27,12 +39,7 @@ class Token {
    **/
   tag: string;
 
-  /**
-   * Token#attrs -> Array
-   *
-   * Html attributes. Format: `[ [ name1, value1 ], [ name2, value2 ] ]`
-   **/
-  attrs: Array<Attr> | null = null;
+  attrs: Array<TokenAttr> | null = null;
 
   /**
    * Token#map -> Array
@@ -41,16 +48,7 @@ class Token {
    **/
   map: Array<number> | null = null;
 
-  /**
-   * Token#nesting -> Number
-   *
-   * Level change (number in {-1, 0, 1} set), where:
-   *
-   * -  `1` means the tag is opening
-   * -  `0` means the tag is self-closing
-   * - `-1` means the tag is closing
-   **/
-  nesting: Nesting;
+  nesting: TokenNesting;
 
   /**
    * Token#level -> Number
@@ -115,7 +113,7 @@ class Token {
    **/
   hidden = false;
 
-  constructor(type: string, tag: string, nesting: Nesting) {
+  constructor(type: string, tag: string, nesting: TokenNesting) {
     this.type = type;
     this.tag = tag;
     this.nesting = nesting;
@@ -146,7 +144,7 @@ class Token {
    *
    * Add `[ name, value ]` attribute to list. Init attrs if necessary
    **/
-  attrPush(attrData: Attr) {
+  attrPush(attrData: TokenAttr) {
     if (this.attrs) {
       this.attrs.push(attrData);
     } else {
@@ -161,7 +159,7 @@ class Token {
    **/
   attrSet(name: string, value: string) {
     const idx = this.attrIndex(name);
-    const attrData: Attr = [name, value];
+    const attrData: TokenAttr = [name, value];
 
     if (idx < 0) {
       this.attrPush(attrData);

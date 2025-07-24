@@ -1,6 +1,6 @@
 import StateCore from "./state_core";
 
-export default function block(state: StateCore) {
+export default async function block(state: StateCore) {
   let token;
 
   if (state.inlineMode) {
@@ -10,6 +10,6 @@ export default function block(state: StateCore) {
     token.children = [];
     state.tokens.push(token);
   } else {
-    state.md.block.parse(state.src, state.md, state.env, state.tokens);
+    await state.md.block.parse(state.src, state.md, state.env, state.tokens);
   }
 }

@@ -6,7 +6,7 @@
 
 import StateInline from "../rules_inline/state_inline";
 
-export default function parseLinkLabel(
+export default async function parseLinkLabel(
   state: StateInline,
   start: number,
   disableNested: boolean = false,
@@ -30,7 +30,7 @@ export default function parseLinkLabel(
     }
 
     prevPos = state.pos;
-    state.md.inline.skipToken(state);
+    await state.md.inline.skipToken(state);
     if (marker === 0x5b /* [ */) {
       if (prevPos === state.pos - 1) {
         // increase level if we find text `[`, which is not a part of any token

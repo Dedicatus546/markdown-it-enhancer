@@ -1,6 +1,6 @@
 // markdown-it default options
 
-import { PresetsConfig } from "..";
+import { Preset } from ".";
 
 export default {
   options: {
@@ -46,4 +46,4 @@ export default {
     block: {},
     inline: {},
   },
-} satisfies PresetsConfig;
+} satisfies Preset;

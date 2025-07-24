@@ -1,6 +1,6 @@
 // GFM table, https://github.github.com/gfm/#tables-extension-
 
-import { isSpace } from "../common/utils";
+import { isSpace, resolvePromiseLike } from "../common/utils";
 import StateBlock from "./state_block";
 
 // Limit the amount of empty autocompleted cells in a table,
@@ -57,7 +57,7 @@ function escapedSplit(str: string) {
   return result;
 }
 
-export default function table(
+export default async function table(
   state: StateBlock,
   startLine: number,
   endLine: number,
@@ -224,7 +224,11 @@ export default function table(
 
     let terminate = false;
     for (let i = 0, l = terminatorRules.length; i < l; i++) {
-      if (terminatorRules[i](state, nextLine, endLine, true)) {
+      if (
+        await resolvePromiseLike(
+          terminatorRules[i](state, nextLine, endLine, true),
+        )
+      ) {
         terminate = true;
         break;
       }

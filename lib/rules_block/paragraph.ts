@@ -1,8 +1,9 @@
 // Paragraph
 
+import { resolvePromiseLike } from "../../lib/common/utils";
 import StateBlock from "./state_block";
 
-export default function paragraph(
+export default async function paragraph(
   state: StateBlock,
   startLine: number,
   endLine: number,
@@ -28,7 +29,11 @@ export default function paragraph(
     // Some tags can terminate paragraph without empty line.
     let terminate = false;
     for (let i = 0, l = terminatorRules.length; i < l; i++) {
-      if (terminatorRules[i](state, nextLine, endLine, true)) {
+      if (
+        await resolvePromiseLike(
+          terminatorRules[i](state, nextLine, endLine, true),
+        )
+      ) {
         terminate = true;
         break;
       }

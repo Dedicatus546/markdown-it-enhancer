@@ -4,7 +4,8 @@
  * Block-level tokenizer.
  **/
 
-import { MarkdownIt } from ".";
+import { type MarkdownIt, MarkdownItEnv } from ".";
+import { resolvePromiseLike } from "./common/utils";
 import Ruler from "./ruler";
 import r_blockquote from "./rules_block/blockquote";
 import r_code from "./rules_block/code";
@@ -104,7 +105,7 @@ class ParserBlock {
       let ok: boolean | undefined | void = false;
 
       for (let i = 0; i < len; i++) {
-        ok = await rules[i](state, line, endLine, false);
+        ok = await resolvePromiseLike(rules[i](state, line, endLine, false));
         if (ok) {
           if (prevLine >= state.line) {
             throw new Error("block rule didn't increment state.line");
@@ -143,7 +144,7 @@ class ParserBlock {
   async parse(
     src: string,
     md: MarkdownIt,
-    env: Record<string, unknown> = {},
+    env: MarkdownItEnv = {},
     outTokens: Array<Token>,
   ) {
     if (!src) {

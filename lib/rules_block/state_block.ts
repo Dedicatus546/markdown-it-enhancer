@@ -1,8 +1,8 @@
 // Parser state class
 
-import { MarkdownIt } from "..";
+import { type MarkdownIt, MarkdownItEnv } from "..";
 import { isSpace } from "../common/utils";
-import Token, { Nesting } from "../token";
+import Token, { TokenNesting } from "../token";
 
 interface StateBlock {
   Token: typeof Token;
@@ -11,7 +11,7 @@ interface StateBlock {
 class StateBlock {
   src: string;
   md: MarkdownIt;
-  env: Record<string, unknown> = {};
+  env: MarkdownItEnv = {};
   /**
    * Internal state vartiables
    */
@@ -79,7 +79,7 @@ class StateBlock {
   constructor(
     src: string,
     md: MarkdownIt,
-    env: Record<string, unknown> = {},
+    env: MarkdownItEnv = {},
     tokens: Array<Token>,
   ) {
     this.src = src;
@@ -147,7 +147,7 @@ class StateBlock {
 
   // Push new token to "stream".
   //
-  push(type: string, tag: string, nesting: Nesting) {
+  push(type: string, tag: string, nesting: TokenNesting) {
     const token = new Token(type, tag, nesting);
     token.block = true;
 

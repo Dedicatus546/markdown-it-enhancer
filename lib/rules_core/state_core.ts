@@ -1,7 +1,7 @@
 // Core state object
 //
 
-import { MarkdownIt } from "..";
+import { type MarkdownIt, MarkdownItEnv } from "..";
 import Token from "../token";
 
 interface StateCore {
@@ -11,11 +11,11 @@ interface StateCore {
 class StateCore {
   src: string;
   md: MarkdownIt;
-  env: Record<string, unknown> = {};
+  env: MarkdownItEnv = {};
   tokens: Array<Token> = [];
   inlineMode = false;
 
-  constructor(src: string, md: MarkdownIt, env: Record<string, unknown> = {}) {
+  constructor(src: string, md: MarkdownIt, env: MarkdownItEnv = {}) {
     this.src = src;
     this.env = env;
     this.md = md; // link to parser instance

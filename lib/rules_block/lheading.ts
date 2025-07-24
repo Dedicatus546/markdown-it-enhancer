@@ -1,8 +1,9 @@
 // lheading (---, ===)
 
+import { resolvePromiseLike } from "../../lib/common/utils";
 import StateBlock from "./state_block";
 
-export default function lheading(
+export default async function lheading(
   state: StateBlock,
   startLine: number,
   endLine: number,
@@ -60,7 +61,11 @@ export default function lheading(
     // Some tags can terminate paragraph without empty line.
     let terminate = false;
     for (let i = 0, l = terminatorRules.length; i < l; i++) {
-      if (terminatorRules[i](state, nextLine, endLine, true)) {
+      if (
+        await resolvePromiseLike(
+          terminatorRules[i](state, nextLine, endLine, true),
+        )
+      ) {
         terminate = true;
         break;
       }

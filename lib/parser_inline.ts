@@ -4,7 +4,8 @@
  * Tokenizes paragraph content.
  **/
 
-import { MarkdownIt } from ".";
+import { type MarkdownIt, MarkdownItEnv } from ".";
+import { resolvePromiseLike } from "./common/utils";
 import Ruler from "./ruler";
 import r_autolink from "./rules_inline/autolink";
 import r_backticks from "./rules_inline/backticks";
@@ -87,7 +88,7 @@ class ParserInline {
   // Skip single token by running all rules in validation mode;
   // returns `true` if any rule reported success
   //
-  skipToken(state: StateInline) {
+  async skipToken(state: StateInline) {
     const pos = state.pos;
     const rules = this.ruler.getRules("");
     const len = rules.length;
@@ -99,7 +100,7 @@ class ParserInline {
       return;
     }
 
-    let ok = false;
+    let ok: boolean | void | undefined = false;
 
     if (state.level < maxNesting) {
       for (let i = 0; i < len; i++) {
@@ -108,7 +109,7 @@ class ParserInline {
         // we'd need a separate private state variable for this purpose.
         //
         state.level++;
-        ok = rules[i](state, true) as boolean;
+        ok = await resolvePromiseLike(rules[i](state, true));
         state.level--;
 
         if (ok) {
@@ -159,7 +160,7 @@ class ParserInline {
 
       if (state.level < maxNesting) {
         for (let i = 0; i < len; i++) {
-          ok = await rules[i](state, false);
+          ok = await resolvePromiseLike(rules[i](state, false));
           if (ok) {
             if (prevPos >= state.pos) {
               throw new Error("inline rule didn't increment state.pos");
@@ -192,7 +193,7 @@ class ParserInline {
   async parse(
     str: string,
     md: MarkdownIt,
-    env: Record<string, unknown> = {},
+    env: MarkdownItEnv = {},
     outTokens: Array<Token>,
   ) {
     const state = new StateInline(str, md, env, outTokens);
@@ -203,7 +204,7 @@ class ParserInline {
     const len = rules.length;
 
     for (let i = 0; i < len; i++) {
-      await rules[i](state);
+      await resolvePromiseLike(rules[i](state));
     }
   }
 }

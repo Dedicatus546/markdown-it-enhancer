@@ -6,17 +6,23 @@
  * rules if you create plugin and adds new token types.
  **/
 
-import { MarkdownItOptions } from ".";
-import { assign, escapeHtml, unescapeAll } from "./common/utils";
-import Token, { Attr } from "./token";
+import { MarkdownItEnv, MarkdownItOptions } from ".";
+import {
+  assign,
+  escapeHtml,
+  resolvePromiseLike,
+  unescapeAll,
+} from "./common/utils";
+import Token, { TokenAttr } from "./token";
+import { Awaitable } from "./types";
 
 export type RendererFn = (
   tokens: Array<Token>,
   idx: number,
   options: MarkdownItOptions,
-  env: Record<string, unknown>,
+  env: MarkdownItEnv,
   slf: Renderer,
-) => string;
+) => Awaitable<string>;
 
 const default_rules: Record<string, RendererFn> = {};
 
@@ -79,7 +85,7 @@ default_rules.fence = function (tokens, idx, options, env, slf) {
     if (i < 0) {
       tmpAttrs.push(["class", options.langPrefix + langName]);
     } else {
-      tmpAttrs[i] = tmpAttrs[i].slice() as Attr;
+      tmpAttrs[i] = tmpAttrs[i].slice() as TokenAttr;
       tmpAttrs[i][1] += " " + options.langPrefix + langName;
     }
 
@@ -268,10 +274,10 @@ class Renderer {
    *
    * The same as [[Renderer.render]], but for single token of `inline` type.
    **/
-  renderInline(
+  async renderInline(
     tokens: Array<Token>,
     options: MarkdownItOptions,
-    env: Record<string, unknown> = {},
+    env: MarkdownItEnv = {},
   ) {
     let result = "";
     const rules = this.rules;
@@ -280,7 +286,9 @@ class Renderer {
       const type = tokens[i].type;
 
       if (typeof rules[type] !== "undefined") {
-        result += rules[type](tokens, i, options, env, this);
+        result += await resolvePromiseLike(
+          rules[type](tokens, i, options, env, this),
+        );
       } else {
         result += this.renderToken(tokens, i, options);
       }
@@ -302,7 +310,7 @@ class Renderer {
   renderInlineAsText(
     tokens: Array<Token>,
     options: MarkdownItOptions,
-    env: Record<string, unknown> = {},
+    env: MarkdownItEnv = {},
   ) {
     let result = "";
 
@@ -339,10 +347,10 @@ class Renderer {
    * Takes token stream and generates HTML. Probably, you will never need to call
    * this method directly.
    **/
-  render(
+  async render(
     tokens: Array<Token>,
     options: MarkdownItOptions,
-    env: Record<string, unknown> = {},
+    env: MarkdownItEnv = {},
   ) {
     let result = "";
     const rules = this.rules;
@@ -351,9 +359,11 @@ class Renderer {
       const type = tokens[i].type;
 
       if (type === "inline") {
-        result += this.renderInline(tokens[i].children, options, env);
+        result += await this.renderInline(tokens[i].children, options, env);
       } else if (typeof rules[type] !== "undefined") {
-        result += rules[type](tokens, i, options, env, this);
+        result += await resolvePromiseLike(
+          rules[type](tokens, i, options, env, this),
+        );
       } else {
         result += this.renderToken(tokens, i, options);
       }

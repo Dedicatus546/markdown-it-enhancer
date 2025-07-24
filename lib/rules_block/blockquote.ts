@@ -1,6 +1,6 @@
 // Block quotes
 
-import { isSpace } from "../common/utils";
+import { isSpace, resolvePromiseLike } from "../common/utils";
 import StateBlock from "./state_block";
 
 export default async function blockquote(
@@ -158,7 +158,11 @@ export default async function blockquote(
     // Case 3: another tag found.
     let terminate = false;
     for (let i = 0, l = terminatorRules.length; i < l; i++) {
-      if (terminatorRules[i](state, nextLine, endLine, true)) {
+      if (
+        await resolvePromiseLike(
+          terminatorRules[i](state, nextLine, endLine, true),
+        )
+      ) {
         terminate = true;
         break;
       }

@@ -1,6 +1,6 @@
 // Commonmark default options
 
-import { PresetsConfig } from "..";
+import { Preset } from ".";
 
 export default {
   options: {
@@ -77,4 +77,4 @@ export default {
       rules2: ["balance_pairs", "emphasis", "fragments_join"],
     },
   },
-} satisfies PresetsConfig;
+} satisfies Preset;

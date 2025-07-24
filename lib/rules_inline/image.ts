@@ -1,10 +1,13 @@
 // Process ![image](<src> "title")
 
 import { isSpace, normalizeReference } from "../common/utils";
-import Token, { Attr } from "../token";
+import Token, { TokenAttr } from "../token";
 import StateInline from "./state_inline";
 
-export default function image(state: StateInline, silent: boolean = false) {
+export default async function image(
+  state: StateInline,
+  silent: boolean = false,
+) {
   let code, content, label, pos, ref, res, title, start;
   let href = "";
   const oldPos = state.pos;
@@ -18,7 +21,11 @@ export default function image(state: StateInline, silent: boolean = false) {
   }
 
   const labelStart = state.pos + 2;
-  const labelEnd = state.md.helpers.parseLinkLabel(state, state.pos + 1, false);
+  const labelEnd = await state.md.helpers.parseLinkLabel(
+    state,
+    state.pos + 1,
+    false,
+  );
 
   // parser failed to find ']', so it's not a valid link
   if (labelEnd < 0) {
@@ -101,7 +108,7 @@ export default function image(state: StateInline, silent: boolean = false) {
 
     if (pos < max && state.src.charCodeAt(pos) === 0x5b /* [ */) {
       start = pos + 1;
-      pos = state.md.helpers.parseLinkLabel(state, pos);
+      pos = await state.md.helpers.parseLinkLabel(state, pos);
       if (pos >= 0) {
         label = state.src.slice(start, pos++);
       } else {
@@ -134,10 +141,10 @@ export default function image(state: StateInline, silent: boolean = false) {
     content = state.src.slice(labelStart, labelEnd);
 
     const tokens: Array<Token> = [];
-    state.md.inline.parse(content, state.md, state.env, tokens);
+    await state.md.inline.parse(content, state.md, state.env, tokens);
 
     const token = state.push("image", "img", 0);
-    const attrs: Array<Attr> = [
+    const attrs: Array<TokenAttr> = [
       ["src", href],
       ["alt", ""],
     ];

@@ -1,8 +1,8 @@
 // Inline parser state
 
-import { MarkdownIt } from "..";
+import { type MarkdownIt, MarkdownItEnv } from "..";
 import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "../common/utils";
-import Token, { Nesting } from "../token";
+import Token, { TokenNesting } from "../token";
 
 export interface Delimiter {
   // Char code of the starting marker (number).
@@ -35,7 +35,7 @@ interface StateInline {
 
 class StateInline {
   src: string;
-  env: Record<string, unknown> = {};
+  env: MarkdownItEnv = {};
   md: MarkdownIt;
   tokens: Array<Token>;
   tokens_meta: Array<{ delimiters: Array<Delimiter> } | null>;
@@ -66,7 +66,7 @@ class StateInline {
   constructor(
     src: string,
     md: MarkdownIt,
-    env: Record<string, unknown> = {},
+    env: MarkdownItEnv,
     outTokens: Array<Token>,
   ) {
     this.src = src;
@@ -91,7 +91,7 @@ class StateInline {
   // Push new token to "stream".
   // If pending text exists - flush it as text token
   //
-  push(type: string, tag: string, nesting: Nesting) {
+  push(type: string, tag: string, nesting: TokenNesting) {
     if (this.pending) {
       this.pushPending();
     }

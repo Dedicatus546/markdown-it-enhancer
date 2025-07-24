@@ -1,171 +1,31 @@
-// Main parser class
-
-// @ts-expect-error lack linkify-it type
 import LinkifyIt from "linkify-it";
-// @ts-expect-error lack mdurl type
-import * as mdurl from "mdurl";
-// @ts-expect-error lack punycode.js type
-import punycode from "punycode.js";
 
 import * as utils from "./common/utils";
-import { assign, isString } from "./common/utils";
+import {
+  assign,
+  isString,
+  normalizeLink,
+  normalizeLinkText,
+  validateLink,
+} from "./common/utils";
 import * as helpers from "./helpers/index";
 import ParserBlock from "./parser_block";
 import ParserCore from "./parser_core";
 import ParserInline from "./parser_inline";
-import cfg_commonmark from "./presets/commonmark";
-import cfg_default from "./presets/default";
-import cfg_zero from "./presets/zero";
+import { isValidPresetName, Preset, PresetName, presets } from "./presets";
 import Renderer from "./renderer";
 import StateCore from "./rules_core/state_core";
-import { Awaitable } from "./type_utils";
+import { Awaitable } from "./types";
 
-type RemoveFirst<T extends unknown[]> = T extends [unknown, ...infer Rest]
-  ? Rest
-  : never;
-
-const configs = {
-  default: cfg_default,
-  zero: cfg_zero,
-  commonmark: cfg_commonmark,
-} as const;
-
-type ConfigKey = keyof typeof configs;
-
-function isValidPresetName(presetName: string): presetName is ConfigKey {
-  return Object.keys(configs).includes(presetName);
+export interface MarkdownItPlugin<Args extends unknown[] = unknown[]> {
+  (...args: [MarkdownIt, ...rest: [...Args]]): Awaitable<void>;
 }
 
-//
-// This validator can prohibit more than really needed to prevent XSS. It's a
-// tradeoff to keep code simple and to be secure by default.
-//
-// If you need different setup - override validator method as you wish. Or
-// replace it with dummy function and use external sanitizer.
-//
+export type MarkdownItOptions = Partial<Omit<Preset["options"], "maxNesting">>;
 
-const BAD_PROTO_RE = /^(vbscript|javascript|file|data):/;
-const GOOD_DATA_RE = /^data:image\/(gif|png|jpeg|webp);/;
-
-function validateLink(url: string) {
-  // url should be normalized at this point, and existing entities are decoded
-  const str = url.trim().toLowerCase();
-
-  return BAD_PROTO_RE.test(str) ? GOOD_DATA_RE.test(str) : true;
-}
-
-const RECODE_HOSTNAME_FOR = ["http:", "https:", "mailto:"] as const;
-
-function normalizeLink(url: string) {
-  const parsed = mdurl.parse(url, true);
-
-  if (parsed.hostname) {
-    // Encode hostnames in urls like:
-    // `http://host/`, `https://host/`, `mailto:user@host`, `//host/`
-    //
-    // We don't encode unknown schemas, because it's likely that we encode
-    // something we shouldn't (e.g. `skype:name` treated as `skype:host`)
-    //
-    if (!parsed.protocol || RECODE_HOSTNAME_FOR.indexOf(parsed.protocol) >= 0) {
-      try {
-        parsed.hostname = punycode.toASCII(parsed.hostname);
-      } catch {
-        /**/
-      }
-    }
-  }
-
-  return mdurl.encode(mdurl.format(parsed));
-}
-
-function normalizeLinkText(url: string) {
-  const parsed = mdurl.parse(url, true);
-
-  if (parsed.hostname) {
-    // Encode hostnames in urls like:
-    // `http://host/`, `https://host/`, `mailto:user@host`, `//host/`
-    //
-    // We don't encode unknown schemas, because it's likely that we encode
-    // something we shouldn't (e.g. `skype:name` treated as `skype:host`)
-    //
-    if (!parsed.protocol || RECODE_HOSTNAME_FOR.indexOf(parsed.protocol) >= 0) {
-      try {
-        parsed.hostname = punycode.toUnicode(parsed.hostname);
-      } catch {
-        /**/
-      }
-    }
-  }
-
-  // add '%' to exclude list because of https://github.com/markdown-it/markdown-it/issues/720
-  return mdurl.decode(mdurl.format(parsed), mdurl.decode.defaultChars + "%");
-}
-
-/**
- * class MarkdownIt
- *
- * Main parser/renderer class.
- *
- * ##### Usage
- *
- * ```javascript
- * // node.js, "classic" way:
- * var MarkdownIt = require('markdown-it'),
- *     md = new MarkdownIt();
- * var result = md.render('# markdown-it rulezz!');
- *
- * // node.js, the same, but with sugar:
- * var md = require('markdown-it')();
- * var result = md.render('# markdown-it rulezz!');
- *
- * // browser without AMD, added to "window" on script load
- * // Note, there are no dash.
- * var md = window.markdownit();
- * var result = md.render('# markdown-it rulezz!');
- * ```
- *
- * Single line rendering, without paragraph wrap:
- *
- * ```javascript
- * var md = require('markdown-it')();
- * var result = md.renderInline('__markdown-it__ rulezz!');
- * ```
- **/
-
-type PresetName = ConfigKey;
-
-export interface MarkdownItOptions {
-  html?: boolean;
-  xhtmlOut?: boolean;
-  breaks?: boolean;
-  langPrefix?: string;
-  linkify?: boolean;
-  typographer?: boolean;
-  quotes?: Array<string> | string;
-  highlight?:
-    | ((str: string, lang: string, langAttrs: unknown) => string)
-    | null;
-}
-
-export interface MarkdownItNormalizedOptions
-  extends Required<Omit<MarkdownItOptions, "highlight">> {
-  highlight: MarkdownItOptions["highlight"];
-  maxNesting: number;
-}
-
-export interface PresetsConfig {
-  options: MarkdownItNormalizedOptions;
-  components: {
-    core: {
-      rules?: Array<string>;
-    };
-    block: {
-      rules?: Array<string>;
-    };
-    inline: {
-      rules?: Array<string>;
-      rules2?: Array<string>;
-    };
+export interface MarkdownItEnv {
+  references?: {
+    [key: string]: { title: string; href: string };
   };
 }
 
@@ -180,7 +40,7 @@ export class MarkdownIt {
   normalizeLinkText = normalizeLinkText;
   utils = utils;
   helpers = assign({}, helpers);
-  options: MarkdownItNormalizedOptions;
+  options: Preset["options"];
 
   constructor(
     presetNameOrOptions?: PresetName | MarkdownItOptions,
@@ -193,7 +53,7 @@ export class MarkdownIt {
       }
     }
 
-    this.options = {} as MarkdownItNormalizedOptions;
+    this.options = {} as Preset["options"];
     this.configure(presetNameOrOptions as string);
 
     if (options) {
@@ -235,8 +95,8 @@ export class MarkdownIt {
    * We strongly recommend to use presets instead of direct config loads. That
    * will give better compatibility with next versions.
    **/
-  configure(presetsNameOrConfig?: string | PresetsConfig) {
-    let config: PresetsConfig | undefined;
+  configure(presetsNameOrConfig?: string | Preset) {
+    let preset: Preset | undefined;
 
     if (isString(presetsNameOrConfig)) {
       const presetName = presetsNameOrConfig;
@@ -245,28 +105,28 @@ export class MarkdownIt {
           'Wrong `markdown-it` preset "' + presetName + '", check name',
         );
       }
-      config = configs[presetName];
+      preset = presets[presetName];
     } else {
-      config = presetsNameOrConfig;
+      preset = presetsNameOrConfig;
     }
 
-    if (!config) {
+    if (!preset) {
       throw new Error("Wrong `markdown-it` preset, can't be empty");
     }
 
-    if (config.options) {
-      this.set(config.options);
+    if (preset.options) {
+      this.set(preset.options);
     }
 
-    if (config.components) {
+    if (preset.components) {
       (
-        Object.keys(config.components) as Array<"core" | "block" | "inline">
+        Object.keys(preset.components) as Array<"core" | "block" | "inline">
       ).forEach((name) => {
-        if (config.components[name].rules) {
-          this[name].ruler.enableOnly(config.components[name].rules);
+        if (preset.components[name].rules) {
+          this[name].ruler.enableOnly(preset.components[name].rules);
         }
-        if (name === "inline" && config.components[name].rules2) {
-          this[name].ruler2.enableOnly(config.components[name].rules2);
+        if (name === "inline" && preset.components[name].rules2) {
+          this[name].ruler2.enableOnly(preset.components[name].rules2);
         }
       });
     }
@@ -362,16 +222,12 @@ export class MarkdownIt {
    *             });
    * ```
    **/
-  async use<
-    PluginArgs extends [MarkdownIt, ...rest: Array<unknown>] = [
-      MarkdownIt,
-      Array<unknown>,
-    ],
-  >(
-    plugin: (...args: [PluginArgs]) => Awaitable<void>,
-    ...args: RemoveFirst<PluginArgs>
+  async use<Args extends unknown[]>(
+    plugin: MarkdownItPlugin<Args>,
+    ...args: Args
   ) {
-    await plugin.apply(plugin, [this, ...args]);
+    const allArgs = [this, ...args] as const;
+    await utils.resolvePromiseLike(plugin.call(plugin, ...allArgs));
     return this;
   }
 
@@ -390,7 +246,7 @@ export class MarkdownIt {
    * inject data in specific cases. Usually, you will be ok to pass `{}`,
    * and then pass updated object to renderer.
    **/
-  async parse(src: string, env: Record<string, unknown> = {}) {
+  async parse(src: string, env: MarkdownItEnv = {}) {
     if (typeof src !== "string") {
       throw new Error("Input data should be a String");
     }
@@ -412,8 +268,12 @@ export class MarkdownIt {
    * But you will not need it with high probability. See also comment
    * in [[MarkdownIt.parse]].
    **/
-  async render(src: string, env: Record<string, unknown> = {}) {
-    return this.renderer.render(await this.parse(src, env), this.options, env);
+  async render(src: string, env: MarkdownItEnv = {}) {
+    return await this.renderer.render(
+      await this.parse(src, env),
+      this.options,
+      env,
+    );
   }
 
   /** internal
@@ -425,7 +285,7 @@ export class MarkdownIt {
    * block tokens list with the single `inline` element, containing parsed inline
    * tokens in `children` property. Also updates `env` object.
    **/
-  async parseInline(src: string, env: Record<string, unknown> = {}) {
+  async parseInline(src: string, env: MarkdownItEnv = {}) {
     const state = new StateCore(src, this, env);
 
     state.inlineMode = true;
@@ -442,7 +302,7 @@ export class MarkdownIt {
    * Similar to [[MarkdownIt.render]] but for single paragraph content. Result
    * will NOT be wrapped into `<p>` tags.
    **/
-  async renderInline(src: string, env: Record<string, unknown> = {}) {
+  async renderInline(src: string, env: MarkdownItEnv = {}) {
     return this.renderer.render(
       await this.parseInline(src, env),
       this.options,

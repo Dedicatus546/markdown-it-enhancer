@@ -1,7 +1,7 @@
 // Process [link](<to> "stuff")
 
 import { isSpace, normalizeReference } from "../common/utils";
-import { Attr } from "../token";
+import { TokenAttr } from "../token";
 import StateInline from "./state_inline";
 
 export default async function link(
@@ -21,7 +21,11 @@ export default async function link(
   const oldPos = state.pos;
   const max = state.posMax;
   const labelStart = state.pos + 1;
-  const labelEnd = state.md.helpers.parseLinkLabel(state, state.pos, true);
+  const labelEnd = await state.md.helpers.parseLinkLabel(
+    state,
+    state.pos,
+    true,
+  );
 
   // parser failed to find ']', so it's not a valid link
   if (labelEnd < 0) {
@@ -107,7 +111,7 @@ export default async function link(
 
     if (pos < max && state.src.charCodeAt(pos) === 0x5b /* [ */) {
       start = pos + 1;
-      pos = state.md.helpers.parseLinkLabel(state, pos);
+      pos = await state.md.helpers.parseLinkLabel(state, pos);
       if (pos >= 0) {
         label = state.src.slice(start, pos++);
       } else {
@@ -141,7 +145,7 @@ export default async function link(
     state.posMax = labelEnd;
 
     const token_o = state.push("link_open", "a", 1);
-    const attrs: Array<Attr> = [["href", href]];
+    const attrs: Array<TokenAttr> = [["href", href]];
     token_o.attrs = attrs;
     if (title) {
       attrs.push(["title", title]);

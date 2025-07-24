@@ -5,6 +5,7 @@
  * transformations.
  **/
 
+import { resolvePromiseLike } from "./common/utils";
 import Ruler from "./ruler";
 import r_block from "./rules_core/block";
 import r_inline from "./rules_core/inline";
@@ -54,7 +55,7 @@ class Core {
     const rules = this.ruler.getRules("");
 
     for (let i = 0, l = rules.length; i < l; i++) {
-      await rules[i](state);
+      await resolvePromiseLike(rules[i](state));
     }
   }
 }

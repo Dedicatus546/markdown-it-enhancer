@@ -1,7 +1,11 @@
-import { isSpace, normalizeReference } from "../common/utils";
+import {
+  isSpace,
+  normalizeReference,
+  resolvePromiseLike,
+} from "../common/utils";
 import StateBlock from "./state_block";
 
-export default function reference(
+export default async function reference(
   state: StateBlock,
   startLine: number,
   _endLine: number,
@@ -20,7 +24,7 @@ export default function reference(
     return false;
   }
 
-  function getNextLine(nextLine: number) {
+  async function getNextLine(nextLine: number) {
     const endLine = state.lineMax;
 
     if (nextLine >= endLine || state.isEmpty(nextLine)) {
@@ -49,7 +53,11 @@ export default function reference(
       // Some tags can terminate paragraph without empty line.
       let terminate = false;
       for (let i = 0, l = terminatorRules.length; i < l; i++) {
-        if (terminatorRules[i](state, nextLine, endLine, true)) {
+        if (
+          await resolvePromiseLike(
+            terminatorRules[i](state, nextLine, endLine, true),
+          )
+        ) {
           terminate = true;
           break;
         }
@@ -82,7 +90,7 @@ export default function reference(
       labelEnd = pos;
       break;
     } else if (ch === 0x0a /* \n */) {
-      const lineContent = getNextLine(nextLine);
+      const lineContent = await getNextLine(nextLine);
       if (lineContent !== null) {
         str += lineContent;
         max = str.length;
@@ -91,7 +99,7 @@ export default function reference(
     } else if (ch === 0x5c /* \ */) {
       pos++;
       if (pos < max && str.charCodeAt(pos) === 0x0a) {
-        const lineContent = getNextLine(nextLine);
+        const lineContent = await getNextLine(nextLine);
         if (lineContent !== null) {
           str += lineContent;
           max = str.length;
@@ -110,7 +118,7 @@ export default function reference(
   for (pos = labelEnd + 2; pos < max; pos++) {
     const ch = str.charCodeAt(pos);
     if (ch === 0x0a) {
-      const lineContent = getNextLine(nextLine);
+      const lineContent = await getNextLine(nextLine);
       if (lineContent !== null) {
         str += lineContent;
         max = str.length;
@@ -147,7 +155,7 @@ export default function reference(
   for (; pos < max; pos++) {
     const ch = str.charCodeAt(pos);
     if (ch === 0x0a) {
-      const lineContent = getNextLine(nextLine);
+      const lineContent = await getNextLine(nextLine);
       if (lineContent !== null) {
         str += lineContent;
         max = str.length;
@@ -164,7 +172,7 @@ export default function reference(
   //                          ^^^^^^^ parse this
   let titleRes = state.md.helpers.parseLinkTitle(str, pos, max);
   while (titleRes.can_continue) {
-    const lineContent = getNextLine(nextLine);
+    const lineContent = await getNextLine(nextLine);
     if (lineContent === null) break;
     str += lineContent;
     pos = max;
