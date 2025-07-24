@@ -1,4 +1,4 @@
-import MarkdownIt from "../lib";
+import MarkdownIt, { MarkdownItPlugin } from "../lib";
 // @ts-expect-error ignore
 import forInline from "markdown-it-for-inline";
 import { assert, describe, expect, it } from "vitest";
@@ -27,11 +27,11 @@ describe("API", function () {
   it("plugin", async function () {
     let succeeded = false;
 
-    function plugin(slf, opts) {
+    const plugin: MarkdownItPlugin = function plugin(slf, opts) {
       if (opts === "bar") {
         succeeded = true;
       }
-    }
+    };
 
     const md = new MarkdownIt();
 
