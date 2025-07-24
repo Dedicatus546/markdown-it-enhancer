@@ -234,9 +234,9 @@ function generate(path: string, md: MarkdownIt) {
           fixture.header
             ? fixture.header
             : "line " + (fixture.first.range[0] - 1),
-          function () {
+          async function () {
             assert.strictEqual(
-              md.render(fixture.first.text),
+              await md.render(fixture.first.text),
               fixture.second.text,
             );
           },

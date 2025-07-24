@@ -2,37 +2,37 @@ import MarkdownIt, { setTableMaxAutoCompletedCells } from "../lib";
 import { describe, assert, it } from "vitest";
 
 describe("markdown-it-extra", () => {
-  it("don't parse when --- indented more than 3 spaces", () => {
+  it("don't parse when --- indented more than 3 spaces", async () => {
     const md = new MarkdownIt();
     // 只保留 lheading，有个代码分支需要单独测试
     md.block.ruler.enableOnly(["lheading", "paragraph"]);
     const source = "    const val = 1\n---";
     const target = "<p>const val = 1\n---</p>\n";
 
-    assert.strictEqual(md.render(source), target);
+    assert.strictEqual(await md.render(source), target);
   });
 
-  it("don't parse when === indented more than 3 spaces", () => {
+  it("don't parse when === indented more than 3 spaces", async () => {
     const md = new MarkdownIt();
     // 只保留 lheading，有个代码分支需要单独测试
     md.block.ruler.enableOnly(["lheading", "paragraph"]);
     const source = "    const val = 1\n===";
     const target = "<p>const val = 1\n===</p>\n";
 
-    assert.strictEqual(md.render(source), target);
+    assert.strictEqual(await md.render(source), target);
   });
 
-  it("don't parse when reference indented more than 3 spaces", () => {
+  it("don't parse when reference indented more than 3 spaces", async () => {
     const md = new MarkdownIt();
     // 只保留 reference，有个代码分支需要单独测试
     md.block.ruler.enableOnly(["reference", "paragraph"]);
     const source = "    [reference_title][reference_url]";
     const target = "<p>[reference_title][reference_url]</p>\n";
 
-    assert.strictEqual(md.render(source), target);
+    assert.strictEqual(await md.render(source), target);
   });
 
-  it("don't parse to token when table max autocomplete cells > MAX_AUTOCOMPLETED_CELLS", () => {
+  it("don't parse to token when table max autocomplete cells > MAX_AUTOCOMPLETED_CELLS", async () => {
     const md = new MarkdownIt();
     setTableMaxAutoCompletedCells(5);
     const source = [
@@ -70,16 +70,16 @@ describe("markdown-it-extra", () => {
       "<p>|1|2|</p>",
       "",
     ].join("\n");
-    assert.strictEqual(md.render(source), target);
+    assert.strictEqual(await md.render(source), target);
   });
 
-  it("don't render table when second line is |a|", () => {
+  it("don't render table when second line is |a|", async () => {
     const md = new MarkdownIt();
     // 只保留 reference，有个代码分支需要单独测试
     md.block.ruler.enableOnly(["table", "paragraph"]);
     const source = ["|title1|", "|1|"].join("\n");
     const target = "<p>|title1|\n|1|</p>\n";
 
-    assert.strictEqual(md.render(source), target);
+    assert.strictEqual(await md.render(source), target);
   });
 });

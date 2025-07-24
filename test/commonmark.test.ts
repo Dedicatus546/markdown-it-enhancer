@@ -24,10 +24,13 @@ function generate(path: string, md: MarkdownIt) {
           fixture.header
             ? fixture.header
             : "line " + (fixture.first.range[0] - 1),
-          function () {
+          async function () {
+            const result = await md.render(fixture.first.text);
+            const target = normalize(fixture.second.text);
             assert.strictEqual(
-              md.render(fixture.first.text),
-              normalize(fixture.second.text),
+              result,
+              target,
+              `\n---\n${fixture.first.text}---\n`,
             );
           },
         );
