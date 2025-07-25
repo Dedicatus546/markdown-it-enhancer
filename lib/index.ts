@@ -28,6 +28,7 @@ export interface MarkdownItEnv {
   references?: {
     [key: string]: { title: string; href: string };
   };
+  maxAutocompletedCells?: number;
 }
 
 export class MarkdownIt {
@@ -348,4 +349,3 @@ const MarkdownItExport = MarkdownItFactory as typeof MarkdownIt &
   (() => MarkdownIt);
 
 export default MarkdownItExport;
-export { setTableMaxAutoCompletedCells } from "./rules_block/table";
