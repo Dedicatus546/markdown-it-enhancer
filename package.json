@@ -1,5 +1,5 @@
 {
-  "name": "markdown-it-async",
+  "name": "markdown-it-enhancer",
   "version": "14.1.0",
   "description": "Markdown-it - modern pluggable markdown parser.",
   "type": "module",
@@ -9,9 +9,9 @@
     "commonmark",
     "markdown-it",
     "markdown-it-plugin",
-    "markdown-it-async"
+    "markdown-it-enhancer"
   ],
-  "repository": "Dedicatus546/markdown-it-async",
+  "repository": "Dedicatus546/markdown-it-enhancer",
   "license": "MIT",
   "main": "dist/markdown-it-enhancer.js",
   "exports": {
