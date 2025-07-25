@@ -15,6 +15,11 @@ export default defineConfig({
       include: ["lib"],
     }),
   ],
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "lib"),
+    },
+  },
   build: {
     lib: {
       entry: resolve(__dirname, "lib", "index.ts"),

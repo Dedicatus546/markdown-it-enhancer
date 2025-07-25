@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "skipLibCheck": true,
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "target": "esnext",
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "strict": true
+    "strict": true,
+    "paths": {
+      "@/*": [
+        "./lib/*"
+      ],
+    }
   },
   "include": [
     "./lib/**/*.ts",
