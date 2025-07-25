@@ -1,4 +1,4 @@
-# markdown-it
+# markdown-it-enhancer
 
 这是一个 markdown-it 的 fork 版本。主要有以下变更：
 
