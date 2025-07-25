@@ -42,6 +42,7 @@ export class MarkdownIt {
   utils = utils;
   helpers = assign({}, helpers);
   options: Preset["options"];
+  plugins: Array<Promise<void>> = [];
 
   constructor(
     presetNameOrOptions?: PresetName | MarkdownItOptions,
@@ -223,13 +224,23 @@ export class MarkdownIt {
    *             });
    * ```
    **/
-  async use<Args extends unknown[]>(
-    plugin: MarkdownItPlugin<Args>,
-    ...args: Args
-  ) {
+  use<Args extends unknown[]>(plugin: MarkdownItPlugin<Args>, ...args: Args) {
+    // 异步顺序执行
     const allArgs = [this, ...args] as const;
-    await resolvePromiseLike(plugin.call(plugin, ...allArgs));
+    if (this.plugins.length === 0) {
+      const promise = resolvePromiseLike(plugin.call(plugin, ...allArgs));
+      this.plugins.push(promise);
+    } else {
+      const lastPlugin = this.plugins.at(-1)!;
+      const promise = lastPlugin.then(() => plugin.call(plugin, ...allArgs));
+      this.plugins.push(promise);
+    }
     return this;
+  }
+
+  async isReady() {
+    // 确保异步插件加载完毕
+    await Promise.all(this.plugins);
   }
 
   /** internal
@@ -309,10 +320,6 @@ export class MarkdownIt {
       this.options,
       env,
     );
-  }
-
-  static [Symbol.hasInstance](instance: unknown): instance is MarkdownIt {
-    return instance instanceof MarkdownIt;
   }
 }
 

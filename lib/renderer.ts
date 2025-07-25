@@ -72,7 +72,7 @@ default_rules.fence = async function (tokens, idx, options, env, slf) {
     highlighted = escapeHtml(token.content);
   }
 
-  if (highlighted.indexOf("<pre") === 0) {
+  if (highlighted.startsWith("<pre")) {
     return highlighted + "\n";
   }
 
@@ -172,7 +172,7 @@ class Renderer {
    * See [source code](https://github.com/markdown-it/markdown-it/blob/master/lib/renderer)
    * for more details and examples.
    **/
-  rules = assign({}, default_rules);
+  rules: Record<string, RendererFn | undefined> = assign({}, default_rules);
 
   /**
    * Renderer.renderAttrs(token) -> String
@@ -180,7 +180,7 @@ class Renderer {
    * Render token attributes to string.
    **/
   renderAttrs(token: Pick<Token, "attrs">) {
-    let i, l, result;
+    let i: number, l: number, result: string;
 
     if (!token.attrs) {
       return "";
