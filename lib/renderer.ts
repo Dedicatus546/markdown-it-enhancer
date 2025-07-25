@@ -50,7 +50,7 @@ default_rules.code_block = function (tokens, idx, options, env, slf) {
   );
 };
 
-default_rules.fence = function (tokens, idx, options, env, slf) {
+default_rules.fence = async function (tokens, idx, options, env, slf) {
   const token = tokens[idx];
   const info = token.info ? unescapeAll(token.info).trim() : "";
   let langName = "";
@@ -65,8 +65,9 @@ default_rules.fence = function (tokens, idx, options, env, slf) {
   let highlighted;
   if (options.highlight) {
     highlighted =
-      options.highlight(token.content, langName, langAttrs) ||
-      escapeHtml(token.content);
+      (await resolvePromiseLike(
+        options.highlight(token.content, langName, langAttrs),
+      )) || escapeHtml(token.content);
   } else {
     highlighted = escapeHtml(token.content);
   }

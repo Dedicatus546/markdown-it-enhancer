@@ -1,3 +1,4 @@
+import { Awaitable } from "../../lib/types";
 import commonmarkPreset from "./commonmark";
 import defaultPreset from "./default";
 import zeroPreset from "./zero";
@@ -11,8 +12,8 @@ export interface Preset {
     linkify: boolean;
     typographer: boolean;
     quotes: Array<string> | string;
-    highlight?:
-      | ((str: string, lang: string, langAttrs: unknown) => string)
+    highlight:
+      | ((str: string, lang: string, langAttrs: string) => Awaitable<string>)
       | null;
     maxNesting: number;
   };
