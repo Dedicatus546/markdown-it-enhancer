@@ -49,9 +49,9 @@ describe("API", () => {
 
     const md = new MarkdownIt();
 
-    await md.use(plugin, "foo");
+    await md.use(plugin, "foo").isReady();
     expect(succeeded).toBe(false);
-    await md.use(plugin, "bar");
+    await md.use(plugin, "bar").isReady();
     expect(succeeded).toBe(true);
   });
 
