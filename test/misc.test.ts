@@ -227,10 +227,10 @@ describe("Plugins", () => {
       { alt: ["paragraph"] },
     );
 
-    expect(md.render("foo\n@bar\nbaz")).rejects.toThrow(
+    await expect(md.render("foo\n@bar\nbaz")).rejects.toThrow(
       /block rule didn't increment state.line/,
     );
-    expect(md.render("foo\n\n@bar\n\nbaz")).rejects.toThrow(
+    await expect(md.render("foo\n\n@bar\n\nbaz")).rejects.toThrow(
       /block rule didn't increment state.line/,
     );
   });
@@ -427,7 +427,7 @@ describe("maxNesting", () => {
   it("Block parser should not nest above limit", async () => {
     // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 2 });
-    expect(md.render(">foo\n>>bar\n>>>baz")).resolves.toBe(
+    await expect(md.render(">foo\n>>bar\n>>>baz")).resolves.toBe(
       "<blockquote>\n<p>foo</p>\n<blockquote></blockquote>\n</blockquote>\n",
     );
   });
