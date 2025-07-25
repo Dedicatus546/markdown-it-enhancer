@@ -26,31 +26,31 @@ export type RendererFn = (
 
 const default_rules: Record<string, RendererFn> = {};
 
-default_rules.code_inline = function (tokens, idx, options, env, slf) {
+default_rules.code_inline = (tokens, idx, _options, _env, renderer) => {
   const token = tokens[idx];
 
   return (
     "<code" +
-    slf.renderAttrs(token) +
+    renderer.renderAttrs(token) +
     ">" +
     escapeHtml(token.content) +
     "</code>"
   );
 };
 
-default_rules.code_block = function (tokens, idx, options, env, slf) {
+default_rules.code_block = (tokens, idx, _options, _env, renderer) => {
   const token = tokens[idx];
 
   return (
     "<pre" +
-    slf.renderAttrs(token) +
+    renderer.renderAttrs(token) +
     "><code>" +
     escapeHtml(tokens[idx].content) +
     "</code></pre>\n"
   );
 };
 
-default_rules.fence = async function (tokens, idx, options, env, slf) {
+default_rules.fence = async (tokens, idx, options, _env, renderer) => {
   const token = tokens[idx];
   const info = token.info ? unescapeAll(token.info).trim() : "";
   let langName = "";
@@ -95,13 +95,13 @@ default_rules.fence = async function (tokens, idx, options, env, slf) {
       attrs: tmpAttrs,
     };
 
-    return `<pre><code${slf.renderAttrs(tmpToken)}>${highlighted}</code></pre>\n`;
+    return `<pre><code${renderer.renderAttrs(tmpToken)}>${highlighted}</code></pre>\n`;
   }
 
-  return `<pre><code${slf.renderAttrs(token)}>${highlighted}</code></pre>\n`;
+  return `<pre><code${renderer.renderAttrs(token)}>${highlighted}</code></pre>\n`;
 };
 
-default_rules.image = function (tokens, idx, options, env, slf) {
+default_rules.image = (tokens, idx, options, env, renderer) => {
   const token = tokens[idx];
 
   // "alt" attr MUST be set, even if empty. Because it's mandatory and
@@ -110,31 +110,31 @@ default_rules.image = function (tokens, idx, options, env, slf) {
   // Replace content with actual value
 
   if (token.attrs) {
-    token.attrs[token.attrIndex("alt")][1] = slf.renderInlineAsText(
+    token.attrs[token.attrIndex("alt")][1] = renderer.renderInlineAsText(
       token.children,
       options,
       env,
     );
   }
 
-  return slf.renderToken(tokens, idx, options);
+  return renderer.renderToken(tokens, idx, options);
 };
 
-default_rules.hardbreak = function (tokens, idx, options /*, env */) {
+default_rules.hardbreak = (_tokens, _idx, options) => {
   return options.xhtmlOut ? "<br />\n" : "<br>\n";
 };
-default_rules.softbreak = function (tokens, idx, options /*, env */) {
+default_rules.softbreak = (_tokens, _idx, options) => {
   return options.breaks ? (options.xhtmlOut ? "<br />\n" : "<br>\n") : "\n";
 };
 
-default_rules.text = function (tokens, idx /*, options, env */) {
+default_rules.text = (tokens, idx) => {
   return escapeHtml(tokens[idx].content);
 };
 
-default_rules.html_block = function (tokens, idx /*, options, env */) {
+default_rules.html_block = (tokens, idx) => {
   return tokens[idx].content;
 };
-default_rules.html_inline = function (tokens, idx /*, options, env */) {
+default_rules.html_inline = (tokens, idx) => {
   return tokens[idx].content;
 };
 

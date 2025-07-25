@@ -1,15 +1,9 @@
 // lheading (---, ===)
 
 import { resolvePromiseLike } from "@/common/utils";
+import { StateBlockRuleFn } from "@/ruler";
 
-import StateBlock from "./state_block";
-
-export default async function lheading(
-  state: StateBlock,
-  startLine: number,
-  endLine: number,
-  // silent: boolean = false,
-) {
+const lheading: StateBlockRuleFn = async (state, startLine, endLine) => {
   const terminatorRules = state.md.block.ruler.getRules("paragraph");
 
   // if it's indented more than 3 spaces, it should be a code block
@@ -102,4 +96,6 @@ export default async function lheading(
   state.parentType = oldParentType;
 
   return true;
-}
+};
+
+export default lheading;

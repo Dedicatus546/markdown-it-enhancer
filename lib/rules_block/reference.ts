@@ -3,15 +3,14 @@ import {
   normalizeReference,
   resolvePromiseLike,
 } from "@/common/utils";
+import { StateBlockRuleFn } from "@/ruler";
 
-import StateBlock from "./state_block";
-
-export default async function reference(
-  state: StateBlock,
-  startLine: number,
-  _endLine: number,
-  silent: boolean = false,
-) {
+const reference: StateBlockRuleFn = async (
+  state,
+  startLine,
+  _endLine,
+  silent = false,
+) => {
   let pos = state.bMarks[startLine] + state.tShift[startLine];
   let max = state.eMarks[startLine];
   let nextLine = startLine + 1;
@@ -244,4 +243,6 @@ export default async function reference(
 
   state.line = nextLine;
   return true;
-}
+};
+
+export default reference;

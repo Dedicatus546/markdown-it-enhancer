@@ -1,6 +1,7 @@
 // GFM table, https://github.github.com/gfm/#tables-extension-
 
 import { isSpace, resolvePromiseLike } from "@/common/utils";
+import { StateBlockRuleFn } from "@/ruler";
 
 import StateBlock from "./state_block";
 
@@ -12,14 +13,14 @@ import StateBlock from "./state_block";
 // (256x256 square is 1.8kB expanded into 650kB).
 const DEFAULT_MAX_AUTOCOMPLETED_CELLS = 0x10000;
 
-function getLine(state: StateBlock, line: number) {
+const getLine = (state: StateBlock, line: number) => {
   const pos = state.bMarks[line] + state.tShift[line];
   const max = state.eMarks[line];
 
   return state.src.slice(pos, max);
-}
+};
 
-function escapedSplit(str: string) {
+const escapedSplit = (str: string) => {
   const result = [];
   const max = str.length;
 
@@ -52,14 +53,14 @@ function escapedSplit(str: string) {
   result.push(current + str.substring(lastPos));
 
   return result;
-}
+};
 
-export default async function table(
-  state: StateBlock,
-  startLine: number,
-  endLine: number,
-  silent: boolean = false,
-) {
+const table: StateBlockRuleFn = async (
+  state,
+  startLine,
+  endLine,
+  silent = false,
+) => {
   // should have at least two lines
   if (startLine + 2 > endLine) {
     return false;
@@ -291,4 +292,6 @@ export default async function table(
   state.parentType = oldParentType;
   state.line = nextLine;
   return true;
-}
+};
+
+export default table;

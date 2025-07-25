@@ -1,14 +1,9 @@
 // Paragraph
 
 import { resolvePromiseLike } from "@/common/utils";
+import { StateBlockRuleFn } from "@/ruler";
 
-import StateBlock from "./state_block";
-
-export default async function paragraph(
-  state: StateBlock,
-  startLine: number,
-  endLine: number,
-) {
+const paragraph: StateBlockRuleFn = async (state, startLine, endLine) => {
   const terminatorRules = state.md.block.ruler.getRules("paragraph");
   const oldParentType = state.parentType;
   let nextLine = startLine + 1;
@@ -63,4 +58,6 @@ export default async function paragraph(
   state.parentType = oldParentType;
 
   return true;
-}
+};
+
+export default paragraph;

@@ -1,15 +1,14 @@
 // heading (#, ##, ...)
 
 import { isSpace } from "@/common/utils";
+import { StateBlockRuleFn } from "@/ruler";
 
-import StateBlock from "./state_block";
-
-export default function heading(
-  state: StateBlock,
-  startLine: number,
-  endLine: number,
-  silent: boolean = false,
-) {
+const heading: StateBlockRuleFn = (
+  state,
+  startLine,
+  _endLine,
+  silent = false,
+) => {
   let pos = state.bMarks[startLine] + state.tShift[startLine];
   let max = state.eMarks[startLine];
 
@@ -63,4 +62,6 @@ export default function heading(
   token_c.markup = "########".slice(0, level);
 
   return true;
-}
+};
+
+export default heading;

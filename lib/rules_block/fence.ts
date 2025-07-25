@@ -1,13 +1,8 @@
 // fences (``` lang, ~~~ lang)
 
-import StateBlock from "./state_block";
+import { StateBlockRuleFn } from "@/ruler";
 
-export default function fence(
-  state: StateBlock,
-  startLine: number,
-  endLine: number,
-  silent: boolean = false,
-) {
+const fence: StateBlockRuleFn = (state, startLine, endLine, silent = false) => {
   let pos = state.bMarks[startLine] + state.tShift[startLine];
   let max = state.eMarks[startLine];
 
@@ -112,4 +107,6 @@ export default function fence(
   token.map = [startLine, state.line];
 
   return true;
-}
+};
+
+export default fence;

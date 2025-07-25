@@ -154,23 +154,21 @@ export class MarkdownIt {
    * ```
    **/
   enable(list: Array<string> | string, ignoreInvalid: boolean = false) {
-    let result: Array<string> = [];
+    const result: Array<string> = [];
 
     if (!Array.isArray(list)) {
       list = [list];
     }
 
     (["core", "block", "inline"] as const).forEach((chain) => {
-      result = result.concat(this[chain].ruler.enable(list, true));
-    }, this);
-
-    result = result.concat(this.inline.ruler2.enable(list, true));
-
-    const missed = list.filter(function (name) {
-      return result.indexOf(name) < 0;
+      result.push(...this[chain].ruler.enable(list, true));
     });
 
-    if (missed.length && !ignoreInvalid) {
+    result.push(...this.inline.ruler2.enable(list, true));
+
+    const missed = list.some((name) => !result.includes(name));
+
+    if (missed && !ignoreInvalid) {
       throw new Error(
         "MarkdownIt. Failed to enable unknown rule(s): " + missed,
       );
@@ -187,21 +185,21 @@ export class MarkdownIt {
    * The same as [[MarkdownIt.enable]], but turn specified rules off.
    **/
   disable(list: Array<string> | string, ignoreInvalid: boolean = false) {
-    let result: Array<string> = [];
+    const result: Array<string> = [];
 
     if (!Array.isArray(list)) {
       list = [list];
     }
 
     (["core", "block", "inline"] as const).forEach((chain) => {
-      result = result.concat(this[chain].ruler.disable(list, true));
-    }, this);
+      result.push(...this[chain].ruler.disable(list, true));
+    });
 
-    result = result.concat(this.inline.ruler2.disable(list, true));
+    result.push(...this.inline.ruler2.disable(list, true));
 
-    const missed = list.filter((name) => result.indexOf(name) < 0);
+    const missed = list.some((name) => !result.includes(name));
 
-    if (missed.length && !ignoreInvalid) {
+    if (missed && !ignoreInvalid) {
       throw new Error(
         "MarkdownIt. Failed to disable unknown rule(s): " + missed,
       );

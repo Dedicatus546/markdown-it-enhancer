@@ -1,13 +1,14 @@
 // Lists
 
 import { isSpace, resolvePromiseLike } from "@/common/utils";
+import { StateBlockRuleFn } from "@/ruler";
 import Token from "@/token";
 
 import StateBlock from "./state_block";
 
 // Search `[-+*][\n ]`, returns next pos after marker on success
 // or -1 on fail.
-function skipBulletListMarker(state: StateBlock, startLine: number) {
+const skipBulletListMarker = (state: StateBlock, startLine: number) => {
   const max = state.eMarks[startLine];
   let pos = state.bMarks[startLine] + state.tShift[startLine];
 
@@ -31,11 +32,11 @@ function skipBulletListMarker(state: StateBlock, startLine: number) {
   }
 
   return pos;
-}
+};
 
 // Search `\d+[.)][\n ]`, returns next pos after marker on success
 // or -1 on fail.
-function skipOrderedListMarker(state: StateBlock, startLine: number) {
+const skipOrderedListMarker = (state: StateBlock, startLine: number) => {
   const start = state.bMarks[startLine] + state.tShift[startLine];
   const max = state.eMarks[startLine];
   let pos = start;
@@ -86,9 +87,9 @@ function skipOrderedListMarker(state: StateBlock, startLine: number) {
     }
   }
   return pos;
-}
+};
 
-function markTightParagraphs(state: StateBlock, idx: number) {
+const markTightParagraphs = (state: StateBlock, idx: number) => {
   const level = state.level + 2;
 
   for (let i = idx + 2, l = state.tokens.length - 2; i < l; i++) {
@@ -101,14 +102,14 @@ function markTightParagraphs(state: StateBlock, idx: number) {
       i += 2;
     }
   }
-}
+};
 
-export default async function list(
-  state: StateBlock,
-  startLine: number,
-  endLine: number,
-  silent: boolean = false,
-) {
+const list: StateBlockRuleFn = async (
+  state,
+  startLine,
+  endLine,
+  silent = false,
+) => {
   let max = 0,
     pos = 0,
     start = 0,
@@ -382,4 +383,6 @@ export default async function list(
   }
 
   return true;
-}
+};
+
+export default list;

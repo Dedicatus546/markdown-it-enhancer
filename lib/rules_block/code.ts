@@ -1,12 +1,8 @@
 // Code block (4 spaces padded)
 
-import StateBlock from "./state_block";
+import { StateBlockRuleFn } from "@/ruler";
 
-export default function code(
-  state: StateBlock,
-  startLine: number,
-  endLine: number,
-) {
+const code: StateBlockRuleFn = (state, startLine, endLine) => {
   if (state.sCount[startLine] - state.blkIndent < 4) {
     return false;
   }
@@ -36,4 +32,6 @@ export default function code(
   token.map = [startLine, state.line];
 
   return true;
-}
+};
+
+export default code;

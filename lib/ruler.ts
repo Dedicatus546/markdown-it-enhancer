@@ -12,23 +12,23 @@ export interface Rule<T> {
 
 export type RuleResult = undefined | void | boolean;
 
-export interface StateBlockRuleFn<T> {
+export interface StateBlockRuleFn {
   (
-    state: T,
+    state: StateBlock,
     startLine: number,
     endLine: number,
     silent?: boolean,
   ): Awaitable<RuleResult>;
 }
 
-export interface StateInlineRuleFn<T> {
-  (state: T, silent?: boolean): Awaitable<RuleResult>;
+export interface StateInlineRuleFn {
+  (state: StateInline, silent?: boolean): Awaitable<RuleResult>;
 }
 
 export type RuleFn<T> = T extends StateBlock
-  ? StateBlockRuleFn<T>
+  ? StateBlockRuleFn
   : T extends StateInline
-    ? StateInlineRuleFn<T>
+    ? StateInlineRuleFn
     : T extends StateCore
       ? (state: T) => Awaitable<RuleResult>
       : () => Awaitable<void>;

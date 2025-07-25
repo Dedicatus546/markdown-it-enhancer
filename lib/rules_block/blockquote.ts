@@ -1,15 +1,14 @@
 // Block quotes
 
 import { isSpace, resolvePromiseLike } from "@/common/utils";
+import { StateBlockRuleFn } from "@/ruler";
 
-import StateBlock from "./state_block";
-
-export default async function blockquote(
-  state: StateBlock,
-  startLine: number,
-  endLine: number,
-  silent: boolean = false,
-) {
+const blockquote: StateBlockRuleFn = async (
+  state,
+  startLine,
+  endLine,
+  silent = false,
+) => {
   let pos = state.bMarks[startLine] + state.tShift[startLine];
   let max = state.eMarks[startLine];
 
@@ -228,4 +227,6 @@ export default async function blockquote(
   state.blkIndent = oldIndent;
 
   return true;
-}
+};
+
+export default blockquote;

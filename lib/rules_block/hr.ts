@@ -1,15 +1,9 @@
 // Horizontal rule
 
 import { isSpace } from "@/common/utils";
+import { StateBlockRuleFn } from "@/ruler";
 
-import StateBlock from "./state_block";
-
-export default function hr(
-  state: StateBlock,
-  startLine: number,
-  endLine: number,
-  silent: boolean = false,
-) {
+const hr: StateBlockRuleFn = (state, startLine, _endLine, silent = false) => {
   const max = state.eMarks[startLine];
   // if it's indented more than 3 spaces, it should be a code block
   if (state.sCount[startLine] - state.blkIndent >= 4) {
@@ -56,4 +50,6 @@ export default function hr(
   token.markup = Array(cnt + 1).join(String.fromCharCode(marker));
 
   return true;
-}
+};
+
+export default hr;
