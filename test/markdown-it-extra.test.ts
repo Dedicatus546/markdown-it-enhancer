@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import MarkdownIt, {
-  MarkdownIt as MarkdownItClass,
-  setTableMaxAutoCompletedCells,
-} from "../lib";
+import MarkdownIt, { MarkdownIt as MarkdownItClass } from "../lib";
 import { delay } from "./utils";
 
 describe("markdown-it-extra", () => {
@@ -39,7 +36,6 @@ describe("markdown-it-extra", () => {
 
   it("don't parse to token when table max autocomplete cells > MAX_AUTOCOMPLETED_CELLS", async () => {
     const md = new MarkdownIt();
-    setTableMaxAutoCompletedCells(5);
     const source = [
       "|title1|title2|title3|title4|",
       "|:---:|:----:|:----:|:----:|",
@@ -75,7 +71,11 @@ describe("markdown-it-extra", () => {
       "<p>|1|2|</p>",
       "",
     ].join("\n");
-    await expect(md.render(source)).resolves.toBe(target);
+    await expect(
+      md.render(source, {
+        maxAutocompletedCells: 5,
+      }),
+    ).resolves.toBe(target);
   });
 
   it("don't render table when second line is |a|", async () => {
