@@ -23,7 +23,7 @@
     "markdown-it": "bin/markdown-it.js"
   },
   "scripts": {
-    "lint": "eslint",
+    "lint": "eslint --fix",
     "test": "vitest --open",
     "build": "vite build",
     "build:dev": "vite build --watch"
