@@ -6,7 +6,7 @@
 
 import { type MarkdownIt, MarkdownItEnv } from ".";
 import { resolvePromiseLike } from "./common/utils";
-import Ruler from "./ruler";
+import Ruler, { RuleResult } from "./ruler";
 import r_autolink from "./rules_inline/autolink";
 import r_backticks from "./rules_inline/backticks";
 import r_balance_pairs from "./rules_inline/balance_pairs";
@@ -100,7 +100,7 @@ class ParserInline {
       return;
     }
 
-    let ok: boolean | void | undefined = false;
+    let ok: RuleResult = false;
 
     if (state.level < maxNesting) {
       for (let i = 0; i < len; i++) {
@@ -156,7 +156,7 @@ class ParserInline {
       // - update `state.tokens`
       // - return true
       const prevPos = state.pos;
-      let ok: boolean | undefined | void = false;
+      let ok: RuleResult = false;
 
       if (state.level < maxNesting) {
         for (let i = 0; i < len; i++) {

@@ -88,7 +88,7 @@ function replace_rare(inlineTokens: Array<Token>) {
 }
 
 export default function replace(state: StateCore) {
-  let blkIdx: number;
+  let blkIdx = 0;
 
   if (!state.md.options.typographer) {
     return;

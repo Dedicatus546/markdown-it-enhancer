@@ -10,19 +10,23 @@ import * as ucmicro from "uc.micro";
 
 import { Awaitable } from "@/types";
 
-function toString(obj: unknown) {
+const toString = (obj: unknown) => {
   return Object.prototype.toString.call(obj);
-}
+};
 
-function isString(obj: unknown): obj is string {
+const isString = (obj: unknown): obj is string => {
   return toString(obj) === "[object String]";
-}
+};
 
-function arrayReplaceAt<T>(src: Array<T>, pos: number, newElements: Array<T>) {
+const arrayReplaceAt = <T>(
+  src: Array<T>,
+  pos: number,
+  newElements: Array<T>,
+) => {
   return src.toSpliced(pos, 1, ...newElements);
-}
+};
 
-function isValidEntityCode(c: number) {
+const isValidEntityCode = (c: number) => {
   /* eslint no-bitwise:0 */
   // broken sequence
   if (c >= 0xd800 && c <= 0xdfff) {
@@ -53,9 +57,9 @@ function isValidEntityCode(c: number) {
     return false;
   }
   return true;
-}
+};
 
-function fromCodePoint(c: number) {
+const fromCodePoint = (c: number) => {
   if (c > 0xffff) {
     c -= 0x10000;
     const surrogate1 = 0xd800 + (c >> 10);
@@ -64,7 +68,7 @@ function fromCodePoint(c: number) {
     return String.fromCharCode(surrogate1, surrogate2);
   }
   return String.fromCharCode(c);
-}
+};
 
 const UNESCAPE_MD_RE = /\\([!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g;
 const ENTITY_RE = /&([a-z#][a-z0-9]{1,31});/gi;
@@ -75,7 +79,7 @@ const UNESCAPE_ALL_RE = new RegExp(
 
 const DIGITAL_ENTITY_TEST_RE = /^#((?:x[a-f0-9]{1,8}|[0-9]{1,8}))$/i;
 
-function replaceEntityPattern(match: string, name: string) {
+const replaceEntityPattern = (match: string, name: string) => {
   if (
     name.charCodeAt(0) === 0x23 /* # */ &&
     DIGITAL_ENTITY_TEST_RE.test(name)
@@ -98,7 +102,7 @@ function replaceEntityPattern(match: string, name: string) {
   }
 
   return match;
-}
+};
 
 /* function replaceEntities(str) {
   if (str.indexOf('&') < 0) { return str; }
@@ -106,14 +110,14 @@ function replaceEntityPattern(match: string, name: string) {
   return str.replace(ENTITY_RE, replaceEntityPattern);
 } */
 
-function unescapeMd(str: string) {
+const unescapeMd = (str: string) => {
   if (str.indexOf("\\") < 0) {
     return str;
   }
   return str.replace(UNESCAPE_MD_RE, "$1");
-}
+};
 
-function unescapeAll(str: string) {
+const unescapeAll = (str: string) => {
   if (str.indexOf("\\") < 0 && str.indexOf("&") < 0) {
     return str;
   }
@@ -124,7 +128,7 @@ function unescapeAll(str: string) {
     }
     return replaceEntityPattern(match, entity);
   });
-}
+};
 
 const HTML_ESCAPE_TEST_RE = /[&<>"]/;
 const HTML_ESCAPE_REPLACE_RE = /[&<>"]/g;
@@ -135,34 +139,34 @@ const HTML_REPLACEMENTS = {
   '"': "&quot;",
 };
 
-function replaceUnsafeChar(ch: string) {
+const replaceUnsafeChar = (ch: string) => {
   return HTML_REPLACEMENTS[ch as keyof typeof HTML_REPLACEMENTS];
-}
+};
 
-function escapeHtml(str: string) {
+const escapeHtml = (str: string) => {
   if (HTML_ESCAPE_TEST_RE.test(str)) {
     return str.replace(HTML_ESCAPE_REPLACE_RE, replaceUnsafeChar);
   }
   return str;
-}
+};
 
 const REGEXP_ESCAPE_RE = /[.?*+^$[\]\\(){}|-]/g;
 
-function escapeRE(str: string) {
+const escapeRE = (str: string) => {
   return str.replace(REGEXP_ESCAPE_RE, "\\$&");
-}
+};
 
-function isSpace(code: number) {
+const isSpace = (code: number) => {
   switch (code) {
     case 0x09:
     case 0x20:
       return true;
   }
   return false;
-}
+};
 
 // Zs (unicode class) || [\t\f\v\r\n]
-function isWhiteSpace(code: number) {
+const isWhiteSpace = (code: number) => {
   if (code >= 0x2000 && code <= 0x200a) {
     return true;
   }
@@ -181,12 +185,12 @@ function isWhiteSpace(code: number) {
       return true;
   }
   return false;
-}
+};
 
 // Currently without astral characters support.
-function isPunctChar(ch: string) {
+const isPunctChar = (ch: string) => {
   return ucmicro.P.test(ch) || ucmicro.S.test(ch);
-}
+};
 
 // Markdown ASCII punctuation characters.
 //
@@ -195,7 +199,7 @@ function isPunctChar(ch: string) {
 //
 // Don't confuse with unicode punctuation !!! It lacks some chars in ascii range.
 //
-function isMdAsciiPunct(ch: number) {
+const isMdAsciiPunct = (ch: number) => {
   switch (ch) {
     case 0x21 /* ! */:
     case 0x22 /* " */:
@@ -233,11 +237,11 @@ function isMdAsciiPunct(ch: number) {
     default:
       return false;
   }
-}
+};
 
 // Hepler to unify [reference labels].
 //
-function normalizeReference(str: string) {
+const normalizeReference = (str: string) => {
   // Trim and collapse whitespace
   //
   str = str.trim().replace(/\s+/g, " ");
@@ -286,7 +290,7 @@ function normalizeReference(str: string) {
   // most notably, `__proto__`)
   //
   return str.toLowerCase().toUpperCase();
-}
+};
 
 // Re-export libraries commonly used in both markdown-it and its plugins,
 // so plugins won't have to depend on them explicitly, which reduces their
@@ -312,16 +316,16 @@ const resolvePromiseLike = async <T>(p: Awaitable<T>) => {
 const BAD_PROTO_RE = /^(vbscript|javascript|file|data):/;
 const GOOD_DATA_RE = /^data:image\/(gif|png|jpeg|webp);/;
 
-function validateLink(url: string) {
+const validateLink = (url: string) => {
   // url should be normalized at this point, and existing entities are decoded
   const str = url.trim().toLowerCase();
 
   return BAD_PROTO_RE.test(str) ? GOOD_DATA_RE.test(str) : true;
-}
+};
 
 const RECODE_HOSTNAME_FOR: string[] = ["http:", "https:", "mailto:"];
 
-function normalizeLink(url: string) {
+const normalizeLink = (url: string) => {
   const parsed = mdurl.parse(url, true);
 
   if (parsed.hostname) {
@@ -341,9 +345,9 @@ function normalizeLink(url: string) {
   }
 
   return mdurl.encode(mdurl.format(parsed));
-}
+};
 
-function normalizeLinkText(url: string) {
+const normalizeLinkText = (url: string) => {
   const parsed = mdurl.parse(url, true);
 
   if (parsed.hostname) {
@@ -364,7 +368,7 @@ function normalizeLinkText(url: string) {
 
   // add '%' to exclude list because of https://github.com/markdown-it/markdown-it/issues/720
   return mdurl.decode(mdurl.format(parsed), mdurl.decode.defaultChars + "%");
-}
+};
 
 export {
   arrayReplaceAt,

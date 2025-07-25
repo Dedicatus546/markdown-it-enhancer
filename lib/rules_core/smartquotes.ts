@@ -15,7 +15,7 @@ function replaceAt(str: string, index: number, ch: string) {
 }
 
 function process_inlines(tokens: Array<Token>, state: StateCore) {
-  let j;
+  let j = 0;
 
   const stack = [];
 
@@ -149,8 +149,8 @@ function process_inlines(tokens: Array<Token>, state: StateCore) {
           if (item.single === isSingle && stack[j].level === thisLevel) {
             item = stack[j];
 
-            let openQuote;
-            let closeQuote;
+            let openQuote = "";
+            let closeQuote = "";
             if (isSingle) {
               openQuote = state.md.options.quotes[2];
               closeQuote = state.md.options.quotes[3];

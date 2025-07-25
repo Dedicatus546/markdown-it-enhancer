@@ -10,17 +10,19 @@ export interface Rule<T> {
   alt: Array<string>;
 }
 
+export type RuleResult = undefined | void | boolean;
+
 export interface StateBlockRuleFn<T> {
   (
     state: T,
     startLine: number,
     endLine: number,
     silent?: boolean,
-  ): Awaitable<undefined | void | boolean>;
+  ): Awaitable<RuleResult>;
 }
 
 export interface StateInlineRuleFn<T> {
-  (state: T, silent?: boolean): Awaitable<undefined | void | boolean>;
+  (state: T, silent?: boolean): Awaitable<RuleResult>;
 }
 
 export type RuleFn<T> = T extends StateBlock
@@ -28,7 +30,7 @@ export type RuleFn<T> = T extends StateBlock
   : T extends StateInline
     ? StateInlineRuleFn<T>
     : T extends StateCore
-      ? (state: T) => Awaitable<undefined | void | boolean>
+      ? (state: T) => Awaitable<RuleResult>
       : () => Awaitable<void>;
 
 /**

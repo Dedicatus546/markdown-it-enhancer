@@ -33,12 +33,14 @@ interface StateInline {
   Token: typeof Token;
 }
 
+export type TokenMeta = { delimiters: Array<Delimiter> } | null;
+
 class StateInline {
   src: string;
   env: MarkdownItEnv = {};
   md: MarkdownIt;
   tokens: Array<Token>;
-  tokens_meta: Array<{ delimiters: Array<Delimiter> } | null>;
+  tokens_meta: Array<TokenMeta>;
   pos = 0;
   posMax = 0;
   level = 0;
@@ -97,7 +99,7 @@ class StateInline {
     }
 
     const token = new Token(type, tag, nesting);
-    let token_meta = null;
+    let token_meta: TokenMeta = null;
 
     if (nesting < 0) {
       // closing tag

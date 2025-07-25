@@ -1,15 +1,20 @@
 // Process [link](<to> "stuff")
 
 import { isSpace, normalizeReference } from "@/common/utils";
+import { ParseLinkDestinationResult } from "@/helpers/parse_link_destination";
 import { TokenAttr } from "@/token";
 
+import { MarkdownItEnv } from "..";
 import StateInline from "./state_inline";
 
 export default async function link(
   state: StateInline,
   silent: boolean = false,
 ) {
-  let code, label, res, ref;
+  let code = 0,
+    label = "",
+    res: ParseLinkDestinationResult,
+    ref: Exclude<MarkdownItEnv["references"], undefined>[string];
   let href = "";
   let title = "";
   let start = state.pos;

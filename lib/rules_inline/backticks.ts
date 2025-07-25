@@ -29,7 +29,7 @@ export default function backtick(state: StateInline, silent: boolean = false) {
   }
 
   let matchEnd = pos;
-  let matchStart;
+  let matchStart = 0;
 
   // Nothing found in the cache, scan until the end of the line (or until marker is found)
   while ((matchStart = state.src.indexOf("`", matchEnd)) !== -1) {

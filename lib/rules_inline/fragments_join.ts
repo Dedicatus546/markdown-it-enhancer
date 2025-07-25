@@ -10,7 +10,8 @@
 import StateInline from "./state_inline";
 
 export default function fragments_join(state: StateInline) {
-  let curr, last;
+  let curr = 0,
+    last = 0;
   let level = 0;
   const tokens = state.tokens;
   const max = state.tokens.length;

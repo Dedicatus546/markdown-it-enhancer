@@ -1,6 +1,8 @@
 // Process ![image](<src> "title")
 
 import { isSpace, normalizeReference } from "@/common/utils";
+import { ParseLinkDestinationResult } from "@/helpers/parse_link_destination";
+import { MarkdownItEnv } from "@/index";
 import Token, { TokenAttr } from "@/token";
 
 import StateInline from "./state_inline";
@@ -9,8 +11,15 @@ export default async function image(
   state: StateInline,
   silent: boolean = false,
 ) {
-  let code, content, label, pos, ref, res, title, start;
-  let href = "";
+  let code = 0,
+    content = "",
+    label = "",
+    pos = 0,
+    ref: Exclude<MarkdownItEnv["references"], undefined>[string],
+    res: ParseLinkDestinationResult,
+    title = "",
+    start = 0,
+    href = "";
   const oldPos = state.pos;
   const max = state.posMax;
 

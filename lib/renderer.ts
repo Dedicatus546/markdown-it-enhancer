@@ -62,7 +62,7 @@ default_rules.fence = async function (tokens, idx, options, env, slf) {
     langAttrs = arr.slice(2).join("");
   }
 
-  let highlighted;
+  let highlighted = "";
   if (options.highlight) {
     highlighted =
       (await resolvePromiseLike(
@@ -180,15 +180,13 @@ class Renderer {
    * Render token attributes to string.
    **/
   renderAttrs(token: Pick<Token, "attrs">) {
-    let i: number, l: number, result: string;
-
     if (!token.attrs) {
       return "";
     }
 
-    result = "";
+    let result = "";
 
-    for (i = 0, l = token.attrs.length; i < l; i++) {
+    for (let i = 0, len = token.attrs.length; i < len; i++) {
       result +=
         " " +
         escapeHtml(token.attrs[i][0]) +

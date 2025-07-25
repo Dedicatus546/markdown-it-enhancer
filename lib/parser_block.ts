@@ -6,7 +6,7 @@
 
 import { type MarkdownIt, MarkdownItEnv } from ".";
 import { resolvePromiseLike } from "./common/utils";
-import Ruler from "./ruler";
+import Ruler, { RuleResult } from "./ruler";
 import r_blockquote from "./rules_block/blockquote";
 import r_code from "./rules_block/code";
 import r_fence from "./rules_block/fence";
@@ -102,7 +102,7 @@ class ParserBlock {
       // - update `state.tokens`
       // - return true
       const prevLine = state.line;
-      let ok: boolean | undefined | void = false;
+      let ok: RuleResult = false;
 
       for (let i = 0; i < len; i++) {
         ok = await resolvePromiseLike(rules[i](state, line, endLine, false));

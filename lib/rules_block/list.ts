@@ -1,6 +1,7 @@
 // Lists
 
 import { isSpace, resolvePromiseLike } from "@/common/utils";
+import Token from "@/token";
 
 import StateBlock from "./state_block";
 
@@ -108,7 +109,10 @@ export default async function list(
   endLine: number,
   silent: boolean = false,
 ) {
-  let max, pos, start, token;
+  let max = 0,
+    pos = 0,
+    start = 0,
+    token: Token;
   let nextLine = startLine;
   let tight = true;
 
@@ -147,9 +151,9 @@ export default async function list(
   }
 
   // Detect list type and position after marker
-  let isOrdered;
-  let markerValue: number = 0;
-  let posAfterMarker;
+  let isOrdered = false;
+  let markerValue = 0;
+  let posAfterMarker = -1;
   if ((posAfterMarker = skipOrderedListMarker(state, nextLine)) >= 0) {
     isOrdered = true;
     start = state.bMarks[nextLine] + state.tShift[nextLine];
@@ -230,7 +234,7 @@ export default async function list(
     }
 
     const contentStart = pos;
-    let indentAfterMarker;
+    let indentAfterMarker = 0;
 
     if (contentStart >= max) {
       // trimming space in "-    \n  3" case, indent is 1 here

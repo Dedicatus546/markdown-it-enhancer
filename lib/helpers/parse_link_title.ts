@@ -19,13 +19,13 @@ export interface ParseLinkTitleResult {
 // Parse link title within `str` in [start, max] range,
 // or continue previous parsing if `prev_state` is defined (equal to result of last execution).
 //
-export default function parseLinkTitle(
+const parseLinkTitle = (
   str: string,
   start: number,
   max: number,
   prev_state?: ParseLinkTitleResult,
-) {
-  let code;
+) => {
+  let code = 0;
   let pos = start;
 
   const state: ParseLinkTitleResult = {
@@ -86,4 +86,6 @@ export default function parseLinkTitle(
   state.can_continue = true;
   state.str += unescapeAll(str.slice(start, pos));
   return state;
-}
+};
+
+export default parseLinkTitle;

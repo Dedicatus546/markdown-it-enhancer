@@ -1,6 +1,8 @@
 // ~~strike through~~
 //
 
+import Token from "@/token";
+
 import StateInline, { Delimiter } from "./state_inline";
 
 // Insert each marker as a separate text token, and add it to delimiter list
@@ -25,7 +27,7 @@ function strikethrough_tokenize(state: StateInline, silent: boolean = false) {
     return false;
   }
 
-  let token;
+  let token: Token;
 
   if (len % 2) {
     token = state.push("text", "", 0);
@@ -53,7 +55,7 @@ function strikethrough_tokenize(state: StateInline, silent: boolean = false) {
 }
 
 function postProcess(state: StateInline, delimiters: Array<Delimiter>) {
-  let token;
+  let token: Token;
   const loneMarkers = [];
   const max = delimiters.length;
 

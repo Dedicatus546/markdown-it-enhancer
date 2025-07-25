@@ -238,7 +238,7 @@ class StateBlock {
       let lineIndent = 0;
       const lineStart = this.bMarks[line];
       let first = lineStart;
-      let last;
+      let last = 0;
 
       if (line + 1 < end || keepLastLF) {
         // No need for bounds check because we have fake entry on tail.

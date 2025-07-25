@@ -6,12 +6,15 @@
 
 import StateInline from "@/rules_inline/state_inline";
 
-export default async function parseLinkLabel(
+const parseLinkLabel = async (
   state: StateInline,
   start: number,
   disableNested: boolean = false,
-) {
-  let level, found, marker, prevPos;
+) => {
+  let level = 0,
+    found = false,
+    marker = 0,
+    prevPos = 0;
 
   const max = state.posMax;
   const oldPos = state.pos;
@@ -52,4 +55,6 @@ export default async function parseLinkLabel(
   state.pos = oldPos;
 
   return labelEnd;
-}
+};
+
+export default parseLinkLabel;

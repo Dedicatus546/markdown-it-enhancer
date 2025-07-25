@@ -41,7 +41,7 @@ export default async function blockquote(
   const oldParentType = state.parentType;
   state.parentType = "blockquote";
   let lastLineEmpty = false;
-  let nextLine;
+  let nextLine = 0;
 
   // Search the end of the block
   //
@@ -85,8 +85,8 @@ export default async function blockquote(
 
       // set offset past spaces and ">"
       let initial = state.sCount[nextLine] + 1;
-      let spaceAfterMarker;
-      let adjustTab;
+      let spaceAfterMarker = false;
+      let adjustTab = false;
 
       // skip one optional space after '>'
       if (state.src.charCodeAt(pos) === 0x20 /* space */) {

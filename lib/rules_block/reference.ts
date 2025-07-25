@@ -181,7 +181,7 @@ export default async function reference(
     nextLine++;
     titleRes = state.md.helpers.parseLinkTitle(str, pos, max, titleRes);
   }
-  let title;
+  let title = "";
 
   if (pos < max && start !== pos && titleRes.ok) {
     title = titleRes.str;

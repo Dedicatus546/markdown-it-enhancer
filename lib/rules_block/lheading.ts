@@ -22,7 +22,7 @@ export default async function lheading(
 
   // jump line-by-line until empty one or EOF
   let level = 0;
-  let marker: number = 0;
+  let marker = 0;
   let nextLine = startLine + 1;
 
   for (; nextLine < endLine && !state.isEmpty(nextLine); nextLine++) {

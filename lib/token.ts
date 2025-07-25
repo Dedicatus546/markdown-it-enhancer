@@ -175,11 +175,10 @@ class Token {
    **/
   attrGet(name: string) {
     const idx = this.attrIndex(name);
-    let value = null;
-    if (idx >= 0) {
-      value = this.attrs![idx][1];
+    if (idx === -1) {
+      return null;
     }
-    return value;
+    return this.attrs![idx][1];
   }
 
   /**

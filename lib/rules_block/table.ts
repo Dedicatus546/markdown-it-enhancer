@@ -211,7 +211,7 @@ export default async function table(
   state.push("tr_close", "tr", -1);
   state.push("thead_close", "thead", -1);
 
-  let tbodyLines;
+  let tbodyLines: Array<number> | null = null;
   let autocompletedCells = 0;
   const maxAutocompletedCells =
     state.env.maxAutocompletedCells ?? DEFAULT_MAX_AUTOCOMPLETED_CELLS;

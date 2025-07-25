@@ -9,7 +9,8 @@
 import StateCore from "./state_core";
 
 export default function text_join(state: StateCore) {
-  let curr: number, last: number;
+  let curr = 0,
+    last = 0;
   const blockTokens = state.tokens;
   const l = blockTokens.length;
 
