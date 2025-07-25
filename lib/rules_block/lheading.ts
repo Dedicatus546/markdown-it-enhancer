@@ -1,6 +1,7 @@
 // lheading (---, ===)
 
-import { resolvePromiseLike } from "../../lib/common/utils";
+import { resolvePromiseLike } from "@/common/utils";
+
 import StateBlock from "./state_block";
 
 export default async function lheading(

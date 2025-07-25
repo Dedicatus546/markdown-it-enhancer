@@ -1,6 +1,7 @@
 // heading (#, ##, ...)
 
-import { isSpace } from "../common/utils";
+import { isSpace } from "@/common/utils";
+
 import StateBlock from "./state_block";
 
 export default function heading(

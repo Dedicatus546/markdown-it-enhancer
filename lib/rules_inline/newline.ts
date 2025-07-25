@@ -1,6 +1,7 @@
 // Proceess '\n'
 
-import { isSpace } from "../common/utils";
+import { isSpace } from "@/common/utils";
+
 import StateInline from "./state_inline";
 
 export default function newline(state: StateInline, silent: boolean = false) {

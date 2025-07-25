@@ -1,6 +1,7 @@
 // Block quotes
 
-import { isSpace, resolvePromiseLike } from "../common/utils";
+import { isSpace, resolvePromiseLike } from "@/common/utils";
+
 import StateBlock from "./state_block";
 
 export default async function blockquote(

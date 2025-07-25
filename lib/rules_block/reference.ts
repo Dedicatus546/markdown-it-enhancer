@@ -2,7 +2,8 @@ import {
   isSpace,
   normalizeReference,
   resolvePromiseLike,
-} from "../common/utils";
+} from "@/common/utils";
+
 import StateBlock from "./state_block";
 
 export default async function reference(

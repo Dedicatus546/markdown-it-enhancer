@@ -1,6 +1,7 @@
 // Lists
 
-import { isSpace, resolvePromiseLike } from "../common/utils";
+import { isSpace, resolvePromiseLike } from "@/common/utils";
+
 import StateBlock from "./state_block";
 
 // Search `[-+*][\n ]`, returns next pos after marker on success

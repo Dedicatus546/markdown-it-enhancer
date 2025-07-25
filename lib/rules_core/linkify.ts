@@ -3,8 +3,9 @@
 // Currently restricted by `md.validateLink()` to http/https/ftp
 //
 
-import { arrayReplaceAt } from "../common/utils";
-import Token from "../token";
+import { arrayReplaceAt } from "@/common/utils";
+import Token from "@/token";
+
 import StateCore from "./state_core";
 
 function isLinkOpen(str: string) {

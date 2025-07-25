@@ -1,6 +1,7 @@
 // Process escaped chars and hardbreaks
 
-import { isSpace } from "../common/utils";
+import { isSpace } from "@/common/utils";
+
 import StateInline from "./state_inline";
 
 const ESCAPED: Array<number> = [];

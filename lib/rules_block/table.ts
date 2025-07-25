@@ -1,6 +1,7 @@
 // GFM table, https://github.github.com/gfm/#tables-extension-
 
-import { isSpace, resolvePromiseLike } from "../common/utils";
+import { isSpace, resolvePromiseLike } from "@/common/utils";
+
 import StateBlock from "./state_block";
 
 // Limit the amount of empty autocompleted cells in a table,

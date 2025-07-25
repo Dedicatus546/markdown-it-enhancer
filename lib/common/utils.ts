@@ -8,7 +8,7 @@ import punycode from "punycode.js";
 // @ts-expect-error lack uc.micro type
 import * as ucmicro from "uc.micro";
 
-import { Awaitable } from "../../lib/types";
+import { Awaitable } from "@/types";
 
 function toString(obj: unknown) {
   return Object.prototype.toString.call(obj);

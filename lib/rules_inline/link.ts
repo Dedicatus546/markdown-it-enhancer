@@ -1,7 +1,8 @@
 // Process [link](<to> "stuff")
 
-import { isSpace, normalizeReference } from "../common/utils";
-import { TokenAttr } from "../token";
+import { isSpace, normalizeReference } from "@/common/utils";
+import { TokenAttr } from "@/token";
+
 import StateInline from "./state_inline";
 
 export default async function link(

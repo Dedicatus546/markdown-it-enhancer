@@ -1,8 +1,8 @@
 // Inline parser state
 
-import { type MarkdownIt, MarkdownItEnv } from "..";
-import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "../common/utils";
-import Token, { TokenNesting } from "../token";
+import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "@/common/utils";
+import { type MarkdownIt, MarkdownItEnv } from "@/index";
+import Token, { TokenNesting } from "@/token";
 
 export interface Delimiter {
   // Char code of the starting marker (number).
