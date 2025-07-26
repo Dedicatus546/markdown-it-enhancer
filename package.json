@@ -13,10 +13,10 @@
   ],
   "repository": "Dedicatus546/markdown-it-enhancer",
   "license": "MIT",
-  "main": "dist/markdown-it-enhancer.js",
+  "main": "dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/markdown-it-enhancer.js"
+      "import": "./dist/index.js"
     }
   },
   "bin": {
