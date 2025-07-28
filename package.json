@@ -42,19 +42,19 @@
     "uc.micro": "^2.1.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.31.0",
+    "@eslint/js": "^9.32.0",
     "@types/js-yaml": "^4.0.9",
     "@types/linkify-it": "^5.0.0",
     "@types/mdurl": "^2.0.0",
     "@types/node": "^24.1.0",
     "@vitest/coverage-istanbul": "^3.2.4",
     "@vitest/ui": "^3.2.4",
-    "eslint": "^9.31.0",
+    "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "globals": "^16.3.0",
-    "jiti": "^2.5.0",
+    "jiti": "^2.5.1",
     "js-yaml": "^4.1.0",
     "markdown-it-for-inline": "^2.0.1",
     "prettier": "^3.6.2",
@@ -62,5 +62,8 @@
     "vite": "^7.0.6",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
