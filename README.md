@@ -5,7 +5,7 @@
 
 This is a fork from [markdown-it](https://github.com/markdown-it/markdown-it), there are some changes in this fork:
 
-- ESM only
+- ESM only.
 - Source code migrate to TypeScript, now you don't need to install `@types/markdown-it`.
 - Using vite to bundle, vitest to test.
 - Async support. include parser rule, render rule, plugins, `highlight` function.
@@ -81,15 +81,15 @@ import MarkdownIt from "markdown-it-enchancer";
 const md = MarkdownIt();
 
 md
-  .use(async (arg1, arg2) => {
+  .use(async (md, arg1, arg2) => {
   // some async operation
     await delay(3);
   }, 'arg1', 'arg2')
-  .use(async (arg1, arg2) => {
+  .use(async (md, arg1, arg2) => {
   // some async operation
     await delay(3);
   }, 'arg1', 'arg2')
-  .use(async (arg1, arg2) => {
+  .use(async (md, arg1, arg2) => {
   // some async operation
     await delay(3);
   }, 'arg1', 'arg2');
@@ -124,6 +124,6 @@ import MarkdownIt from "markdown-it-enchancer";
 const md = MarkdownIt();
 
 md.render('md content', {
-  maxAutocompletedCells: 100
+  maxAutoCompletedCells: 100
 });
 ```
