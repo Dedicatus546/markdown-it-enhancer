@@ -1,11 +1,112 @@
 # markdown-it-enhancer
 
-这是一个 markdown-it 的 fork 版本。主要有以下变更：
+This is a fork from [markdown-it](https://github.com/markdown-it/markdown-it), there are some changes in this fork:
 
-- 不再提供 cjs 输出，仅支持 ESM 。
-- 源码迁移到 typescript 上，提供类型。
-- 构建工具迁移到 vite 上。
-- 测试迁移到 vitest 上。
-- 异步支持，包括异步规则、异步插件和异步的高亮函数
+- ESM only
+- Source code migrate to TypeScript, now you don't need to install `@types/markdown-it`.
+- Using vite to bundle, vitest to test.
+- Async support. include parser rule, render rule, plugins, `highlight` function.
 
-尽量和原仓库在 ESM 上完全兼容，目前还在修改阶段，源码基本以迁移到 typescript 上，单元测试基本迁移到 vitest 上，并且测试通过率已达到 100% 。
+## Install
+
+```bash
+npm install markdown-it-enchacer
+# yarn add markdown-it-enchacer
+# pnpm add markdown-it-enchacer
+```
+
+## Async Parser Rule
+
+```javascript
+import MarkdownIt from "markdown-it-enchancer";
+
+// delay s seconds.
+const delay = (s) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, s * 1000);
+  });
+};
+
+const md = MarkdownIt();
+
+// push a async ruler
+md.block.ruler.push(
+  "async_rule",
+  async (_state, _startLine, _endLine, _slient) => {
+    // async operation
+    await delay(3);
+  },
+);
+```
+
+## Async render rule
+
+```javascript
+import MarkdownIt from "markdown-it-enchancer";
+
+const md = MarkdownIt();
+
+// set a async render rule.
+md.renderer.rules.test = async (tokens, idx, options, env, renderer) => {
+  // some async operation
+  await delay(3);
+  return "test";
+};
+```
+
+## Async plugin
+
+```javascript
+import MarkdownIt from "markdown-it-enchancer";
+
+const md = MarkdownIt();
+
+md
+  .use(async (arg1, arg2) => {
+  // some async operation
+    await delay(3);
+  }, 'arg1', 'arg2')
+  .use(async (arg1, arg2) => {
+  // some async operation
+    await delay(3);
+  }, 'arg1', 'arg2')
+  .use(async (arg1, arg2) => {
+  // some async operation
+    await delay(3);
+  }, 'arg1', 'arg2');
+
+// you must exec `await md.isReady()` to ensure the initializations of all plugins are success.
+await md.isReady();
+```
+
+## Async `highlight` function
+
+```javascript
+import MarkdownIt from "markdown-it-enchancer";
+
+const md = MarkdownIt({
+  async highlight() {
+    // async operation
+    await delay(3);
+    return "highlight function";
+  }
+});
+```
+
+## Others
+
+### maxAutocompletedCells
+
+Env support `maxAutocompletedCells` property. See [#1000](https://github.com/markdown-it/markdown-it/issues/1000)
+
+```javascript
+import MarkdownIt from "markdown-it-enchancer";
+
+const md = MarkdownIt();
+
+md.render('md content', {
+  maxAutocompletedCells: 100
+});
+```
