@@ -73,7 +73,7 @@ describe("markdown-it-extra", () => {
     ].join("\n");
     await expect(
       md.render(source, {
-        maxAutocompletedCells: 5,
+        maxAutoCompletedCells: 5,
       }),
     ).resolves.toBe(target);
   });
