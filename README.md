@@ -1,5 +1,8 @@
 # markdown-it-enhancer
 
+[![NPM version](https://img.shields.io/npm/v/markdown-it-enhancer.svg?style=flat)](https://www.npmjs.org/package/markdown-it-enhancer)
+[![Coverage Status](https://coveralls.io/repos/Dedicatus546/markdown-it-enhancer/badge.svg?branch=main&service=github)](https://coveralls.io/github/Dedicatus546/markdown-it-enhancer?branch=main)
+
 This is a fork from [markdown-it](https://github.com/markdown-it/markdown-it), there are some changes in this fork:
 
 - ESM only
