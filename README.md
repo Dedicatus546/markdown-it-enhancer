@@ -10,6 +10,20 @@ This is a fork from [markdown-it](https://github.com/markdown-it/markdown-it), t
 - Using vite to bundle, vitest to test.
 - Async support. include parser rule, render rule, plugins, `highlight` function.
 
+## Version
+
+In order to sync the update of upstream, the patch version of this fork would start with 100.
+
+Example:
+
+- markdown-it@14.1.0 -> markdown-it-enhancer@14.1.1000
+- markdown-it@14.1.1 -> markdown-it-enhancer@14.1.1001
+
+When There are some fix in this fork. It will:
+
+- markdown-it-enhancer@14.1.1000 -> markdown-it-enhancer@14.1.1010
+- markdown-it-enhancer@14.1.1010 -> markdown-it-enhancer@14.1.1020
+
 ## Install
 
 ```bash
