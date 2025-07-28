@@ -35,7 +35,7 @@ export default defineConfig({
     coverage: {
       enabled: true,
       include: ["lib/**/*.ts"],
-      reporter: "html",
+      reporter: ["html", "lcov"],
       provider: "istanbul",
     },
     ui: true,
