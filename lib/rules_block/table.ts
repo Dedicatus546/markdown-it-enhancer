@@ -213,9 +213,9 @@ const table: StateBlockRuleFn = async (
   state.push("thead_close", "thead", -1);
 
   let tbodyLines: Array<number> | null = null;
-  let autocompletedCells = 0;
+  let autoCompletedCells = 0;
   const maxAutocompletedCells =
-    state.env.maxAutocompletedCells ?? DEFAULT_MAX_AUTOCOMPLETED_CELLS;
+    state.env.maxAutoCompletedCells ?? DEFAULT_MAX_AUTOCOMPLETED_CELLS;
 
   for (nextLine = startLine + 2; nextLine < endLine; nextLine++) {
     if (state.sCount[nextLine] < state.blkIndent) {
@@ -250,8 +250,8 @@ const table: StateBlockRuleFn = async (
 
     // note: autocomplete count can be negative if user specifies more columns than header,
     // but that does not affect intended use (which is limiting expansion)
-    autocompletedCells += columnCount - columns.length;
-    if (autocompletedCells > maxAutocompletedCells) {
+    autoCompletedCells += columnCount - columns.length;
+    if (autoCompletedCells > maxAutocompletedCells) {
       console.warn(
         "autocompletedCells more than MAX_AUTOCOMPLETED_CELLS. rest rows of table would not render.",
       );

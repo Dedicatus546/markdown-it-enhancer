@@ -28,7 +28,7 @@ export interface MarkdownItEnv {
   references?: {
     [key: string]: { title: string; href: string };
   };
-  maxAutocompletedCells?: number;
+  maxAutoCompletedCells?: number;
 }
 
 export class MarkdownIt {
