@@ -22,7 +22,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - run: pnpm install
+    - name: Install deps
+      run: corepack enable && pnpm install
 
     - name: Test
       run: pnpm test
