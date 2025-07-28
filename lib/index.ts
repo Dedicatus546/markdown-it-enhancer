@@ -344,6 +344,9 @@ Object.assign(MarkdownItFactory, MarkdownIt);
 MarkdownItFactory.prototype = MarkdownIt.prototype;
 
 const MarkdownItExport = MarkdownItFactory as typeof MarkdownIt &
-  (() => MarkdownIt);
+  ((
+    presetNameOrOptions?: PresetName | MarkdownItOptions,
+    options?: MarkdownItOptions,
+  ) => MarkdownIt);
 
 export default MarkdownItExport;
