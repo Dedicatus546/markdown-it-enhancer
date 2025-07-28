@@ -205,10 +205,10 @@ describe("Plugins", () => {
       return true;
     });
 
-    expect(md.render("foo@bar")).rejects.toThrow(
+    await expect(md.render("foo@bar")).rejects.toThrow(
       /inline rule didn't increment state.pos/,
     );
-    expect(md.render("[foo@bar]()")).rejects.toThrow(
+    await expect(md.render("[foo@bar]()")).rejects.toThrow(
       /inline rule didn't increment state.pos/,
     );
   });
