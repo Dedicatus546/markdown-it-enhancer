@@ -114,9 +114,9 @@ const md = MarkdownIt({
 
 ## Others
 
-### maxAutocompletedCells
+### maxAutoCompletedCells
 
-Env support `maxAutocompletedCells` property. See [#1000](https://github.com/markdown-it/markdown-it/issues/1000)
+Env support `maxAutoCompletedCells` property. See [#1000](https://github.com/markdown-it/markdown-it/issues/1000)
 
 ```javascript
 import MarkdownIt from "markdown-it-enchancer";
