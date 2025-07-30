@@ -339,11 +339,17 @@ interface MarkdownItConstructor {
   (): MarkdownIt;
 }
 
-const MarkdownItFactory = function (this: unknown, ...args: unknown[]) {
+const MarkdownItFactory = function (
+  this: unknown,
+  ...args: [
+    presetNameOrOptions?: PresetName | MarkdownItOptions,
+    options?: MarkdownItOptions,
+  ]
+) {
   if (new.target) {
     return Reflect.construct(MarkdownIt, [...args], new.target);
   }
-  return new MarkdownIt();
+  return new MarkdownIt(...args);
 } as MarkdownItConstructor;
 
 Object.setPrototypeOf(MarkdownItFactory, MarkdownIt);
