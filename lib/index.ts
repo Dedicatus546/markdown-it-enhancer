@@ -18,6 +18,13 @@ import Renderer from "./renderer";
 import StateCore from "./rules_core/state_core";
 import { Awaitable } from "./types";
 
+export { default as ParserBlock } from "./parser_block";
+export { default as ParserCore } from "./parser_core";
+export { default as ParserInline } from "./parser_inline";
+export { default as StateBlock } from "./rules_block/state_block";
+export { default as StateCore } from "./rules_core/state_core";
+export { default as StateInline } from "./rules_inline/state_inline";
+
 export interface MarkdownItPlugin<Args extends unknown[] = unknown[]> {
   (...args: [MarkdownIt, ...rest: [...Args]]): Awaitable<void>;
 }
