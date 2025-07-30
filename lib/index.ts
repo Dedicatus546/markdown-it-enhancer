@@ -357,3 +357,10 @@ const MarkdownItExport = MarkdownItFactory as typeof MarkdownIt &
   ) => MarkdownIt);
 
 export default MarkdownItExport;
+
+export * from "./renderer";
+export { default as Renderer } from "./renderer";
+export * from "./ruler";
+export { default as Ruler } from "./ruler";
+export * from "./token";
+export { default as Token } from "./token";
