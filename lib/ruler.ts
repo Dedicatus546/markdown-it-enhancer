@@ -25,13 +25,17 @@ export interface StateInlineRuleFn {
   (state: StateInline, silent?: boolean): Awaitable<RuleResult>;
 }
 
+export interface StateCoreRuleFn {
+  (state: StateCore): Awaitable<RuleResult>;
+}
+
 export type RuleFn<T> = T extends StateBlock
   ? StateBlockRuleFn
   : T extends StateInline
     ? StateInlineRuleFn
     : T extends StateCore
-      ? (state: T) => Awaitable<RuleResult>
-      : () => Awaitable<void>;
+      ? StateCoreRuleFn
+      : () => Awaitable<RuleResult>;
 
 /**
  * class Ruler
