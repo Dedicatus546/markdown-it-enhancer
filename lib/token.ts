@@ -24,7 +24,9 @@ export type TokenAttr = [name: string, value: string];
  * class Token
  **/
 
-class Token {
+class Token<
+  TokenMeta extends Record<string, unknown> = Record<string, unknown>,
+> {
   /**
    * Token#type -> String
    *
@@ -95,7 +97,7 @@ class Token {
    *
    * A place for plugins to store an arbitrary data
    **/
-  meta: Record<string, unknown> | null = null;
+  meta: TokenMeta | null = null;
 
   /**
    * Token#block -> Boolean
