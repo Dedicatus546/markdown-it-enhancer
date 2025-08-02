@@ -12,17 +12,17 @@ export default defineConfig({
   plugins: [
     dts({
       insertTypesEntry: true,
-      include: ["lib"],
+      include: ["src"],
     }),
   ],
   resolve: {
     alias: {
-      "@": resolve(__dirname, "lib"),
+      "@": resolve(__dirname, "src"),
     },
   },
   build: {
     lib: {
-      entry: resolve(__dirname, "lib", "index.ts"),
+      entry: resolve(__dirname, "src", "index.ts"),
       formats: ["es"],
       fileName: "index",
     },
@@ -34,7 +34,7 @@ export default defineConfig({
     include: ["test/**/*.test.ts"],
     coverage: {
       enabled: true,
-      include: ["lib/**/*.ts"],
+      include: ["src/**/*.ts"],
       reporter: ["html", "lcov"],
       provider: "istanbul",
     },

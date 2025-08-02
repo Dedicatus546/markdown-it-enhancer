@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import * as utils from "../lib/common/utils";
+import * as utils from "@/common/utils";
 
 describe("Utils", () => {
   it("fromCodePoint", () => {

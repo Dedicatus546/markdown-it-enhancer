@@ -8,7 +8,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config([
   globalIgnores(["dist/**", "node_modules/**"]),
   {
-    files: ["lib/**/*.ts"],
+    files: ["src/**/*.ts"],
   },
   {
     plugins: {

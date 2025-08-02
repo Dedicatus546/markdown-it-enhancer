@@ -29,7 +29,7 @@
     "build:dev": "vite build --watch"
   },
   "files": [
-    "lib/",
+    "src/",
     "bin/",
     "dist/"
   ],

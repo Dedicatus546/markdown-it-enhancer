@@ -1,4 +1,5 @@
-import { Awaitable } from "../../lib/types";
+import { Awaitable } from "@/types";
+
 import commonmarkPreset from "./commonmark";
 import defaultPreset from "./default";
 import zeroPreset from "./zero";

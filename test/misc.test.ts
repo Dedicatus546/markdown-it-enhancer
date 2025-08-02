@@ -5,8 +5,8 @@ import { assert, describe, expect, it } from "vitest";
 import MarkdownIt, {
   MarkdownIt as MarkdownItClass,
   MarkdownItPlugin,
-} from "../lib";
-import Token from "../lib/token";
+} from "@/index";
+import Token from "@/token";
 
 declare function forInline(
   md: MarkdownItClass,

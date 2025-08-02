@@ -2,7 +2,7 @@ import crypto from "node:crypto";
 
 import { describe, expect, it } from "vitest";
 
-import MarkdownIt from "../lib";
+import MarkdownIt from "@/index";
 
 const pathologicalMd5 = "80e12450752e4667b3656fa2cd12e9d5";
 

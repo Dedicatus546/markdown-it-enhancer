@@ -11,12 +11,12 @@
     "strict": true,
     "paths": {
       "@/*": [
-        "./lib/*"
+        "./src/*"
       ],
     }
   },
   "include": [
-    "./lib/**/*.ts",
+    "./src/**/*.ts",
     "./vite-env.d.ts",
     "./test/**/*.ts"
   ]
