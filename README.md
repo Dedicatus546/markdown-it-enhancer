@@ -127,3 +127,18 @@ md.render('md content', {
   maxAutoCompletedCells: 100
 });
 ```
+
+## Plugins
+
+There are some plugins that migrate to markdown-it-enhancer.
+
+- [markdown-it-katex](https://github.com/waylonflinn/markdown-it-katex) -> [markdown-it-katex-for-enhancer
+](https://github.com/Dedicatus546/markdown-it-katex-for-enhancer)
+- [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs) -> [markdown-it-attrs-for-enhancer](https://github.com/Dedicatus546/markdown-it-attrs-for-enhancer)
+- [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-anchor) -> [markdown-it-anchor-for-enhancer](https://github.com/Dedicatus546/markdown-it-anchor-for-enhancer)
+- [markdown-it-implicit-figures](https://github.com/arve0/markdown-it-implicit-figures) -> [markdown-it-implicit-figures-for-enhancer](https://github.com/Dedicatus546/markdown-it-implicit-figures-for-enhancer)
+
+
+## Test Toolkit
+
+- [markdown-it-testgen](https://github.com/markdown-it/markdown-it-testgen) -> [markdown-it-testgen-for-enhancer](https://github.com/Dedicatus546/markdown-it-testgen-for-enhancer)
