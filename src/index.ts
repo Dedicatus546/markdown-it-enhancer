@@ -327,11 +327,6 @@ export class MarkdownIt {
       env,
     );
   }
-
-  // 兼容 antfu 的 markdown-it-async
-  async renderAsync(src: string, env: MarkdownItEnv = {}) {
-    return this.render(src, env);
-  }
 }
 
 export const createMarkdownIt = (
