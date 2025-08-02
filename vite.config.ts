@@ -22,9 +22,12 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, "src", "index.ts"),
+      entry: {
+        index: resolve(__dirname, "src", "index.ts"),
+        helpers: resolve(__dirname, "src", "helpers", "index.ts"),
+        utils: resolve(__dirname, "src", "common", "utils.ts"),
+      },
       formats: ["es"],
-      fileName: "index",
     },
     minify: false,
     sourcemap: true,

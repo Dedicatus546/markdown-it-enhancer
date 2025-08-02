@@ -21,6 +21,12 @@
   "exports": {
     ".": {
       "import": "./dist/index.js"
+    },
+    "./utils": {
+      "import": "./dist/utils.js"
+    },
+    "./helpers": {
+      "import": "./dist/helpers.js"
     }
   },
   "scripts": {
