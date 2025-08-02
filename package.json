@@ -2,7 +2,6 @@
   "name": "markdown-it-enhancer",
   "version": "14.1.1060",
   "description": "Markdown-it - modern pluggable markdown parser.",
-  "type": "module",
   "author": {
     "name": "Par9uet",
     "email": "qq1607611087@gmail.com"
@@ -17,14 +16,12 @@
   ],
   "repository": "Dedicatus546/markdown-it-enhancer",
   "license": "MIT",
+  "type": "module",
   "main": "dist/index.js",
   "exports": {
     ".": {
       "import": "./dist/index.js"
     }
-  },
-  "bin": {
-    "markdown-it": "bin/markdown-it.js"
   },
   "scripts": {
     "lint": "eslint --fix",
@@ -34,11 +31,9 @@
   },
   "files": [
     "src/",
-    "bin/",
     "dist/"
   ],
   "dependencies": {
-    "argparse": "^2.0.1",
     "entities": "^6.0.1",
     "linkify-it": "^5.0.0",
     "mdurl": "^2.0.0",
@@ -71,5 +66,6 @@
   },
   "engines": {
     "node": ">=20"
-  }
+  },
+  "packageManager": "pnpm@10.14.0"
 }
