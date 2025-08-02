@@ -31,6 +31,9 @@ export default defineConfig({
     },
     minify: false,
     sourcemap: true,
+    rollupOptions: {
+      external: ["linkify-it", "entities", "mdurl", "punycode.js", "uc.micro"],
+    },
   },
   test: {
     globals: true,
