@@ -2,14 +2,11 @@
 import forInline from "markdown-it-for-inline";
 import { assert, describe, expect, it } from "vitest";
 
-import MarkdownIt, {
-  MarkdownIt as MarkdownItClass,
-  MarkdownItPlugin,
-} from "@/index";
+import { MarkdownIt, MarkdownItPlugin } from "@/index";
 import Token from "@/token";
 
 declare function forInline(
-  md: MarkdownItClass,
+  md: MarkdownIt,
   ruleName: string,
   tokenType: string,
   iterator: (tokenList: Array<Token>, i: number) => void,

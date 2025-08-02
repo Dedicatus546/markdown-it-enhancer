@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import MarkdownIt, { MarkdownIt as MarkdownItClass } from "../src";
+import { MarkdownIt } from "@/index";
+
 import { delay } from "./utils";
 
 describe("markdown-it-extra", () => {
@@ -123,17 +124,11 @@ describe("markdown-it-extra", () => {
   });
 
   it("create markdown-it instance by run MarkdownIt directly", async () => {
-    const md = MarkdownIt();
+    const md = new MarkdownIt();
 
     await expect(md.render("hello world")).resolves.toBe(
       "<p>hello world</p>\n",
     );
-  });
-
-  it("check instance type create by MarkdownIt directly", () => {
-    const md = MarkdownIt();
-    expect(md instanceof MarkdownIt).toBe(true);
-    expect(md instanceof MarkdownItClass).toBe(true);
   });
 
   it("check fence rule when attrs include class attr", async () => {
@@ -151,13 +146,5 @@ describe("markdown-it-extra", () => {
     await expect(md.render("```javascript\nconst a = 1;\n```")).resolves.toBe(
       '<pre><code class="custom-class language-javascript">const a = 1;\n</code></pre>\n',
     );
-  });
-
-  it("test renderAsync", async () => {
-    const md = new MarkdownIt();
-    const r1 = await md.render("hello");
-    const r2 = await md.renderAsync("hello");
-    expect(r1).toBe("<p>hello</p>\n");
-    expect(r1).toBe(r2);
   });
 });

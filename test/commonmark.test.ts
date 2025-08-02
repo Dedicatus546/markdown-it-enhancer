@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { load } from "markdown-it-testgen-for-enhancer";
 import { describe, expect, it } from "vitest";
 
-import { MarkdownIt } from "../src";
+import { MarkdownIt } from "@/index";
 
 function normalize(text: string) {
   return text.replace(
