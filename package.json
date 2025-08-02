@@ -1,8 +1,12 @@
 {
   "name": "markdown-it-enhancer",
-  "version": "14.1.1050",
+  "version": "14.1.1060",
   "description": "Markdown-it - modern pluggable markdown parser.",
   "type": "module",
+  "author": {
+    "name": "Par9uet",
+    "email": "qq1607611087@gmail.com"
+  },
   "keywords": [
     "markdown",
     "parser",
