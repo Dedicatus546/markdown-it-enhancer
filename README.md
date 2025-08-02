@@ -35,7 +35,7 @@ npm install markdown-it-enchacer
 ## Async Parser Rule
 
 ```javascript
-import MarkdownIt from "markdown-it-enchancer";
+import { MarkdownIt } from "markdown-it-enchancer";
 
 // delay s seconds.
 const delay = (s) => {
@@ -46,7 +46,7 @@ const delay = (s) => {
   });
 };
 
-const md = MarkdownIt();
+const md = new MarkdownIt();
 
 // push a async ruler
 md.block.ruler.push(
@@ -61,9 +61,18 @@ md.block.ruler.push(
 ## Async render rule
 
 ```javascript
-import MarkdownIt from "markdown-it-enchancer";
+import { MarkdownIt } from "markdown-it-enchancer";
 
-const md = MarkdownIt();
+// delay s seconds.
+const delay = (s) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, s * 1000);
+  });
+};
+
+const md = new MarkdownIt();
 
 // set a async render rule.
 md.renderer.rules.test = async (tokens, idx, options, env, renderer) => {
@@ -76,9 +85,18 @@ md.renderer.rules.test = async (tokens, idx, options, env, renderer) => {
 ## Async plugin
 
 ```javascript
-import MarkdownIt from "markdown-it-enchancer";
+import { MarkdownIt } from "markdown-it-enchancer";
 
-const md = MarkdownIt();
+// delay s seconds.
+const delay = (s) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, s * 1000);
+  });
+};
+
+const md = new MarkdownIt();
 
 md
   .use(async (md, arg1, arg2) => {
@@ -101,9 +119,18 @@ await md.isReady();
 ## Async `highlight` function
 
 ```javascript
-import MarkdownIt from "markdown-it-enchancer";
+import { MarkdownIt } from "markdown-it-enchancer";
 
-const md = MarkdownIt({
+// delay s seconds.
+const delay = (s) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, s * 1000);
+  });
+};
+
+const md = new MarkdownIt({
   async highlight() {
     // async operation
     await delay(3);
@@ -119,9 +146,9 @@ const md = MarkdownIt({
 Env support `maxAutoCompletedCells` property. See [#1000](https://github.com/markdown-it/markdown-it/issues/1000)
 
 ```javascript
-import MarkdownIt from "markdown-it-enchancer";
+import { MarkdownIt } from "markdown-it-enchancer";
 
-const md = MarkdownIt();
+const md = new MarkdownIt();
 
 md.render('md content', {
   maxAutoCompletedCells: 100
