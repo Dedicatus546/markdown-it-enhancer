@@ -36,6 +36,7 @@ export interface MarkdownItEnv {
     [key: string]: { title: string; href: string };
   };
   maxAutoCompletedCells?: number;
+  [key: string]: unknown;
 }
 
 export class MarkdownIt {
