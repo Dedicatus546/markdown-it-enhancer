@@ -334,35 +334,12 @@ export class MarkdownIt {
   }
 }
 
-interface MarkdownItConstructor {
-  new (): MarkdownIt;
-  (): MarkdownIt;
-}
-
-const MarkdownItFactory = function (
-  this: unknown,
-  ...args: [
-    presetNameOrOptions?: PresetName | MarkdownItOptions,
-    options?: MarkdownItOptions,
-  ]
-) {
-  if (new.target) {
-    return Reflect.construct(MarkdownIt, [...args], new.target);
-  }
-  return new MarkdownIt(...args);
-} as MarkdownItConstructor;
-
-Object.setPrototypeOf(MarkdownItFactory, MarkdownIt);
-Object.assign(MarkdownItFactory, MarkdownIt);
-MarkdownItFactory.prototype = MarkdownIt.prototype;
-
-const MarkdownItExport = MarkdownItFactory as typeof MarkdownIt &
-  ((
-    presetNameOrOptions?: PresetName | MarkdownItOptions,
-    options?: MarkdownItOptions,
-  ) => MarkdownIt);
-
-export default MarkdownItExport;
+export const createMarkdownIt = (
+  presetNameOrOptions?: PresetName | MarkdownItOptions,
+  options?: MarkdownItOptions,
+) => {
+  return new MarkdownIt(presetNameOrOptions, options);
+};
 
 export * from "./renderer";
 export { default as Renderer } from "./renderer";
