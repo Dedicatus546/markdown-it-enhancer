@@ -164,7 +164,10 @@ There are some plugins that migrate to markdown-it-enhancer.
 - [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs) -> [markdown-it-attrs-for-enhancer](https://github.com/Dedicatus546/markdown-it-attrs-for-enhancer)
 - [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-anchor) -> [markdown-it-anchor-for-enhancer](https://github.com/Dedicatus546/markdown-it-anchor-for-enhancer)
 - [markdown-it-implicit-figures](https://github.com/arve0/markdown-it-implicit-figures) -> [markdown-it-implicit-figures-for-enhancer](https://github.com/Dedicatus546/markdown-it-implicit-figures-for-enhancer)
-
+- [markdown-it-sup](https://github.com/markdown-it/markdown-it-sup) -> [markdown-it-sup-for-enhancer](https://github.com/Dedicatus546/markdown-it-sup-for-enhancer)
+- [markdown-it-emoji](https://github.com/markdown-it/markdown-it-emoji) -> [markdown-it-emoji-for-enhancer
+](https://github.com/Dedicatus546/markdown-it-emoji-for-enhancer)
+- [markdown-it-task-lists](https://github.com/revin/markdown-it-task-lists) -> [markdown-it-task-lists-for-enhancer](https://github.com/Dedicatus546/markdown-it-task-lists-for-enhancer)
 
 ## Test Toolkit
 
