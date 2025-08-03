@@ -168,6 +168,7 @@ There are some plugins that migrate to markdown-it-enhancer.
 - [markdown-it-emoji](https://github.com/markdown-it/markdown-it-emoji) -> [markdown-it-emoji-for-enhancer
 ](https://github.com/Dedicatus546/markdown-it-emoji-for-enhancer)
 - [markdown-it-task-lists](https://github.com/revin/markdown-it-task-lists) -> [markdown-it-task-lists-for-enhancer](https://github.com/Dedicatus546/markdown-it-task-lists-for-enhancer)
+- [markdown-it-container](https://github.com/markdown-it/markdown-it-container) -> [markdown-it-container-for-enhancer](https://github.com/Dedicatus546/markdown-it-container-for-enhancer)
 
 ## Test Toolkit
 
