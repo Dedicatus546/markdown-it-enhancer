@@ -18,10 +18,17 @@
     "eslint-config-prettier": "catalog:lint",
     "eslint-plugin-prettier": "catalog:lint",
     "eslint-plugin-simple-import-sort": "catalog:lint",
+    "typescript-eslint": "catalog:lint",
     "globals": "catalog:lint",
     "jiti": "catalog:lint",
     "prettier": "catalog:lint",
-    "typescript-eslint": "catalog:lint"
+    "typescript": "catalog:",
+    "@types/node": "catalog:types",
+    "@vitest/coverage-istanbul": "catalog:test",
+    "@vitest/ui": "catalog:test",
+    "vite": "catalog:build",
+    "vite-plugin-dts": "catalog:build",
+    "vitest": "catalog:test"
   },
   "engines": {
     "node": ">=20"

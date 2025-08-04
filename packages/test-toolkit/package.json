@@ -1,0 +1,49 @@
+{
+  "name": "markdown-it-enhancer-test-toolkit",
+  "version": "0.1.1036",
+  "description": "Tests generator for markdown-it markdown parser",
+  "keywords": [
+    "markdown-it",
+    "markdown-it-enhancer"
+  ],
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "author": {
+    "name": "Par9uet",
+    "email": "qq1607611087@gmail.com"
+  },
+  "type": "module",
+  "repository": "Dedicatus546/markdown-it-testgen-for-enhancer",
+  "license": "MIT",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "vitest"
+  },
+  "files": [
+    "dist/"
+  ],
+  "dependencies": {
+    "js-yaml": "catalog:prod"
+  },
+  "devDependencies": {
+    "typescript": "catalog:",
+    "@vitest/coverage-istanbul": "catalog:test",
+    "@vitest/ui": "catalog:test",
+    "vite": "catalog:build",
+    "vite-plugin-dts": "catalog:build",
+    "vitest": "catalog:test"
+  },
+  "peerDependencies": {
+    "markdown-it-enhancer": ">=14.1.1070",
+    "vitest": ">=3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.14.0"
+}

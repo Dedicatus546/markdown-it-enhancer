@@ -1,0 +1,77 @@
+{
+  "name": "markdown-it-enhancer",
+  "version": "14.1.1070",
+  "description": "Markdown-it - modern pluggable markdown parser.",
+  "author": {
+    "name": "Par9uet",
+    "email": "qq1607611087@gmail.com"
+  },
+  "keywords": [
+    "markdown",
+    "parser",
+    "commonmark",
+    "markdown-it",
+    "markdown-it-plugin",
+    "markdown-it-enhancer"
+  ],
+  "repository": "Dedicatus546/markdown-it-enhancer",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./utils": {
+      "import": "./dist/utils.js"
+    },
+    "./helpers": {
+      "import": "./dist/helpers.js"
+    }
+  },
+  "scripts": {
+    "lint": "eslint --fix",
+    "test": "vitest --open",
+    "build": "vite build",
+    "build:dev": "vite build --watch"
+  },
+  "files": [
+    "src/",
+    "dist/"
+  ],
+  "dependencies": {
+    "entities": "^6.0.1",
+    "linkify-it": "^5.0.0",
+    "mdurl": "^2.0.0",
+    "punycode.js": "^2.3.1",
+    "uc.micro": "^2.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:lint",
+    "@types/js-yaml": "catalog:types",
+    "@types/linkify-it": "catalog:types",
+    "@types/mdurl": "catalog:types",
+    "@types/node": "catalog:types",
+    "@vitest/coverage-istanbul": "catalog:test",
+    "@vitest/ui": "catalog:test",
+    "eslint": "catalog:lint",
+    "eslint-config-prettier": "catalog:lint",
+    "eslint-plugin-prettier": "catalog:lint",
+    "eslint-plugin-simple-import-sort": "catalog:lint",
+    "globals": "catalog:lint",
+    "jiti": "catalog:lint",
+    "js-yaml": "catalog:prod",
+    "markdown-it": "^14.1.0",
+    "markdown-it-for-inline": "^2.0.1",
+    "markdown-it-testgen-for-enhancer": "^0.1.1026",
+    "prettier": "^3.6.2",
+    "typescript-eslint": "^8.38.0",
+    "vite": "^7.0.6",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.14.0"
+}
