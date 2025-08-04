@@ -13,6 +13,7 @@
     "lint": "eslint --fix"
   },
   "devDependencies": {
+    "markdown-it-enhancer-test-toolkit": "workspace:*",
     "@eslint/js": "catalog:lint",
     "eslint": "catalog:lint",
     "eslint-config-prettier": "catalog:lint",

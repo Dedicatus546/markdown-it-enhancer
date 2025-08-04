@@ -106,6 +106,9 @@ importers:
       jiti:
         specifier: catalog:lint
         version: 2.5.1
+      markdown-it-enhancer-test-toolkit:
+        specifier: workspace:*
+        version: link:packages/test-toolkit
       prettier:
         specifier: catalog:lint
         version: 3.6.2
@@ -130,18 +133,18 @@ importers:
       entities:
         specifier: ^6.0.1
         version: 6.0.1
-      linkify-it:
-        specifier: ^5.0.0
-        version: 5.0.0
-      mdurl:
-        specifier: ^2.0.0
-        version: 2.0.0
+      linkify-it-for-enhancer:
+        specifier: workspace:*
+        version: link:../linkify-it
+      mdurl-for-enhancer:
+        specifier: workspace:*
+        version: link:../md-url
       punycode.js:
         specifier: ^2.3.1
         version: 2.3.1
-      uc.micro:
-        specifier: ^2.1.0
-        version: 2.1.0
+      uc.micro-for-enhancer:
+        specifier: workspace:*
+        version: link:../uc-micro
     devDependencies:
       '@eslint/js':
         specifier: catalog:lint
@@ -193,7 +196,7 @@ importers:
         version: 2.0.1
       markdown-it-testgen-for-enhancer:
         specifier: ^0.1.1026
-        version: 0.1.1026(markdown-it-enhancer@14.1.1070)(vitest@3.2.4)
+        version: 0.1.1036(markdown-it-enhancer@14.1.1070)(vitest@3.2.4)
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
@@ -1437,11 +1440,11 @@ packages:
   markdown-it-for-inline@2.0.1:
     resolution: {integrity: sha512-JGOi3/Ohhzehs+1qSA4CkDydmVBtiYi2q2BD//YtTbSK+75InrGJX2MtPq1AdMeC4BV7rwEhq1+3pLnwGbsgzA==}
 
-  markdown-it-testgen-for-enhancer@0.1.1026:
-    resolution: {integrity: sha512-hlaVPUKPOJIv+h1hW+hvWhWdebO49D5l0RIAHCqW/LbuKjOlMHk/g6BhRKKTEbyf1Q1zKR0qZw9c1rQkTqg5rg==}
+  markdown-it-testgen-for-enhancer@0.1.1036:
+    resolution: {integrity: sha512-pVEMfRztf+wJjw26Ox3GYnhCmfbdxN4XipfnQYSye2RT5er9tEcVFZj1m3ckNlr6lDTe6iJxngZNGJiqfzyjqg==}
     engines: {node: '>=20'}
     peerDependencies:
-      markdown-it-enhancer: '>=14.1.1050'
+      markdown-it-enhancer: '>=14.1.1070'
       vitest: '>=3'
 
   markdown-it@14.1.0:
@@ -3158,7 +3161,7 @@ snapshots:
 
   markdown-it-for-inline@2.0.1: {}
 
-  markdown-it-testgen-for-enhancer@0.1.1026(markdown-it-enhancer@14.1.1070)(vitest@3.2.4):
+  markdown-it-testgen-for-enhancer@0.1.1036(markdown-it-enhancer@14.1.1070)(vitest@3.2.4):
     dependencies:
       js-yaml: 4.1.0
       markdown-it-enhancer: 14.1.1070
