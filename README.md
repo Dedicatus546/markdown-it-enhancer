@@ -171,6 +171,7 @@ There are some plugins that migrate to markdown-it-enhancer.
 - [markdown-it-container](https://github.com/markdown-it/markdown-it-container) -> [markdown-it-container-for-enhancer](https://github.com/Dedicatus546/markdown-it-container-for-enhancer)
 - [markdown-it-sub](https://github.com/markdown-it/markdown-it-sub) -> [markdown-it-sub-for-enhancer](https://github.com/Dedicatus546/markdown-it-sub-for-enhancer)
 - [markdown-it-abbr](https://github.com/markdown-it/markdown-it-abbr) -> [markdown-it-abbr-for-enhancer](https://github.com/Dedicatus546/markdown-it-abbr-for-enhancer)
+- [markdown-it-for-inline](https://github.com/markdown-it/markdown-it-for-inline) -> [markdown-it-for-inline-for-enhancer](https://github.com/Dedicatus546/markdown-it-for-inline-for-enhancer)
 
 ## Test Toolkit
 
