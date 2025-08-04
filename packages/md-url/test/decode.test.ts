@@ -1,4 +1,4 @@
-import {describe, it, expect} from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { decode } from "../src";
 
@@ -13,7 +13,7 @@ const encodeBinary = (str: string) => {
   }
 
   return result;
-}
+};
 
 const samples = {
   "00000000": true,
@@ -81,17 +81,17 @@ const samples = {
 
 describe("decode", () => {
   it("should decode %xx", () => {
-    expect(decode("x%20xx%20%2520")).toBe( "x xx %20");
+    expect(decode("x%20xx%20%2520")).toBe("x xx %20");
   });
 
   it("should not decode invalid sequences", () => {
-    expect(decode("%2g%z1%%")).toBe( "%2g%z1%%");
+    expect(decode("%2g%z1%%")).toBe("%2g%z1%%");
   });
 
   it("should not decode reservedSet", () => {
-    expect(decode("%20%25%20", "%")).toBe( " %25 ");
-    expect(decode("%20%25%20", " ")).toBe( "%20%%20");
-    expect(decode("%20%25%20", " %")).toBe( "%20%25%20");
+    expect(decode("%20%25%20", "%")).toBe(" %25 ");
+    expect(decode("%20%25%20", " ")).toBe("%20%%20");
+    expect(decode("%20%25%20", " %")).toBe("%20%25%20");
   });
 
   describe("utf8", () => {
@@ -110,10 +110,10 @@ describe("decode", () => {
         const res2 = decode(str);
 
         if (er) {
-          expect(res2.indexOf("\ufffd")).not.toBe( -1);
+          expect(res2.indexOf("\ufffd")).not.toBe(-1);
         } else {
           expect(res1, res2);
-          expect(res2.indexOf("\ufffd")).toBe( -1);
+          expect(res2.indexOf("\ufffd")).toBe(-1);
         }
       });
     });
