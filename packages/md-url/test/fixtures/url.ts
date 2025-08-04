@@ -19,6 +19,8 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import type { Url } from "../../src/url";
+
 // URLs to parse, and expected data
 // { url : parsed }
 export default {
@@ -699,4 +701,4 @@ export default {
     pathname: "/fooA100%mBr",
     slashes: true,
   },
-};
+} as Record<string, Partial<Url>>;

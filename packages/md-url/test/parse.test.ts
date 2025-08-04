@@ -1,20 +1,22 @@
-import {describe, it} from "vitest";
+import { describe, expect, it } from "vitest";
 
-import { parse } from "../src;
+import { parse } from "../src";
 import fixtures from "./fixtures/url";
 
 describe("parse", () => {
-  Object.keys(fixtures).forEach(function (url) {
+  Object.keys(fixtures).forEach((url) => {
     it(url, () => {
       const parsed = parse(url);
 
-      Object.keys(parsed).forEach(function (x) {
+      Object.keys(parsed).forEach((x) => {
+        // @ts-expect-error ignore
         if (parsed[x] === null) {
+          // @ts-expect-error ignore
           delete parsed[x];
         }
       });
 
-      assert.deepEqual(parsed, fixtures[url]);
+      expect(parsed).toMatchObject(fixtures[url]);
     });
   });
 });
