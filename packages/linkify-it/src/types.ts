@@ -10,15 +10,15 @@ export interface LinkifyItOptions {
 
 export type LinkifyItNormalizedOptions = Required<LinkifyItOptions>;
 
+export interface LinkifyItSchemasObject {
+  validate:
+    | RegExp
+    | ((text: string, pos: number, linkifyIt: LinkifyIt) => number);
+  normalize?: (match: Match, linkifyIt: LinkifyIt) => void;
+}
+
 export interface LinkifyItSchemas {
-  [key: string]:
-    | string
-    | {
-        validate:
-          | RegExp
-          | ((text: string, pos: number, linkifyIt: LinkifyIt) => number);
-        normalize?: (match: Match, linkifyIt: LinkifyIt) => void;
-      };
+  [key: string]: string | LinkifyItSchemasObject;
 }
 
 export interface LinkifyItNormalizedSchemas {
@@ -72,4 +72,6 @@ export type LinkifyItRegExp = CreateRegExpResult & {
   http?: RegExp;
   no_http?: RegExp;
   mailto?: RegExp;
+} & {
+  [key: string]: RegExp | undefined;
 };

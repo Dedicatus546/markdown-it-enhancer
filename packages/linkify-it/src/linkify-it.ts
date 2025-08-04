@@ -15,6 +15,7 @@ import type {
   LinkifyItOptions,
   LinkifyItRegExp,
   LinkifyItSchemas,
+  LinkifyItSchemasObject,
 } from "./types";
 import { isOptionsObj } from "./utils";
 
@@ -72,7 +73,7 @@ export class LinkifyIt {
   re: LinkifyItRegExp;
 
   constructor(
-    schemas: LinkifyItSchemas | LinkifyItOptions,
+    schemas?: LinkifyItSchemas | LinkifyItOptions,
     options?: LinkifyItOptions,
   ) {
     if (!options) {
@@ -104,6 +105,9 @@ export class LinkifyIt {
    *
    * Add new rule definition. See constructor description for details.
    **/
+  // 这里联合类型 LinkifyItSchemas[string] 会干扰 typescript 对 normalize 参数判断，需要使用函数重载
+  add(schema: string, definition: string): this;
+  add(schema: string, definition: LinkifyItSchemasObject): this;
   add(schema: string, definition: LinkifyItSchemas[string]) {
     this.__schemas__[schema] = definition;
     this.#compile();
@@ -316,7 +320,7 @@ export class LinkifyIt {
    *
    * If list is replaced, then exact match for 2-chars root zones will be checked.
    **/
-  tlds(list: Array<string> | string, keepOld: boolean) {
+  tlds(list: Array<string> | string, keepOld: boolean = false) {
     list = Array.isArray(list) ? list : [list];
 
     if (!keepOld) {
