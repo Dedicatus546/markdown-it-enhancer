@@ -1,4 +1,4 @@
-import { LinkifyItNormalizedOptions, LinkifyItSchemas } from "./types";
+import type { LinkifyItNormalizedOptions, LinkifyItSchemas } from "./types";
 
 export const defaultOptions: LinkifyItNormalizedOptions = {
   fuzzyLink: true,

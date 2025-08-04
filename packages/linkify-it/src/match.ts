@@ -4,7 +4,7 @@
  * Match result. Single element of array, returned by [[LinkifyIt#match]]
  **/
 
-import { LinkifyIt } from "./linkify-it";
+import type { LinkifyIt } from "./linkify-it";
 
 export class Match {
   /**
