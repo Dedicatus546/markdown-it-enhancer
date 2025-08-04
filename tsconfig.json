@@ -7,17 +7,6 @@
     "target": "esnext",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-    }
-  },
-  "include": [
-    "./src/**/*.ts",
-    "./vite-env.d.ts",
-    "./test/**/*.ts"
-  ]
+  }
 }
