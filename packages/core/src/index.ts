@@ -1,8 +1,7 @@
-import LinkifyIt from "linkify-it";
+import { LinkifyIt } from "linkify-it-for-enhancer";
 
 import * as utils from "./common/utils";
 import {
-  assign,
   isString,
   normalizeLink,
   normalizeLinkText,
@@ -49,7 +48,7 @@ export class MarkdownIt {
   normalizeLink = normalizeLink;
   normalizeLinkText = normalizeLinkText;
   utils = utils;
-  helpers = assign({}, helpers);
+  helpers = Object.assign({}, helpers);
   options: Preset["options"];
   plugins: Array<Promise<void>> = [];
 
@@ -92,7 +91,7 @@ export class MarkdownIt {
    * config.
    **/
   set(options: MarkdownItOptions) {
-    assign(this.options, options);
+    Object.assign(this.options, options);
     return this;
   }
 

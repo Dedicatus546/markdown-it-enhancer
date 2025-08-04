@@ -7,12 +7,7 @@
  **/
 
 import { MarkdownItEnv, MarkdownItOptions } from ".";
-import {
-  assign,
-  escapeHtml,
-  resolvePromiseLike,
-  unescapeAll,
-} from "./common/utils";
+import { escapeHtml, resolvePromiseLike, unescapeAll } from "./common/utils";
 import Token, { TokenAttr } from "./token";
 import { Awaitable } from "./types";
 
@@ -172,7 +167,10 @@ class Renderer {
    * See [source code](https://github.com/markdown-it/markdown-it/blob/master/lib/renderer)
    * for more details and examples.
    **/
-  rules: Record<string, RendererFn | undefined> = assign({}, default_rules);
+  rules: Record<string, RendererFn | undefined> = Object.assign(
+    {},
+    default_rules,
+  );
 
   /**
    * Renderer.renderAttrs(token) -> String

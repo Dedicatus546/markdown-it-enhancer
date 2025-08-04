@@ -4,7 +4,7 @@
 // returns the end of the label
 //
 
-import StateInline from "@/rules_inline/state_inline";
+import StateInline from "../rules_inline/state_inline";
 
 const parseLinkLabel = async (
   state: StateInline,

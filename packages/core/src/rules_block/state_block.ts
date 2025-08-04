@@ -1,8 +1,8 @@
 // Parser state class
 
-import { isSpace } from "@/common/utils";
-import { type MarkdownIt, MarkdownItEnv } from "@/index";
-import Token, { TokenNesting } from "@/token";
+import { isSpace } from "../common/utils";
+import { type MarkdownIt, MarkdownItEnv } from "../index";
+import Token, { TokenNesting } from "../token";
 
 interface StateBlock {
   Token: typeof Token;

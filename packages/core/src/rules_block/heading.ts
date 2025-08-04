@@ -1,7 +1,7 @@
 // heading (#, ##, ...)
 
-import { isSpace } from "@/common/utils";
-import { StateBlockRuleFn } from "@/ruler";
+import { isSpace } from "../common/utils";
+import { StateBlockRuleFn } from "../ruler";
 
 const heading: StateBlockRuleFn = (
   state,

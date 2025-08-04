@@ -1,7 +1,7 @@
 // lheading (---, ===)
 
-import { resolvePromiseLike } from "@/common/utils";
-import { StateBlockRuleFn } from "@/ruler";
+import { resolvePromiseLike } from "../common/utils";
+import { StateBlockRuleFn } from "../ruler";
 
 const lheading: StateBlockRuleFn = async (state, startLine, endLine) => {
   const terminatorRules = state.md.block.ruler.getRules("paragraph");

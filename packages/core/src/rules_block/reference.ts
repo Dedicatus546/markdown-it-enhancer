@@ -2,8 +2,8 @@ import {
   isSpace,
   normalizeReference,
   resolvePromiseLike,
-} from "@/common/utils";
-import { StateBlockRuleFn } from "@/ruler";
+} from "../common/utils";
+import { StateBlockRuleFn } from "../ruler";
 
 const reference: StateBlockRuleFn = async (
   state,

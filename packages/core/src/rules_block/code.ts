@@ -1,6 +1,6 @@
 // Code block (4 spaces padded)
 
-import { StateBlockRuleFn } from "@/ruler";
+import { StateBlockRuleFn } from "../ruler";
 
 const code: StateBlockRuleFn = (state, startLine, endLine) => {
   if (state.sCount[startLine] - state.blkIndent < 4) {

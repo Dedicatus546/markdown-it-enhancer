@@ -1,6 +1,6 @@
 // fences (``` lang, ~~~ lang)
 
-import { StateBlockRuleFn } from "@/ruler";
+import { StateBlockRuleFn } from "../ruler";
 
 const fence: StateBlockRuleFn = (state, startLine, endLine, silent = false) => {
   let pos = state.bMarks[startLine] + state.tShift[startLine];

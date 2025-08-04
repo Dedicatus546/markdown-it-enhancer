@@ -1,7 +1,7 @@
 // Horizontal rule
 
-import { isSpace } from "@/common/utils";
-import { StateBlockRuleFn } from "@/ruler";
+import { isSpace } from "../common/utils";
+import { StateBlockRuleFn } from "../ruler";
 
 const hr: StateBlockRuleFn = (state, startLine, _endLine, silent = false) => {
   const max = state.eMarks[startLine];

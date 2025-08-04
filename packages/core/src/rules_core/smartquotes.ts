@@ -1,9 +1,8 @@
 // Convert straight quotation marks to typographic ones
 //
 
-import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "@/common/utils";
-import Token from "@/token";
-
+import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "../common/utils";
+import Token from "../token";
 import StateCore from "./state_core";
 
 const QUOTE_TEST_RE = /['"]/;

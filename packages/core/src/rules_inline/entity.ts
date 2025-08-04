@@ -2,8 +2,7 @@
 
 import { decodeHTML } from "entities";
 
-import { fromCodePoint, isValidEntityCode } from "@/common/utils";
-
+import { fromCodePoint, isValidEntityCode } from "../common/utils";
 import StateInline from "./state_inline";
 
 const DIGITAL_RE = /^&#((?:x[a-f0-9]{1,6}|[0-9]{1,7}));/i;

@@ -1,7 +1,7 @@
 // Block quotes
 
-import { isSpace, resolvePromiseLike } from "@/common/utils";
-import { StateBlockRuleFn } from "@/ruler";
+import { isSpace, resolvePromiseLike } from "../common/utils";
+import { StateBlockRuleFn } from "../ruler";
 
 const blockquote: StateBlockRuleFn = async (
   state,

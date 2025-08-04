@@ -1,7 +1,7 @@
 // Parse link title
 //
 
-import { unescapeAll } from "@/common/utils";
+import { unescapeAll } from "../common/utils";
 
 export interface ParseLinkTitleResult {
   // if `true`, this is a valid link title

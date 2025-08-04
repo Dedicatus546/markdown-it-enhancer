@@ -1,7 +1,6 @@
 // Process html tags
 
-import { HTML_TAG_RE } from "@/common/html_re";
-
+import { HTML_TAG_RE } from "../common/html_re";
 import StateInline from "./state_inline";
 
 function isLinkOpen(str: string) {

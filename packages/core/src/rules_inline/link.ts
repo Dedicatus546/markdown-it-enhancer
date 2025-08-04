@@ -1,10 +1,9 @@
 // Process [link](<to> "stuff")
 
-import { isSpace, normalizeReference } from "@/common/utils";
-import { ParseLinkDestinationResult } from "@/helpers/parse_link_destination";
-import { TokenAttr } from "@/token";
-
 import { MarkdownItEnv } from "..";
+import { isSpace, normalizeReference } from "../common/utils";
+import { ParseLinkDestinationResult } from "../helpers/parse_link_destination";
+import { TokenAttr } from "../token";
 import StateInline from "./state_inline";
 
 export default async function link(

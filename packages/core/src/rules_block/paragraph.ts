@@ -1,7 +1,7 @@
 // Paragraph
 
-import { resolvePromiseLike } from "@/common/utils";
-import { StateBlockRuleFn } from "@/ruler";
+import { resolvePromiseLike } from "../common/utils";
+import { StateBlockRuleFn } from "../ruler";
 
 const paragraph: StateBlockRuleFn = async (state, startLine, endLine) => {
   const terminatorRules = state.md.block.ruler.getRules("paragraph");

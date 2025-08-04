@@ -1,14 +1,10 @@
-// Utilities
-//
-
 import { decodeHTML } from "entities";
-import * as mdurl from "mdurl";
+import { decode, encode, format, parse } from "mdurl-for-enhancer";
 // @ts-expect-error lack mdurl type
 import punycode from "punycode.js";
-// @ts-expect-error lack uc.micro type
-import * as ucmicro from "uc.micro";
+import { P, S } from "uc.micro-for-enhancer";
 
-import { Awaitable } from "@/types";
+import { Awaitable } from "../types";
 
 const toString = (obj: unknown) => {
   return Object.prototype.toString.call(obj);
@@ -189,7 +185,7 @@ const isWhiteSpace = (code: number) => {
 
 // Currently without astral characters support.
 const isPunctChar = (ch: string) => {
-  return ucmicro.P.test(ch) || ucmicro.S.test(ch);
+  return P.test(ch) || S.test(ch);
 };
 
 // Markdown ASCII punctuation characters.
@@ -296,9 +292,6 @@ const normalizeReference = (str: string) => {
 // so plugins won't have to depend on them explicitly, which reduces their
 // bundled size (e.g. a browser build).
 //
-const lib = { mdurl, ucmicro };
-
-const assign = Object.assign;
 
 const resolvePromiseLike = async <T>(p: Awaitable<T>) => {
   const val = await Promise.resolve(p);
@@ -326,7 +319,7 @@ const validateLink = (url: string) => {
 const RECODE_HOSTNAME_FOR: string[] = ["http:", "https:", "mailto:"];
 
 const normalizeLink = (url: string) => {
-  const parsed = mdurl.parse(url, true);
+  const parsed = parse(url, true);
 
   if (parsed.hostname) {
     // Encode hostnames in urls like:
@@ -344,11 +337,11 @@ const normalizeLink = (url: string) => {
     }
   }
 
-  return mdurl.encode(mdurl.format(parsed));
+  return encode(format(parsed));
 };
 
 const normalizeLinkText = (url: string) => {
-  const parsed = mdurl.parse(url, true);
+  const parsed = parse(url, true);
 
   if (parsed.hostname) {
     // Encode hostnames in urls like:
@@ -367,12 +360,11 @@ const normalizeLinkText = (url: string) => {
   }
 
   // add '%' to exclude list because of https://github.com/markdown-it/markdown-it/issues/720
-  return mdurl.decode(mdurl.format(parsed), mdurl.decode.defaultChars + "%");
+  return decode(format(parsed), decode.defaultChars + "%");
 };
 
 export {
   arrayReplaceAt,
-  assign,
   escapeHtml,
   escapeRE,
   fromCodePoint,
@@ -382,7 +374,6 @@ export {
   isString,
   isValidEntityCode,
   isWhiteSpace,
-  lib,
   normalizeLink,
   normalizeLinkText,
   normalizeReference,

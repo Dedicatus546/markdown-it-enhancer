@@ -1,8 +1,7 @@
 // ~~strike through~~
 //
 
-import Token from "@/token";
-
+import Token from "../token";
 import StateInline, { Delimiter } from "./state_inline";
 
 // Insert each marker as a separate text token, and add it to delimiter list

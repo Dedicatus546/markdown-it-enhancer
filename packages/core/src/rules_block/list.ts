@@ -1,9 +1,8 @@
 // Lists
 
-import { isSpace, resolvePromiseLike } from "@/common/utils";
-import { StateBlockRuleFn } from "@/ruler";
-import Token from "@/token";
-
+import { isSpace, resolvePromiseLike } from "../common/utils";
+import { StateBlockRuleFn } from "../ruler";
+import Token from "../token";
 import StateBlock from "./state_block";
 
 // Search `[-+*][\n ]`, returns next pos after marker on success
