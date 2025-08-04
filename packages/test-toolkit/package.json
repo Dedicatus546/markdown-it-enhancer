@@ -31,12 +31,7 @@
     "js-yaml": "catalog:prod"
   },
   "devDependencies": {
-    "typescript": "catalog:",
-    "@vitest/coverage-istanbul": "catalog:test",
-    "@vitest/ui": "catalog:test",
-    "vite": "catalog:build",
-    "vite-plugin-dts": "catalog:build",
-    "vitest": "catalog:test"
+    "@types/js-yaml": "catalog:types"
   },
   "peerDependencies": {
     "markdown-it-enhancer": ">=14.1.1070",
