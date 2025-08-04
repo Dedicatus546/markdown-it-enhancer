@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import Token from "@/token";
+import { Token } from "../src";
 
 describe("Token", () => {
   it("attr", () => {

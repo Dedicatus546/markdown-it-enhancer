@@ -2,8 +2,7 @@
 import forInline from "markdown-it-for-inline";
 import { assert, describe, expect, it } from "vitest";
 
-import { MarkdownIt, MarkdownItPlugin } from "@/index";
-import Token from "@/token";
+import { MarkdownIt, type MarkdownItPlugin, type Token } from "../src";
 
 declare function forInline(
   md: MarkdownIt,

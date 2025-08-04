@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { MarkdownIt } from "@/index";
-
+import { MarkdownIt } from "../src";
 import { delay } from "./utils";
 
 describe("markdown-it-extra", () => {

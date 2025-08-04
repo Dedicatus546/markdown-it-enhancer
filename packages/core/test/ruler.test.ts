@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import Ruler from "@/ruler";
+import { Ruler } from "../src";
 
 describe("Ruler", () => {
   it("should replace rule (.at)", () => {

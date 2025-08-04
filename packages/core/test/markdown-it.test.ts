@@ -1,9 +1,9 @@
 import { fileURLToPath } from "node:url";
 
-import generate from "markdown-it-testgen-for-enhancer";
+import generate from "markdown-it-enhancer-test-toolkit";
 import { describe } from "vitest";
 
-import { MarkdownIt } from "@/index";
+import { MarkdownIt } from "../src";
 
 describe("markdown-it", function () {
   const md = new MarkdownIt({

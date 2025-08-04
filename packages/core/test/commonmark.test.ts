@@ -1,17 +1,17 @@
 import { relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { load } from "markdown-it-testgen-for-enhancer";
+import { load } from "markdown-it-enhancer-test-toolkit";
 import { describe, expect, it } from "vitest";
 
-import { MarkdownIt } from "@/index";
+import { MarkdownIt } from "../src";
 
-function normalize(text: string) {
+const normalize = (text: string) => {
   return text.replace(
     /<blockquote>\n<\/blockquote>/g,
     "<blockquote></blockquote>",
   );
-}
+};
 
 function generate(path: string, md: MarkdownIt) {
   load(path, function (data) {
@@ -21,7 +21,7 @@ function generate(path: string, md: MarkdownIt) {
     const desc = recordMeta.desc || relative(path, data.file);
 
     (recordMeta.skip ? describe.skip : describe)(desc, () => {
-      data.fixtures.forEach(function (fixture) {
+      data.fixtures.forEach((fixture) => {
         it(
           fixture.header
             ? fixture.header
