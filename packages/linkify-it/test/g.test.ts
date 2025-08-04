@@ -1,18 +1,13 @@
-/* eslint-env mocha */
-
-import assert from "node:assert";
-import { createRequire } from "node:module";
-
 import { readFileSync } from "fs";
+import { describe, expect, it } from "vitest";
 
-import { linkify } from "../src";
+import { LinkifyIt } from "../src";
+import tlds from "./tlds.json";
 
-const tlds = createRequire(import.meta.url)("tlds");
+let lines: Array<string> = [];
 
-let lines;
-
-describe("links", function () {
-  const l = linkify({ fuzzyIP: true });
+describe("links", () => {
+  const l = new LinkifyIt({ fuzzyIP: true });
 
   l.normalize = function () {}; // kill normalizer
 
@@ -23,7 +18,7 @@ describe("links", function () {
 
   let skipNext = false;
 
-  lines.forEach(function (line, idx) {
+  lines.forEach((line, idx) => {
     if (skipNext) {
       skipNext = false;
       return;
@@ -38,32 +33,38 @@ describe("links", function () {
     }
 
     if (next.trim()) {
-      it("line " + (idx + 1), function () {
-        assert.ok(l.pretest(line), "(pretest failed in `" + line + "`)");
-        assert.ok(
+      it("line " + (idx + 1), () => {
+        expect(
+          l.pretest(line),
+          "(pretest failed in `" + line + "`)",
+        ).toBeTruthy();
+        expect(
           l.test("\n" + line + "\n"),
           "(link not found in `\\n" + line + "\\n`)",
-        );
-        assert.ok(l.test(line), "(link not found in `" + line + "`)");
-        assert.strictEqual(l.match(line)[0].url, next);
+        ).toBeTruthy();
+        expect(l.test(line), "(link not found in `" + line + "`)").toBeTruthy();
+        expect(l.match(line)?.[0].url).toBe(next);
       });
       skipNext = true;
     } else {
-      it("line " + (idx + 1), function () {
-        assert.ok(l.pretest(line), "(pretest failed in `" + line + "`)");
-        assert.ok(
+      it("line " + (idx + 1), () => {
+        expect(
+          l.pretest(line),
+          "(pretest failed in `" + line + "`)",
+        ).toBeTruthy();
+        expect(
           l.test("\n" + line + "\n"),
           "(link not found in `\\n" + line + "\\n`)",
-        );
-        assert.ok(l.test(line), "(link not found in `" + line + "`)");
-        assert.strictEqual(l.match(line)[0].url, line);
+        ).toBeTruthy();
+        expect(l.test(line), "(link not found in `" + line + "`)").toBeTruthy();
+        expect(l.match(line)?.[0].url).toBe(line);
       });
     }
   });
 });
 
-describe("not links", function () {
-  const l = linkify();
+describe("not links", () => {
+  const l = new LinkifyIt();
 
   l.normalize = function () {}; // kill normalizer
 
@@ -72,58 +73,58 @@ describe("not links", function () {
     "utf8",
   ).split(/\r?\n/g);
 
-  lines.forEach(function (line, idx) {
+  lines.forEach((line, idx) => {
     line = line.replace(/^%.*/, "");
 
     if (!line.trim()) {
       return;
     }
 
-    it("line " + (idx + 1), function () {
-      assert.ok(
+    it("line " + (idx + 1), () => {
+      expect(
         !l.test(line),
         "(should not find link in `" +
           line +
           "`, but found `" +
           JSON.stringify((l.match(line) || [])[0]) +
           "`)",
-      );
+      ).toBeTruthy();
     });
   });
 });
 
-describe("API", function () {
-  it("extend tlds", function () {
-    const l = linkify();
+describe("API", () => {
+  it("extend tlds", () => {
+    const l = new LinkifyIt();
 
-    assert.ok(!l.test("google.myroot"));
+    expect(l.test("google.myroot")).toBeFalsy();
 
     l.tlds("myroot", true);
 
-    assert.ok(l.test("google.myroot"));
-    assert.ok(!l.test("google.xyz"));
+    expect(l.test("google.myroot")).toBeTruthy();
+    expect(l.test("google.xyz")).toBeFalsy();
 
     l.tlds(tlds);
 
-    assert.ok(l.test("google.xyz"));
-    assert.ok(!l.test("google.myroot"));
+    expect(l.test("google.xyz")).toBeTruthy();
+    expect(l.test("google.myroot")).toBeFalsy();
   });
 
-  it("add rule as regexp, with default normalizer", function () {
-    const l = linkify().add("my:", {
+  it("add rule as regexp, with default normalizer", () => {
+    const l = new LinkifyIt().add("my:", {
       validate: /^\/\/[a-z]+/,
     });
 
     const match = l.match("google.com. my:// my://asdf!");
 
-    assert.strictEqual(match[0].text, "google.com");
-    assert.strictEqual(match[1].text, "my://asdf");
+    expect(match?.[0].text).toBe("google.com");
+    expect(match?.[1].text).toBe("my://asdf");
   });
 
-  it("add rule with normalizer", function () {
-    const l = linkify().add("my:", {
+  it("add rule with normalizer", () => {
+    const l = new LinkifyIt().add("my:", {
       validate: /^\/\/[a-z]+/,
-      normalize: function (m) {
+      normalize(m) {
         m.text = m.text.replace(/^my:\/\//, "").toUpperCase();
         m.url = m.url.toUpperCase();
       },
@@ -131,87 +132,92 @@ describe("API", function () {
 
     const match = l.match("google.com. my:// my://asdf!");
 
-    assert.strictEqual(match[1].text, "ASDF");
-    assert.strictEqual(match[1].url, "MY://ASDF");
+    expect(match?.[1].text).toBe("ASDF");
+    expect(match?.[1].url).toBe("MY://ASDF");
   });
 
-  it("disable rule", function () {
-    const l = linkify();
+  it("disable rule", () => {
+    const l = new LinkifyIt();
 
-    assert.ok(l.test("http://google.com"));
-    assert.ok(l.test("foo@bar.com"));
+    expect(l.test("http://google.com")).toBeTruthy();
+    expect(l.test("foo@bar.com")).toBeTruthy();
+    // @ts-expect-error ignore
     l.add("http:", null);
+    // @ts-expect-error ignore
     l.add("mailto:", null);
-    assert.ok(!l.test("http://google.com"));
-    assert.ok(!l.test("foo@bar.com"));
+    expect(l.test("http://google.com")).toBeFalsy();
+    expect(l.test("foo@bar.com")).toBeFalsy();
   });
 
-  it("add bad definition", function () {
-    let l;
+  it("add bad definition", () => {
+    let l: LinkifyIt;
 
-    l = linkify();
+    l = new LinkifyIt();
 
-    assert.throws(function () {
+    expect(() => {
+      // @ts-expect-error ignore
       l.add("test:", []);
-    });
+    }).toThrowError();
 
-    l = linkify();
+    l = new LinkifyIt();
 
-    assert.throws(function () {
+    expect(() => {
+      // @ts-expect-error ignore
       l.add("test:", { validate: [] });
-    });
+    }).toThrowError();
 
-    l = linkify();
+    l = new LinkifyIt();
 
-    assert.throws(function () {
+    expect(() => {
+      // @ts-expect-error ignore
       l.add("test:", {
-        validate: function () {
+        validate() {
           return false;
         },
         normalize: "bad",
       });
-    });
+    }).toThrowError();
   });
 
-  it("test at position", function () {
-    const l = linkify();
+  it("test at position", () => {
+    const l = new LinkifyIt();
 
-    assert.ok(l.testSchemaAt("http://google.com", "http:", 5));
-    assert.ok(l.testSchemaAt("http://google.com", "HTTP:", 5));
-    assert.ok(!l.testSchemaAt("http://google.com", "http:", 6));
-
-    assert.ok(!l.testSchemaAt("http://google.com", "bad_schema:", 6));
+    expect(l.testSchemaAt("http://google.com", "http:", 5)).toBeTruthy();
+    expect(l.testSchemaAt("http://google.com", "HTTP:", 5)).toBeTruthy();
+    expect(l.testSchemaAt("http://google.com", "http:", 6)).toBeFalsy();
+    expect(l.testSchemaAt("http://google.com", "bad_schema:", 6)).toBeFalsy();
   });
 
-  it("correct cache value", function () {
-    const l = linkify();
+  it("correct cache value", () => {
+    const l = new LinkifyIt();
 
     const match = l.match(
       ".com. http://google.com google.com ftp://google.com",
     );
 
-    assert.strictEqual(match[0].text, "http://google.com");
-    assert.strictEqual(match[1].text, "google.com");
-    assert.strictEqual(match[2].text, "ftp://google.com");
+    expect(match?.[0].text).toBe("http://google.com");
+    expect(match?.[1].text).toBe("google.com");
+    expect(match?.[2].text).toBe("ftp://google.com");
   });
 
-  it("normalize", function () {
-    const l = linkify();
+  it("normalize", () => {
+    const l = new LinkifyIt();
 
-    let m = l.match("mailto:foo@bar.com")[0];
-
-    // assert.strictEqual(m.text, 'foo@bar.com');
-    assert.strictEqual(m.url, "mailto:foo@bar.com");
-
-    m = l.match("foo@bar.com")[0];
+    let m = l.match("mailto:foo@bar.com")?.[0];
 
     // assert.strictEqual(m.text, 'foo@bar.com');
-    assert.strictEqual(m.url, "mailto:foo@bar.com");
+    expect(m?.url).toBe("mailto:foo@bar.com");
+
+    m = l.match("foo@bar.com")?.[0];
+
+    // assert.strictEqual(m.text, 'foo@bar.com');
+    expect(m?.url).toBe("mailto:foo@bar.com");
   });
 
-  it("test @twitter rule", function () {
-    const l = linkify().add("@", {
-      validate: function (text, pos, self) {
+  it("test @twitter rule", () => {
+    // @ts-expect-error ignore
+    const l = new LinkifyIt().add("@", {
+      validate(text, pos, self) {
         const tail = text.slice(pos);
 
         if (!self.re.twitter) {
@@ -223,56 +229,56 @@ describe("API", function () {
           if (pos >= 2 && tail[pos - 2] === "@") {
             return false;
           }
-          return tail.match(self.re.twitter)[0].length;
+          return tail.match(self.re.twitter)?.[0].length ?? 0;
         }
         return 0;
       },
-      normalize: function (m) {
+      normalize(m) {
         m.url = "https://twitter.com/" + m.url.replace(/^@/, "");
       },
     });
 
-    assert.strictEqual(l.match("hello, @gamajoba_!")[0].text, "@gamajoba_");
-    assert.strictEqual(l.match(":@givi")[0].text, "@givi");
-    assert.strictEqual(l.match(":@givi")[0].url, "https://twitter.com/givi");
-    assert.ok(!l.test("@@invalid"));
+    expect(l.match("hello, @gamajoba_!")?.[0].text).toBe("@gamajoba_");
+    expect(l.match(":@givi")?.[0].text).toBe("@givi");
+    expect(l.match(":@givi")?.[0].url).toBe("https://twitter.com/givi");
+    expect(l.test("@@invalid")).toBeFalsy();
   });
 
-  it("set option: fuzzyLink", function () {
-    const l = linkify({ fuzzyLink: false });
+  it("set option: fuzzyLink", () => {
+    const l = new LinkifyIt({ fuzzyLink: false });
 
-    assert.strictEqual(l.test("google.com."), false);
+    expect(l.test("google.com.")).toBe(false);
 
     l.set({ fuzzyLink: true });
 
-    assert.strictEqual(l.test("google.com."), true);
-    assert.strictEqual(l.match("google.com.")[0].text, "google.com");
+    expect(l.test("google.com.")).toBe(true);
+    expect(l.match("google.com.")?.[0].text).toBe("google.com");
   });
 
-  it("set option: fuzzyEmail", function () {
-    const l = linkify({ fuzzyEmail: false });
+  it("set option: fuzzyEmail", () => {
+    const l = new LinkifyIt({ fuzzyEmail: false });
 
-    assert.strictEqual(l.test("foo@bar.com."), false);
+    expect(l.test("foo@bar.com.")).toBe(false);
 
     l.set({ fuzzyEmail: true });
 
-    assert.strictEqual(l.test("foo@bar.com."), true);
-    assert.strictEqual(l.match("foo@bar.com.")[0].text, "foo@bar.com");
+    expect(l.test("foo@bar.com.")).toBe(true);
+    expect(l.match("foo@bar.com.")?.[0].text).toBe("foo@bar.com");
   });
 
-  it("set option: fuzzyIP", function () {
-    const l = linkify();
+  it("set option: fuzzyIP", () => {
+    const l = new LinkifyIt();
 
-    assert.strictEqual(l.test("1.1.1.1."), false);
+    expect(l.test("1.1.1.1.")).toBe(false);
 
     l.set({ fuzzyIP: true });
 
-    assert.strictEqual(l.test("1.1.1.1."), true);
-    assert.strictEqual(l.match("1.1.1.1.")[0].text, "1.1.1.1");
+    expect(l.test("1.1.1.1.")).toBe(true);
+    expect(l.match("1.1.1.1.")?.[0].text).toBe("1.1.1.1");
   });
 
-  it("should not hang in fuzzy mode with sequences of astrals", function () {
-    const l = linkify();
+  it("should not hang in fuzzy mode with sequences of astrals", () => {
+    const l = new LinkifyIt();
 
     l.set({ fuzzyLink: true });
 
@@ -281,58 +287,55 @@ describe("API", function () {
     );
   });
 
-  it("should accept `---` if enabled", function () {
-    let l = linkify();
+  it("should accept `---` if enabled", () => {
+    let l = new LinkifyIt();
 
-    assert.strictEqual(
-      l.match("http://e.com/foo---bar")[0].text,
+    expect(l.match("http://e.com/foo---bar")?.[0].text).toBe(
       "http://e.com/foo---bar",
     );
-    assert.strictEqual(l.match("text@example.com---foo"), null);
+    expect(l.match("text@example.com---foo")).toBe(null);
 
-    l = linkify(null, { "---": true });
+    // @ts-expect-error ignore
+    l = new LinkifyIt(null, { "---": true });
 
-    assert.strictEqual(
-      l.match("http://e.com/foo---bar")[0].text,
+    expect(l.match("http://e.com/foo---bar")?.[0].text).toBe(
       "http://e.com/foo",
     );
-    assert.strictEqual(
-      l.match("text@example.com---foo")[0].text,
+    expect(l.match("text@example.com---foo")?.[0].text).toBe(
       "text@example.com",
     );
   });
 
-  it("should find a match at the start", function () {
-    const l = linkify();
+  it("should find a match at the start", () => {
+    const l = new LinkifyIt();
 
     l.set({ fuzzyLink: true });
 
-    assert.strictEqual(
-      l.matchAtStart("http://google.com 123").text,
+    expect(l.matchAtStart("http://google.com 123")?.text).toBe(
       "http://google.com",
     );
-    assert.ok(!l.matchAtStart("google.com 123"));
-    assert.ok(!l.matchAtStart("  http://google.com 123"));
+    expect(l.matchAtStart("google.com 123")).toBeFalsy();
+    expect(l.matchAtStart("  http://google.com 123")).toBeFalsy();
   });
 
-  it("matchAtStart should not interfere with normal match", function () {
-    const l = linkify();
+  it("matchAtStart should not interfere with normal match", () => {
+    const l = new LinkifyIt();
     let str;
 
     str = "http://google.com http://google.com";
-    assert.ok(l.matchAtStart(str));
-    assert.strictEqual(l.match(str).length, 2);
+    expect(l.matchAtStart(str)).toBeTruthy();
+    expect(l.match(str)?.length).toBe(2);
 
     str = "aaa http://google.com http://google.com";
-    assert.ok(!l.matchAtStart(str));
-    assert.strictEqual(l.match(str).length, 2);
+    expect(l.matchAtStart(str)).toBeFalsy();
+    expect(l.match(str)?.length).toBe(2);
   });
 
-  it("should not match incomplete links", function () {
+  it("should not match incomplete links", () => {
     // regression test for https://github.com/markdown-it/markdown-it/issues/868
-    const l = linkify();
+    const l = new LinkifyIt();
 
-    assert.ok(!l.matchAtStart("http://"));
-    assert.ok(!l.matchAtStart("https://"));
+    expect(l.matchAtStart("http://")).toBeFalsy();
+    expect(l.matchAtStart("https://")).toBeFalsy();
   });
 });
