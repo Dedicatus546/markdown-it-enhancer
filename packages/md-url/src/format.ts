@@ -4,7 +4,7 @@ export const format = (url: Url) => {
   let result = "";
 
   result += url.protocol ?? "";
-  result += url.slashes ?? "//";
+  result += url.slashes ? "//" : "";
   result += url.auth ? `${url.auth}@` : "";
 
   if (url.hostname && url.hostname.includes(":")) {

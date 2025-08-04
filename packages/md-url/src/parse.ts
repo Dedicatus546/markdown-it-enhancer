@@ -42,7 +42,10 @@ import { Url } from "./url";
 //    which can be constructed using other parts of the url.
 //
 
-export const urlParse = (url: string | Url, slashesDenoteHost: boolean) => {
+export const urlParse = (
+  url: string | Url,
+  slashesDenoteHost: boolean = false,
+) => {
   if (url && url instanceof Url) {
     return url;
   }

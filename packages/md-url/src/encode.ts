@@ -38,8 +38,8 @@ const getEncodeCache = (exclude: string) => {
 //
 export const encode = (
   str: string,
-  exclude: string | boolean,
-  keepEscaped?: boolean,
+  exclude: string | boolean = true,
+  keepEscaped: boolean = true,
 ) => {
   if (typeof exclude !== "string") {
     // encode(string, keepEscaped)

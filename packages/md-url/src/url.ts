@@ -24,8 +24,9 @@ export class Url {
   constructor() {}
 
   parse(url: string, slashesDenoteHost: boolean) {
-    let hec;
-    let slashes: boolean | null = null;
+    let lowerProto = "",
+      hec = -1,
+      slashes = false;
     let rest = url;
 
     // trim before proceeding.
@@ -46,7 +47,6 @@ export class Url {
 
     const execArray = protocolPattern.exec(rest);
     let proto: string | null = null;
-    let lowerProto: string | null = null;
     if (execArray) {
       proto = execArray[0];
       lowerProto = proto.toLowerCase();
@@ -68,8 +68,7 @@ export class Url {
     }
 
     if (
-      proto &&
-      !hostlessProtocol[proto] &&
+      (!proto || !hostlessProtocol[proto]) &&
       (slashes || (proto && !slashedProtocol[proto]))
     ) {
       // there's a hostname.
@@ -213,12 +212,7 @@ export class Url {
     if (rest) {
       this.pathname = rest;
     }
-    if (
-      lowerProto &&
-      slashedProtocol[lowerProto] &&
-      this.hostname &&
-      !this.pathname
-    ) {
+    if (slashedProtocol[lowerProto] && this.hostname && !this.pathname) {
       this.pathname = "";
     }
 
