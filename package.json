@@ -1,19 +1,17 @@
 {
-  "name": "markdown-it-enhancer",
-  "version": "14.1.1070",
+  "name": "markdown-it-enhancer-repo",
+  "version": "1.0.0",
   "description": "Markdown-it - modern pluggable markdown parser.",
-  "author": {
-    "name": "Par9uet",
-    "email": "qq1607611087@gmail.com"
-  },
-  "repository": "Dedicatus546/markdown-it-enhancer",
   "license": "MIT",
   "type": "module",
   "scripts": {
     "lint": "eslint --fix"
   },
   "devDependencies": {
+    "markdown-it-enhancer": "workspace:*",
     "markdown-it-enhancer-test-toolkit": "workspace:*",
+    "markdown-it-katex-for-enhancer": "workspace:*",
+    "markdown-it-implicit-figures-for-enhancer": "workspace:*",
     "@eslint/js": "catalog:lint",
     "eslint": "catalog:lint",
     "eslint-config-prettier": "catalog:lint",
@@ -29,7 +27,8 @@
     "@vitest/ui": "catalog:test",
     "vite": "catalog:build",
     "vite-plugin-dts": "catalog:build",
-    "vitest": "catalog:test"
+    "vitest": "catalog:test",
+    "cheerio": "catalog:test"
   },
   "engines": {
     "node": ">=20"
