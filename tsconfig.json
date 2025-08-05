@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "skipLibCheck": true,
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "target": "esnext",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "strict": true,
-  }
+    "strict": true
+  },
+  "include": ["packages/**/*.ts"],
+  "exclude": ["**/node_modules", "**/dist", "**/coverage"]
 }
