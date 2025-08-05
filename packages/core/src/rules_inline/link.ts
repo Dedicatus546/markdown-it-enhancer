@@ -2,6 +2,11 @@
 
 import { MarkdownItEnv } from "..";
 import { isSpace, normalizeReference } from "../common/utils";
+import {
+  parseLinkDestination,
+  parseLinkLabel,
+  parseLinkTitle,
+} from "../helpers";
 import { ParseLinkDestinationResult } from "../helpers/parse_link_destination";
 import { TokenAttr } from "../token";
 import StateInline from "./state_inline";
@@ -26,11 +31,7 @@ export default async function link(
   const oldPos = state.pos;
   const max = state.posMax;
   const labelStart = state.pos + 1;
-  const labelEnd = await state.md.helpers.parseLinkLabel(
-    state,
-    state.pos,
-    true,
-  );
+  const labelEnd = await parseLinkLabel(state, state.pos, true);
 
   // parser failed to find ']', so it's not a valid link
   if (labelEnd < 0) {
@@ -62,7 +63,7 @@ export default async function link(
     // [link](  <href>  "title"  )
     //          ^^^^^^ parsing link destination
     start = pos;
-    res = state.md.helpers.parseLinkDestination(state.src, pos, state.posMax);
+    res = parseLinkDestination(state.src, pos, state.posMax);
     if (res.ok) {
       href = state.md.normalizeLink(res.str);
       if (state.md.validateLink(href)) {
@@ -83,7 +84,7 @@ export default async function link(
 
       // [link](  <href>  "title"  )
       //                  ^^^^^^^ parsing link title
-      res = state.md.helpers.parseLinkTitle(state.src, pos, state.posMax);
+      res = parseLinkTitle(state.src, pos, state.posMax);
       if (pos < max && start !== pos && res.ok) {
         title = res.str;
         pos = res.pos;
@@ -116,7 +117,7 @@ export default async function link(
 
     if (pos < max && state.src.charCodeAt(pos) === 0x5b /* [ */) {
       start = pos + 1;
-      pos = await state.md.helpers.parseLinkLabel(state, pos);
+      pos = await parseLinkLabel(state, pos);
       if (pos >= 0) {
         label = state.src.slice(start, pos++);
       } else {

@@ -1,0 +1,38 @@
+{
+  "name": "markdown-it-container-for-enhancer",
+  "version": "4.0.1000",
+  "description": "Plugin to create block-level custom containers for markdown-it markdown parser",
+  "license": "MIT",
+  "keywords": [
+    "markdown-it-plugin",
+    "markdown-it",
+    "markdown"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "vitest"
+  },
+  "peerDependencies": {
+    "markdown-it-enhancer": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "markdown-it-enhancer": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.14.0"
+}

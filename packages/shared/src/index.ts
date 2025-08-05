@@ -23,3 +23,7 @@ export const isFunction = (
 export const escapeRE = (str: string) => {
   return str.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
 };
+
+export const isArray = (obj: unknown): obj is Array<unknown> => {
+  return toString(obj) === "[object Array]";
+};

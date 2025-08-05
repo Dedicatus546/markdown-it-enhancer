@@ -37,7 +37,7 @@ describe("API", () => {
   it("plugin", async () => {
     let succeeded = false;
 
-    const plugin: MarkdownItPlugin = function plugin(slf, opts) {
+    const plugin: MarkdownItPlugin<[string]> = (md, opts) => {
       if (opts === "bar") {
         succeeded = true;
       }

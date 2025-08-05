@@ -21,9 +21,6 @@ export default defineConfig({
     },
   },
   build: {
-    rollupOptions: {
-      external: [/^node:/, "markdown-it-enhancer", "js-yaml", "vitest"],
-    },
     lib: {
       entry: resolve(__dirname, "src", "index.ts"),
       formats: ["es"],

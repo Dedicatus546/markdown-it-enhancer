@@ -3,6 +3,7 @@ import {
   normalizeReference,
   resolvePromiseLike,
 } from "../common/utils";
+import { parseLinkDestination, parseLinkTitle } from "../helpers";
 import { StateBlockRuleFn } from "../ruler";
 
 const reference: StateBlockRuleFn = async (
@@ -133,7 +134,7 @@ const reference: StateBlockRuleFn = async (
 
   // [label]:   destination   'title'
   //            ^^^^^^^^^^^ parse this
-  const destRes = state.md.helpers.parseLinkDestination(str, pos, max);
+  const destRes = parseLinkDestination(str, pos, max);
   if (!destRes.ok) {
     return false;
   }
@@ -170,7 +171,7 @@ const reference: StateBlockRuleFn = async (
 
   // [label]:   destination   'title'
   //                          ^^^^^^^ parse this
-  let titleRes = state.md.helpers.parseLinkTitle(str, pos, max);
+  let titleRes = parseLinkTitle(str, pos, max);
   while (titleRes.can_continue) {
     const lineContent = await getNextLine(nextLine);
     if (lineContent === null) break;
@@ -178,7 +179,7 @@ const reference: StateBlockRuleFn = async (
     pos = max;
     max = str.length;
     nextLine++;
-    titleRes = state.md.helpers.parseLinkTitle(str, pos, max, titleRes);
+    titleRes = parseLinkTitle(str, pos, max, titleRes);
   }
   let title = "";
 

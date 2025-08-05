@@ -3,10 +3,11 @@ import { join, relative } from "node:path";
 
 import yaml from "js-yaml";
 import { MarkdownIt } from "markdown-it-enhancer";
+import { isArray, isFunction, isString } from "markdown-it-enhancer-utils";
 import { describe, expect, it } from "vitest";
 
 import type { ParsedData } from "./types";
-import { fixLF, isArray, isFunction, isString } from "./utils";
+import { fixLF } from "./utils";
 
 function parse(input: string, options: { sep: Array<string> }) {
   const lines = input.split(/\r?\n/g),

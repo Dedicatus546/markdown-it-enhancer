@@ -27,6 +27,9 @@
     },
     "./helpers": {
       "import": "./dist/helpers.js"
+    },
+    "./ucmicro": {
+      "import": "./dist/ucmicro.js"
     }
   },
   "scripts": {
@@ -43,30 +46,6 @@
     "linkify-it-for-enhancer": "workspace:*",
     "mdurl-for-enhancer": "workspace:*",
     "uc.micro-for-enhancer": "workspace:*"
-  },
-  "devDependencies": {
-    "@eslint/js": "catalog:lint",
-    "@types/js-yaml": "catalog:types",
-    "@types/linkify-it": "catalog:types",
-    "@types/mdurl": "catalog:types",
-    "@types/node": "catalog:types",
-    "@vitest/coverage-istanbul": "catalog:test",
-    "@vitest/ui": "catalog:test",
-    "eslint": "catalog:lint",
-    "eslint-config-prettier": "catalog:lint",
-    "eslint-plugin-prettier": "catalog:lint",
-    "eslint-plugin-simple-import-sort": "catalog:lint",
-    "globals": "catalog:lint",
-    "jiti": "catalog:lint",
-    "js-yaml": "catalog:prod",
-    "markdown-it": "^14.1.0",
-    "markdown-it-for-inline": "^2.0.1",
-    "markdown-it-testgen-for-enhancer": "^0.1.1026",
-    "prettier": "^3.6.2",
-    "typescript-eslint": "^8.38.0",
-    "vite": "^7.0.6",
-    "vite-plugin-dts": "^4.5.4",
-    "vitest": "^3.2.4"
   },
   "engines": {
     "node": ">=20"

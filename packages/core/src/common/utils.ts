@@ -2,9 +2,9 @@ import { decodeHTML } from "entities";
 import { decode, encode, format, parse } from "mdurl-for-enhancer";
 // @ts-expect-error lack mdurl type
 import punycode from "punycode.js";
-import { P, S } from "uc.micro-for-enhancer";
 
 import { Awaitable } from "../types";
+import { P, S } from "../ucmicro";
 
 const toString = (obj: unknown) => {
   return Object.prototype.toString.call(obj);

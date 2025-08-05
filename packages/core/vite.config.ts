@@ -26,14 +26,12 @@ export default defineConfig({
         index: resolve(__dirname, "src", "index.ts"),
         helpers: resolve(__dirname, "src", "helpers", "index.ts"),
         utils: resolve(__dirname, "src", "common", "utils.ts"),
+        ucmicro: resolve(__dirname, "src", "ucmicro.ts"),
       },
       formats: ["es"],
     },
     minify: false,
     sourcemap: true,
-    rollupOptions: {
-      external: ["linkify-it", "entities", "mdurl", "punycode.js", "uc.micro"],
-    },
   },
   test: {
     globals: true,

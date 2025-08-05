@@ -22,10 +22,9 @@ const defaultOptions: ImplicitFiguresNormalizedOptions = {
   copyAttrs: false,
 };
 
-export const implicitFigures: MarkdownItPlugin<[ImplicitFiguresOptions]> = (
-  md,
-  options,
-) => {
+export const implicitFigures: MarkdownItPlugin<
+  [options?: ImplicitFiguresOptions]
+> = (md, options) => {
   const normalizedOptions = Object.assign({}, defaultOptions, options);
 
   const implicitFigures: StateCoreRuleFn = async (state) => {

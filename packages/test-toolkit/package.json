@@ -28,14 +28,23 @@
     "dist/"
   ],
   "dependencies": {
+    "markdown-it-enhancer-utils": "workspace:*",
     "js-yaml": "catalog:prod"
   },
   "devDependencies": {
     "@types/js-yaml": "catalog:types"
   },
   "peerDependencies": {
-    "markdown-it-enhancer": ">=14.1.1070",
+    "markdown-it-enhancer": "workspace:*",
     "vitest": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "markdown-it-enhancer": {
+      "optional": true
+    },
+    "vitest": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=20"

@@ -30,6 +30,11 @@
   "peerDependencies": {
     "markdown-it-enhancer": "workspace:*"
   },
+  "peerDependenciesMeta": {
+    "markdown-it-enhancer": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=20"
   },

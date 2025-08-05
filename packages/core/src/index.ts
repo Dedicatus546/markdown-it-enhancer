@@ -1,6 +1,5 @@
 import { LinkifyIt } from "linkify-it-for-enhancer";
 
-import * as utils from "./common/utils";
 import {
   isString,
   normalizeLink,
@@ -8,7 +7,6 @@ import {
   resolvePromiseLike,
   validateLink,
 } from "./common/utils";
-import * as helpers from "./helpers/index";
 import ParserBlock from "./parser_block";
 import ParserCore from "./parser_core";
 import ParserInline from "./parser_inline";
@@ -24,7 +22,7 @@ export { default as StateBlock } from "./rules_block/state_block";
 export { default as StateCore } from "./rules_core/state_core";
 export { default as StateInline } from "./rules_inline/state_inline";
 
-export interface MarkdownItPlugin<Args extends unknown[] = unknown[]> {
+export interface MarkdownItPlugin<Args extends unknown[] = []> {
   (...args: [MarkdownIt, ...rest: [...Args]]): Awaitable<void>;
 }
 
@@ -47,8 +45,6 @@ export class MarkdownIt {
   validateLink = validateLink;
   normalizeLink = normalizeLink;
   normalizeLinkText = normalizeLinkText;
-  utils = utils;
-  helpers = Object.assign({}, helpers);
   options: Preset["options"];
   plugins: Array<Promise<void>> = [];
 
