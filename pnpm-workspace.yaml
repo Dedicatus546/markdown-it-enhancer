@@ -36,6 +36,8 @@ catalogs:
     "@vitest/coverage-istanbul": ^3.2.4
     "@vitest/ui": ^3.2.4
     vitest: ^3.2.4
+  doc:
+    vitepress: "2.0.0-alpha.9"
 
 catalog:
   typescript: 5.8.3

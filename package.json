@@ -5,7 +5,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
     "markdown-it-enhancer": "workspace:*",
@@ -28,7 +31,8 @@
     "vite": "catalog:build",
     "vite-plugin-dts": "catalog:build",
     "vitest": "catalog:test",
-    "cheerio": "catalog:test"
+    "cheerio": "catalog:test",
+    "vitepress": "catalog:doc"
   },
   "engines": {
     "node": ">=20"
