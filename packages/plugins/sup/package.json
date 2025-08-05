@@ -1,0 +1,41 @@
+{
+  "name": "markdown-it-sup-for-enhancer",
+  "version": "2.0.1000",
+  "description": "<sup> tag for markdown-it markdown parser.",
+  "type": "module",
+  "keywords": [
+    "markdown-it-plugin",
+    "markdown-it",
+    "markdown-it-enhancer",
+    "markdown",
+    "superscript",
+    "sup"
+  ],
+  "license": "MIT",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "vitest"
+  },
+  "peerDependencies": {
+    "markdown-it-enhancer": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "markdown-it-enhancer": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.14.0"
+}

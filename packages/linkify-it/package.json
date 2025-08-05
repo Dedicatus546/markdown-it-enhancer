@@ -1,0 +1,34 @@
+{
+  "name": "linkify-it-for-enhancer",
+  "version": "5.0.1010",
+  "description": "Links recognition library with FULL unicode support",
+  "license": "MIT",
+  "keywords": [
+    "linkify",
+    "linkifier",
+    "autolink",
+    "autolinker"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "vitest"
+  },
+  "files": [
+    "dist/"
+  ],
+  "dependencies": {
+    "uc.micro-for-enhancer": "workspace:*",
+    "markdown-it-enhancer-utils": "workspace:*"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.14.0"
+}

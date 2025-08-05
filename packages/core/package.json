@@ -1,0 +1,54 @@
+{
+  "name": "markdown-it-enhancer",
+  "version": "14.1.1080",
+  "description": "Markdown-it - modern pluggable markdown parser.",
+  "author": {
+    "name": "Par9uet",
+    "email": "qq1607611087@gmail.com"
+  },
+  "keywords": [
+    "markdown",
+    "parser",
+    "commonmark",
+    "markdown-it",
+    "markdown-it-plugin",
+    "markdown-it-enhancer"
+  ],
+  "repository": "Dedicatus546/markdown-it-enhancer",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./utils": {
+      "import": "./dist/utils.js"
+    },
+    "./helpers": {
+      "import": "./dist/helpers.js"
+    },
+    "./ucmicro": {
+      "import": "./dist/ucmicro.js"
+    }
+  },
+  "scripts": {
+    "test": "vitest --open",
+    "build": "vite build",
+    "build:dev": "vite build --watch"
+  },
+  "files": [
+    "dist/"
+  ],
+  "dependencies": {
+    "entities": "^6.0.1",
+    "punycode.js": "^2.3.1",
+    "linkify-it-for-enhancer": "workspace:*",
+    "mdurl-for-enhancer": "workspace:*",
+    "uc.micro-for-enhancer": "workspace:*"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.14.0"
+}

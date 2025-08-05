@@ -6,9 +6,9 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config([
-  globalIgnores(["dist/**", "node_modules/**"]),
+  globalIgnores(["**/dist", "**/node_modules/", "**/.git/"]),
   {
-    files: ["src/**/*.ts"],
+    files: ["packages/**/*.ts"],
   },
   {
     plugins: {

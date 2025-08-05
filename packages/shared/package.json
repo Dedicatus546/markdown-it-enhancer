@@ -1,0 +1,25 @@
+{
+  "name": "markdown-it-enhancer-utils",
+  "version": "1.0.0",
+  "description": "markdown-it-enhancer-utils",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "vitest"
+  },
+  "files": [
+    "dist/"
+  ],
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.14.0"
+}

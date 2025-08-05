@@ -1,8 +1,5 @@
-benchmark/extra/
-node_modules/
-coverage/
-demo/
-apidoc/
-dist/
-*.log
-.vscode
+
+**/node_modules/
+**/coverage/
+**/dist/
+**/.vscode

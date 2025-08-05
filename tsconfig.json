@@ -1,23 +1,12 @@
 {
   "compilerOptions": {
     "skipLibCheck": true,
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "target": "esnext",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-    }
+    "strict": true
   },
-  "include": [
-    "./src/**/*.ts",
-    "./vite-env.d.ts",
-    "./test/**/*.ts"
-  ]
+  "include": ["packages/**/*.ts"],
+  "exclude": ["**/node_modules", "**/dist", "**/coverage"]
 }

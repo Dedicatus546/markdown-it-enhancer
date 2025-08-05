@@ -1,0 +1,39 @@
+{
+  "name": "markdown-it-for-inline-for-enhancer",
+  "version": "2.0.1001",
+  "description": "Inline tokens iterator for markdown-it markdown parser.",
+  "keywords": [
+    "markdown-it-plugin",
+    "markdown-it",
+    "markdown-it-enhancer",
+    "markdown",
+    "iterator"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "vitest"
+  },
+  "peerDependencies": {
+    "markdown-it-enhancer": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "markdown-it-enhancer": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.14.0"
+}
