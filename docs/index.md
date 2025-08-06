@@ -8,8 +8,8 @@ hero:
   # tagline: My great project tagline
   actions:
     - theme: brand
-      text: Quick Start
-      link: /quick-start
+      text: What is Markdown-It-Enhancer?
+      link: /guide/what-is-markdown-it-enhancer
 
 features:
   - title: Async Support

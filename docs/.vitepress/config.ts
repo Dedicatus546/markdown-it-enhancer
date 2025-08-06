@@ -10,12 +10,10 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: "Examples",
-        items: [
-          { text: "Markdown Examples", link: "/markdown-examples" },
-          { text: "Runtime API Examples", link: "/api-examples" },
-        ],
+        text: "What is Markdown-It-Enhancer",
+        link: "/guide/what-is-markdown-it-enhancer",
       },
+      { text: "Getting Started", link: "/guide/getting-started" },
     ],
 
     socialLinks: [
