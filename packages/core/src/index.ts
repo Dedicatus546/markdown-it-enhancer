@@ -336,6 +336,9 @@ export * from "./renderer";
 export { default as Renderer } from "./renderer";
 export * from "./ruler";
 export { default as Ruler } from "./ruler";
-export type { Delimiter, TokenMeta } from "./rules_inline/state_inline";
+export type {
+  Delimiter,
+  TokenMeta as StateInlineTokenMeta,
+} from "./rules_inline/state_inline";
 export * from "./token";
 export { default as Token } from "./token";
