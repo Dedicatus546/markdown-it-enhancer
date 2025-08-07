@@ -20,13 +20,15 @@ export enum TokenNesting {
  **/
 export type TokenAttr = [name: string, value: string];
 
+export interface TokenMeta {
+  [key: string]: unknown;
+}
+
 /**
  * class Token
  **/
 
-class Token<
-  TokenMeta extends Record<string, unknown> = Record<string, unknown>,
-> {
+class Token {
   /**
    * Token#type -> String
    *
