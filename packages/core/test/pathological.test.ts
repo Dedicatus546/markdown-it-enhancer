@@ -19,24 +19,27 @@ describe("Pathological sequences speed", () => {
 
   // Ported from cmark, https://github.com/commonmark/cmark/blob/master/test/pathological_tests.py
   describe("Cmark", () => {
-    it("verify original source crc", async () => {
-      const src = await fetch(
-        // "https://raw.githubusercontent.com/commonmark/cmark/master/test/pathological_tests.py",
-        `https://fastly.jsdelivr.net/gh/commonmark/cmark@master/test/pathological_tests.py?v=${Date.now()}`,
-        {
-          method: "GET",
-        },
-      );
-      const src_md5 = crypto
-        .createHash("md5")
-        .update(await src.text())
-        .digest("hex");
+    if (process.env.CI === "true") {
+      it("verify original source crc", async () => {
+        // 只在 ci 上检查，因为这个网址在国内容易失败
+        const src = await fetch(
+          // "https://raw.githubusercontent.com/commonmark/cmark/master/test/pathological_tests.py",
+          `https://fastly.jsdelivr.net/gh/commonmark/cmark@master/test/pathological_tests.py?v=${Date.now()}`,
+          {
+            method: "GET",
+          },
+        );
+        const src_md5 = crypto
+          .createHash("md5")
+          .update(await src.text())
+          .digest("hex");
 
-      expect(
-        src_md5,
-        "CRC or cmark pathological tests hanged. Verify and update pathological.json",
-      ).toBe(pathologicalMd5);
-    });
+        expect(
+          src_md5,
+          "CRC or cmark pathological tests hanged. Verify and update pathological.json",
+        ).toBe(pathologicalMd5);
+      });
+    }
 
     it("nested inlines", async () => {
       await render("*".repeat(60000) + "a" + "*".repeat(60000));
