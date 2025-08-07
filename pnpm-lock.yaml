@@ -119,6 +119,9 @@ importers:
       markdown-it-enhancer-test-toolkit:
         specifier: workspace:*
         version: link:packages/test-toolkit
+      markdown-it-for-inline-for-enhancer:
+        specifier: workspace:*
+        version: link:packages/plugins/for-inline
       markdown-it-implicit-figures-for-enhancer:
         specifier: workspace:*
         version: link:packages/plugins/implicit-figures
@@ -196,6 +199,12 @@ importers:
         specifier: workspace:*
         version: link:../../core
 
+  packages/plugins/footnote:
+    dependencies:
+      markdown-it-enhancer:
+        specifier: workspace:*
+        version: link:../../core
+
   packages/plugins/for-inline:
     dependencies:
       markdown-it-enhancer:
@@ -213,6 +222,12 @@ importers:
       katex:
         specifier: catalog:prod
         version: 0.16.22
+      markdown-it-enhancer:
+        specifier: workspace:*
+        version: link:../../core
+
+  packages/plugins/mark:
+    dependencies:
       markdown-it-enhancer:
         specifier: workspace:*
         version: link:../../core

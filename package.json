@@ -15,6 +15,7 @@
     "markdown-it-enhancer-test-toolkit": "workspace:*",
     "markdown-it-katex-for-enhancer": "workspace:*",
     "markdown-it-implicit-figures-for-enhancer": "workspace:*",
+    "markdown-it-for-inline-for-enhancer": "workspace:*",
     "@eslint/js": "catalog:lint",
     "eslint": "catalog:lint",
     "eslint-config-prettier": "catalog:lint",
