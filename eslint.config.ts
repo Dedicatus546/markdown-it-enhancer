@@ -16,15 +16,20 @@ export default tseslint.config([
     },
   },
   js.configs.recommended,
-  tseslint.configs.recommended,
+  tseslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
       globals: Object.assign({}, globals.node),
       parser: tseslint.parser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      }
     },
     rules: {
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
+      "@typescript-eslint/require-await": "error",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-unsafe-declaration-merging": "off",
     },
