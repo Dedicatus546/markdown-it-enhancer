@@ -1,9 +1,9 @@
 {
   "name": "markdown-it-implicit-figures-for-enhancer",
-  "version": "0.12.1010",
+  "version": "1.0.0",
   "description": "Render images occurring by itself in a paragraph as `<figure><img ...></figure>`, similar to pandoc's implicit_figures",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
   "type": "module",
   "exports": {
     ".": {
@@ -28,7 +28,7 @@
     "implicit_figures"
   ],
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:*"
+    "markdown-it-enhancer": "workspace:~15.0.0"
   },
   "peerDependenciesMeta": {
     "markdown-it-enhancer": {
