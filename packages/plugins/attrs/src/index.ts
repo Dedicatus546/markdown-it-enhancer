@@ -44,7 +44,7 @@ const test = (
     return res;
   }
 
-  for (const key of Object.keys(t)) {
+  for (const key of Object.keys(t) as Array<keyof typeof t>) {
     if (key === "shift" || key === "position") {
       continue;
     }
@@ -93,21 +93,17 @@ const test = (
       case "boolean":
       case "number":
       case "string":
-        // @ts-expect-error ignore
         if (token[key] !== t[key]) {
           return res;
         }
         break;
       case "function":
-        // @ts-expect-error ignore
-        if (!t[key](token[key])) {
+        if (!(t[key] as (...args: unknown[]) => boolean)(token[key])) {
           return res;
         }
         break;
       case "object":
-        // @ts-expect-error ignore
         if (isArrayOfFunctions(t[key])) {
-          // @ts-expect-error ignore
           const r = t[key].every((tt) => tt(token[key]));
           if (r === false) {
             return res;
@@ -141,7 +137,7 @@ export const attributes: MarkdownItPlugin<[options?: AttributeOptions]> = (
     for (let i = 0; i < tokens.length; i++) {
       for (let p = 0; p < patterns.length; p++) {
         const pattern = patterns[p];
-        let j = null; // position of child with offset 0
+        let j: number | null = null; // position of child with offset 0
         const match = pattern.tests.every((t) => {
           const res = test(tokens, i, t);
           if (res.j !== null) {

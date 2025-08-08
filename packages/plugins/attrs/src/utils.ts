@@ -1,4 +1,4 @@
-import type { Token, TokenAttr } from "markdown-it-enhancer";
+import { type Token, type TokenAttr, TokenNesting } from "markdown-it-enhancer";
 
 import { AttributeNormalizedOptions, AttributeOptions } from "./types";
 
@@ -215,7 +215,7 @@ export const hasDelimiters = (
 
       default:
         throw new Error(
-          `Unexpected case ${where}, expected 'start', 'end' or 'only'`,
+          `Unexpected case ${where as string}, expected 'start', 'end' or 'only'`,
         );
     }
 
@@ -260,7 +260,7 @@ export const getMatchingOpeningToken = (tokens: Array<Token>, i: number) => {
     return false;
   }
   // non closing blocks, example img
-  if (tokens[i].nesting === 0) {
+  if (tokens[i].nesting === TokenNesting.SELF_CLOSING) {
     return tokens[i];
   }
 
@@ -305,10 +305,12 @@ export const isArrayOfObjects = (arr?: unknown) => {
   );
 };
 
-export const isArrayOfFunctions = (arr?: unknown) => {
+export const isArrayOfFunctions = (
+  arr?: unknown,
+): arr is Array<(...args: unknown[]) => unknown> => {
   return (
     Array.isArray(arr) &&
-    arr.length &&
+    arr.length > 0 &&
     arr.every((i) => typeof i === "function")
   );
 };

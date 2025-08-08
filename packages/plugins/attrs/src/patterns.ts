@@ -1,4 +1,4 @@
-import type { Token } from "markdown-it-enhancer";
+import { type Token, TokenNesting } from "markdown-it-enhancer";
 
 import type { AttributeNormalizedOptions, PatternsResult } from "./types";
 import {
@@ -10,6 +10,12 @@ import {
   hidden,
   removeDelimiter,
 } from "./utils";
+
+declare module "markdown-it-enhancer" {
+  export interface TokenMeta {
+    colsnum?: number;
+  }
+}
 
 export const patterns = (
   options: AttributeNormalizedOptions,
@@ -463,7 +469,10 @@ export const patterns = (
         const attrs = getAttrs(token.content, 0, options);
         // find last closing tag
         let ii = i + 1;
-        while (tokens[ii + 1] && tokens[ii + 1].nesting === -1) {
+        while (
+          tokens[ii + 1] &&
+          tokens[ii + 1].nesting === TokenNesting.CLOSING
+        ) {
           ii++;
         }
         const openingToken = getMatchingOpeningToken(tokens, ii) as Token;
@@ -496,7 +505,7 @@ export const patterns = (
         const token = tokens[i];
         token.type = "hr";
         token.tag = "hr";
-        token.nesting = 0;
+        token.nesting = TokenNesting.SELF_CLOSING;
         const content = tokens[i + 1].content;
         const start = content.lastIndexOf(options.leftDelimiter);
         const attrs = getAttrs(content, start, options);
@@ -533,7 +542,7 @@ export const patterns = (
         );
         let ii = i + 1;
         do
-          if (tokens[ii] && tokens[ii].nesting === -1) {
+          if (tokens[ii] && tokens[ii].nesting === TokenNesting.CLOSING) {
             break;
           }
         while (ii++ < tokens.length);

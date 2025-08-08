@@ -33,13 +33,5 @@ export interface PatternsResultDetectingRule {
 export type PatternsResult = Array<{
   name: string;
   tests: Array<PatternsResultDetectingRule>;
-  transform: (
-    tokens: Array<
-      Token<{
-        colsnum?: number;
-      }>
-    >,
-    i: number,
-    j: number,
-  ) => void;
+  transform: (tokens: Array<Token>, i: number, j: number) => void;
 }>;
