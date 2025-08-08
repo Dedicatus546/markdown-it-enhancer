@@ -59,6 +59,9 @@ catalogs:
       specifier: ^0.16.22
       version: 0.16.22
   test:
+    '@sindresorhus/slugify':
+      specifier: ^2.2.1
+      version: 2.2.1
     '@vitest/coverage-istanbul':
       specifier: ^3.2.4
       version: 3.2.4
@@ -86,6 +89,9 @@ importers:
       '@eslint/js':
         specifier: catalog:lint
         version: 9.32.0
+      '@sindresorhus/slugify':
+        specifier: catalog:test
+        version: 2.2.1
       '@types/node':
         specifier: catalog:types
         version: 24.1.0
@@ -116,6 +122,9 @@ importers:
       jiti:
         specifier: catalog:lint
         version: 2.5.1
+      markdown-it-attrs-for-enhancer:
+        specifier: workspace:*
+        version: link:packages/plugins/attrs
       markdown-it-enhancer:
         specifier: workspace:*
         version: link:packages/core
@@ -186,6 +195,12 @@ importers:
   packages/md-url: {}
 
   packages/plugins/abbr:
+    dependencies:
+      markdown-it-enhancer:
+        specifier: workspace:~15.0.0
+        version: link:../../core
+
+  packages/plugins/anchor:
     dependencies:
       markdown-it-enhancer:
         specifier: workspace:~15.0.0
@@ -813,6 +828,14 @@ packages:
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
 
+  '@sindresorhus/slugify@2.2.1':
+    resolution: {integrity: sha512-MkngSCRZ8JdSOCHRaYd+D01XhvU3Hjy6MGl06zhOk614hp9EOAp5gIkBeQg7wtmxpitU6eAL4kdiRMcJa2dlrw==}
+    engines: {node: '>=12'}
+
+  '@sindresorhus/transliterate@1.6.0':
+    resolution: {integrity: sha512-doH1gimEu3A46VX6aVxpHTeHrytJAG6HgdxntYnCFiIFHEM/ZGpG8KiZGBChchjQmG0XFIBL552kBTjVcMZXwQ==}
+    engines: {node: '>=12'}
+
   '@types/argparse@1.0.38':
     resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
 
@@ -1333,6 +1356,10 @@ packages:
   escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
+
+  escape-string-regexp@5.0.0:
+    resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
+    engines: {node: '>=12'}
 
   eslint-config-prettier@10.1.8:
     resolution: {integrity: sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w==}
@@ -2863,6 +2890,15 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.0.2': {}
 
+  '@sindresorhus/slugify@2.2.1':
+    dependencies:
+      '@sindresorhus/transliterate': 1.6.0
+      escape-string-regexp: 5.0.0
+
+  '@sindresorhus/transliterate@1.6.0':
+    dependencies:
+      escape-string-regexp: 5.0.0
+
   '@types/argparse@1.0.38': {}
 
   '@types/chai@5.2.2':
@@ -3465,6 +3501,8 @@ snapshots:
   escalade@3.2.0: {}
 
   escape-string-regexp@4.0.0: {}
+
+  escape-string-regexp@5.0.0: {}
 
   eslint-config-prettier@10.1.8(eslint@9.32.0(jiti@2.5.1)):
     dependencies:

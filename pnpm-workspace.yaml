@@ -32,11 +32,10 @@ catalogs:
     rimraf: ^6.0.1
   test:
     cheerio: ^1.1.2
-    markdown-it-enhancer-test-toolkit: workspace:*
-    markdown-it-implicit-figures-for-enhancer: workspace:*
     "@vitest/coverage-istanbul": ^3.2.4
     "@vitest/ui": ^3.2.4
     vitest: ^3.2.4
+    "@sindresorhus/slugify": ^2.2.1
   doc:
     vitepress: "2.0.0-alpha.9"
 

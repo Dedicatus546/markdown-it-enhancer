@@ -24,6 +24,7 @@
     "markdown-it-katex-for-enhancer": "workspace:*",
     "markdown-it-implicit-figures-for-enhancer": "workspace:*",
     "markdown-it-for-inline-for-enhancer": "workspace:*",
+    "markdown-it-attrs-for-enhancer": "workspace:*",
     "@eslint/js": "catalog:lint",
     "eslint": "catalog:lint",
     "eslint-config-prettier": "catalog:lint",
@@ -42,7 +43,8 @@
     "vitest": "catalog:test",
     "cheerio": "catalog:test",
     "vitepress": "catalog:doc",
-    "rimraf": "catalog:build"
+    "rimraf": "catalog:build",
+    "@sindresorhus/slugify": "catalog:test"
   },
   "engines": {
     "node": ">=20"
