@@ -7,6 +7,6 @@
     "moduleResolution": "bundler",
     "strict": true
   },
-  "include": ["packages/**/*.ts"],
+  "include": ["packages/**/*.ts", "eslint.config.ts"],
   "exclude": ["**/node_modules", "**/dist", "**/coverage"]
 }
