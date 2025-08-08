@@ -1,6 +1,6 @@
 {
   "name": "mdurl-for-enhancer",
-  "version": "2.0.1010",
+  "version": "3.0.0",
   "description": "URL utilities for markdown-it",
   "license": "MIT",
   "type": "module",
