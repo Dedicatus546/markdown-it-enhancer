@@ -11,7 +11,10 @@ const defaultOptions = {
   enabled: [],
 };
 
-export const emoji: MarkdownItPlugin<[EmojiOptions]> = (md, options) => {
+export const emoji: MarkdownItPlugin<[options?: EmojiOptions]> = (
+  md,
+  options,
+) => {
   const opts = Object.assign({}, defaultOptions, options);
   emojiBare(md, opts);
 };
