@@ -7,6 +7,7 @@
 // into opening/closing tags (which messes up levels inside).
 //
 
+import { TokenNesting } from "../token";
 import StateInline from "./state_inline";
 
 export default function fragments_join(state: StateInline) {
@@ -19,9 +20,15 @@ export default function fragments_join(state: StateInline) {
   for (curr = last = 0; curr < max; curr++) {
     // re-calculate levels after emphasis/strikethrough turns some text nodes
     // into opening/closing tags
-    if (tokens[curr].nesting < 0) level--; // closing tag
+    if (tokens[curr].nesting === TokenNesting.CLOSING) {
+      // closing tag
+      level--;
+    }
     tokens[curr].level = level;
-    if (tokens[curr].nesting > 0) level++; // opening tag
+    if (tokens[curr].nesting === TokenNesting.OPENING) {
+      // opening tag
+      level++;
+    }
 
     if (
       tokens[curr].type === "text" &&

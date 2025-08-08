@@ -1,6 +1,7 @@
 // Process *this* and _that_
 //
 
+import { TokenNesting } from "../token";
 import StateInline, { Delimiter } from "./state_inline";
 
 // Insert each marker as a separate text token, and add it to delimiter list
@@ -93,14 +94,14 @@ function postProcess(state: StateInline, delimiters: Array<Delimiter>) {
     const token_o = state.tokens[startDelim.token];
     token_o.type = isStrong ? "strong_open" : "em_open";
     token_o.tag = isStrong ? "strong" : "em";
-    token_o.nesting = 1;
+    token_o.nesting = TokenNesting.OPENING;
     token_o.markup = isStrong ? ch + ch : ch;
     token_o.content = "";
 
     const token_c = state.tokens[endDelim.token];
     token_c.type = isStrong ? "strong_close" : "em_close";
     token_c.tag = isStrong ? "strong" : "em";
-    token_c.nesting = -1;
+    token_c.nesting = TokenNesting.CLOSING;
     token_c.markup = isStrong ? ch + ch : ch;
     token_c.content = "";
 

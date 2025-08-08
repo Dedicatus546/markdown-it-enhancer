@@ -1,7 +1,7 @@
 // ~~strike through~~
 //
 
-import Token from "../token";
+import Token, { TokenNesting } from "../token";
 import StateInline, { Delimiter } from "./state_inline";
 
 // Insert each marker as a separate text token, and add it to delimiter list
@@ -74,14 +74,14 @@ function postProcess(state: StateInline, delimiters: Array<Delimiter>) {
     token = state.tokens[startDelim.token];
     token.type = "s_open";
     token.tag = "s";
-    token.nesting = 1;
+    token.nesting = TokenNesting.OPENING;
     token.markup = "~~";
     token.content = "";
 
     token = state.tokens[endDelim.token];
     token.type = "s_close";
     token.tag = "s";
-    token.nesting = -1;
+    token.nesting = TokenNesting.CLOSING;
     token.markup = "~~";
     token.content = "";
 

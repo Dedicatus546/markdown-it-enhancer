@@ -75,7 +75,7 @@ class StateInline {
     this.env = env;
     this.md = md;
     this.tokens = outTokens;
-    this.tokens_meta = Array(outTokens.length);
+    this.tokens_meta = Array.from({ length: outTokens.length });
     this.posMax = src.length;
   }
 
@@ -101,7 +101,7 @@ class StateInline {
     const token = new Token(type, tag, nesting);
     let token_meta: TokenMeta = null;
 
-    if (nesting < 0) {
+    if (nesting === TokenNesting.CLOSING) {
       // closing tag
       this.level--;
       this.delimiters = this._prev_delimiters.pop() ?? [];
@@ -109,7 +109,7 @@ class StateInline {
 
     token.level = this.level;
 
-    if (nesting > 0) {
+    if (nesting === TokenNesting.OPENING) {
       // opening tag
       this.level++;
       this._prev_delimiters.push(this.delimiters);

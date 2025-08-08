@@ -151,9 +151,15 @@ class StateBlock {
     const token = new Token(type, tag, nesting);
     token.block = true;
 
-    if (nesting < 0) this.level--; // closing tag
+    if (nesting === TokenNesting.CLOSING) {
+      // closing tag
+      this.level--;
+    }
     token.level = this.level;
-    if (nesting > 0) this.level++; // opening tag
+    if (nesting === TokenNesting.OPENING) {
+      // opening tag
+      this.level++;
+    }
 
     this.tokens.push(token);
     return token;
