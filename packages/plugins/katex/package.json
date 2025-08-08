@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-katex-for-enhancer",
-  "version": "2.0.1013",
+  "version": "3.0.0",
   "description": "Fast math support for markdown-it with KaTeX",
   "type": "module",
   "main": "./dist/index.js",
@@ -31,7 +31,7 @@
     "katex": "catalog:prod"
   },
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:*"
+    "markdown-it-enhancer": "workspace:~15.0.0"
   },
   "peerDependenciesMeta": {
     "markdown-it-enhancer": {
