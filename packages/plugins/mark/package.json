@@ -1,6 +1,6 @@
 {
-  "name": "markdown-it-mark",
-  "version": "4.0.1000",
+  "name": "markdown-it-mark-for-enhancer",
+  "version": "5.0.0",
   "description": "<mark> tag for markdown-it markdown parser.",
   "keywords": [
     "markdown-it-plugin",
@@ -25,7 +25,7 @@
     "dist/"
   ],
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:*"
+    "markdown-it-enhancer": "workspace:~15.0.0"
   },
   "peerDependenciesMeta": {
     "markdown-it-enhancer": {
