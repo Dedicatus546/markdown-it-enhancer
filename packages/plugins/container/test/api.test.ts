@@ -1,4 +1,4 @@
-import { MarkdownIt } from "markdown-it-enhancer";
+import { MarkdownIt, TokenNesting } from "markdown-it-enhancer";
 import { describe, expect, it } from "vitest";
 
 import { container } from "../src";
@@ -7,7 +7,7 @@ describe("api", () => {
   it("renderer", async () => {
     const md = new MarkdownIt().use(container, "spoiler", {
       render: function (tokens, idx) {
-        return tokens[idx].nesting === 1
+        return tokens[idx].nesting === TokenNesting.OPENING
           ? "<details><summary>click me</summary>\n"
           : "</details>\n";
       },
