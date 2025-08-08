@@ -107,7 +107,7 @@ describe("markdown-it-emoji-bare", async () => {
   generate(fileURLToPath(new URL("fixtures/options.txt", import.meta.url)), md);
 });
 
-describe("integrity", async () => {
+describe("integrity", () => {
   it("all shortcuts should exist", () => {
     Object.keys(emojies_shortcuts).forEach((name) => {
       expect(emojies_defs[name], "shortcut doesn't exist: " + name);
