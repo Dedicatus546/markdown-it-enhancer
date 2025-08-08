@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 
 import { MarkdownIt } from "markdown-it-enhancer";
-import generate from "markdown-it-enhancer-test-toolkit";
+import { generate } from "markdown-it-enhancer-test-toolkit";
 import { describe } from "vitest";
 
 import { forInline } from "../src";
@@ -40,7 +40,7 @@ describe("markdown-it-for-inline", async () => {
     },
   );
 
-  md.isReady();
+  await md.isReady();
 
   generate(fileURLToPath(new URL("fixtures/link.txt", import.meta.url)), md);
 });
