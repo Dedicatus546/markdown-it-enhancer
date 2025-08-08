@@ -164,6 +164,9 @@ importers:
       punycode.js:
         specifier: ^2.3.1
         version: 2.3.1
+      punycode.js-for-enhancer:
+        specifier: workspace:*
+        version: link:../punycode
       uc.micro-for-enhancer:
         specifier: workspace:*
         version: link:../uc-micro
@@ -249,6 +252,8 @@ importers:
       markdown-it-enhancer:
         specifier: workspace:*
         version: link:../../core
+
+  packages/punycode: {}
 
   packages/shared: {}
 
