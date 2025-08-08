@@ -9,6 +9,7 @@
 import { MarkdownItEnv, MarkdownItOptions } from "..";
 import { escapeHtml, resolvePromiseLike } from "../common/utils";
 import Token, { TokenNesting } from "../token";
+import { Awaitable } from "../types";
 import {
   code_block,
   code_inline,
@@ -21,7 +22,7 @@ import {
   text,
 } from "./default_rules";
 
-export type RendererFn<Async extends "sync" | "async" = "async"> = (
+export type RendererFn<Async extends "sync" | "async" | "all" = "all"> = (
   tokens: Array<Token>,
   idx: number,
   options: MarkdownItOptions,
@@ -31,7 +32,7 @@ export type RendererFn<Async extends "sync" | "async" = "async"> = (
   ? PromiseLike<string>
   : Async extends "sync"
     ? string
-    : never;
+    : Awaitable<string>;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface RendererExtendsRules {}
@@ -39,7 +40,7 @@ export interface RendererExtendsRules {}
 interface RendererDefaultRules {
   code_inline: RendererFn<"sync">;
   code_block: RendererFn<"sync">;
-  fence: RendererFn;
+  fence: RendererFn<"async">;
   image: RendererFn<"sync">;
   hardbreak: RendererFn<"sync">;
   softbreak: RendererFn<"sync">;
