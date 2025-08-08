@@ -8,7 +8,7 @@ This is a fork from [markdown-it](https://github.com/markdown-it/markdown-it), t
 - ESM only.
 - Source code migrate to TypeScript, now you don't need to install `@types/markdown-it`.
 - Using vite to bundle, vitest to test.
-- Async support. include parser rule, render rule, plugins, `highlight` function.
+- Async support. include parse rule, render rule, plugins, `highlight` function.
 
 ## Install
 
@@ -84,19 +84,30 @@ const delay = (s) => {
 
 const md = new MarkdownIt();
 
-md
-  .use(async (md, arg1, arg2) => {
-  // some async operation
+md.use(
+  async (md, arg1, arg2) => {
+    // some async operation
     await delay(3);
-  }, 'arg1', 'arg2')
-  .use(async (md, arg1, arg2) => {
-  // some async operation
-    await delay(3);
-  }, 'arg1', 'arg2')
-  .use(async (md, arg1, arg2) => {
-  // some async operation
-    await delay(3);
-  }, 'arg1', 'arg2');
+  },
+  "arg1",
+  "arg2",
+)
+  .use(
+    async (md, arg1, arg2) => {
+      // some async operation
+      await delay(3);
+    },
+    "arg1",
+    "arg2",
+  )
+  .use(
+    async (md, arg1, arg2) => {
+      // some async operation
+      await delay(3);
+    },
+    "arg1",
+    "arg2",
+  );
 
 // you must exec `await md.isReady()` to ensure the initializations of all plugins are success.
 await md.isReady();
@@ -121,7 +132,7 @@ const md = new MarkdownIt({
     // async operation
     await delay(3);
     return "highlight function";
-  }
+  },
 });
 ```
 
@@ -136,8 +147,8 @@ import { MarkdownIt } from "markdown-it-enchancer";
 
 const md = new MarkdownIt();
 
-md.render('md content', {
-  maxAutoCompletedCells: 100
+md.render("md content", {
+  maxAutoCompletedCells: 100,
 });
 ```
 
@@ -145,19 +156,20 @@ md.render('md content', {
 
 There are some plugins that migrate to markdown-it-enhancer.
 
-- [markdown-it-katex](https://github.com/waylonflinn/markdown-it-katex) -> [markdown-it-katex-for-enhancer
-](https://github.com/Dedicatus546/markdown-it-katex-for-enhancer)
-- [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs) -> [markdown-it-attrs-for-enhancer](https://github.com/Dedicatus546/markdown-it-attrs-for-enhancer)
-- [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-anchor) -> [markdown-it-anchor-for-enhancer](https://github.com/Dedicatus546/markdown-it-anchor-for-enhancer)
-- [markdown-it-implicit-figures](https://github.com/arve0/markdown-it-implicit-figures) -> [markdown-it-implicit-figures-for-enhancer](https://github.com/Dedicatus546/markdown-it-implicit-figures-for-enhancer)
-- [markdown-it-sup](https://github.com/markdown-it/markdown-it-sup) -> [markdown-it-sup-for-enhancer](https://github.com/Dedicatus546/markdown-it-sup-for-enhancer)
-- [markdown-it-emoji](https://github.com/markdown-it/markdown-it-emoji) -> [markdown-it-emoji-for-enhancer
-](https://github.com/Dedicatus546/markdown-it-emoji-for-enhancer)
-- [markdown-it-task-lists](https://github.com/revin/markdown-it-task-lists) -> [markdown-it-task-lists-for-enhancer](https://github.com/Dedicatus546/markdown-it-task-lists-for-enhancer)
-- [markdown-it-container](https://github.com/markdown-it/markdown-it-container) -> [markdown-it-container-for-enhancer](https://github.com/Dedicatus546/markdown-it-container-for-enhancer)
-- [markdown-it-sub](https://github.com/markdown-it/markdown-it-sub) -> [markdown-it-sub-for-enhancer](https://github.com/Dedicatus546/markdown-it-sub-for-enhancer)
-- [markdown-it-abbr](https://github.com/markdown-it/markdown-it-abbr) -> [markdown-it-abbr-for-enhancer](https://github.com/Dedicatus546/markdown-it-abbr-for-enhancer)
-- [markdown-it-for-inline](https://github.com/markdown-it/markdown-it-for-inline) -> [markdown-it-for-inline-for-enhancer](https://github.com/Dedicatus546/markdown-it-for-inline-for-enhancer)
+| before                                                                                | before                                                                                                                                        |
+| ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| [markdown-it-sub](https://github.com/markdown-it/markdown-it-sub)                     | [markdown-it-sub-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/sub)                           |
+| [markdown-it-sup](https://github.com/markdown-it/markdown-it-sup)                     | [markdown-it-sup-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/sup)                           |
+| [markdown-it-abbr](https://github.com/markdown-it/markdown-it-abbr)                   | [markdown-it-abbr-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/abbr)                         |
+| [markdown-it-mark](https://github.com/markdown-it/markdown-it-mark)                   | [markdown-it-mark-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/mark)                         |
+| [markdown-it-katex](https://github.com/waylonflinn/markdown-it-katex)                 | [markdown-it-katex-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/katex)                       |
+| [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs)                       | [markdown-it-attrs-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/attrs)                       |
+| [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-anchor)           | [markdown-it-anchor-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/anchor)                     |
+| [markdown-it-implicit-figures](https://github.com/arve0/markdown-it-implicit-figures) | [markdown-it-implicit-figures-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/implicit-figures) |
+| [markdown-it-emoji](https://github.com/markdown-it/markdown-it-emoji)                 | [markdown-it-emoji-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/emoji)                       |
+| [markdown-it-task-lists](https://github.com/revin/markdown-it-task-lists)             | [markdown-it-task-lists-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/task-lists)             |
+| [markdown-it-container](https://github.com/markdown-it/markdown-it-container)         | [markdown-it-container-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/container)               |
+| [markdown-it-for-inline](https://github.com/markdown-it/markdown-it-for-inline)       | [markdown-it-for-inline-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/for-inline)             |
 
 ## Test Toolkit
 
