@@ -132,7 +132,7 @@ class Renderer {
     if (token.block) {
       needLf = true;
 
-      if (token.nesting === TokenNesting.SELF_CLOSING) {
+      if (token.nesting === TokenNesting.OPENING) {
         if (idx + 1 < tokens.length) {
           const nextToken = tokens[idx + 1];
 
