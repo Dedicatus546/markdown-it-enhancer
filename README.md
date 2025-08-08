@@ -173,4 +173,4 @@ There are some plugins that migrate to markdown-it-enhancer.
 
 ## Test Toolkit
 
-- [markdown-it-testgen](https://github.com/markdown-it/markdown-it-testgen) -> [markdown-it-testgen-for-enhancer](https://github.com/Dedicatus546/markdown-it-testgen-for-enhancer)
+- [markdown-it-testgen](https://github.com/markdown-it/markdown-it-testgen) -> [markdown-it-enhancer-test-toolkit](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/test-toolkit)
