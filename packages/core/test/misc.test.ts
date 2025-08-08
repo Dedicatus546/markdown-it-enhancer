@@ -1,15 +1,7 @@
-// @ts-expect-error ignore
-import forInline from "markdown-it-for-inline";
+import { forInline } from "markdown-it-for-inline-for-enhancer";
 import { assert, describe, expect, it } from "vitest";
 
 import { MarkdownIt, type MarkdownItPlugin, type Token } from "../src";
-
-declare function forInline(
-  md: MarkdownIt,
-  ruleName: string,
-  tokenType: string,
-  iterator: (tokenList: Array<Token>, i: number) => void,
-): void;
 
 describe("API", () => {
   it("constructor", async () => {
@@ -314,6 +306,11 @@ describe("Misc", () => {
 
   it("Should render link target attr", async () => {
     const md = new MarkdownIt().use(
+      // @ts-expect-error ignore
+      // 这里由于 MarkdownIt 为源码类型，私有字段存在
+      // 而 forInline 的 MarkdownIt 类型为打包后类型，私有字段全部丢失，只有 #private 字段
+      // 而 typescript 又会根据私有字段定义来确保类型对应，这里会报错
+      // 这里直接忽略即可
       forInline,
       "target",
       "link_open",
