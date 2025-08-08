@@ -9,7 +9,7 @@ import { describe, expect, it } from "vitest";
 import type { ParsedData } from "./types";
 import { fixLF } from "./utils";
 
-function parse(input: string, options: { sep: Array<string> }) {
+const parse = (input: string, options: { sep: Array<string> }) => {
   const lines = input.split(/\r?\n/g),
     max = lines.length;
   let min = 0,
@@ -114,7 +114,7 @@ function parse(input: string, options: { sep: Array<string> }) {
   }
 
   return result.meta || result.fixtures.length ? result : null;
-}
+};
 
 // Read fixtures recursively, and run iterator on parsed content
 //
@@ -128,11 +128,11 @@ function parse(input: string, options: { sep: Array<string> }) {
 // - meta (Mixed):  metadata from header, if exists
 // - fixtures
 //
-function load(
+const load = (
   path: string,
   options: string | Array<string> | ((data: ParsedData) => void),
   iterator?: (data: ParsedData) => void,
-) {
+) => {
   let input, parsed;
   const stat = statSync(path);
 
@@ -189,9 +189,9 @@ function load(
 
   // Silently other entries (symlinks and so on)
   return null;
-}
+};
 
-function generate(path: string, md: MarkdownIt) {
+const generate = (path: string, md: MarkdownIt) => {
   load(path, function (data) {
     data.meta = data.meta || {};
     const recordMeta = data.meta as Record<string, string>;
@@ -213,7 +213,6 @@ function generate(path: string, md: MarkdownIt) {
       });
     });
   });
-}
+};
 
-export default generate;
-export { load };
+export { generate, load };
