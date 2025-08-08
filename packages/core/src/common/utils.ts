@@ -117,12 +117,15 @@ const unescapeAll = (str: string) => {
     return str;
   }
 
-  return str.replace(UNESCAPE_ALL_RE, function (match, escaped, entity) {
-    if (escaped) {
-      return escaped;
-    }
-    return replaceEntityPattern(match, entity);
-  });
+  return str.replace(
+    UNESCAPE_ALL_RE,
+    (match, escaped: string, entity: string) => {
+      if (escaped) {
+        return escaped;
+      }
+      return replaceEntityPattern(match, entity);
+    },
+  );
 };
 
 const HTML_ESCAPE_TEST_RE = /[&<>"]/;
