@@ -1,7 +1,6 @@
 import { decodeHTML } from "entities";
 import { decode, encode, format, parse } from "mdurl-for-enhancer";
-// @ts-expect-error lack mdurl type
-import punycode from "punycode.js";
+import { toASCII, toUnicode } from "punycode.js-for-enhancer";
 
 import { Awaitable } from "../types";
 import { P, S } from "../ucmicro";
@@ -330,7 +329,7 @@ const normalizeLink = (url: string) => {
     //
     if (!parsed.protocol || RECODE_HOSTNAME_FOR.indexOf(parsed.protocol) >= 0) {
       try {
-        parsed.hostname = punycode.toASCII(parsed.hostname);
+        parsed.hostname = toASCII(parsed.hostname);
       } catch {
         /**/
       }
@@ -352,7 +351,7 @@ const normalizeLinkText = (url: string) => {
     //
     if (!parsed.protocol || RECODE_HOSTNAME_FOR.includes(parsed.protocol)) {
       try {
-        parsed.hostname = punycode.toUnicode(parsed.hostname);
+        parsed.hostname = toUnicode(parsed.hostname);
       } catch {
         /**/
       }
