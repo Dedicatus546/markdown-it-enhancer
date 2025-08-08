@@ -270,15 +270,19 @@ describe("Misc", () => {
   it("Renderer should have pluggable inline and block rules", async () => {
     const md = new MarkdownIt();
 
+    // @ts-expect-error ignore
     md.renderer.rules.em_open = () => {
       return "<it>";
     };
+    // @ts-expect-error ignore
     md.renderer.rules.em_close = () => {
       return "</it>";
     };
+    // @ts-expect-error ignore
     md.renderer.rules.paragraph_open = () => {
       return "<par>";
     };
+    // @ts-expect-error ignore
     md.renderer.rules.paragraph_close = () => {
       return "</par>";
     };
@@ -309,14 +313,15 @@ describe("Misc", () => {
   });
 
   it("Should render link target attr", async () => {
-    const md = await new MarkdownIt().use(
+    const md = new MarkdownIt().use(
       forInline,
       "target",
       "link_open",
-      function (tokens, idx) {
+      (tokens, idx) => {
         tokens[idx].attrPush(["target", "_blank"]);
       },
     );
+    await md.isReady();
 
     await expect(md.render("[foo](bar)")).resolves.toBe(
       '<p><a href="bar" target="_blank">foo</a></p>\n',
