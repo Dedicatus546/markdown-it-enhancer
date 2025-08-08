@@ -403,7 +403,9 @@ export class LinkifyIt {
     this.__compiled__ = {}; // Reset compiled data
 
     const schemaError = (name: string, val: unknown) => {
-      throw new Error('(LinkifyIt) Invalid schema "' + name + '": ' + val);
+      throw new Error(
+        '(LinkifyIt) Invalid schema "' + name + '": ' + String(val),
+      );
     };
 
     Object.keys(this.__schemas__).forEach((name) => {
