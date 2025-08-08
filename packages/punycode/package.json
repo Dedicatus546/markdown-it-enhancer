@@ -1,6 +1,6 @@
 {
   "name": "punycode.js-for-enhancer",
-  "version": "2.3.1001",
+  "version": "3.0.0",
   "description": "Micro subset of unicode data files for markdown-it projects.",
   "license": "MIT",
   "type": "module",
