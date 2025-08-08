@@ -1,0 +1,11 @@
+import type { RendererFn } from "markdown-it-enhancer";
+
+export const footnote_caption: RendererFn<"sync"> = (tokens, idx) => {
+  let n = (tokens[idx].meta?.id ?? 0) + 1 + "";
+
+  if ((tokens[idx].meta?.subId ?? 0) > 0) {
+    n += `:${tokens[idx].meta!.subId}`;
+  }
+
+  return `[${n}]`;
+};
