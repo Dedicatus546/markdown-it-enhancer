@@ -1,9 +1,15 @@
-import type { MarkdownItPlugin } from "markdown-it-enhancer";
+import type { MarkdownItPlugin, RendererFn } from "markdown-it-enhancer";
 
 import { normalizeOptions } from "./normalize_opts";
 import { emoji_html } from "./render";
 import { emoji_replace } from "./replace";
 import type { EmojiOptions } from "./types";
+
+declare module "markdown-it-enhancer" {
+  export interface RendererExtendsRules {
+    emoji: RendererFn<"sync">;
+  }
+}
 
 export const emoji: MarkdownItPlugin<[options?: EmojiOptions]> = (
   md,
