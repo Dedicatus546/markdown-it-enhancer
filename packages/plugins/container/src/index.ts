@@ -1,8 +1,20 @@
 // Process block-level custom containers
 
-import type { MarkdownItPlugin, StateBlockRuleFn } from "markdown-it-enhancer";
+import {
+  type MarkdownItPlugin,
+  type RendererFn,
+  type StateBlockRuleFn,
+  TokenNesting,
+} from "markdown-it-enhancer";
 
 import { ContainerNormalizedOptions, ContainerOptions } from "./types";
+
+declare module "markdown-it-enhancer" {
+  export interface RendererExtendsRules {
+    [ruleName: `container_${string}_open`]: RendererFn;
+    [ruleName: `container_${string}_close`]: RendererFn;
+  }
+}
 
 //
 export const container: MarkdownItPlugin<
@@ -15,7 +27,7 @@ export const container: MarkdownItPlugin<
     validate: (src) => src.trim().split(" ", 2)[0] === name,
     render: (tokens, idx, _options, _env, renderer) => {
       // add a class to the opening tag
-      if (tokens[idx].nesting === 1) {
+      if (tokens[idx].nesting === TokenNesting.OPENING) {
         tokens[idx].attrJoin("class", name);
       }
 
@@ -161,6 +173,6 @@ export const container: MarkdownItPlugin<
   md.block.ruler.before("fence", "container_" + name, container, {
     alt: ["paragraph", "reference", "blockquote", "list"],
   });
-  md.renderer.rules["container_" + name + "_open"] = normalizedOptions.render;
-  md.renderer.rules["container_" + name + "_close"] = normalizedOptions.render;
+  md.renderer.rules[`container_${name}_open`] = normalizedOptions.render;
+  md.renderer.rules[`container_${name}_close`] = normalizedOptions.render;
 };
