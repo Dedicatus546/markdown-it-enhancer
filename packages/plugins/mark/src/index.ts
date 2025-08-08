@@ -1,8 +1,9 @@
-import type {
-  Delimiter,
-  MarkdownItPlugin,
-  StateInline,
-  StateInlineRuleFn,
+import {
+  type Delimiter,
+  type MarkdownItPlugin,
+  type StateInline,
+  type StateInlineRuleFn,
+  TokenNesting,
 } from "markdown-it-enhancer";
 
 declare module "markdown-it-enhancer" {
@@ -86,14 +87,14 @@ export const mark: MarkdownItPlugin = (md) => {
       const token_o = state.tokens[startDelim.token];
       token_o.type = "mark_open";
       token_o.tag = "mark";
-      token_o.nesting = 1;
+      token_o.nesting = TokenNesting.OPENING;
       token_o.markup = "==";
       token_o.content = "";
 
       const token_c = state.tokens[endDelim.token];
       token_c.type = "mark_close";
       token_c.tag = "mark";
-      token_c.nesting = -1;
+      token_c.nesting = TokenNesting.CLOSING;
       token_c.markup = "==";
       token_c.content = "";
 
