@@ -156,33 +156,34 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1
       linkify-it-for-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~6.0.0
         version: link:../linkify-it
       mdurl-for-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~3.0.0
         version: link:../md-url
-      punycode.js:
-        specifier: ^2.3.1
-        version: 2.3.1
       punycode.js-for-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~3.0.0
         version: link:../punycode
       uc.micro-for-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~3.0.0
         version: link:../uc-micro
 
   packages/linkify-it:
     dependencies:
       markdown-it-enhancer-utils:
-        specifier: workspace:*
+        specifier: workspace:~1.1.0
         version: link:../shared
       uc.micro-for-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~3.0.0
         version: link:../uc-micro
 
   packages/md-url: {}
 
-  packages/plugins/abbr: {}
+  packages/plugins/abbr:
+    dependencies:
+      markdown-it-enhancer:
+        specifier: workspace:*
+        version: link:../../core
 
   packages/plugins/attrs:
     dependencies:
@@ -193,13 +194,13 @@ importers:
   packages/plugins/container:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~15.0.0
         version: link:../../core
 
   packages/plugins/emoji:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~15.0.0
         version: link:../../core
 
   packages/plugins/footnote:
@@ -211,13 +212,13 @@ importers:
   packages/plugins/for-inline:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~15.0.0
         version: link:../../core
 
   packages/plugins/implicit-figures:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~15.0.0
         version: link:../../core
 
   packages/plugins/katex:
@@ -226,31 +227,31 @@ importers:
         specifier: catalog:prod
         version: 0.16.22
       markdown-it-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~15.0.0
         version: link:../../core
 
   packages/plugins/mark:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~15.0.0
         version: link:../../core
 
   packages/plugins/sub:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~15.0.0
         version: link:../../core
 
   packages/plugins/sup:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~15.0.0
         version: link:../../core
 
   packages/plugins/task-lists:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~15.0.0
         version: link:../../core
 
   packages/punycode: {}
@@ -263,10 +264,10 @@ importers:
         specifier: catalog:prod
         version: 4.1.0
       markdown-it-enhancer:
-        specifier: workspace:*
+        specifier: workspace:~15.0.0
         version: link:../core
       markdown-it-enhancer-utils:
-        specifier: workspace:*
+        specifier: workspace:~1.1.0
         version: link:../shared
       vitest:
         specifier: '>=3'
@@ -1889,10 +1890,6 @@ packages:
 
   property-information@7.1.0:
     resolution: {integrity: sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ==}
-
-  punycode.js@2.3.1:
-    resolution: {integrity: sha512-uxFIHU0YlHYhDQtV4R9J6a52SLx28BCjT+4ieh7IGbgwVJWO+km431c4yRlREUAsAmt/uMjQUyQHNEPf0M39CA==}
-    engines: {node: '>=6'}
 
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
@@ -4013,8 +4010,6 @@ snapshots:
   prettier@3.6.2: {}
 
   property-information@7.1.0: {}
-
-  punycode.js@2.3.1: {}
 
   punycode@2.3.1: {}
 
