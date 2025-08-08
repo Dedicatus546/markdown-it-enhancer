@@ -19,6 +19,13 @@ import {
 
 import type { IsValidDelimResult, MathOptions } from "./types";
 
+declare module "markdown-it-enhancer" {
+  export interface RendererExtendsRules {
+    math_block: RendererFn<"sync">;
+    math_inline: RendererFn<"sync">;
+  }
+}
+
 // Test if potential opening or closing delimieter
 // Assumes that there is a "$" at state.src[pos]
 const isValidDelim = (state: StateInline, pos: number): IsValidDelimResult => {
@@ -205,7 +212,7 @@ export const math: MarkdownItPlugin<[options?: MathOptions]> = (
     }
   };
 
-  const inlineRenderer: RendererFn = async (tokens, idx) => {
+  const inlineRenderer: RendererFn<"sync"> = (tokens, idx) => {
     return katexInline(tokens[idx].content);
   };
 
@@ -221,7 +228,7 @@ export const math: MarkdownItPlugin<[options?: MathOptions]> = (
     }
   };
 
-  const blockRenderer: RendererFn = (tokens, idx) => {
+  const blockRenderer: RendererFn<"sync"> = (tokens, idx) => {
     return katexBlock(tokens[idx].content) + "\n";
   };
 
