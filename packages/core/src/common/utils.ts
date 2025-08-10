@@ -1,4 +1,4 @@
-import { decodeHTML } from "entities";
+import { decodeHTML } from "entities-for-enhancer";
 import { decode, encode, format, parse } from "mdurl-for-enhancer";
 import { toASCII, toUnicode } from "punycode.js-for-enhancer";
 

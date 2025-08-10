@@ -1,6 +1,6 @@
 // Process html entity - &#123;, &#xAF;, &quot;, ...
 
-import { decodeHTML } from "entities";
+import { decodeHTML } from "entities-for-enhancer";
 
 import { fromCodePoint, isValidEntityCode } from "../common/utils";
 import StateInline from "./state_inline";
