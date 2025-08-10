@@ -167,9 +167,9 @@ importers:
 
   packages/core:
     dependencies:
-      entities:
-        specifier: ^6.0.1
-        version: 6.0.1
+      entities-for-enhancer:
+        specifier: workspace:~6.0.0
+        version: link:../entities
       linkify-it-for-enhancer:
         specifier: workspace:~6.0.0
         version: link:../linkify-it
@@ -182,6 +182,8 @@ importers:
       uc.micro-for-enhancer:
         specifier: workspace:~3.0.0
         version: link:../uc-micro
+
+  packages/entities: {}
 
   packages/linkify-it:
     dependencies:
@@ -218,6 +220,12 @@ importers:
         specifier: workspace:~15.0.0
         version: link:../../core
 
+  packages/plugins/deflist:
+    dependencies:
+      markdown-it-enhancer:
+        specifier: workspace:~15.0.0
+        version: link:../../core
+
   packages/plugins/emoji:
     dependencies:
       markdown-it-enhancer:
@@ -237,6 +245,12 @@ importers:
         version: link:../../core
 
   packages/plugins/implicit-figures:
+    dependencies:
+      markdown-it-enhancer:
+        specifier: workspace:~15.0.0
+        version: link:../../core
+
+  packages/plugins/ins:
     dependencies:
       markdown-it-enhancer:
         specifier: workspace:~15.0.0
