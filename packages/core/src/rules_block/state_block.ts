@@ -2,7 +2,7 @@
 
 import { isSpace } from "../common/utils";
 import { type MarkdownIt, MarkdownItEnv } from "../index";
-import Token, { TokenNesting } from "../token";
+import Token, { TokenNesting, type TokenNestingType } from "../token";
 
 interface StateBlock {
   Token: typeof Token;
@@ -147,7 +147,7 @@ class StateBlock {
 
   // Push new token to "stream".
   //
-  push(type: string, tag: string, nesting: TokenNesting) {
+  push(type: string, tag: string, nesting: TokenNestingType) {
     const token = new Token(type, tag, nesting);
     token.block = true;
 

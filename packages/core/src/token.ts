@@ -7,11 +7,13 @@
  * -  `0` means the tag is self-closing
  * - `-1` means the tag is closing
  **/
-export enum TokenNesting {
-  OPENING = 1,
-  SELF_CLOSING = 0,
-  CLOSING = -1,
-}
+export const TokenNesting = {
+  OPENING: 1,
+  SELF_CLOSING: 0,
+  CLOSING: -1,
+} as const;
+
+export type TokenNestingType = (typeof TokenNesting)[keyof typeof TokenNesting];
 
 /**
  * Token#attrs -> Array
@@ -52,7 +54,7 @@ class Token {
    **/
   map: Array<number> | null = null;
 
-  nesting: TokenNesting;
+  nesting: TokenNestingType;
 
   /**
    * Token#level -> Number
@@ -117,7 +119,7 @@ class Token {
    **/
   hidden = false;
 
-  constructor(type: string, tag: string, nesting: TokenNesting) {
+  constructor(type: string, tag: string, nesting: TokenNestingType) {
     this.type = type;
     this.tag = tag;
     this.nesting = nesting;

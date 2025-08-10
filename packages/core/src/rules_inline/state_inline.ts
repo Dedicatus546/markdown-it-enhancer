@@ -2,7 +2,7 @@
 
 import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "../common/utils";
 import { type MarkdownIt, MarkdownItEnv } from "../index";
-import Token, { TokenNesting } from "../token";
+import Token, { TokenNesting, type TokenNestingType } from "../token";
 
 export interface Delimiter {
   // Char code of the starting marker (number).
@@ -93,7 +93,7 @@ class StateInline {
   // Push new token to "stream".
   // If pending text exists - flush it as text token
   //
-  push(type: string, tag: string, nesting: TokenNesting) {
+  push(type: string, tag: string, nesting: TokenNestingType) {
     if (this.pending) {
       this.pushPending();
     }
