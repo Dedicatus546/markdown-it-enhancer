@@ -38,7 +38,8 @@
     "build:dev": "vite build --watch"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "src/"
   ],
   "dependencies": {
     "entities-for-enhancer": "workspace:~6.0.0",
