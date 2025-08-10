@@ -1,0 +1,47 @@
+{
+  "name": "entities-for-enhancer",
+  "version": "6.0.0",
+  "description": "Encode & decode XML and HTML entities with ease & speed",
+  "keywords": [
+    "html entities",
+    "entity decoder",
+    "entity encoding",
+    "html decoding",
+    "html encoding",
+    "xml decoding",
+    "xml encoding",
+    "markdown-it-enhancer"
+  ],
+  "license": "BSD-2-Clause",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "import": "./dist/index.js"
+      }
+    },
+    "./decode": {
+      "import": {
+        "import": "./dist/decode.js"
+      }
+    },
+    "./escape": {
+      "import": {
+        "import": "./dist/escape.js"
+      }
+    }
+  },
+  "files": [
+    "dist/*"
+  ],
+    "scripts": {
+    "test": "vitest --open",
+    "build": "vite build",
+    "build:dev": "vite build --watch"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.14.0"
+}
