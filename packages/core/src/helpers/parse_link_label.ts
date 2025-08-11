@@ -38,7 +38,8 @@ const parseLinkLabel = async (
       if (prevPos === state.pos - 1) {
         // increase level if we find text `[`, which is not a part of any token
         level++;
-      } else if (disableNested) {
+      }
+      else if (disableNested) {
         state.pos = oldPos;
         return -1;
       }

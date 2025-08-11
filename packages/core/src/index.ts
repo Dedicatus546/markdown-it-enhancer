@@ -23,17 +23,17 @@ export { default as StateCore } from "./rules_core/state_core";
 export { default as StateInline } from "./rules_inline/state_inline";
 
 export interface MarkdownItPlugin<Args extends unknown[] = []> {
-  (...args: [MarkdownIt, ...rest: [...Args]]): Awaitable<void>;
+  (...args: [MarkdownIt, ...rest: [...Args]]): Awaitable<void>
 }
 
 export type MarkdownItOptions = Partial<Omit<Preset["options"], "maxNesting">>;
 
 export interface MarkdownItEnv {
   references?: {
-    [key: string]: { title: string; href: string };
-  };
-  maxAutoCompletedCells?: number;
-  [key: string]: unknown;
+    [key: string]: { title: string, href: string }
+  }
+  maxAutoCompletedCells?: number
+  [key: string]: unknown
 }
 
 export class MarkdownIt {
@@ -108,11 +108,12 @@ export class MarkdownIt {
       const presetName = presetsNameOrConfig;
       if (!isValidPresetName(presetName)) {
         throw new Error(
-          'Wrong `markdown-it` preset "' + presetName + '", check name',
+          "Wrong `markdown-it` preset \"" + presetName + "\", check name",
         );
       }
       preset = presets[presetName];
-    } else {
+    }
+    else {
       preset = presetsNameOrConfig;
     }
 
@@ -169,7 +170,7 @@ export class MarkdownIt {
 
     result.push(...this.inline.ruler2.enable(list, true));
 
-    const missed = list.some((name) => !result.includes(name));
+    const missed = list.some(name => !result.includes(name));
 
     if (missed && !ignoreInvalid) {
       throw new Error(
@@ -200,7 +201,7 @@ export class MarkdownIt {
 
     result.push(...this.inline.ruler2.disable(list, true));
 
-    const missed = list.some((name) => !result.includes(name));
+    const missed = list.some(name => !result.includes(name));
 
     if (missed && !ignoreInvalid) {
       throw new Error(
@@ -232,7 +233,8 @@ export class MarkdownIt {
     if (this.plugins.length === 0) {
       const promise = resolvePromiseLike(plugin.call(plugin, ...allArgs));
       this.plugins.push(promise);
-    } else {
+    }
+    else {
       const lastPlugin = this.plugins.at(-1)!;
       const promise = lastPlugin.then(() => plugin.call(plugin, ...allArgs));
       this.plugins.push(promise);

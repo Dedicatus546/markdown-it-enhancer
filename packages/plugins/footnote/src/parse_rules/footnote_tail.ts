@@ -59,7 +59,8 @@ export const footnote_tail: StateCoreRuleFn = (state) => {
       const token_pc = new Token("paragraph_close", "p", -1);
       token_pc.block = true;
       tokens.push(token_pc);
-    } else if (list[i].label) {
+    }
+    else if (list[i].label) {
       tokens = refTokens[`:${list[i].label}`];
     }
 
@@ -71,7 +72,8 @@ export const footnote_tail: StateCoreRuleFn = (state) => {
 
     if (state.tokens[state.tokens.length - 1].type === "paragraph_close") {
       lastParagraph = state.tokens.pop()!;
-    } else {
+    }
+    else {
       lastParagraph = null;
     }
 

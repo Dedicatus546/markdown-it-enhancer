@@ -9,17 +9,16 @@ const xmlCodeMap = new Map([
 ]);
 
 // For compatibility with node < 4, we wrap `codePointAt`
-export const getCodePoint: (c: string, index: number) => number =
-  String.prototype.codePointAt == null
+export const getCodePoint: (c: string, index: number) => number
+  = String.prototype.codePointAt == null
     ? (c: string, index: number): number =>
         (c.charCodeAt(index) & 0xfc_00) === 0xd8_00
-          ? (c.charCodeAt(index) - 0xd8_00) * 0x4_00 +
-            c.charCodeAt(index + 1) -
-            0xdc_00 +
-            0x1_00_00
-          : c.charCodeAt(index)
-    : // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-      (input: string, index: number): number => input.codePointAt(index)!;
+          ? (c.charCodeAt(index) - 0xd8_00) * 0x4_00
+          + c.charCodeAt(index + 1)
+          - 0xdc_00
+          + 0x1_00_00
+          : c.charCodeAt(index) // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+    : (input: string, index: number): number => input.codePointAt(index)!;
 
 /**
  * Encodes all non-ASCII characters, as well as characters not valid in XML
@@ -45,7 +44,8 @@ export function encodeXML(input: string): string {
       ).toString(16)};`;
       // Increase by 1 if we have a surrogate pair
       lastIndex = xmlReplacer.lastIndex += Number((char & 0xfc_00) === 0xd8_00);
-    } else {
+    }
+    else {
       returnValue += input.substring(lastIndex, index) + next;
       lastIndex = index + 1;
     }
@@ -119,15 +119,15 @@ export const escapeUTF8: (data: string) => string = /* #__PURE__ */ getEscaper(
  *
  * @param data String to escape.
  */
-export const escapeAttribute: (data: string) => string =
-  /* #__PURE__ */ getEscaper(
-    /["&\u00A0]/g,
-    new Map([
-      [34, "&quot;"],
-      [38, "&amp;"],
-      [160, "&nbsp;"],
-    ]),
-  );
+export const escapeAttribute: (data: string) => string
+/* #__PURE__ */ = getEscaper(
+  /["&\u00A0]/g,
+  new Map([
+    [34, "&quot;"],
+    [38, "&amp;"],
+    [160, "&nbsp;"],
+  ]),
+);
 
 /**
  * Encodes all characters that have to be escaped in HTML text,

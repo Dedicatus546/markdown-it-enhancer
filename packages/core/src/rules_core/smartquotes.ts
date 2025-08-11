@@ -58,11 +58,15 @@ function process_inlines(tokens: Array<Token>, state: StateCore) {
 
       if (t.index - 1 >= 0) {
         lastChar = text.charCodeAt(t.index - 1);
-      } else {
+      }
+      else {
         for (j = i - 1; j >= 0; j--) {
-          if (tokens[j].type === "softbreak" || tokens[j].type === "hardbreak")
-            break; // lastChar defaults to 0x20
-          if (!tokens[j].content) continue; // should skip all tokens except 'text', 'html_inline' or 'code_inline'
+          if (tokens[j].type === "softbreak" || tokens[j].type === "hardbreak") {
+            break;
+          } // lastChar defaults to 0x20
+          if (!tokens[j].content) {
+            continue;
+          } // should skip all tokens except 'text', 'html_inline' or 'code_inline'
 
           lastChar = tokens[j].content.charCodeAt(tokens[j].content.length - 1);
           break;
@@ -76,28 +80,33 @@ function process_inlines(tokens: Array<Token>, state: StateCore) {
 
       if (pos < max) {
         nextChar = text.charCodeAt(pos);
-      } else {
+      }
+      else {
         for (j = i + 1; j < tokens.length; j++) {
-          if (tokens[j].type === "softbreak" || tokens[j].type === "hardbreak")
-            break; // nextChar defaults to 0x20
-          if (!tokens[j].content) continue; // should skip all tokens except 'text', 'html_inline' or 'code_inline'
+          if (tokens[j].type === "softbreak" || tokens[j].type === "hardbreak") {
+            break;
+          } // nextChar defaults to 0x20
+          if (!tokens[j].content) {
+            continue;
+          } // should skip all tokens except 'text', 'html_inline' or 'code_inline'
 
           nextChar = tokens[j].content.charCodeAt(0);
           break;
         }
       }
 
-      const isLastPunctChar =
-        isMdAsciiPunct(lastChar) || isPunctChar(String.fromCharCode(lastChar));
-      const isNextPunctChar =
-        isMdAsciiPunct(nextChar) || isPunctChar(String.fromCharCode(nextChar));
+      const isLastPunctChar
+        = isMdAsciiPunct(lastChar) || isPunctChar(String.fromCharCode(lastChar));
+      const isNextPunctChar
+        = isMdAsciiPunct(nextChar) || isPunctChar(String.fromCharCode(nextChar));
 
       const isLastWhiteSpace = isWhiteSpace(lastChar);
       const isNextWhiteSpace = isWhiteSpace(nextChar);
 
       if (isNextWhiteSpace) {
         canOpen = false;
-      } else if (isNextPunctChar) {
+      }
+      else if (isNextPunctChar) {
         if (!(isLastWhiteSpace || isLastPunctChar)) {
           canOpen = false;
         }
@@ -105,13 +114,14 @@ function process_inlines(tokens: Array<Token>, state: StateCore) {
 
       if (isLastWhiteSpace) {
         canClose = false;
-      } else if (isLastPunctChar) {
+      }
+      else if (isLastPunctChar) {
         if (!(isNextWhiteSpace || isNextPunctChar)) {
           canClose = false;
         }
       }
 
-      if (nextChar === 0x22 /* " */ && t[0] === '"') {
+      if (nextChar === 0x22 /* " */ && t[0] === "\"") {
         if (lastChar >= 0x30 /* 0 */ && lastChar <= 0x39 /* 9 */) {
           // special case: 1"" - count first quote as an inch
           canClose = canOpen = false;
@@ -153,7 +163,8 @@ function process_inlines(tokens: Array<Token>, state: StateCore) {
             if (isSingle) {
               openQuote = state.md.options.quotes[2];
               closeQuote = state.md.options.quotes[3];
-            } else {
+            }
+            else {
               openQuote = state.md.options.quotes[0];
               closeQuote = state.md.options.quotes[1];
             }
@@ -189,7 +200,8 @@ function process_inlines(tokens: Array<Token>, state: StateCore) {
           single: isSingle,
           level: thisLevel,
         });
-      } else if (canClose && isSingle) {
+      }
+      else if (canClose && isSingle) {
         token.content = replaceAt(token.content, t.index, APOSTROPHE);
       }
     }
@@ -204,8 +216,8 @@ export default function smartquotes(state: StateCore) {
 
   for (let blkIdx = state.tokens.length - 1; blkIdx >= 0; blkIdx--) {
     if (
-      state.tokens[blkIdx].type !== "inline" ||
-      !QUOTE_TEST_RE.test(state.tokens[blkIdx].content)
+      state.tokens[blkIdx].type !== "inline"
+      || !QUOTE_TEST_RE.test(state.tokens[blkIdx].content)
     ) {
       continue;
     }

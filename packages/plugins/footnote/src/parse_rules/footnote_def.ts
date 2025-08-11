@@ -26,7 +26,9 @@ export const footnote_def: StateBlockRuleFn = async (
   let pos = 0;
 
   for (pos = start + 2; pos < max; pos++) {
-    if (state.src.charCodeAt(pos) === 0x20) return false;
+    if (state.src.charCodeAt(pos) === 0x20) {
+      return false;
+    }
     if (state.src.charCodeAt(pos) === 0x5d /* ] */) {
       break;
     }
@@ -64,10 +66,10 @@ export const footnote_def: StateBlockRuleFn = async (
   const oldParentType = state.parentType;
 
   const posAfterColon = pos;
-  const initial =
-    state.sCount[startLine] +
-    pos -
-    (state.bMarks[startLine] + state.tShift[startLine]);
+  const initial
+    = state.sCount[startLine]
+      + pos
+      - (state.bMarks[startLine] + state.tShift[startLine]);
   let offset = initial;
 
   while (pos < max) {
@@ -76,10 +78,12 @@ export const footnote_def: StateBlockRuleFn = async (
     if (isSpace(ch)) {
       if (ch === 0x09) {
         offset += 4 - (offset % 4);
-      } else {
+      }
+      else {
         offset++;
       }
-    } else {
+    }
+    else {
       break;
     }
 

@@ -23,8 +23,8 @@ export default function linkify(state: StateCore) {
 
   for (let j = 0, l = blockTokens.length; j < l; j++) {
     if (
-      blockTokens[j].type !== "inline" ||
-      !state.md.linkify.pretest(blockTokens[j].content)
+      blockTokens[j].type !== "inline"
+      || !state.md.linkify.pretest(blockTokens[j].content)
     ) {
       continue;
     }
@@ -42,8 +42,8 @@ export default function linkify(state: StateCore) {
       if (currentToken.type === "link_close") {
         i--;
         while (
-          tokens[i].level !== currentToken.level &&
-          tokens[i].type !== "link_open"
+          tokens[i].level !== currentToken.level
+          && tokens[i].type !== "link_open"
         ) {
           i--;
         }
@@ -64,8 +64,8 @@ export default function linkify(state: StateCore) {
       }
 
       if (
-        currentToken.type === "text" &&
-        state.md.linkify.test(currentToken.content)
+        currentToken.type === "text"
+        && state.md.linkify.test(currentToken.content)
       ) {
         const text = currentToken.content;
         let links = state.md.linkify.match(text) ?? [];
@@ -79,10 +79,10 @@ export default function linkify(state: StateCore) {
         // this avoids http\://example.com/ from being linkified as
         // http:<a href="//example.com/">//example.com/</a>
         if (
-          links.length > 0 &&
-          links[0].index === 0 &&
-          i > 0 &&
-          tokens[i - 1].type === "text_special"
+          links.length > 0
+          && links[0].index === 0
+          && i > 0
+          && tokens[i - 1].type === "text_special"
         ) {
           links = links.slice(1);
         }
@@ -104,14 +104,16 @@ export default function linkify(state: StateCore) {
             urlText = state.md
               .normalizeLinkText("http://" + urlText)
               .replace(/^http:\/\//, "");
-          } else if (
-            links[ln].schema === "mailto:" &&
-            !/^mailto:/i.test(urlText)
+          }
+          else if (
+            links[ln].schema === "mailto:"
+            && !/^mailto:/i.test(urlText)
           ) {
             urlText = state.md
               .normalizeLinkText("mailto:" + urlText)
               .replace(/^mailto:/, "");
-          } else {
+          }
+          else {
             urlText = state.md.normalizeLinkText(urlText);
           }
 

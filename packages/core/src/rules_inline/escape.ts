@@ -17,11 +17,15 @@ export default function escape(state: StateInline, silent: boolean = false) {
   let pos = state.pos;
   const max = state.posMax;
 
-  if (state.src.charCodeAt(pos) !== 0x5c /* \ */) return false;
+  if (state.src.charCodeAt(pos) !== 0x5c /* \ */) {
+    return false;
+  }
   pos++;
 
   // '\' at the end of the inline block
-  if (pos >= max) return false;
+  if (pos >= max) {
+    return false;
+  }
 
   let ch1 = state.src.charCodeAt(pos);
 
@@ -34,7 +38,9 @@ export default function escape(state: StateInline, silent: boolean = false) {
     // skip leading whitespaces from next line
     while (pos < max) {
       ch1 = state.src.charCodeAt(pos);
-      if (!isSpace(ch1)) break;
+      if (!isSpace(ch1)) {
+        break;
+      }
       pos++;
     }
 
@@ -60,7 +66,8 @@ export default function escape(state: StateInline, silent: boolean = false) {
 
     if (ch1 < 256 && ESCAPED[ch1] !== 0) {
       token.content = escapedStr;
-    } else {
+    }
+    else {
       token.content = origStr;
     }
 

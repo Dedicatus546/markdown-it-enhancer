@@ -11,7 +11,7 @@ export const simplePathPattern = /^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/;
 
 // RFC 2396: characters reserved for delimiting URLs.
 // We actually just auto-escape these.
-export const delims = ["<", ">", '"', "`", " ", "\r", "\n", "\t"];
+export const delims = ["<", ">", "\"", "`", " ", "\r", "\n", "\t"];
 
 // RFC 2396: characters not allowed for various reasons.
 export const unwise = ["{", "}", "|", "\\", "^", "`"].concat(delims);
@@ -30,16 +30,16 @@ export const hostnamePartStart = /^([+a-z0-9A-Z_-]{0,63})(.*)$/;
 // protocols that can allow "unsafe" and "unwise" chars.
 // protocols that never have a hostname.
 export const hostlessProtocol: Record<string, boolean> = {
-  javascript: true,
+  "javascript": true,
   "javascript:": true,
 };
 // protocols that always contain a // bit.
 export const slashedProtocol: Record<string, boolean> = {
-  http: true,
-  https: true,
-  ftp: true,
-  gopher: true,
-  file: true,
+  "http": true,
+  "https": true,
+  "ftp": true,
+  "gopher": true,
+  "file": true,
   "http:": true,
   "https:": true,
   "ftp:": true,

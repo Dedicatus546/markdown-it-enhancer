@@ -11,10 +11,10 @@ export const code_inline: RendererFn<"sync"> = (
   const token = tokens[idx];
 
   return (
-    "<code" +
-    renderer.renderAttrs(token) +
-    ">" +
-    escapeHtml(token.content) +
-    "</code>"
+    "<code"
+    + renderer.renderAttrs(token)
+    + ">"
+    + escapeHtml(token.content)
+    + "</code>"
   );
 };

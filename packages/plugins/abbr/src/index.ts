@@ -10,7 +10,7 @@ import { arrayReplaceAt, escapeRE } from "markdown-it-enhancer/utils";
 
 declare module "markdown-it-enhancer" {
   export interface MarkdownItEnv {
-    abbreviations?: Record<string, string>;
+    abbreviations?: Record<string, string>
   }
 }
 
@@ -47,10 +47,12 @@ export const abbr: MarkdownItPlugin = (md) => {
       const ch = state.src.charCodeAt(pos);
       if (ch === 0x5b /* [ */) {
         return false;
-      } else if (ch === 0x5d /* ] */) {
+      }
+      else if (ch === 0x5d /* ] */) {
         labelEnd = pos;
         break;
-      } else if (ch === 0x5c /* \ */) {
+      }
+      else if (ch === 0x5c /* \ */) {
         pos++;
       }
     }
@@ -93,37 +95,37 @@ export const abbr: MarkdownItPlugin = (md) => {
     }
 
     const regSimple = new RegExp(
-      "(?:" +
-        Object.keys(state.env.abbreviations)
-          .map((x) => x.substring(1))
-          .sort((a, b) => b.length - a.length)
-          .map(escapeRE)
-          .join("|") +
-        ")",
-    );
-
-    const regText =
-      "(^|" +
-      UNICODE_PUNCT_RE +
-      "|" +
-      UNICODE_SPACE_RE +
-      "|[" +
-      OTHER_CHARS.split("").map(escapeRE).join("") +
-      "])" +
-      "(" +
-      Object.keys(state.env.abbreviations)
-        .map((x) => x.substring(1))
+      "(?:"
+      + Object.keys(state.env.abbreviations)
+        .map(x => x.substring(1))
         .sort((a, b) => b.length - a.length)
         .map(escapeRE)
-        .join("|") +
-      ")" +
-      "($|" +
-      UNICODE_PUNCT_RE +
-      "|" +
-      UNICODE_SPACE_RE +
-      "|[" +
-      OTHER_CHARS.split("").map(escapeRE).join("") +
-      "])";
+        .join("|")
+        + ")",
+    );
+
+    const regText
+      = "(^|"
+        + UNICODE_PUNCT_RE
+        + "|"
+        + UNICODE_SPACE_RE
+        + "|["
+        + OTHER_CHARS.split("").map(escapeRE).join("")
+        + "])"
+        + "("
+        + Object.keys(state.env.abbreviations)
+          .map(x => x.substring(1))
+          .sort((a, b) => b.length - a.length)
+          .map(escapeRE)
+          .join("|")
+          + ")"
+          + "($|"
+          + UNICODE_PUNCT_RE
+          + "|"
+          + UNICODE_SPACE_RE
+          + "|["
+          + OTHER_CHARS.split("").map(escapeRE).join("")
+          + "])";
 
     const reg = new RegExp(regText, "g");
 

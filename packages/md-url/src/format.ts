@@ -10,7 +10,8 @@ export const format = (url: Url) => {
   if (url.hostname && url.hostname.includes(":")) {
     // ipv6 address
     result += "[" + url.hostname + "]";
-  } else {
+  }
+  else {
     result += url.hostname ?? "";
   }
 

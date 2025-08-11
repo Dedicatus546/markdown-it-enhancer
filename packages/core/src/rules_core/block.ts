@@ -7,7 +7,8 @@ export default async function block(state: StateCore) {
     token.map = [0, 1];
     token.children = [];
     state.tokens.push(token);
-  } else {
+  }
+  else {
     await state.md.block.parse(state.src, state.md, state.env, state.tokens);
   }
 }

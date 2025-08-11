@@ -56,7 +56,7 @@ const _rules2 = [
 ] as const;
 
 interface ParserInline {
-  State: typeof StateInline;
+  State: typeof StateInline
 }
 
 class ParserInline {
@@ -119,7 +119,8 @@ class ParserInline {
           break;
         }
       }
-    } else {
+    }
+    else {
       // Too much nesting, just skip until the end of the paragraph.
       //
       // NOTE: this will cause links to behave incorrectly in the following case,

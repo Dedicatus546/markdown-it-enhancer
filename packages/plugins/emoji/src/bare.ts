@@ -7,7 +7,7 @@ import type { EmojiOptions } from "./types";
 
 declare module "markdown-it-enhancer" {
   export interface RendererExtendsRules {
-    emoji: RendererFn<"sync">;
+    emoji: RendererFn<"sync">
   }
 }
 

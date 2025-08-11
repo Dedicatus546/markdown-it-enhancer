@@ -7,30 +7,30 @@ import Token, { TokenNesting, type TokenNestingType } from "../token";
 export interface Delimiter {
   // Char code of the starting marker (number).
   //
-  marker: number;
+  marker: number
 
   // Total length of these series of delimiters.
   //
-  length: number;
+  length: number
 
   // A position of the token this delimiter corresponds to.
   //
-  token: number;
+  token: number
 
   // If this delimiter is matched as a valid opener, `end` will be
   // equal to its position, otherwise it's `-1`.
   //
-  end: number;
+  end: number
 
   // Boolean flags that determine if this delimiter could open or close
   // an emphasis.
   //
-  open: boolean;
-  close: boolean;
+  open: boolean
+  close: boolean
 }
 
 interface StateInline {
-  Token: typeof Token;
+  Token: typeof Token
 }
 
 export type TokenMeta = { delimiters: Array<Delimiter> } | null;
@@ -146,25 +146,25 @@ class StateInline {
     // treat end of the line as a whitespace
     const nextChar = pos < max ? this.src.charCodeAt(pos) : 0x20;
 
-    const isLastPunctChar =
-      isMdAsciiPunct(lastChar) || isPunctChar(String.fromCharCode(lastChar));
-    const isNextPunctChar =
-      isMdAsciiPunct(nextChar) || isPunctChar(String.fromCharCode(nextChar));
+    const isLastPunctChar
+      = isMdAsciiPunct(lastChar) || isPunctChar(String.fromCharCode(lastChar));
+    const isNextPunctChar
+      = isMdAsciiPunct(nextChar) || isPunctChar(String.fromCharCode(nextChar));
 
     const isLastWhiteSpace = isWhiteSpace(lastChar);
     const isNextWhiteSpace = isWhiteSpace(nextChar);
 
-    const left_flanking =
-      !isNextWhiteSpace &&
-      (!isNextPunctChar || isLastWhiteSpace || isLastPunctChar);
-    const right_flanking =
-      !isLastWhiteSpace &&
-      (!isLastPunctChar || isNextWhiteSpace || isNextPunctChar);
+    const left_flanking
+      = !isNextWhiteSpace
+        && (!isNextPunctChar || isLastWhiteSpace || isLastPunctChar);
+    const right_flanking
+      = !isLastWhiteSpace
+        && (!isLastPunctChar || isNextWhiteSpace || isNextPunctChar);
 
-    const can_open =
-      left_flanking && (canSplitWord || !right_flanking || isLastPunctChar);
-    const can_close =
-      right_flanking && (canSplitWord || !left_flanking || isNextPunctChar);
+    const can_open
+      = left_flanking && (canSplitWord || !right_flanking || isLastPunctChar);
+    const can_close
+      = right_flanking && (canSplitWord || !left_flanking || isNextPunctChar);
 
     return { can_open, can_close, length: count };
   }

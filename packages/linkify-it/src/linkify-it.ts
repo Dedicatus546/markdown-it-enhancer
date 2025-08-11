@@ -88,8 +88,8 @@ export class LinkifyIt {
     this.__schemas__ = Object.assign({}, defaultSchemas, schemas);
 
     // DON'T try to make PRs with changes. Extend TLDs with LinkifyIt.tlds() instead
-    this.__tlds__ =
-      "biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф".split(
+    this.__tlds__
+      = "biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф".split(
         "|",
       );
 
@@ -192,9 +192,9 @@ export class LinkifyIt {
           next = me.index! + me[0].length;
 
           if (
-            this.__index__ < 0 ||
-            shift < this.__index__ ||
-            (shift === this.__index__ && next > this.__last_index__)
+            this.__index__ < 0
+            || shift < this.__index__
+            || (shift === this.__index__ && next > this.__last_index__)
           ) {
             this.__schema__ = "mailto:";
             this.__index__ = shift;
@@ -290,13 +290,19 @@ export class LinkifyIt {
     this.__text_cache__ = text;
     this.__index__ = -1;
 
-    if (!text.length) return null;
+    if (!text.length) {
+      return null;
+    }
 
     const m = this.re.schema_at_start.exec(text);
-    if (!m) return null;
+    if (!m) {
+      return null;
+    }
 
     const len = this.testSchemaAt(text, m[2], m[0].length);
-    if (!len) return null;
+    if (!len) {
+      return null;
+    }
 
     this.__schema__ = m[2];
     this.__index__ = m.index + m[1].length;
@@ -404,7 +410,7 @@ export class LinkifyIt {
 
     const schemaError = (name: string, val: unknown) => {
       throw new Error(
-        '(LinkifyIt) Invalid schema "' + name + '": ' + String(val),
+        "(LinkifyIt) Invalid schema \"" + name + "\": " + String(val),
       );
     };
 
@@ -423,17 +429,21 @@ export class LinkifyIt {
       if (isObject(val)) {
         if (isRegExp(val.validate)) {
           compiled.validate = this.#createValidator(val.validate);
-        } else if (isFunction(val.validate)) {
+        }
+        else if (isFunction(val.validate)) {
           compiled.validate = val.validate;
-        } else {
+        }
+        else {
           schemaError(name, val);
         }
 
         if (isFunction(val.normalize)) {
           compiled.normalize = val.normalize;
-        } else if (!val.normalize) {
+        }
+        else if (!val.normalize) {
           compiled.normalize = this.#createNormalizer();
-        } else {
+        }
+        else {
           schemaError(name, val);
         }
 
@@ -460,10 +470,10 @@ export class LinkifyIt {
         return;
       }
 
-      this.__compiled__[alias].validate =
-        this.__compiled__[aliasTarget].validate;
-      this.__compiled__[alias].normalize =
-        this.__compiled__[aliasTarget].normalize;
+      this.__compiled__[alias].validate
+        = this.__compiled__[aliasTarget].validate;
+      this.__compiled__[alias].normalize
+        = this.__compiled__[aliasTarget].normalize;
     });
 
     //
@@ -498,11 +508,11 @@ export class LinkifyIt {
     this.re.schema_at_start = RegExp("^" + this.re.schema_search.source, "i");
 
     this.re.pretest = RegExp(
-      "(" +
-        this.re.schema_test.source +
-        ")|(" +
-        this.re.host_fuzzy_test.source +
-        ")|@",
+      "("
+      + this.re.schema_test.source
+      + ")|("
+      + this.re.host_fuzzy_test.source
+      + ")|@",
       "i",
     );
 

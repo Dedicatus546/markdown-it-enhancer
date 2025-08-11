@@ -20,32 +20,32 @@ import {
 declare module "markdown-it-enhancer" {
   export interface MarkdownItEnv {
     footnotes?: {
-      refs?: Record<string, number>;
+      refs?: Record<string, number>
       list?: Array<{
-        label?: string;
-        count?: number;
-        content?: string;
-        tokens?: Array<Token>;
-      }>;
-    };
-    docId?: string;
+        label?: string
+        count?: number
+        content?: string
+        tokens?: Array<Token>
+      }>
+    }
+    docId?: string
   }
 
   export interface TokenMeta {
-    id?: number;
-    subId?: number;
-    label?: string;
+    id?: number
+    subId?: number
+    label?: string
   }
 
   export interface RendererExtendsRules {
-    footnote_anchor_name: RendererFn<"sync">;
-    footnote_caption: RendererFn<"sync">;
-    footnote_ref: RendererFn<"sync">;
-    footnote_block_open: RendererFn<"sync">;
-    footnote_block_close: RendererFn<"sync">;
-    footnote_open: RendererFn<"sync">;
-    footnote_close: RendererFn<"sync">;
-    footnote_anchor: RendererFn<"sync">;
+    footnote_anchor_name: RendererFn<"sync">
+    footnote_caption: RendererFn<"sync">
+    footnote_ref: RendererFn<"sync">
+    footnote_block_open: RendererFn<"sync">
+    footnote_block_close: RendererFn<"sync">
+    footnote_open: RendererFn<"sync">
+    footnote_close: RendererFn<"sync">
+    footnote_anchor: RendererFn<"sync">
   }
 }
 

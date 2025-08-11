@@ -58,22 +58,23 @@ const test = (
         return res;
       }
       let match;
-      const childTests: Array<PatternsResultDetectingRule> =
-        (t.children as Array<PatternsResultDetectingRule>) ?? [];
+      const childTests: Array<PatternsResultDetectingRule>
+        = (t.children as Array<PatternsResultDetectingRule>) ?? [];
       const children: Array<Token> = token.children;
-      if (childTests.every((tt) => tt.position !== undefined)) {
+      if (childTests.every(tt => tt.position !== undefined)) {
         // positions instead of shifts, do not loop all children
         match = childTests.every(
-          (tt) => test(children, tt.position!, tt).match,
+          tt => test(children, tt.position!, tt).match,
         );
         if (match) {
           // we may need position of child in transform
           const j = (childTests.at(-1) ?? { position: null }).position ?? 0;
           res.j = j >= 0 ? j : children.length + j;
         }
-      } else {
+      }
+      else {
         for (let j = 0; j < children.length; j++) {
-          match = childTests.every((tt) => test(children, j, tt).match);
+          match = childTests.every(tt => test(children, j, tt).match);
           if (match) {
             res.j = j;
             // all tests true, continue with next key of pattern t
@@ -104,7 +105,7 @@ const test = (
         break;
       case "object":
         if (isArrayOfFunctions(t[key])) {
-          const r = t[key].every((tt) => tt(token[key]));
+          const r = t[key].every(tt => tt(token[key]));
           if (r === false) {
             return res;
           }
@@ -148,8 +149,8 @@ export const attributes: MarkdownItPlugin<[options?: AttributeOptions]> = (
         if (match) {
           pattern.transform(tokens, i, j!);
           if (
-            pattern.name === "inline attributes" ||
-            pattern.name === "inline nesting 0"
+            pattern.name === "inline attributes"
+            || pattern.name === "inline nesting 0"
           ) {
             // retry, may be several inline attributes
             p--;

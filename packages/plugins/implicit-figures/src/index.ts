@@ -40,8 +40,8 @@ export const implicitFigures: MarkdownItPlugin<
       }
       // children: image alone, or link_open -> image -> link_close
       if (
-        !token.children ||
-        (token.children.length !== 1 && token.children.length !== 3)
+        !token.children
+        || (token.children.length !== 1 && token.children.length !== 3)
       ) {
         continue;
       }
@@ -51,10 +51,10 @@ export const implicitFigures: MarkdownItPlugin<
       }
       // three children, should be image enclosed in link
       if (
-        token.children.length === 3 &&
-        (token.children[0].type !== "link_open" ||
-          token.children[1].type !== "image" ||
-          token.children[2].type !== "link_close")
+        token.children.length === 3
+        && (token.children[0].type !== "link_open"
+          || token.children[1].type !== "image"
+          || token.children[2].type !== "link_close")
       ) {
         continue;
       }
@@ -91,8 +91,8 @@ export const implicitFigures: MarkdownItPlugin<
       }
 
       // for linked images, image is one off
-      image =
-        token.children.length === 1 ? token.children[0] : token.children[1];
+      image
+        = token.children.length === 1 ? token.children[0] : token.children[1];
 
       if (normalizedOptions.figcaption) {
         // store string value of option for later comparison
@@ -134,9 +134,10 @@ export const implicitFigures: MarkdownItPlugin<
               });
             }
           }
-        } else if (
-          normalizedOptions.figcaption === true ||
-          captionOptionString === "alt"
+        }
+        else if (
+          normalizedOptions.figcaption === true
+          || captionOptionString === "alt"
         ) {
           if (image.children && image.children.length) {
             token.children.push(
@@ -146,14 +147,16 @@ export const implicitFigures: MarkdownItPlugin<
             token.children.push(
               new state.Token("figcaption_close", "figcaption", -1),
             );
-            if (!normalizedOptions.keepAlt) image.children.length = 0;
+            if (!normalizedOptions.keepAlt) {
+              image.children.length = 0;
+            }
           }
         }
       }
 
       if (normalizedOptions.copyAttrs && image.attrs) {
-        const f =
-          normalizedOptions.copyAttrs === true
+        const f
+          = normalizedOptions.copyAttrs === true
             ? ""
             : normalizedOptions.copyAttrs;
         figure.attrs = image.attrs.filter(([k]) => k.match(f));

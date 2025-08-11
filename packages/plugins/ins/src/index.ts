@@ -8,7 +8,7 @@ import type {
 
 declare module "markdown-it-enhancer" {
   export interface Delimiter {
-    jump: number;
+    jump: number
   }
 }
 
@@ -100,8 +100,8 @@ export const ins: MarkdownItPlugin = (md) => {
       token.content = "";
 
       if (
-        state.tokens[endDelim.token - 1].type === "text" &&
-        state.tokens[endDelim.token - 1].content === "+"
+        state.tokens[endDelim.token - 1].type === "text"
+        && state.tokens[endDelim.token - 1].content === "+"
       ) {
         loneMarkers.push(endDelim.token - 1);
       }

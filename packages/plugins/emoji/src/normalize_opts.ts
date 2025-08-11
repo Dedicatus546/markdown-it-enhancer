@@ -19,8 +19,8 @@ export const normalizeOptions = (
   const opts = Object.assign({}, defaultOptions, options);
 
   // Filter emojies by whitelist, if needed
-  const emojies =
-    opts.enabled.length <= 0
+  const emojies
+    = opts.enabled.length <= 0
       ? opts.defs
       : Object.keys(opts.defs).reduce<Required<EmojiOptions>["defs"]>(
           (acc, key) => {
@@ -36,7 +36,9 @@ export const normalizeOptions = (
   const shortcuts = Object.keys(opts.shortcuts).reduce<Record<string, string>>(
     (acc, key) => {
       // Skip aliases for filtered emojies, to reduce regexp
-      if (!emojies[key]) return acc;
+      if (!emojies[key]) {
+        return acc;
+      }
 
       if (Array.isArray(opts.shortcuts[key])) {
         opts.shortcuts[key].forEach((alias) => {
@@ -57,7 +59,8 @@ export const normalizeOptions = (
   // If no definitions are given, return empty regex to avoid replacements with 'undefined'.
   if (keys.length === 0) {
     names = "^$";
-  } else {
+  }
+  else {
     // Compile regexp
     names = keys
       .map((name) => {

@@ -13,7 +13,7 @@ function isLinkClose(str: string) {
 function isLetter(ch: number) {
   /* eslint no-bitwise:0 */
   const lc = ch | 0x20; // to lower case
-  return lc >= 0x61 /* a */ && lc <= 0x7a /* z */;
+  return lc >= 0x61 /* a */ && lc <= 0x7a;
 }
 
 export default function html_inline(
@@ -34,10 +34,10 @@ export default function html_inline(
   // Quick fail on second char
   const ch = state.src.charCodeAt(pos + 1);
   if (
-    ch !== 0x21 /* ! */ &&
-    ch !== 0x3f /* ? */ &&
-    ch !== 0x2f /* / */ &&
-    !isLetter(ch)
+    ch !== 0x21
+    && /* ! */ ch !== 0x3f
+    && /* ? */ ch !== 0x2f
+    && /* / */ !isLetter(ch)
   ) {
     return false;
   }
@@ -51,8 +51,12 @@ export default function html_inline(
     const token = state.push("html_inline", "", 0);
     token.content = match[0];
 
-    if (isLinkOpen(token.content)) state.linkLevel++;
-    if (isLinkClose(token.content)) state.linkLevel--;
+    if (isLinkOpen(token.content)) {
+      state.linkLevel++;
+    }
+    if (isLinkClose(token.content)) {
+      state.linkLevel--;
+    }
   }
   state.pos += match[0].length;
   return true;

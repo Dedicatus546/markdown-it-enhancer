@@ -95,7 +95,7 @@ describe("API", () => {
     assert.strictEqual(await md.render("---"), "<hr />\n");
     assert.strictEqual(
       await md.render("![]()"),
-      '<p><img src="" alt="" /></p>\n',
+      "<p><img src=\"\" alt=\"\" /></p>\n",
     );
     assert.strictEqual(await md.render("a  \\\nb"), "<p>a  <br />\nb</p>\n");
   });
@@ -106,7 +106,7 @@ describe("API", () => {
     assert.strictEqual(await md.render("---"), "<hr>\n");
     assert.strictEqual(
       await md.render("![]()"),
-      '<p><img src="" alt=""></p>\n',
+      "<p><img src=\"\" alt=\"\"></p>\n",
     );
     assert.strictEqual(await md.render("a  \\\nb"), "<p>a  <br>\nb</p>\n");
   });
@@ -188,8 +188,10 @@ describe("Plugins", () => {
   it("should not loop infinitely if inline rule doesn't increment pos", async () => {
     const md = new MarkdownIt();
 
-    md.inline.ruler.after("text", "custom", function (state /*, silent */) {
-      if (state.src.charCodeAt(state.pos) !== 0x40 /* @ */) return false;
+    md.inline.ruler.after("text", "custom", function (state /* , silent */) {
+      if (state.src.charCodeAt(state.pos) !== 0x40 /* @ */) {
+        return false;
+      }
       return true;
     });
 
@@ -207,9 +209,11 @@ describe("Plugins", () => {
     md.block.ruler.before(
       "paragraph",
       "custom",
-      function (state, startLine /*, endLine, silent */) {
+      function (state, startLine /* , endLine, silent */) {
         const pos = state.bMarks[startLine] + state.tShift[startLine];
-        if (state.src.charCodeAt(pos) !== 0x40 /* @ */) return false;
+        if (state.src.charCodeAt(pos) !== 0x40 /* @ */) {
+          return false;
+        }
         return true;
       },
       { alt: ["paragraph"] },
@@ -321,7 +325,7 @@ describe("Misc", () => {
     await md.isReady();
 
     await expect(md.render("[foo](bar)")).resolves.toBe(
-      '<p><a href="bar" target="_blank">foo</a></p>\n',
+      "<p><a href=\"bar\" target=\"_blank\">foo</a></p>\n",
     );
   });
 
@@ -372,22 +376,22 @@ describe("Url normalization", () => {
     };
 
     await expect(md.render("foo@example.com")).resolves.toBe(
-      '<p><a href="LINK">TEXT</a></p>\n',
+      "<p><a href=\"LINK\">TEXT</a></p>\n",
     );
     await expect(md.render("http://example.com")).resolves.toBe(
-      '<p><a href="LINK">TEXT</a></p>\n',
+      "<p><a href=\"LINK\">TEXT</a></p>\n",
     );
     await expect(md.render("<foo@example.com>")).resolves.toBe(
-      '<p><a href="LINK">TEXT</a></p>\n',
+      "<p><a href=\"LINK\">TEXT</a></p>\n",
     );
     await expect(md.render("<http://example.com>")).resolves.toBe(
-      '<p><a href="LINK">TEXT</a></p>\n',
+      "<p><a href=\"LINK\">TEXT</a></p>\n",
     );
     await expect(md.render("[test](http://example.com)")).resolves.toBe(
-      '<p><a href="LINK">test</a></p>\n',
+      "<p><a href=\"LINK\">test</a></p>\n",
     );
     await expect(md.render("![test](http://example.com)")).resolves.toBe(
-      '<p><img src="LINK" alt="test"></p>\n',
+      "<p><img src=\"LINK\" alt=\"test\"></p>\n",
     );
   });
 });
@@ -434,7 +438,7 @@ describe("maxNesting", () => {
     // @ts-expect-error ignore
     const md = new MarkdownIt({ maxNesting: 1 });
     await expect(md.render("[`foo`]()")).resolves.toBe(
-      '<p><a href="">`foo`</a></p>\n',
+      "<p><a href=\"\">`foo`</a></p>\n",
     );
   });
 
@@ -522,7 +526,7 @@ describe("Token attributes", () => {
     t.attrJoin("class", "bar");
 
     await expect(md.renderer.render(tokens, md.options)).resolves.toBe(
-      '<pre><code class="foo bar"></code></pre>\n',
+      "<pre><code class=\"foo bar\"></code></pre>\n",
     );
   });
 
@@ -535,13 +539,13 @@ describe("Token attributes", () => {
     t.attrSet("class", "foo");
 
     await expect(md.renderer.render(tokens, md.options)).resolves.toBe(
-      '<pre><code class="foo"></code></pre>\n',
+      "<pre><code class=\"foo\"></code></pre>\n",
     );
 
     t.attrSet("class", "bar");
 
     await expect(md.renderer.render(tokens, md.options)).resolves.toBe(
-      '<pre><code class="bar"></code></pre>\n',
+      "<pre><code class=\"bar\"></code></pre>\n",
     );
   });
 

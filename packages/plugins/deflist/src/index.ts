@@ -45,8 +45,8 @@ export const deflist: MarkdownItPlugin = (md) => {
 
     for (let i = idx + 2, l = state.tokens.length - 2; i < l; i++) {
       if (
-        state.tokens[i].level === level &&
-        state.tokens[i].type === "paragraph_open"
+        state.tokens[i].level === level
+        && state.tokens[i].type === "paragraph_open"
       ) {
         state.tokens[i + 2].hidden = true;
         state.tokens[i].hidden = true;
@@ -133,10 +133,10 @@ export const deflist: MarkdownItPlugin = (md) => {
 
         let pos = contentStart;
         const max = state.eMarks[ddLine];
-        let offset =
-          state.sCount[ddLine] +
-          contentStart -
-          (state.bMarks[ddLine] + state.tShift[ddLine]);
+        let offset
+          = state.sCount[ddLine]
+            + contentStart
+            - (state.bMarks[ddLine] + state.tShift[ddLine]);
 
         while (pos < max) {
           const ch = state.src.charCodeAt(pos);
@@ -144,10 +144,12 @@ export const deflist: MarkdownItPlugin = (md) => {
           if (isSpace(ch)) {
             if (ch === 0x09) {
               offset += 4 - (offset % 4);
-            } else {
+            }
+            else {
               offset++;
             }
-          } else {
+          }
+          else {
             break;
           }
 

@@ -50,7 +50,8 @@ export const decode = (str: string, exclude?: string) => {
 
           if (chr < 0x80) {
             result += "\ufffd\ufffd";
-          } else {
+          }
+          else {
             result += String.fromCharCode(chr);
           }
 
@@ -69,7 +70,8 @@ export const decode = (str: string, exclude?: string) => {
 
           if (chr < 0x800 || (chr >= 0xd800 && chr <= 0xdfff)) {
             result += "\ufffd\ufffd\ufffd";
-          } else {
+          }
+          else {
             result += String.fromCharCode(chr);
           }
 
@@ -85,19 +87,20 @@ export const decode = (str: string, exclude?: string) => {
         const b4 = parseInt(seq.slice(i + 10, i + 12), 16);
 
         if (
-          (b2 & 0xc0) === 0x80 &&
-          (b3 & 0xc0) === 0x80 &&
-          (b4 & 0xc0) === 0x80
+          (b2 & 0xc0) === 0x80
+          && (b3 & 0xc0) === 0x80
+          && (b4 & 0xc0) === 0x80
         ) {
-          let chr =
-            ((b1 << 18) & 0x1c0000) |
-            ((b2 << 12) & 0x3f000) |
-            ((b3 << 6) & 0xfc0) |
-            (b4 & 0x3f);
+          let chr
+            = ((b1 << 18) & 0x1c0000)
+              | ((b2 << 12) & 0x3f000)
+              | ((b3 << 6) & 0xfc0)
+              | (b4 & 0x3f);
 
           if (chr < 0x10000 || chr > 0x10ffff) {
             result += "\ufffd\ufffd\ufffd\ufffd";
-          } else {
+          }
+          else {
             chr -= 0x10000;
             result += String.fromCharCode(
               0xd800 + (chr >> 10),

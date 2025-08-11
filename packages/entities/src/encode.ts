@@ -44,8 +44,8 @@ function encodeHTMLTrieRe(regExp: RegExp, input: string): string {
       // We are in a branch. Try to match the next char.
       if (index + 1 < input.length) {
         const nextChar = input.charCodeAt(index + 1);
-        const value =
-          typeof next.n === "number"
+        const value
+          = typeof next.n === "number"
             ? next.n === nextChar
               ? next.o
               : undefined
@@ -67,7 +67,8 @@ function encodeHTMLTrieRe(regExp: RegExp, input: string): string {
       returnValue += `&#x${cp.toString(16)};`;
       // Increase by 1 if we have a surrogate pair
       lastIndex = regExp.lastIndex += Number(cp !== char);
-    } else {
+    }
+    else {
       returnValue += next;
       lastIndex = index + 1;
     }

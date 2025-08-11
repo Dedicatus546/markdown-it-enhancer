@@ -57,7 +57,8 @@ export const anchor: MarkdownItPlugin<[MarkdownItAnchorOptions]> = (
       if (idValue == null) {
         if (normalizedOptions.slugifyWithState) {
           idValue = normalizedOptions.slugifyWithState(title, state);
-        } else {
+        }
+        else {
           idValue = normalizedOptions.slugify(title);
         }
 
@@ -67,7 +68,8 @@ export const anchor: MarkdownItPlugin<[MarkdownItAnchorOptions]> = (
           false,
           normalizedOptions.uniqueSlugStartIndex,
         );
-      } else {
+      }
+      else {
         idValue = uniqueIdValue(
           idValue,
           slugs,
@@ -79,8 +81,8 @@ export const anchor: MarkdownItPlugin<[MarkdownItAnchorOptions]> = (
       token.attrSet("id", idValue);
 
       if (
-        normalizedOptions.tabIndex !== undefined &&
-        normalizedOptions.tabIndex !== false
+        normalizedOptions.tabIndex !== undefined
+        && normalizedOptions.tabIndex !== false
       ) {
         token.attrSet("tabindex", `${normalizedOptions.tabIndex}`);
       }

@@ -12,7 +12,7 @@
 
 export default {
   angry: [">:(", ">:-("],
-  blush: [':")', ':-")'],
+  blush: [":\")", ":-\")"],
   broken_heart: ["</3", "<\\3"],
   // :\ and :-\ not used because of conflict with markdown escaping
   confused: [":/", ":-/"], // twemoji shows question

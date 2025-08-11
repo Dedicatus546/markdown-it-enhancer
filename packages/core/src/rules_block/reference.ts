@@ -87,17 +87,20 @@ const reference: StateBlockRuleFn = async (
     const ch = str.charCodeAt(pos);
     if (ch === 0x5b /* [ */) {
       return false;
-    } else if (ch === 0x5d /* ] */) {
+    }
+    else if (ch === 0x5d /* ] */) {
       labelEnd = pos;
       break;
-    } else if (ch === 0x0a /* \n */) {
+    }
+    else if (ch === 0x0a /* \n */) {
       const lineContent = await getNextLine(nextLine);
       if (lineContent !== null) {
         str += lineContent;
         max = str.length;
         nextLine++;
       }
-    } else if (ch === 0x5c /* \ */) {
+    }
+    else if (ch === 0x5c /* \ */) {
       pos++;
       if (pos < max && str.charCodeAt(pos) === 0x0a) {
         const lineContent = await getNextLine(nextLine);
@@ -125,9 +128,11 @@ const reference: StateBlockRuleFn = async (
         max = str.length;
         nextLine++;
       }
-    } else if (isSpace(ch)) {
+    }
+    else if (isSpace(ch)) {
       /* eslint no-empty:0 */
-    } else {
+    }
+    else {
       break;
     }
   }
@@ -162,9 +167,11 @@ const reference: StateBlockRuleFn = async (
         max = str.length;
         nextLine++;
       }
-    } else if (isSpace(ch)) {
+    }
+    else if (isSpace(ch)) {
       // ignore
-    } else {
+    }
+    else {
       break;
     }
   }
@@ -174,7 +181,9 @@ const reference: StateBlockRuleFn = async (
   let titleRes = parseLinkTitle(str, pos, max);
   while (titleRes.can_continue) {
     const lineContent = await getNextLine(nextLine);
-    if (lineContent === null) break;
+    if (lineContent === null) {
+      break;
+    }
     str += lineContent;
     pos = max;
     max = str.length;
@@ -186,7 +195,8 @@ const reference: StateBlockRuleFn = async (
   if (pos < max && start !== pos && titleRes.ok) {
     title = titleRes.str;
     pos = titleRes.pos;
-  } else {
+  }
+  else {
     title = "";
     pos = destEndPos;
     nextLine = destEndLineNo;

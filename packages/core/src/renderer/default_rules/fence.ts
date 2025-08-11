@@ -26,11 +26,12 @@ export const fence: RendererFn<"async"> = async (
 
   let highlighted = "";
   if (options.highlight) {
-    highlighted =
-      (await resolvePromiseLike(
+    highlighted
+      = (await resolvePromiseLike(
         options.highlight(token.content, langName, langAttrs),
       )) || escapeHtml(token.content);
-  } else {
+  }
+  else {
     highlighted = escapeHtml(token.content);
   }
 
@@ -47,7 +48,8 @@ export const fence: RendererFn<"async"> = async (
 
     if (i < 0) {
       tmpAttrs.push(["class", options.langPrefix + langName]);
-    } else {
+    }
+    else {
       tmpAttrs[i] = tmpAttrs[i].slice() as TokenAttr;
       tmpAttrs[i][1] += " " + options.langPrefix + langName;
     }

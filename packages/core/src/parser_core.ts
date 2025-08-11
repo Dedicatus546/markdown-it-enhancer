@@ -29,7 +29,7 @@ const _rules = [
 ] as const;
 
 interface Core {
-  State: typeof StateCore;
+  State: typeof StateCore
 }
 
 class Core {

@@ -134,11 +134,11 @@ export default {
     pathname: "",
   },
 
-  'http://x/p/"quoted"': {
+  "http://x/p/\"quoted\"": {
     protocol: "http:",
     slashes: true,
     hostname: "x",
-    pathname: '/p/"quoted"',
+    pathname: "/p/\"quoted\"",
   },
 
   "<http://goo.corn/bread> Is a URL!": {
@@ -629,11 +629,11 @@ export default {
     pathname: "",
   },
 
-  'http://google.com" onload="alert(42)/': {
+  "http://google.com\" onload=\"alert(42)/": {
     hostname: "google.com",
     protocol: "http:",
     slashes: true,
-    pathname: '" onload="alert(42)/',
+    pathname: "\" onload=\"alert(42)/",
   },
 
   "http://a.com/a/b/c?s#h": {

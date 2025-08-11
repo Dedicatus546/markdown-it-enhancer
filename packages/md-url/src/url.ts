@@ -68,8 +68,8 @@ export class Url {
     }
 
     if (
-      (!proto || !hostlessProtocol[proto]) &&
-      (slashes || (proto && !slashedProtocol[proto]))
+      (!proto || !hostlessProtocol[proto])
+      && (slashes || (proto && !slashedProtocol[proto]))
     ) {
       // there's a hostname.
       // the first instance of /, ?, ;, or # ends the host.
@@ -101,7 +101,8 @@ export class Url {
       if (hostEnd === -1) {
         // atSign can be anywhere.
         atSign = rest.lastIndexOf("@");
-      } else {
+      }
+      else {
         // atSign must be in auth portion.
         // http://a@b/c@d => host:b auth:a path:/c@d
         atSign = rest.lastIndexOf("@", hostEnd);
@@ -143,9 +144,9 @@ export class Url {
 
       // if hostname begins with [ and ends with ]
       // assume that it's an IPv6 address.
-      const ipv6Hostname =
-        this.hostname[0] === "[" &&
-        this.hostname[this.hostname.length - 1] === "]";
+      const ipv6Hostname
+        = this.hostname[0] === "["
+          && this.hostname[this.hostname.length - 1] === "]";
 
       // validate a little.
       if (!ipv6Hostname) {
@@ -163,7 +164,8 @@ export class Url {
                 // we need this to make sure size of hostname is not
                 // broken by replacing non-ASCII by nothing
                 newpart += "x";
-              } else {
+              }
+              else {
                 newpart += part[j];
               }
             }

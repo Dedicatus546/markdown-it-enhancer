@@ -40,7 +40,8 @@ const parse = (input: string, options: { sep: Array<string> }) => {
       result.meta = lines.slice(1, line).join("\n");
       line++;
       min = line;
-    } else {
+    }
+    else {
       // if no meta closing - reset to start and try to parse data without meta
       line = 1;
     }
@@ -142,9 +143,11 @@ const load = (
 
   if (isFunction(options)) {
     iterator = options;
-  } else if (isString(options)) {
+  }
+  else if (isString(options)) {
     normalizedOptions.sep = options.split("");
-  } else if (isArray(options)) {
+  }
+  else if (isArray(options)) {
     normalizedOptions.sep = options;
   }
 
@@ -161,7 +164,8 @@ const load = (
     try {
       // @ts-expect-error no-check
       parsed.meta = yaml.load((parsed.meta as string | null) ?? "");
-    } catch {
+    }
+    catch {
       parsed.meta = null;
     }
 
@@ -179,7 +183,8 @@ const load = (
       res = load(join(path, name), options, iterator);
       if (Array.isArray(res)) {
         result = result.concat(res);
-      } else if (res) {
+      }
+      else if (res) {
         result.push(res);
       }
     });

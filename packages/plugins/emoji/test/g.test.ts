@@ -114,7 +114,7 @@ describe("integrity", () => {
     });
   });
 
-  it('no chars with "uXXXX" names allowed', () => {
+  it("no chars with \"uXXXX\" names allowed", () => {
     Object.keys(emojies_defs).forEach((name) => {
       if (/^u[0-9a-b]{4,}$/i.test(name)) {
         throw Error("Name " + name + " not allowed");
@@ -135,7 +135,9 @@ describe("integrity", () => {
     let missed = "";
 
     Array.from(visible).forEach(function (ch) {
-      if (available.indexOf(ch) < 0) missed += ch;
+      if (available.indexOf(ch) < 0) {
+        missed += ch;
+      }
     });
 
     if (missed) {

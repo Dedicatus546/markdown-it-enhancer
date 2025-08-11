@@ -59,7 +59,8 @@ export const footnote_ref: StateInlineRuleFn = (state, silent) => {
       footnoteId = state.env.footnotes.list.length;
       state.env.footnotes.list[footnoteId] = { label, count: 0 };
       state.env.footnotes.refs[`:${label}`] = footnoteId;
-    } else {
+    }
+    else {
       footnoteId = state.env.footnotes.refs[`:${label}`];
     }
 

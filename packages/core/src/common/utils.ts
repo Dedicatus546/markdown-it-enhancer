@@ -76,11 +76,11 @@ const DIGITAL_ENTITY_TEST_RE = /^#((?:x[a-f0-9]{1,8}|[0-9]{1,8}))$/i;
 
 const replaceEntityPattern = (match: string, name: string) => {
   if (
-    name.charCodeAt(0) === 0x23 /* # */ &&
-    DIGITAL_ENTITY_TEST_RE.test(name)
+    name.charCodeAt(0) === 0x23
+    && /* # */ DIGITAL_ENTITY_TEST_RE.test(name)
   ) {
-    const code =
-      name[1].toLowerCase() === "x"
+    const code
+      = name[1].toLowerCase() === "x"
         ? parseInt(name.slice(2), 16)
         : parseInt(name.slice(1), 10);
 
@@ -134,7 +134,7 @@ const HTML_REPLACEMENTS = {
   "&": "&amp;",
   "<": "&lt;",
   ">": "&gt;",
-  '"': "&quot;",
+  "\"": "&quot;",
 };
 
 const replaceUnsafeChar = (ch: string) => {
@@ -333,7 +333,8 @@ const normalizeLink = (url: string) => {
     if (!parsed.protocol || RECODE_HOSTNAME_FOR.indexOf(parsed.protocol) >= 0) {
       try {
         parsed.hostname = toASCII(parsed.hostname);
-      } catch {
+      }
+      catch {
         /**/
       }
     }
@@ -355,7 +356,8 @@ const normalizeLinkText = (url: string) => {
     if (!parsed.protocol || RECODE_HOSTNAME_FOR.includes(parsed.protocol)) {
       try {
         parsed.hostname = toUnicode(parsed.hostname);
-      } catch {
+      }
+      catch {
         /**/
       }
     }

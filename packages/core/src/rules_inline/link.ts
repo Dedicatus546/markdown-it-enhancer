@@ -68,7 +68,8 @@ export default async function link(
       href = state.md.normalizeLink(res.str);
       if (state.md.validateLink(href)) {
         pos = res.pos;
-      } else {
+      }
+      else {
         href = "";
       }
 
@@ -120,10 +121,12 @@ export default async function link(
       pos = await parseLinkLabel(state, pos);
       if (pos >= 0) {
         label = state.src.slice(start, pos++);
-      } else {
+      }
+      else {
         pos = labelEnd + 1;
       }
-    } else {
+    }
+    else {
       pos = labelEnd + 1;
     }
 

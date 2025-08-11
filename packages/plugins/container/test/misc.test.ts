@@ -7,7 +7,7 @@ describe("coverage", () => {
   it("marker coverage", async () => {
     const md = new MarkdownIt().use(container, "fox", {
       marker: "foo",
-      validate: (p) => (expect(p).toBe("fox"), true),
+      validate: p => (expect(p).toBe("fox"), true),
     });
     await md.isReady();
     const tokens = await md.parse("foofoofoofox\ncontent\nfoofoofoofoo\n");

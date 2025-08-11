@@ -42,7 +42,7 @@ const _rules = [
 ] as const;
 
 interface ParserBlock {
-  State: typeof StateBlock;
+  State: typeof StateBlock
 }
 
 class ParserBlock {
@@ -115,7 +115,9 @@ class ParserBlock {
       }
 
       // this can only happen if user disables paragraph rule
-      if (!ok) throw new Error("none of the block rules matched");
+      if (!ok) {
+        throw new Error("none of the block rules matched");
+      }
 
       // set state.tight if we had an empty line before current tag
       // i.e. latest empty line should not count

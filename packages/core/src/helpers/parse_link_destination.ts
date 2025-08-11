@@ -4,9 +4,9 @@
 import { unescapeAll } from "../common/utils";
 
 export interface ParseLinkDestinationResult {
-  ok: boolean;
-  pos: number;
-  str: string;
+  ok: boolean
+  pos: number
+  str: string
 }
 
 const parseLinkDestination = (str: string, start: number, max: number) => {

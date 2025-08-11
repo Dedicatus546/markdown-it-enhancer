@@ -28,8 +28,8 @@ describe("markdown-it-for-inline", async () => {
     "link_open",
     (tokens, idx) => {
       if (
-        tokens[idx + 2].type !== "link_close" ||
-        tokens[idx + 1].type !== "text"
+        tokens[idx + 2].type !== "link_close"
+        || tokens[idx + 1].type !== "text"
       ) {
         return;
       }

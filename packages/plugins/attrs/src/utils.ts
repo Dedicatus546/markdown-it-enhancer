@@ -11,8 +11,8 @@ export const getAttrs = (
   options: Pick<
     AttributeNormalizedOptions,
     "leftDelimiter" | "rightDelimiter"
-  > &
-    Pick<AttributeOptions, "allowedAttributes">,
+  >
+  & Pick<AttributeOptions, "allowedAttributes">,
 ): Array<TokenAttr> => {
   // not tab, line feed, form feed, space, solidus, greater than sign, quotation mark, apostrophe and equals sign
   const allowedKeyChars = /[^\t\n\f />"'=]/;
@@ -52,7 +52,8 @@ export const getAttrs = (
       if (str.charAt(i + 1) === classChar) {
         key = "css-module";
         i += 1;
-      } else {
+      }
+      else {
         key = "class";
       }
       parsingKey = false;
@@ -67,11 +68,11 @@ export const getAttrs = (
     }
 
     // {value="inside quotes"}
-    if (char_ === '"' && value === "" && !valueInsideQuotes) {
+    if (char_ === "\"" && value === "" && !valueInsideQuotes) {
       valueInsideQuotes = true;
       continue;
     }
-    if (char_ === '"' && valueInsideQuotes) {
+    if (char_ === "\"" && valueInsideQuotes) {
       valueInsideQuotes = false;
       continue;
     }
@@ -111,8 +112,8 @@ export const getAttrs = (
       const isAllowedAttribute = (
         allowedAttribute: AttributeNormalizedOptions["allowedAttributes"][number],
       ) =>
-        attr === allowedAttribute ||
-        (allowedAttribute instanceof RegExp && allowedAttribute.test(attr));
+        attr === allowedAttribute
+        || (allowedAttribute instanceof RegExp && allowedAttribute.test(attr));
 
       return allowedAttributes.some(isAllowedAttribute);
     });
@@ -128,9 +129,11 @@ export const addAttrs = (attrs: Array<TokenAttr>, token: Token) => {
     const key = attrs[j][0];
     if (key === "class") {
       token.attrJoin("class", attrs[j][1]);
-    } else if (key === "css-module") {
+    }
+    else if (key === "css-module") {
       token.attrJoin("css-module", attrs[j][1]);
-    } else {
+    }
+    else {
       token.attrPush(attrs[j]);
     }
   }
@@ -150,14 +153,14 @@ export const hasDelimiters = (
 ) => {
   if (!where) {
     throw new Error(
-      'Parameter `where` not passed. Should be "start", "end" or "only".',
+      "Parameter `where` not passed. Should be \"start\", \"end\" or \"only\".",
     );
   }
 
   return (str: string) => {
     // we need minimum three chars, for example {b}
-    const minCurlyLength =
-      options.leftDelimiter.length + 1 + options.rightDelimiter.length;
+    const minCurlyLength
+      = options.leftDelimiter.length + 1 + options.rightDelimiter.length;
     if (!str || typeof str !== "string" || str.length < minCurlyLength) {
       return false;
     }
@@ -171,15 +174,15 @@ export const hasDelimiters = (
     }
 
     let start, end, slice, nextChar;
-    const rightDelimiterMinimumShift =
-      minCurlyLength - options.rightDelimiter.length;
+    const rightDelimiterMinimumShift
+      = minCurlyLength - options.rightDelimiter.length;
     switch (where) {
       case "start":
         // first char should be {, } found in char 2 or more
         slice = str.slice(0, options.leftDelimiter.length);
         start = slice === options.leftDelimiter ? 0 : -1;
-        end =
-          start === -1
+        end
+          = start === -1
             ? -1
             : str.indexOf(options.rightDelimiter, rightDelimiterMinimumShift);
         // check if next character is not one of the delimiters
@@ -192,8 +195,8 @@ export const hasDelimiters = (
       case "end":
         // last char should be }
         start = str.lastIndexOf(options.leftDelimiter);
-        end =
-          start === -1
+        end
+          = start === -1
             ? -1
             : str.indexOf(
                 options.rightDelimiter,
@@ -207,8 +210,8 @@ export const hasDelimiters = (
         slice = str.slice(0, options.leftDelimiter.length);
         start = slice === options.leftDelimiter ? 0 : -1;
         slice = str.slice(str.length - options.rightDelimiter.length);
-        end =
-          slice === options.rightDelimiter
+        end
+          = slice === options.rightDelimiter
             ? str.length - options.rightDelimiter.length
             : -1;
         break;
@@ -220,9 +223,9 @@ export const hasDelimiters = (
     }
 
     return (
-      start !== -1 &&
-      end !== -1 &&
-      validCurlyLength(
+      start !== -1
+      && end !== -1
+      && validCurlyLength(
         str.substring(start, end + options.rightDelimiter.length),
       )
     );
@@ -285,7 +288,7 @@ const HTML_REPLACEMENTS = {
   "&": "&amp;",
   "<": "&lt;",
   ">": "&gt;",
-  '"': "&quot;",
+  "\"": "&quot;",
 } as const;
 
 export const replaceUnsafeChar = (ch: string) => {
@@ -301,7 +304,7 @@ export const escapeHtml = (str: string) => {
 
 export const isArrayOfObjects = (arr?: unknown) => {
   return (
-    Array.isArray(arr) && arr.length && arr.every((i) => typeof i === "object")
+    Array.isArray(arr) && arr.length && arr.every(i => typeof i === "object")
   );
 };
 
@@ -309,9 +312,9 @@ export const isArrayOfFunctions = (
   arr?: unknown,
 ): arr is Array<(...args: unknown[]) => unknown> => {
   return (
-    Array.isArray(arr) &&
-    arr.length > 0 &&
-    arr.every((i) => typeof i === "function")
+    Array.isArray(arr)
+    && arr.length > 0
+    && arr.every(i => typeof i === "function")
   );
 };
 

@@ -5,7 +5,7 @@ import type { MarkdownIt, MarkdownItEnv } from "../index";
 import Token from "../token";
 
 interface StateCore {
-  Token: typeof Token;
+  Token: typeof Token
 }
 
 class StateCore {

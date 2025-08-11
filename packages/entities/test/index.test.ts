@@ -21,9 +21,9 @@ const levels = ["xml", "entities"];
 
 describe("Documents", () => {
   const levelDocuments = levels
-    .map((name) => new URL(`../maps/${name}.json`, import.meta.url))
+    .map(name => new URL(`../maps/${name}.json`, import.meta.url))
     .map(
-      (url) => JSON.parse(readFileSync(url, "utf8")) as Record<string, string>,
+      url => JSON.parse(readFileSync(url, "utf8")) as Record<string, string>,
     )
     .map((document, index) => [index, document] as const);
 
@@ -132,5 +132,5 @@ describe("Escape", () => {
   });
 
   it("should keep UTF8 characters", () =>
-    expect(escapeUTF8('ß < "ü"')).toBe(`ß &lt; &quot;ü&quot;`));
+    expect(escapeUTF8("ß < \"ü\"")).toBe("ß &lt; &quot;ü&quot;"));
 });

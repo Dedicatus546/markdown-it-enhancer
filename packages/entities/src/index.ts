@@ -53,7 +53,7 @@ export interface DecodingOptions {
    * The level of entities to support.
    * @default {@link EntityLevel.XML}
    */
-  level?: EntityLevelType;
+  level?: EntityLevelType
   /**
    * Decoding mode. If `Legacy`, will support legacy entities not terminated
    * with a semicolon (`;`).
@@ -65,7 +65,7 @@ export interface DecodingOptions {
    *
    * @default {@link DecodingMode.Legacy}
    */
-  mode?: DecodingModeType | undefined;
+  mode?: DecodingModeType | undefined
 }
 
 /**
@@ -99,8 +99,8 @@ export function decodeStrict(
   input: string,
   options: DecodingOptions | EntityLevelType = EntityLevel.XML,
 ): string {
-  const normalizedOptions =
-    typeof options === "number" ? { level: options } : options;
+  const normalizedOptions
+    = typeof options === "number" ? { level: options } : options;
   normalizedOptions.mode ??= DecodingMode.Strict;
 
   return decode(input, normalizedOptions);
@@ -114,12 +114,12 @@ export interface EncodingOptions {
    * The level of entities to support.
    * @default {@link EntityLevel.XML}
    */
-  level?: EntityLevelType;
+  level?: EntityLevelType
   /**
    * Output format.
    * @default {@link EncodingMode.Extensive}
    */
-  mode?: EncodingModeType;
+  mode?: EncodingModeType
 }
 
 /**
@@ -132,8 +132,8 @@ export function encode(
   input: string,
   options: EncodingOptions | EntityLevelType = EntityLevel.XML,
 ): string {
-  const { mode = EncodingMode.Extensive, level = EntityLevel.XML } =
-    typeof options === "number" ? { level: options } : options;
+  const { mode = EncodingMode.Extensive, level = EntityLevel.XML }
+    = typeof options === "number" ? { level: options } : options;
 
   switch (mode) {
     case EncodingMode.UTF8: {

@@ -7,7 +7,9 @@ function processDelimiters(delimiters: Array<Delimiter>) {
   const openersBottom: Record<number, Array<number>> = {};
   const max = delimiters.length;
 
-  if (!max) return;
+  if (!max) {
+    return;
+  }
 
   // headerIdx is the first delimiter of the current (where closer is) delimiter run
   let headerIdx = 0;
@@ -24,8 +26,8 @@ function processDelimiters(delimiters: Array<Delimiter>) {
     //  - AND markers are the same
     //
     if (
-      delimiters[headerIdx].marker !== closer.marker ||
-      lastTokenIdx !== closer.token - 1
+      delimiters[headerIdx].marker !== closer.marker
+      || lastTokenIdx !== closer.token - 1
     ) {
       headerIdx = closerIdx;
     }
@@ -38,7 +40,9 @@ function processDelimiters(delimiters: Array<Delimiter>) {
     //
     closer.length = closer.length || 0;
 
-    if (!closer.close) continue;
+    if (!closer.close) {
+      continue;
+    }
 
     // Previously calculated lower bounds (previous fails)
     // for each marker, each delimiter length modulo 3,
@@ -49,8 +53,8 @@ function processDelimiters(delimiters: Array<Delimiter>) {
       openersBottom[closer.marker] = [-1, -1, -1, -1, -1, -1];
     }
 
-    const minOpenerIdx =
-      openersBottom[closer.marker][(closer.open ? 3 : 0) + (closer.length % 3)];
+    const minOpenerIdx
+      = openersBottom[closer.marker][(closer.open ? 3 : 0) + (closer.length % 3)];
 
     let openerIdx = headerIdx - jumps[headerIdx] - 1;
 
@@ -59,7 +63,9 @@ function processDelimiters(delimiters: Array<Delimiter>) {
     for (; openerIdx > minOpenerIdx; openerIdx -= jumps[openerIdx] + 1) {
       const opener = delimiters[openerIdx];
 
-      if (opener.marker !== closer.marker) continue;
+      if (opener.marker !== closer.marker) {
+        continue;
+      }
 
       if (opener.open && opener.end < 0) {
         let isOddMatch = false;
@@ -84,8 +90,8 @@ function processDelimiters(delimiters: Array<Delimiter>) {
           // the entire sequence in future checks. This is required to make
           // sure algorithm has linear complexity (see *_*_*_*_*_... case).
           //
-          const lastJump =
-            openerIdx > 0 && !delimiters[openerIdx - 1].open
+          const lastJump
+            = openerIdx > 0 && !delimiters[openerIdx - 1].open
               ? jumps[openerIdx - 1] + 1
               : 0;
 

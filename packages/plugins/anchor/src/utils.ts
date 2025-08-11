@@ -3,8 +3,8 @@ import type { Token, TokenAttr } from "markdown-it-enhancer";
 export const isLevelSelectedNumber = (selection: number) => (level: number) =>
   level >= selection;
 
-export const isLevelSelectedArray =
-  (selection: Array<number>) => (level: number) =>
+export const isLevelSelectedArray
+  = (selection: Array<number>) => (level: number) =>
     selection.includes(level);
 
 export const slugify = (s: string) =>
@@ -12,8 +12,8 @@ export const slugify = (s: string) =>
 
 export const getTokensText = (tokens: Array<Token>) => {
   return tokens
-    .filter((t) => ["text", "code_inline"].includes(t.type))
-    .map((t) => t.content)
+    .filter(t => ["text", "code_inline"].includes(t.type))
+    .map(t => t.content)
     .join("");
 };
 
@@ -30,7 +30,8 @@ export const uniqueIdValue = (
     throw new Error(
       `User defined \`id\` attribute \`${idValue}\` is not unique. Please fix it in your Markdown to continue.`,
     );
-  } else {
+  }
+  else {
     while (Object.hasOwn(idValueMap, uniqueIdValue)) {
       uniqueIdValue = `${idValue}-${i}`;
       i += 1;

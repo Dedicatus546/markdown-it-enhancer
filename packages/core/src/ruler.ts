@@ -4,10 +4,10 @@ import StateInline from "./rules_inline/state_inline";
 import { Awaitable } from "./types";
 
 export interface Rule<T> {
-  name: string;
-  enabled: boolean;
-  fn: RuleFn<T>;
-  alt: Array<string>;
+  name: string
+  enabled: boolean
+  fn: RuleFn<T>
+  alt: Array<string>
 }
 
 export type RuleResult = undefined | void | boolean;
@@ -18,15 +18,15 @@ export interface StateBlockRuleFn {
     startLine: number,
     endLine: number,
     silent?: boolean,
-  ): Awaitable<RuleResult>;
+  ): Awaitable<RuleResult>
 }
 
 export interface StateInlineRuleFn {
-  (state: StateInline, silent?: boolean): Awaitable<RuleResult>;
+  (state: StateInline, silent?: boolean): Awaitable<RuleResult>
 }
 
 export interface StateCoreRuleFn {
-  (state: StateCore): Awaitable<RuleResult>;
+  (state: StateCore): Awaitable<RuleResult>
 }
 
 export type RuleFn<T> = T extends StateBlock

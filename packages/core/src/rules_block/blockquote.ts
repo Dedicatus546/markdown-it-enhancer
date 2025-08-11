@@ -95,7 +95,8 @@ const blockquote: StateBlockRuleFn = async (
         initial++;
         adjustTab = false;
         spaceAfterMarker = true;
-      } else if (state.src.charCodeAt(pos) === 0x09 /* tab */) {
+      }
+      else if (state.src.charCodeAt(pos) === 0x09 /* tab */) {
         spaceAfterMarker = true;
 
         if ((state.bsCount[nextLine] + initial) % 4 === 3) {
@@ -104,13 +105,15 @@ const blockquote: StateBlockRuleFn = async (
           pos++;
           initial++;
           adjustTab = false;
-        } else {
+        }
+        else {
           // ' >\t  test '
           //    ^ -- position start of line here + shift bsCount slightly
           //         to make extra space appear
           adjustTab = true;
         }
-      } else {
+      }
+      else {
         spaceAfterMarker = false;
       }
 
@@ -123,13 +126,15 @@ const blockquote: StateBlockRuleFn = async (
 
         if (isSpace(ch)) {
           if (ch === 0x09) {
-            offset +=
-              4 -
-              ((offset + state.bsCount[nextLine] + (adjustTab ? 1 : 0)) % 4);
-          } else {
+            offset
+              += 4
+                - ((offset + state.bsCount[nextLine] + (adjustTab ? 1 : 0)) % 4);
+          }
+          else {
             offset++;
           }
-        } else {
+        }
+        else {
           break;
         }
 
@@ -139,8 +144,8 @@ const blockquote: StateBlockRuleFn = async (
       lastLineEmpty = pos >= max;
 
       oldBSCount.push(state.bsCount[nextLine]);
-      state.bsCount[nextLine] =
-        state.sCount[nextLine] + 1 + (spaceAfterMarker ? 1 : 0);
+      state.bsCount[nextLine]
+        = state.sCount[nextLine] + 1 + (spaceAfterMarker ? 1 : 0);
 
       oldSCount.push(state.sCount[nextLine]);
       state.sCount[nextLine] = offset - initial;

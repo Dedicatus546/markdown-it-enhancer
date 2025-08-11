@@ -15,7 +15,9 @@ export default function text_join(state: StateCore) {
   const l = blockTokens.length;
 
   for (let j = 0; j < l; j++) {
-    if (blockTokens[j].type !== "inline") continue;
+    if (blockTokens[j].type !== "inline") {
+      continue;
+    }
 
     const tokens = blockTokens[j].children;
     const max = tokens.length;
@@ -28,14 +30,15 @@ export default function text_join(state: StateCore) {
 
     for (curr = last = 0; curr < max; curr++) {
       if (
-        tokens[curr].type === "text" &&
-        curr + 1 < max &&
-        tokens[curr + 1].type === "text"
+        tokens[curr].type === "text"
+        && curr + 1 < max
+        && tokens[curr + 1].type === "text"
       ) {
         // collapse two adjacent text nodes
-        tokens[curr + 1].content =
-          tokens[curr].content + tokens[curr + 1].content;
-      } else {
+        tokens[curr + 1].content
+          = tokens[curr].content + tokens[curr + 1].content;
+      }
+      else {
         if (curr !== last) {
           tokens[last] = tokens[curr];
         }

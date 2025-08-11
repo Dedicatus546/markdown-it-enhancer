@@ -1,8 +1,8 @@
 // Generated using scripts/write-encode-map.ts
 
-type EncodeTrieNode =
-  | string
-  | { v?: string; n: number | Map<number, EncodeTrieNode>; o?: string };
+type EncodeTrieNode
+  = | string
+    | { v?: string, n: number | Map<number, EncodeTrieNode>, o?: string };
 
 function restoreDiff<T extends ReadonlyArray<[number, EncodeTrieNode]>>(
   array: T,

@@ -46,7 +46,8 @@ describe("links", () => {
         expect(l.match(line)?.[0].url).toBe(next);
       });
       skipNext = true;
-    } else {
+    }
+    else {
       it("line " + (idx + 1), () => {
         expect(
           l.pretest(line),
@@ -83,11 +84,11 @@ describe("not links", () => {
     it("line " + (idx + 1), () => {
       expect(
         !l.test(line),
-        "(should not find link in `" +
-          line +
-          "`, but found `" +
-          JSON.stringify((l.match(line) || [])[0]) +
-          "`)",
+        "(should not find link in `"
+        + line
+        + "`, but found `"
+        + JSON.stringify((l.match(line) || [])[0])
+        + "`)",
       ).toBeTruthy();
     });
   });

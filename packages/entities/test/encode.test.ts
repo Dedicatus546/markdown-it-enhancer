@@ -39,8 +39,8 @@ describe("Encode->decode test", () => {
   }
 
   it("should encode data URIs (issue #16)", () => {
-    const data =
-      "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAALAAABAAEAAAIBRAA7";
+    const data
+      = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAALAAABAAEAAAIBRAA7";
     expect(entities.decode(entities.encode(data))).toBe(data);
   });
 

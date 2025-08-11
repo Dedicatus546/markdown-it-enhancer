@@ -31,14 +31,15 @@ export default function fragments_join(state: StateInline) {
     }
 
     if (
-      tokens[curr].type === "text" &&
-      curr + 1 < max &&
-      tokens[curr + 1].type === "text"
+      tokens[curr].type === "text"
+      && curr + 1 < max
+      && tokens[curr + 1].type === "text"
     ) {
       // collapse two adjacent text nodes
-      tokens[curr + 1].content =
-        tokens[curr].content + tokens[curr + 1].content;
-    } else {
+      tokens[curr + 1].content
+        = tokens[curr].content + tokens[curr + 1].content;
+    }
+    else {
       if (curr !== last) {
         tokens[last] = tokens[curr];
       }

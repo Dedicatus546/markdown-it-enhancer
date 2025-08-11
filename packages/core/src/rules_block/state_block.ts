@@ -5,7 +5,7 @@ import { type MarkdownIt, MarkdownItEnv } from "../index";
 import Token, { TokenNesting, type TokenNestingType } from "../token";
 
 interface StateBlock {
-  Token: typeof Token;
+  Token: typeof Token
 }
 
 class StateBlock {
@@ -109,11 +109,13 @@ class StateBlock {
 
           if (ch === 0x09) {
             offset += 4 - (offset % 4);
-          } else {
+          }
+          else {
             offset++;
           }
           continue;
-        } else {
+        }
+        else {
           indent_found = true;
         }
       }
@@ -249,7 +251,8 @@ class StateBlock {
       if (line + 1 < end || keepLastLF) {
         // No need for bounds check because we have fake entry on tail.
         last = this.eMarks[line] + 1;
-      } else {
+      }
+      else {
         last = this.eMarks[line];
       }
 
@@ -259,13 +262,16 @@ class StateBlock {
         if (isSpace(ch)) {
           if (ch === 0x09) {
             lineIndent += 4 - ((lineIndent + this.bsCount[line]) % 4);
-          } else {
+          }
+          else {
             lineIndent++;
           }
-        } else if (first - lineStart < this.tShift[line]) {
+        }
+        else if (first - lineStart < this.tShift[line]) {
           // patched tShift masked characters to look like spaces (blockquotes, list markers)
           lineIndent++;
-        } else {
+        }
+        else {
           break;
         }
 
@@ -275,10 +281,11 @@ class StateBlock {
       if (lineIndent > indent) {
         // partially expanding tabs in code blocks, e.g '\t\tfoobar'
         // with indent=2 becomes '  \tfoobar'
-        queue[i] =
-          new Array(lineIndent - indent + 1).join(" ") +
-          this.src.slice(first, last);
-      } else {
+        queue[i]
+          = new Array(lineIndent - indent + 1).join(" ")
+            + this.src.slice(first, last);
+      }
+      else {
         queue[i] = this.src.slice(first, last);
       }
     }

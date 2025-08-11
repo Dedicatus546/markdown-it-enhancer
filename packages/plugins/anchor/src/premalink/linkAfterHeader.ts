@@ -14,8 +14,8 @@ import { makePermalink } from "./makePermalink";
 
 export const linkAfterHeader = makePermalink<
   LinkAfterHeaderPermalinkOptions,
-  PermalinkNormalizedBaseOptions &
-    Required<
+  PermalinkNormalizedBaseOptions
+  & Required<
       Pick<
         LinkAfterHeaderPermalinkOptions,
         "style" | "space" | "wrapper" | "placement"
@@ -37,8 +37,8 @@ export const linkAfterHeader = makePermalink<
     }
 
     if (
-      (opts.style === "visually-hidden" || opts.style === "aria-label") &&
-      !opts.assistiveText
+      (opts.style === "visually-hidden" || opts.style === "aria-label")
+      && !opts.assistiveText
     ) {
       throw new Error(
         `\`permalink.linkAfterHeader\` called without the \`assistiveText\` option in \`${opts.style}\` style`,
@@ -52,7 +52,7 @@ export const linkAfterHeader = makePermalink<
     }
 
     const title = state.tokens[idx + 1].children
-      .filter((token) => token.type === "text" || token.type === "code_inline")
+      .filter(token => token.type === "text" || token.type === "code_inline")
       .reduce((acc, t) => acc + t.content, "");
 
     const subLinkTokens: Array<Token> = [];
@@ -96,7 +96,8 @@ export const linkAfterHeader = makePermalink<
         }),
         new state.Token("span_close", "span", -1),
       );
-    } else {
+    }
+    else {
       subLinkTokens.push(
         Object.assign(new state.Token("html_inline", "", 0), {
           content: opts.symbol,
@@ -107,7 +108,8 @@ export const linkAfterHeader = makePermalink<
 
     if (opts.style === "aria-label") {
       linkAttrs.push(["aria-label", opts.assistiveText(title)]);
-    } else if (["aria-describedby", "aria-labelledby"].includes(opts.style)) {
+    }
+    else if (["aria-describedby", "aria-labelledby"].includes(opts.style)) {
       linkAttrs.push([opts.style, slug]);
     }
 

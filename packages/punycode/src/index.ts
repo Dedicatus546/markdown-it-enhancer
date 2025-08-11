@@ -20,7 +20,7 @@ const regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g; // RFC 3490 separators
 
 /** Error messages */
 const errors: Record<string, string> = {
-  overflow: "Overflow: input needs wider integers to process",
+  "overflow": "Overflow: input needs wider integers to process",
   "not-basic": "Illegal input >= 0x80 (not a basic code point)",
   "invalid-input": "Invalid input",
 };
@@ -30,7 +30,7 @@ const baseMinusTMin = base - tMin;
 const floor = Math.floor;
 const stringFromCharCode = String.fromCharCode;
 
-/*--------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------- */
 
 /**
  * A generic error utility function.
@@ -93,13 +93,15 @@ const ucs2decode = (string: string) => {
       if ((extra & 0xfc00) == 0xdc00) {
         // Low surrogate.
         output.push(((value & 0x3ff) << 10) + (extra & 0x3ff) + 0x10000);
-      } else {
+      }
+      else {
         // It's an unmatched surrogate; only append this code unit, in case the
         // next code unit is the high surrogate of a surrogate pair.
         output.push(value);
         counter--;
       }
-    } else {
+    }
+    else {
       output.push(value);
     }
   }
@@ -212,7 +214,7 @@ const decode = (input: string) => {
 
   for (
     let index = basic > 0 ? basic + 1 : 0;
-    index < inputLength /* no final expression */;
+    index < inputLength;
 
   ) {
     // `index` is the index of the next character to be consumed.
@@ -221,7 +223,7 @@ const decode = (input: string) => {
     // if we increase `i` as we go, then subtract off its starting
     // value at the end to obtain `delta`.
     const oldi = i;
-    for (let w = 1, k = base /* no condition */; ; k += base) {
+    for (let w = 1, k = base; ; k += base) {
       if (index >= inputLength) {
         error("invalid-input");
       }
@@ -337,7 +339,7 @@ const encode = (input: string) => {
       if (currentValue === n) {
         // Represent delta as a generalized variable-length integer.
         let q = delta;
-        for (let k = base /* no condition */; ; k += base) {
+        for (let k = base; ; k += base) {
           const t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
           if (q < t) {
             break;
@@ -403,7 +405,7 @@ const toASCII = (input: string) => {
   });
 };
 
-/*--------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------- */
 
 /** Define the public API */
 const punycode = {

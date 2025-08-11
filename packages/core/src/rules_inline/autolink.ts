@@ -3,8 +3,8 @@
 import StateInline from "./state_inline";
 
 /* eslint max-len:0 */
-const EMAIL_RE =
-  /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)$/;
+const EMAIL_RE
+  = /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)$/;
 /* eslint-disable-next-line no-control-regex */
 const AUTOLINK_RE = /^([a-zA-Z][a-zA-Z0-9+.-]{1,31}):([^<>\x00-\x20]*)$/;
 
@@ -19,12 +19,18 @@ export default function autolink(state: StateInline, silent: boolean = false) {
   const max = state.posMax;
 
   for (;;) {
-    if (++pos >= max) return false;
+    if (++pos >= max) {
+      return false;
+    }
 
     const ch = state.src.charCodeAt(pos);
 
-    if (ch === 0x3c /* < */) return false;
-    if (ch === 0x3e /* > */) break;
+    if (ch === 0x3c /* < */) {
+      return false;
+    }
+    if (ch === 0x3e /* > */) {
+      break;
+    }
   }
 
   const url = state.src.slice(start + 1, pos);

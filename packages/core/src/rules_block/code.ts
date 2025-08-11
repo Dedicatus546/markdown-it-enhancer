@@ -27,8 +27,8 @@ const code: StateBlockRuleFn = (state, startLine, endLine) => {
   state.line = last;
 
   const token = state.push("code_block", "code", 0);
-  token.content =
-    state.getLines(startLine, last, 4 + state.blkIndent, false) + "\n";
+  token.content
+    = state.getLines(startLine, last, 4 + state.blkIndent, false) + "\n";
   token.map = [startLine, state.line];
 
   return true;

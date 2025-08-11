@@ -25,7 +25,7 @@ describe("api", () => {
     await md.isReady();
     await expect(
       md.render("->->-> spoiler\n*content*\n->->->\n"),
-    ).resolves.toBe('<div class="spoiler">\n<p><em>content</em></p>\n</div>\n');
+    ).resolves.toBe("<div class=\"spoiler\">\n<p><em>content</em></p>\n</div>\n");
   });
 
   it("marker should not collide with fence", async () => {
@@ -34,7 +34,7 @@ describe("api", () => {
     });
     await md.isReady();
     await expect(md.render("``` spoiler\n*content*\n```\n")).resolves.toBe(
-      '<div class="spoiler">\n<p><em>content</em></p>\n</div>\n',
+      "<div class=\"spoiler\">\n<p><em>content</em></p>\n</div>\n",
     );
   });
 
@@ -46,7 +46,7 @@ describe("api", () => {
     await expect(
       md.render("\n``` not spoiler\n*content*\n```\n"),
     ).resolves.toBe(
-      '<pre><code class="language-not">*content*\n</code></pre>\n',
+      "<pre><code class=\"language-not\">*content*\n</code></pre>\n",
     );
   });
 
@@ -69,7 +69,7 @@ describe("api", () => {
       await md.isReady();
 
       await expect(md.render(":::foo\nbar\n:::\n")).resolves.toBe(
-        '<div class="name">\n<p>bar</p>\n</div>\n',
+        "<div class=\"name\">\n<p>bar</p>\n</div>\n",
       );
     });
 
@@ -89,7 +89,7 @@ describe("api", () => {
 
     it("should not trim params", async () => {
       const md = new MarkdownIt().use(container, "name", {
-        validate: (p) => (expect(p).toBe(" \tname "), true),
+        validate: p => (expect(p).toBe(" \tname "), true),
       });
       await md.isReady();
       await md.parse("::: \tname \ncontent\n:::\n");
@@ -105,7 +105,7 @@ describe("api", () => {
         "<p>:::\nfoo\n:::</p>\n",
       );
       await expect(md.render("::::\nfoo\n::::\n")).resolves.toBe(
-        '<div class="name">\n<p>foo</p>\n</div>\n',
+        "<div class=\"name\">\n<p>foo</p>\n</div>\n",
       );
     });
   });

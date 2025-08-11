@@ -147,7 +147,7 @@ describe("markdown-it-task-lists", () => {
     ).toBeTruthy();
   });
 
-  it('does NOT render [  ], "[ ]" (no space after closing bracket), [ x], [x ], or [ x ] as checkboxes', () => {
+  it("does NOT render [  ], \"[ ]\" (no space after closing bracket), [ x], [x ], or [ x ] as checkboxes", () => {
     const html = $.dirty.html();
     expect(~html.indexOf("<li>[  ]")).toBeTruthy();
     expect(~html.indexOf("<li>[ ]</li>")).toBeTruthy();

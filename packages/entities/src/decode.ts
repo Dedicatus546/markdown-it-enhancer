@@ -32,16 +32,16 @@ function isNumber(code: number): boolean {
 
 function isHexadecimalCharacter(code: number): boolean {
   return (
-    (code >= CharCodes.UPPER_A && code <= CharCodes.UPPER_F) ||
-    (code >= CharCodes.LOWER_A && code <= CharCodes.LOWER_F)
+    (code >= CharCodes.UPPER_A && code <= CharCodes.UPPER_F)
+    || (code >= CharCodes.LOWER_A && code <= CharCodes.LOWER_F)
   );
 }
 
 function isAsciiAlphaNumeric(code: number): boolean {
   return (
-    (code >= CharCodes.UPPER_A && code <= CharCodes.UPPER_Z) ||
-    (code >= CharCodes.LOWER_A && code <= CharCodes.LOWER_Z) ||
-    isNumber(code)
+    (code >= CharCodes.UPPER_A && code <= CharCodes.UPPER_Z)
+    || (code >= CharCodes.LOWER_A && code <= CharCodes.LOWER_Z)
+    || isNumber(code)
   );
 }
 
@@ -63,8 +63,8 @@ const EntityDecoderState = {
   NamedEntity: 4,
 } as const;
 
-type EntityDecoderStateType =
-  (typeof EntityDecoderState)[keyof typeof EntityDecoderState];
+type EntityDecoderStateType
+  = (typeof EntityDecoderState)[keyof typeof EntityDecoderState];
 
 export const DecodingMode = {
   /** Entities in text nodes that can end with any character. */
@@ -81,9 +81,9 @@ export type DecodingModeType = (typeof DecodingMode)[keyof typeof DecodingMode];
  * Producers for character reference errors as defined in the HTML spec.
  */
 export interface EntityErrorProducer {
-  missingSemicolonAfterCharacterReference(): void;
-  absenceOfDigitsInNumericCharacterReference(consumedCharacters: number): void;
-  validateNumericCharacterReference(code: number): void;
+  missingSemicolonAfterCharacterReference(): void
+  absenceOfDigitsInNumericCharacterReference(consumedCharacters: number): void
+  validateNumericCharacterReference(code: number): void
 }
 
 /**
@@ -209,9 +209,9 @@ export class EntityDecoder {
   ): void {
     if (start !== end) {
       const digitCount = end - start;
-      this.result =
-        this.result * Math.pow(base, digitCount) +
-        Number.parseInt(input.substr(start, digitCount), base);
+      this.result
+        = this.result * Math.pow(base, digitCount)
+          + Number.parseInt(input.substr(start, digitCount), base);
       this.consumed += digitCount;
     }
   }
@@ -232,7 +232,8 @@ export class EntityDecoder {
       const char = input.charCodeAt(offset);
       if (isNumber(char) || isHexadecimalCharacter(char)) {
         offset += 1;
-      } else {
+      }
+      else {
         this.addToNumericResult(input, startIndex, offset, 16);
         return this.emitNumericEntity(char, 3);
       }
@@ -259,7 +260,8 @@ export class EntityDecoder {
       const char = input.charCodeAt(offset);
       if (isNumber(char)) {
         offset += 1;
-      } else {
+      }
+      else {
         this.addToNumericResult(input, startIndex, offset, 10);
         return this.emitNumericEntity(char, 2);
       }
@@ -293,7 +295,8 @@ export class EntityDecoder {
     // Figure out if this is a legit end of the entity
     if (lastCp === CharCodes.SEMI) {
       this.consumed += 1;
-    } else if (this.decodeMode === DecodingMode.Strict) {
+    }
+    else if (this.decodeMode === DecodingMode.Strict) {
       return 0;
     }
 
@@ -336,13 +339,13 @@ export class EntityDecoder {
       );
 
       if (this.treeIndex < 0) {
-        return this.result === 0 ||
+        return this.result === 0
           // If we are parsing an attribute
-          (this.decodeMode === DecodingMode.Attribute &&
+          || (this.decodeMode === DecodingMode.Attribute
             // We shouldn't have consumed any characters after the entity,
-            (valueLength === 0 ||
+            && (valueLength === 0
               // And there should be no invalid characters.
-              isEntityInAttributeInvalidEnd(char)))
+              || isEntityInAttributeInvalidEnd(char)))
           ? 0
           : this.emitNotTerminatedNamedEntity();
       }
@@ -430,9 +433,9 @@ export class EntityDecoder {
     switch (this.state) {
       case EntityDecoderState.NamedEntity: {
         // Emit a named entity if we have one.
-        return this.result !== 0 &&
-          (this.decodeMode !== DecodingMode.Attribute ||
-            this.result === this.treeIndex)
+        return this.result !== 0
+          && (this.decodeMode !== DecodingMode.Attribute
+            || this.result === this.treeIndex)
           ? this.emitNotTerminatedNamedEntity()
           : 0;
       }
@@ -465,7 +468,7 @@ function getDecoder(decodeTree: Uint16Array) {
   let returnValue = "";
   const decoder = new EntityDecoder(
     decodeTree,
-    (data) => (returnValue += fromCodePoint(data)),
+    data => (returnValue += fromCodePoint(data)),
   );
 
   return function decodeWithTrie(
@@ -550,9 +553,11 @@ export function determineBranch(
 
     if (midValue < char) {
       lo = mid + 1;
-    } else if (midValue > char) {
+    }
+    else if (midValue > char) {
       hi = mid - 1;
-    } else {
+    }
+    else {
       return decodeTree[mid + branchCount];
     }
   }

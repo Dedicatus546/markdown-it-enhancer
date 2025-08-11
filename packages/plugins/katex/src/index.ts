@@ -21,8 +21,8 @@ import type { IsValidDelimResult, MathOptions } from "./types";
 
 declare module "markdown-it-enhancer" {
   export interface RendererExtendsRules {
-    math_block: RendererFn<"sync">;
-    math_inline: RendererFn<"sync">;
+    math_block: RendererFn<"sync">
+    math_inline: RendererFn<"sync">
   }
 }
 
@@ -39,9 +39,9 @@ const isValidDelim = (state: StateInline, pos: number): IsValidDelimResult => {
   // Check non-whitespace conditions for opening and closing, and
   // check that closing delimeter isn't followed by a number
   if (
-    prevChar === 0x20 /* " " */ ||
-    prevChar === 0x09 /* \t */ ||
-    (nextChar >= 0x30 /* "0" */ && nextChar <= 0x39) /* "9" */
+    prevChar === 0x20
+    || /* " " */ prevChar === 0x09
+    || /* \t */ (nextChar >= 0x30 /* "0" */ && nextChar <= 0x39) /* "9" */
   ) {
     can_close = false;
   }
@@ -158,7 +158,7 @@ const math_block: StateBlockRuleFn = (state, start, end, silent) => {
     found = true;
   }
 
-  for (next = start; !found; ) {
+  for (next = start; !found;) {
     next++;
 
     if (next >= end) {
@@ -184,10 +184,10 @@ const math_block: StateBlockRuleFn = (state, start, end, silent) => {
 
   const token = state.push("math_block", "math", 0);
   token.block = true;
-  token.content =
-    (firstLine && firstLine.trim() ? firstLine + "\n" : "") +
-    state.getLines(start + 1, next, state.tShift[start], true) +
-    (lastLine && lastLine.trim() ? lastLine : "");
+  token.content
+    = (firstLine && firstLine.trim() ? firstLine + "\n" : "")
+      + state.getLines(start + 1, next, state.tShift[start], true)
+      + (lastLine && lastLine.trim() ? lastLine : "");
   token.map = [start, state.line];
   token.markup = "$$";
   return true;
@@ -204,7 +204,8 @@ export const math: MarkdownItPlugin<[options?: MathOptions]> = (
     options.displayMode = false;
     try {
       return katex.renderToString(latex, options);
-    } catch (error) {
+    }
+    catch (error) {
       if (options.throwOnError) {
         console.log(error);
       }
@@ -220,7 +221,8 @@ export const math: MarkdownItPlugin<[options?: MathOptions]> = (
     options.displayMode = true;
     try {
       return "<p>" + katex.renderToString(latex, options) + "</p>";
-    } catch (error) {
+    }
+    catch (error) {
       if (options.throwOnError) {
         console.log(error);
       }

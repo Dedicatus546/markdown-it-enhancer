@@ -13,7 +13,7 @@ import {
 
 declare module "markdown-it-enhancer" {
   export interface TokenMeta {
-    colsnum?: number;
+    colsnum?: number
   }
 }
 
@@ -21,11 +21,11 @@ export const patterns = (
   options: AttributeNormalizedOptions,
 ): PatternsResult => {
   const __hr = new RegExp(
-    "^ {0,3}[-*_]{3,} ?" +
-      escapeRegExp(options.leftDelimiter) +
-      "[^" +
-      escapeRegExp(options.rightDelimiter) +
-      "]",
+    "^ {0,3}[-*_]{3,} ?"
+    + escapeRegExp(options.leftDelimiter)
+    + "[^"
+    + escapeRegExp(options.rightDelimiter)
+    + "]",
   );
 
   return [
@@ -85,7 +85,8 @@ export const patterns = (
         addAttrs(attrs, attrToken);
         if (token.content.length === endChar + options.rightDelimiter.length) {
           tokens[i].children.splice(j, 1);
-        } else {
+        }
+        else {
           token.content = token.content.slice(
             endChar + options.rightDelimiter.length,
           );
@@ -166,8 +167,8 @@ export const patterns = (
             });
             break;
           }
-          colsnum +=
-            tokens[n].level === th.level && tokens[n].type === th.type ? 1 : 0;
+          colsnum
+            += tokens[n].level === th.level && tokens[n].type === th.type ? 1 : 0;
         }
         tokens[i + 2].meta = Object.assign({}, tokens[i + 2].meta, { colsnum });
       },
@@ -191,7 +192,7 @@ export const patterns = (
       transform: (tokens, i) => {
         /** index of the tbody beginning */
         let idx = i - 2;
-        while (idx > 0 && "tbody_open" !== tokens[--idx].type);
+        while (idx > 0 && "tbody_open" !== tokens[--idx].type) { ; }
 
         const calc = tokens[idx].meta?.colsnum ?? 0;
         if (calc < 2) {
@@ -231,7 +232,8 @@ export const patterns = (
             for (let k = n, num = 0; k < i; k++) {
               if ("td_open" == tokens[k].type) {
                 num += 1;
-              } else if ("tr_close" == tokens[k].type) {
+              }
+              else if ("tr_close" == tokens[k].type) {
                 break;
               }
               if (num > max && !tokens[k].hidden) {
@@ -252,7 +254,8 @@ export const patterns = (
               if ("tr_open" == tokens[k].type) {
                 num = tokens[k].meta?.colsnum ?? num;
                 break;
-              } else if ("td_open" === tokens[k].type) {
+              }
+              else if ("td_open" === tokens[k].type) {
                 one.unshift(k);
               }
             }
@@ -261,7 +264,8 @@ export const patterns = (
               if ("tr_close" == tokens[k].type) {
                 end = k;
                 break;
-              } else if ("td_open" == tokens[k].type) {
+              }
+              else if ("td_open" == tokens[k].type) {
                 one.push(k);
               }
             }
@@ -314,8 +318,8 @@ export const patterns = (
         ) as Token;
         addAttrs(attrs, openingToken);
         token.content = content.slice(
-          content.indexOf(options.rightDelimiter) +
-            options.rightDelimiter.length,
+          content.indexOf(options.rightDelimiter)
+          + options.rightDelimiter.length,
         );
       },
     },
@@ -352,9 +356,9 @@ export const patterns = (
         const attrs = getAttrs(content, 0, options);
         let ii = i - 2;
         while (
-          tokens[ii - 1] &&
-          tokens[ii - 1].type !== "ordered_list_open" &&
-          tokens[ii - 1].type !== "bullet_list_open"
+          tokens[ii - 1]
+          && tokens[ii - 1].type !== "ordered_list_open"
+          && tokens[ii - 1].type !== "bullet_list_open"
         ) {
           ii--;
         }
@@ -376,7 +380,7 @@ export const patterns = (
           // let this token be i = 0 so that we can erase
           // the <p>{.a}</p> tokens below
           shift: 0,
-          type: (str) =>
+          type: str =>
             str === "bullet_list_close" || str === "ordered_list_close",
         },
         {
@@ -387,7 +391,7 @@ export const patterns = (
           shift: 2,
           type: "inline",
           content: hasDelimiters("only", options),
-          children: (arr) => arr.length === 1,
+          children: arr => arr.length === 1,
         },
         {
           shift: 3,
@@ -470,8 +474,8 @@ export const patterns = (
         // find last closing tag
         let ii = i + 1;
         while (
-          tokens[ii + 1] &&
-          tokens[ii + 1].nesting === TokenNesting.CLOSING
+          tokens[ii + 1]
+          && tokens[ii + 1].nesting === TokenNesting.CLOSING
         ) {
           ii++;
         }
@@ -493,8 +497,8 @@ export const patterns = (
         {
           shift: 1,
           type: "inline",
-          children: (arr) => arr.length === 1,
-          content: (str) => str.match(__hr) !== null,
+          children: arr => arr.length === 1,
+          content: str => str.match(__hr) !== null,
         },
         {
           shift: 2,
@@ -527,7 +531,7 @@ export const patterns = (
             {
               position: -1,
               content: hasDelimiters("end", options),
-              type: (t) => t !== "code_inline" && t !== "math_inline",
+              type: t => t !== "code_inline" && t !== "math_inline",
             },
           ],
         },
@@ -541,10 +545,11 @@ export const patterns = (
           options,
         );
         let ii = i + 1;
-        do
+        do {
           if (tokens[ii] && tokens[ii].nesting === TokenNesting.CLOSING) {
             break;
           }
+        }
         while (ii++ < tokens.length);
         const openingToken = getMatchingOpeningToken(tokens, ii) as Token;
         addAttrs(attrs, openingToken);

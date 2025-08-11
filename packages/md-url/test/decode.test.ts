@@ -7,8 +7,8 @@ const encodeBinary = (str: string) => {
 
   str = str.replace(/\s+/g, "");
   while (str.length) {
-    result =
-      "%" + ("0" + parseInt(str.slice(-8), 2).toString(16)).slice(-2) + result;
+    result
+      = "%" + ("0" + parseInt(str.slice(-8), 2).toString(16)).slice(-2) + result;
     str = str.slice(0, -8);
   }
 
@@ -21,8 +21,8 @@ const samples = {
   "01111111": true,
 
   // invalid as 1st byte
-  10000000: true,
-  10111111: true,
+  "10000000": true,
+  "10111111": true,
 
   // invalid sequences, 2nd byte should be >= 0x80
   "11000111 01010101": false,
@@ -103,7 +103,8 @@ describe("decode", () => {
 
         try {
           res1 = decodeURIComponent(str);
-        } catch (e) {
+        }
+        catch (e) {
           er = e;
         }
 
@@ -111,7 +112,8 @@ describe("decode", () => {
 
         if (er) {
           expect(res2.indexOf("\ufffd")).not.toBe(-1);
-        } else {
+        }
+        else {
           expect(res1, res2);
           expect(res2.indexOf("\ufffd")).toBe(-1);
         }

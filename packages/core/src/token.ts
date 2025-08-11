@@ -23,7 +23,7 @@ export type TokenNestingType = (typeof TokenNesting)[keyof typeof TokenNesting];
 export type TokenAttr = [name: string, value: string];
 
 export interface TokenMeta {
-  [key: string]: unknown;
+  [key: string]: unknown
 }
 
 /**
@@ -153,7 +153,8 @@ class Token {
   attrPush(attrData: TokenAttr) {
     if (this.attrs) {
       this.attrs.push(attrData);
-    } else {
+    }
+    else {
       this.attrs = [attrData];
     }
   }
@@ -169,7 +170,8 @@ class Token {
 
     if (idx < 0) {
       this.attrPush(attrData);
-    } else {
+    }
+    else {
       this.attrs![idx] = attrData;
     }
   }
@@ -198,7 +200,8 @@ class Token {
 
     if (idx < 0) {
       this.attrPush([name, value]);
-    } else {
+    }
+    else {
       this.attrs![idx][1] = this.attrs![idx][1] + " " + value;
     }
   }

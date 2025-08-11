@@ -35,20 +35,20 @@ const decodeMap = new Map([
 /**
  * Polyfill for `String.fromCodePoint`. It is used to create a string from a Unicode code point.
  */
-export const fromCodePoint: (...codePoints: number[]) => string =
-  String.fromCodePoint ??
-  function (codePoint: number): string {
-    let output = "";
+export const fromCodePoint: (...codePoints: number[]) => string
+  = String.fromCodePoint
+    ?? function (codePoint: number): string {
+      let output = "";
 
-    if (codePoint > 0xff_ff) {
-      codePoint -= 0x1_00_00;
-      output += String.fromCharCode(((codePoint >>> 10) & 0x3_ff) | 0xd8_00);
-      codePoint = 0xdc_00 | (codePoint & 0x3_ff);
-    }
+      if (codePoint > 0xff_ff) {
+        codePoint -= 0x1_00_00;
+        output += String.fromCharCode(((codePoint >>> 10) & 0x3_ff) | 0xd8_00);
+        codePoint = 0xdc_00 | (codePoint & 0x3_ff);
+      }
 
-    output += String.fromCharCode(codePoint);
-    return output;
-  };
+      output += String.fromCharCode(codePoint);
+      return output;
+    };
 
 /**
  * Replace the given code point with a replacement character if it is a
@@ -57,8 +57,8 @@ export const fromCodePoint: (...codePoints: number[]) => string =
  */
 export function replaceCodePoint(codePoint: number): number {
   if (
-    (codePoint >= 0xd8_00 && codePoint <= 0xdf_ff) ||
-    codePoint > 0x10_ff_ff
+    (codePoint >= 0xd8_00 && codePoint <= 0xdf_ff)
+    || codePoint > 0x10_ff_ff
   ) {
     return 0xff_fd;
   }

@@ -17,7 +17,8 @@ const getEncodeCache = (exclude: string) => {
     if (/^[0-9a-z]$/i.test(ch)) {
       // always allow unencoded alphanumeric characters
       cache.push(ch);
-    } else {
+    }
+    else {
       cache.push("%" + ("0" + i.toString(16).toUpperCase()).slice(-2));
     }
   }

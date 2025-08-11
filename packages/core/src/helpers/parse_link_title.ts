@@ -5,15 +5,15 @@ import { unescapeAll } from "../common/utils";
 
 export interface ParseLinkTitleResult {
   // if `true`, this is a valid link title
-  ok: boolean;
+  ok: boolean
   // if `true`, this link can be continued on the next line
-  can_continue: boolean;
+  can_continue: boolean
   // if `ok`, it's the position of the first character after the closing marker
-  pos: number;
+  pos: number
   // if `ok`, it's the unescaped title
-  str: string;
+  str: string
   // expected closing marker character code
-  marker: number;
+  marker: number
 }
 
 // Parse link title within `str` in [start, max] range,
@@ -41,16 +41,17 @@ const parseLinkTitle = (
     // used in reference links only
     state.str = prev_state.str;
     state.marker = prev_state.marker;
-  } else {
+  }
+  else {
     if (pos >= max) {
       return state;
     }
 
     let marker = str.charCodeAt(pos);
     if (
-      marker !== 0x22 /* " */ &&
-      marker !== 0x27 /* ' */ &&
-      marker !== 0x28 /* ( */
+      marker !== 0x22
+      && /* " */ marker !== 0x27
+      && /* ' */ marker !== 0x28 /* ( */
     ) {
       return state;
     }
@@ -73,9 +74,11 @@ const parseLinkTitle = (
       state.str += unescapeAll(str.slice(start, pos));
       state.ok = true;
       return state;
-    } else if (code === 0x28 /* ( */ && state.marker === 0x29 /* ) */) {
+    }
+    else if (code === 0x28 /* ( */ && state.marker === 0x29 /* ) */) {
       return state;
-    } else if (code === 0x5c /* \ */ && pos + 1 < max) {
+    }
+    else if (code === 0x5c /* \ */ && pos + 1 < max) {
       pos++;
     }
 

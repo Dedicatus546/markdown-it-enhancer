@@ -7,9 +7,9 @@ export const footnote_block_open: RendererFn<"sync"> = (
 ) => {
   return (
     (options.xhtmlOut
-      ? '<hr class="footnotes-sep" />\n'
-      : '<hr class="footnotes-sep">\n') +
-    '<section class="footnotes">\n' +
-    '<ol class="footnotes-list">\n'
+      ? "<hr class=\"footnotes-sep\" />\n"
+      : "<hr class=\"footnotes-sep\">\n")
+    + "<section class=\"footnotes\">\n"
+    + "<ol class=\"footnotes-list\">\n"
   );
 };

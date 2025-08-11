@@ -33,12 +33,13 @@ export const emoji_replace = (
 
         // Don't allow letters after any shortcut
         if (
-          offset + match.length < src.length &&
-          !ZPCc.test(src[offset + match.length])
+          offset + match.length < src.length
+          && !ZPCc.test(src[offset + match.length])
         ) {
           return "";
         }
-      } else {
+      }
+      else {
         emoji_name = match.slice(1, -1);
       }
 
@@ -91,9 +92,9 @@ export const emoji_replace = (
         }
 
         if (
-          token.type === "text" &&
-          autolinkLevel === 0 &&
-          scanRE.test(token.content)
+          token.type === "text"
+          && autolinkLevel === 0
+          && scanRE.test(token.content)
         ) {
           // replace current node
           blockTokens[j].children = tokens = arrayReplaceAt(

@@ -15,9 +15,9 @@ const hr: StateBlockRuleFn = (state, startLine, _endLine, silent = false) => {
 
   // Check hr marker
   if (
-    marker !== 0x2a /* * */ &&
-    marker !== 0x2d /* - */ &&
-    marker !== 0x5f /* _ */
+    marker !== 0x2a
+    && /* * */ marker !== 0x2d
+    && /* - */ marker !== 0x5f /* _ */
   ) {
     return false;
   }

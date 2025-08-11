@@ -11,8 +11,8 @@ import { ContainerNormalizedOptions, ContainerOptions } from "./types";
 
 declare module "markdown-it-enhancer" {
   export interface RendererExtendsRules {
-    [ruleName: `container_${string}_open`]: RendererFn;
-    [ruleName: `container_${string}_close`]: RendererFn;
+    [ruleName: `container_${string}_open`]: RendererFn
+    [ruleName: `container_${string}_close`]: RendererFn
   }
 }
 
@@ -24,7 +24,7 @@ export const container: MarkdownItPlugin<
     marker: ":",
     // Second param may be useful if you decide
     // to increase minimal allowed marker length
-    validate: (src) => src.trim().split(" ", 2)[0] === name,
+    validate: src => src.trim().split(" ", 2)[0] === name,
     render: (tokens, idx, _options, _env, renderer) => {
       // add a class to the opening tag
       if (tokens[idx].nesting === TokenNesting.OPENING) {
@@ -119,8 +119,8 @@ export const container: MarkdownItPlugin<
 
       for (pos = start + 1; pos <= max; pos++) {
         if (
-          normalizedOptions.marker[(pos - start) % marker_len] !==
-          state.src[pos]
+          normalizedOptions.marker[(pos - start) % marker_len]
+          !== state.src[pos]
         ) {
           break;
         }

@@ -22,15 +22,19 @@ export default function newline(state: StateInline, silent: boolean = false) {
       if (pmax >= 1 && state.pending.charCodeAt(pmax - 1) === 0x20) {
         // Find whitespaces tail of pending chars.
         let ws = pmax - 1;
-        while (ws >= 1 && state.pending.charCodeAt(ws - 1) === 0x20) ws--;
+        while (ws >= 1 && state.pending.charCodeAt(ws - 1) === 0x20) {
+          ws--;
+        }
 
         state.pending = state.pending.slice(0, ws);
         state.push("hardbreak", "br", 0);
-      } else {
+      }
+      else {
         state.pending = state.pending.slice(0, -1);
         state.push("softbreak", "br", 0);
       }
-    } else {
+    }
+    else {
       state.push("softbreak", "br", 0);
     }
   }

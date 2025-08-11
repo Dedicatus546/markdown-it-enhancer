@@ -38,15 +38,15 @@ export type RendererFn<Async extends "sync" | "async" | "all" = "all"> = (
 export interface RendererExtendsRules {}
 
 interface RendererDefaultRules {
-  code_inline: RendererFn<"sync">;
-  code_block: RendererFn<"sync">;
-  fence: RendererFn<"async">;
-  image: RendererFn<"sync">;
-  hardbreak: RendererFn<"sync">;
-  softbreak: RendererFn<"sync">;
-  text: RendererFn<"sync">;
-  html_block: RendererFn<"sync">;
-  html_inline: RendererFn<"sync">;
+  code_inline: RendererFn<"sync">
+  code_block: RendererFn<"sync">
+  fence: RendererFn<"async">
+  image: RendererFn<"sync">
+  hardbreak: RendererFn<"sync">
+  softbreak: RendererFn<"sync">
+  text: RendererFn<"sync">
+  html_block: RendererFn<"sync">
+  html_inline: RendererFn<"sync">
 }
 
 type RendererRules = RendererDefaultRules & RendererExtendsRules;
@@ -81,12 +81,12 @@ class Renderer {
     let result = "";
 
     for (let i = 0, len = token.attrs.length; i < len; i++) {
-      result +=
-        " " +
-        escapeHtml(token.attrs[i][0]) +
-        '="' +
-        escapeHtml(token.attrs[i][1]) +
-        '"';
+      result
+        += " "
+          + escapeHtml(token.attrs[i][0])
+          + "=\""
+          + escapeHtml(token.attrs[i][1])
+          + "\"";
     }
 
     return result;
@@ -109,10 +109,10 @@ class Renderer {
     //    >
     //
     if (
-      token.block &&
-      token.nesting !== TokenNesting.CLOSING &&
-      idx &&
-      tokens[idx - 1].hidden
+      token.block
+      && token.nesting !== TokenNesting.CLOSING
+      && idx
+      && tokens[idx - 1].hidden
     ) {
       result += "\n";
     }
@@ -141,9 +141,10 @@ class Renderer {
             // Block-level tag containing an inline tag.
             //
             needLf = false;
-          } else if (
-            nextToken.nesting === TokenNesting.CLOSING &&
-            nextToken.tag === token.tag
+          }
+          else if (
+            nextToken.nesting === TokenNesting.CLOSING
+            && nextToken.tag === token.tag
           ) {
             // Opening tag + closing tag of the same type. E.g. `<li></li>`.
             //
@@ -173,7 +174,8 @@ class Renderer {
         result += await resolvePromiseLike(
           rules[type](tokens, i, options, env, this),
         );
-      } else {
+      }
+      else {
         result += this.renderToken(tokens, i, options);
       }
     }
@@ -225,11 +227,13 @@ class Renderer {
 
       if (type === "inline") {
         result += await this.renderInline(tokens[i].children, options, env);
-      } else if (hasRenderRule(rules, type)) {
+      }
+      else if (hasRenderRule(rules, type)) {
         result += await resolvePromiseLike(
           rules[type](tokens, i, options, env, this),
         );
-      } else {
+      }
+      else {
         result += this.renderToken(tokens, i, options);
       }
     }

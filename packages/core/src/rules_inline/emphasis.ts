@@ -62,8 +62,8 @@ function postProcess(state: StateInline, delimiters: Array<Delimiter>) {
     const startDelim = delimiters[i];
 
     if (
-      startDelim.marker !== 0x5f /* _ */ &&
-      startDelim.marker !== 0x2a /* * */
+      startDelim.marker !== 0x5f
+      && /* _ */ startDelim.marker !== 0x2a /* * */
     ) {
       continue;
     }
@@ -80,14 +80,14 @@ function postProcess(state: StateInline, delimiters: Array<Delimiter>) {
     //
     // `<em><em>whatever</em></em>` -> `<strong>whatever</strong>`
     //
-    const isStrong =
-      i > 0 &&
-      delimiters[i - 1].end === startDelim.end + 1 &&
+    const isStrong
+      = i > 0
+        && delimiters[i - 1].end === startDelim.end + 1
       // check that first two markers match and adjacent
-      delimiters[i - 1].marker === startDelim.marker &&
-      delimiters[i - 1].token === startDelim.token - 1 &&
+        && delimiters[i - 1].marker === startDelim.marker
+        && delimiters[i - 1].token === startDelim.token - 1
       // check that last two markers are adjacent (we can safely assume they match)
-      delimiters[startDelim.end + 1].token === endDelim.token + 1;
+        && delimiters[startDelim.end + 1].token === endDelim.token + 1;
 
     const ch = String.fromCharCode(startDelim.marker);
 

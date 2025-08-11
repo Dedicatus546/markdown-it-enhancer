@@ -36,14 +36,15 @@ const escapedSplit = (str: string) => {
         result.push(current + str.substring(lastPos, pos));
         current = "";
         lastPos = pos + 1;
-      } else {
+      }
+      else {
         // escaped pipe, '\|'
         current += str.substring(lastPos, pos - 1);
         lastPos = pos;
       }
     }
 
-    isEscaped = ch === 0x5c /* \ */;
+    isEscaped = ch === 0x5c;
     pos++;
 
     ch = str.charCodeAt(pos);
@@ -87,9 +88,9 @@ const table: StateBlockRuleFn = async (
 
   const firstCh = state.src.charCodeAt(pos++);
   if (
-    firstCh !== 0x7c /* | */ &&
-    firstCh !== 0x2d /* - */ &&
-    firstCh !== 0x3a /* : */
+    firstCh !== 0x7c
+    && /* | */ firstCh !== 0x2d
+    && /* - */ firstCh !== 0x3a /* : */
   ) {
     return false;
   }
@@ -100,10 +101,10 @@ const table: StateBlockRuleFn = async (
 
   const secondCh = state.src.charCodeAt(pos++);
   if (
-    secondCh !== 0x7c /* | */ &&
-    secondCh !== 0x2d /* - */ &&
-    secondCh !== 0x3a /* : */ &&
-    !isSpace(secondCh)
+    secondCh !== 0x7c
+    && /* | */ secondCh !== 0x2d
+    && /* - */ secondCh !== 0x3a
+    && /* : */ !isSpace(secondCh)
   ) {
     return false;
   }
@@ -118,10 +119,10 @@ const table: StateBlockRuleFn = async (
     const ch = state.src.charCodeAt(pos);
 
     if (
-      ch !== 0x7c /* | */ &&
-      ch !== 0x2d /* - */ &&
-      ch !== 0x3a /* : */ &&
-      !isSpace(ch)
+      ch !== 0x7c
+      && /* | */ ch !== 0x2d
+      && /* - */ ch !== 0x3a
+      && /* : */ !isSpace(ch)
     ) {
       return false;
     }
@@ -139,7 +140,8 @@ const table: StateBlockRuleFn = async (
       // e.g. allow ` |---| `, disallow ` ---||--- `
       if (i === 0 || i === columns.length - 1) {
         continue;
-      } else {
+      }
+      else {
         return false;
       }
     }
@@ -149,9 +151,11 @@ const table: StateBlockRuleFn = async (
     }
     if (t.charCodeAt(t.length - 1) === 0x3a /* : */) {
       aligns.push(t.charCodeAt(0) === 0x3a /* : */ ? "center" : "right");
-    } else if (t.charCodeAt(0) === 0x3a /* : */) {
+    }
+    else if (t.charCodeAt(0) === 0x3a /* : */) {
       aligns.push("left");
-    } else {
+    }
+    else {
       aligns.push("");
     }
   }
@@ -164,8 +168,12 @@ const table: StateBlockRuleFn = async (
     return false;
   }
   columns = escapedSplit(lineText);
-  if (columns.length && columns[0] === "") columns.shift();
-  if (columns.length && columns[columns.length - 1] === "") columns.pop();
+  if (columns.length && columns[0] === "") {
+    columns.shift();
+  }
+  if (columns.length && columns[columns.length - 1] === "") {
+    columns.pop();
+  }
 
   // header row will define an amount of columns in the entire table,
   // and align row should be exactly the same (the rest of the rows can differ)
@@ -213,8 +221,8 @@ const table: StateBlockRuleFn = async (
 
   let tbodyLines: Array<number> | null = null;
   let autoCompletedCells = 0;
-  const maxAutocompletedCells =
-    state.env.maxAutoCompletedCells ?? DEFAULT_MAX_AUTOCOMPLETED_CELLS;
+  const maxAutocompletedCells
+    = state.env.maxAutoCompletedCells ?? DEFAULT_MAX_AUTOCOMPLETED_CELLS;
 
   for (nextLine = startLine + 2; nextLine < endLine; nextLine++) {
     if (state.sCount[nextLine] < state.blkIndent) {
@@ -244,8 +252,12 @@ const table: StateBlockRuleFn = async (
       break;
     }
     columns = escapedSplit(lineText);
-    if (columns.length && columns[0] === "") columns.shift();
-    if (columns.length && columns[columns.length - 1] === "") columns.pop();
+    if (columns.length && columns[0] === "") {
+      columns.shift();
+    }
+    if (columns.length && columns[columns.length - 1] === "") {
+      columns.pop();
+    }
 
     // note: autocomplete count can be negative if user specifies more columns than header,
     // but that does not affect intended use (which is limiting expansion)

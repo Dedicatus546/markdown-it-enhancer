@@ -23,7 +23,9 @@ export default function backtick(state: StateInline, silent: boolean = false) {
   const openerLength = marker.length;
 
   if (state.backticksScanned && (state.backticks[openerLength] || 0) <= start) {
-    if (!silent) state.pending += marker;
+    if (!silent) {
+      state.pending += marker;
+    }
     state.pos += openerLength;
     return true;
   }
@@ -63,7 +65,9 @@ export default function backtick(state: StateInline, silent: boolean = false) {
   // Scanned through the end, didn't find anything
   state.backticksScanned = true;
 
-  if (!silent) state.pending += marker;
+  if (!silent) {
+    state.pending += marker;
+  }
   state.pos += openerLength;
   return true;
 }

@@ -14,9 +14,9 @@ const skipBulletListMarker = (state: StateBlock, startLine: number) => {
   const marker = state.src.charCodeAt(pos++);
   // Check bullet
   if (
-    marker !== 0x2a /* * */ &&
-    marker !== 0x2d /* - */ &&
-    marker !== 0x2b /* + */
+    marker !== 0x2a
+    && /* * */ marker !== 0x2d
+    && /* - */ marker !== 0x2b /* + */
   ) {
     return -1;
   }
@@ -93,8 +93,8 @@ const markTightParagraphs = (state: StateBlock, idx: number) => {
 
   for (let i = idx + 2, l = state.tokens.length - 2; i < l; i++) {
     if (
-      state.tokens[i].level === level &&
-      state.tokens[i].type === "paragraph_open"
+      state.tokens[i].level === level
+      && state.tokens[i].type === "paragraph_open"
     ) {
       state.tokens[i + 2].hidden = true;
       state.tokens[i].hidden = true;
@@ -128,9 +128,9 @@ const list: StateBlockRuleFn = async (
   //     - item 4
   //      - this one is a paragraph continuation
   if (
-    state.listIndent >= 0 &&
-    state.sCount[nextLine] - state.listIndent >= 4 &&
-    state.sCount[nextLine] < state.blkIndent
+    state.listIndent >= 0
+    && state.sCount[nextLine] - state.listIndent >= 4
+    && state.sCount[nextLine] < state.blkIndent
   ) {
     return false;
   }
@@ -161,18 +161,23 @@ const list: StateBlockRuleFn = async (
 
     // If we're starting a new ordered list right after
     // a paragraph, it should start with 1.
-    if (isTerminatingParagraph && markerValue !== 1) return false;
-  } else if ((posAfterMarker = skipBulletListMarker(state, nextLine)) >= 0) {
+    if (isTerminatingParagraph && markerValue !== 1) {
+      return false;
+    }
+  }
+  else if ((posAfterMarker = skipBulletListMarker(state, nextLine)) >= 0) {
     isOrdered = false;
-  } else {
+  }
+  else {
     return false;
   }
 
   // If we're starting a new unordered list right after
   // a paragraph, first line should not be empty.
   if (isTerminatingParagraph) {
-    if (state.skipSpaces(posAfterMarker) >= state.eMarks[nextLine])
+    if (state.skipSpaces(posAfterMarker) >= state.eMarks[nextLine]) {
       return false;
+    }
   }
 
   // For validation mode we can terminate immediately
@@ -191,7 +196,8 @@ const list: StateBlockRuleFn = async (
     if (markerValue !== 1) {
       token.attrs = [["start", String(markerValue)]];
     }
-  } else {
+  }
+  else {
     token = state.push("bullet_list_open", "ul", 1);
   }
 
@@ -213,10 +219,10 @@ const list: StateBlockRuleFn = async (
     pos = posAfterMarker;
     max = state.eMarks[nextLine];
 
-    const initial =
-      state.sCount[nextLine] +
-      posAfterMarker -
-      (state.bMarks[nextLine] + state.tShift[nextLine]);
+    const initial
+      = state.sCount[nextLine]
+        + posAfterMarker
+        - (state.bMarks[nextLine] + state.tShift[nextLine]);
     let offset = initial;
 
     while (pos < max) {
@@ -224,9 +230,11 @@ const list: StateBlockRuleFn = async (
 
       if (ch === 0x09) {
         offset += 4 - ((offset + state.bsCount[nextLine]) % 4);
-      } else if (ch === 0x20) {
+      }
+      else if (ch === 0x20) {
         offset++;
-      } else {
+      }
+      else {
         break;
       }
 
@@ -239,7 +247,8 @@ const list: StateBlockRuleFn = async (
     if (contentStart >= max) {
       // trimming space in "-    \n  3" case, indent is 1 here
       indentAfterMarker = 1;
-    } else {
+    }
+    else {
       indentAfterMarker = offset - initial;
     }
 
@@ -288,7 +297,8 @@ const list: StateBlockRuleFn = async (
       //     foo
       // ~~~~~~~~
       state.line = Math.min(state.line + 2, endLine);
-    } else {
+    }
+    else {
       await state.md.block.tokenize(state, nextLine, endLine, true);
     }
 
@@ -351,7 +361,8 @@ const list: StateBlockRuleFn = async (
         break;
       }
       start = state.bMarks[nextLine] + state.tShift[nextLine];
-    } else {
+    }
+    else {
       posAfterMarker = skipBulletListMarker(state, nextLine);
       if (posAfterMarker < 0) {
         break;
@@ -366,7 +377,8 @@ const list: StateBlockRuleFn = async (
   // Finalize list
   if (isOrdered) {
     token = state.push("ordered_list_close", "ol", -1);
-  } else {
+  }
+  else {
     token = state.push("bullet_list_close", "ul", -1);
   }
   token.markup = String.fromCharCode(markerCharCode);
