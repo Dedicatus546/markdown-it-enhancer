@@ -16,13 +16,11 @@ catalogs:
   lint:
     "@eslint/js": ^9.32.0
     eslint: ^9.32.0
-    eslint-config-prettier: ^10.1.8
-    eslint-plugin-prettier: ^5.5.3
     eslint-plugin-simple-import-sort: ^12.1.1
     globals: ^16.3.0
     jiti: ^2.5.1
-    prettier: ^3.6.2
     typescript-eslint: ^8.38.0
+    "@stylistic/eslint-plugin": ^5.2.3
   prod:
     js-yaml: ^4.1.0
     katex: ^0.16.22

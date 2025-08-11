@@ -1,6 +1,6 @@
 import js from "@eslint/js";
+import stylistic from "@stylistic/eslint-plugin";
 import { globalIgnores } from "eslint/config";
-import pluginPrettierRecomended from "eslint-plugin-prettier/recommended";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import globals from "globals";
 import tseslint from "typescript-eslint";
@@ -49,5 +49,13 @@ export default tseslint.config([
       },
     },
   },
-  pluginPrettierRecomended,
+  {
+    extends: [
+      stylistic.configs.recommended,
+    ],
+    rules: {
+      "@stylistic/quotes": ["error", "double"],
+      "@stylistic/semi": ["error", "always"],
+    },
+  },
 ]);
