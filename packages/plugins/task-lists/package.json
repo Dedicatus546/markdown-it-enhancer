@@ -4,7 +4,8 @@
   "description": "A markdown-it plugin to create GitHub-style task lists",
   "type": "module",
   "files": [
-    "dist/*"
+    "dist/",
+    "src/"
   ],
   "main": "./dist/index.js",
   "exports": {

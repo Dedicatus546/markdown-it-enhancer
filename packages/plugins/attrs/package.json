@@ -10,6 +10,10 @@
       "import": "./dist/index.js"
     }
   },
+  "files": [
+    "dist/",
+    "src/"
+  ],
   "scripts": {
     "build": "vite build",
     "build:dev": "vite build --watch",

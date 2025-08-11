@@ -23,7 +23,8 @@
     "test": "vitest"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "src/"
   ],
   "peerDependencies": {
     "markdown-it-enhancer": "workspace:~15.0.0"

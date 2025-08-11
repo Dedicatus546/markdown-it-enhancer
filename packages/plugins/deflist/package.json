@@ -9,6 +9,10 @@
     "markdown",
     "definition list"
   ],
+  "files": [
+    "dist/",
+    "src/"
+  ],
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",

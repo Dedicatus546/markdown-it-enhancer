@@ -16,7 +16,8 @@
     "test": "vitest"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "src/"
   ],
   "keywords": [
     "markdown-it",

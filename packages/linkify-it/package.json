@@ -21,7 +21,8 @@
     "test": "vitest"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "src"
   ],
   "dependencies": {
     "uc.micro-for-enhancer": "workspace:~3.0.0",

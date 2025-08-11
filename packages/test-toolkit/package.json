@@ -25,7 +25,8 @@
     "test": "vitest"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "src/"
   ],
   "dependencies": {
     "markdown-it-enhancer-utils": "workspace:~1.1.0",
