@@ -1,4 +1,4 @@
-import type { Token, TokenAttr, TokenNesting } from "markdown-it-enhancer";
+import type { Token, TokenAttr, TokenNestingType } from "markdown-it-enhancer";
 
 export interface AttributeOptions {
   leftDelimiter?: string
@@ -17,17 +17,17 @@ export interface PatternsResultDetectingRule {
   tag?: string | PatternsResultDetectingStrRule
   children?:
     | Array<PatternsResultDetectingRule>
-    | ((array: Array<unknown>) => boolean)
-  content?: string | PatternsResultDetectingStrRule
-  markup?: string | PatternsResultDetectingStrRule
-  info?: string | PatternsResultDetectingStrRule
-  nesting?: TokenNesting
-  level?: number
-  block?: boolean
-  hidden?: boolean
-  attrs?: Array<TokenAttr>
-  map?: [number, number]
-  meta?: unknown
+    | ((array: Array<unknown>) => boolean);
+  content?: string | PatternsResultDetectingStrRule;
+  markup?: string | PatternsResultDetectingStrRule;
+  info?: string | PatternsResultDetectingStrRule;
+  nesting?: TokenNestingType;
+  level?: number;
+  block?: boolean;
+  hidden?: boolean;
+  attrs?: Array<TokenAttr>;
+  map?: [number, number];
+  meta?: unknown;
 }
 
 export type PatternsResult = Array<{
