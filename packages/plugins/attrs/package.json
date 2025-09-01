@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-attrs-for-enhancer",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "Add classes, identifiers and attributes to your markdown with {} curly brackets, similar to pandoc's header attributes",
   "license": "MIT",
   "type": "module",
@@ -33,7 +33,7 @@
     "header_attributes"
   ],
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.0.0"
+    "markdown-it-enhancer": "workspace:~15.1.0"
   },
   "peerDependenciesMeta": {
     "markdown-it-enhancer": {
