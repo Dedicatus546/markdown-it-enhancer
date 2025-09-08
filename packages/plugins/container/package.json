@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-container-for-enhancer",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Plugin to create block-level custom containers for markdown-it markdown parser",
   "license": "MIT",
   "keywords": [
@@ -25,7 +25,7 @@
     "test": "vitest"
   },
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.0.0"
+    "markdown-it-enhancer": "workspace:~15.0.0 || workspace:~15.1.0"
   },
   "peerDependenciesMeta": {
     "markdown-it-enhancer": {
