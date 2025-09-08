@@ -36,7 +36,6 @@
     "markdown-it-for-inline-for-enhancer": "workspace:*",
     "markdown-it-implicit-figures-for-enhancer": "workspace:*",
     "markdown-it-katex-for-enhancer": "workspace:*",
-    "prettier": "catalog:lint",
     "rimraf": "catalog:build",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:lint",
