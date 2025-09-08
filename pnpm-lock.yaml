@@ -187,7 +187,7 @@ importers:
   packages/plugins/abbr:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.1.0
         version: link:../../core
 
   packages/plugins/anchor:
@@ -199,7 +199,7 @@ importers:
   packages/plugins/attrs:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.1.0
         version: link:../../core
 
   packages/plugins/container:
