@@ -83,7 +83,7 @@ describe("Documents", () => {
   }
 
   describe("Legacy", () => {
-    const legacyMap: Record<string, string> = legacy;
+    const legacyMap = legacy as Record<string, string>;
     it("should decode", () => {
       for (const entity of Object.keys(legacyMap)) {
         expect(decodeHTML(`&${entity}`)).toBe(legacyMap[entity]);
