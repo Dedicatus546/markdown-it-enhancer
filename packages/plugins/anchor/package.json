@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-anchor-for-enahncer",
-  "version": "10.0.0",
+  "version": "10.0.1",
   "description": "Header anchors for markdown-it.",
   "keywords": [
     "markdown",
@@ -28,7 +28,7 @@
     "test": "vitest"
   },
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.0.0"
+    "markdown-it-enhancer": "workspace:~15.0.0 || workspace:~15.1.0"
   },
   "peerDependenciesMeta": {
     "markdown-it-enhancer": {
