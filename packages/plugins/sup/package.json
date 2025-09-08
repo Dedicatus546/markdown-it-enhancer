@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-sup-for-enhancer",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "<sup> tag for markdown-it markdown parser.",
   "type": "module",
   "keywords": [
@@ -28,7 +28,7 @@
     "test": "vitest"
   },
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.0.0 || workspace:~15.1.0"
+    "markdown-it-enhancer": "workspace:~15.0.0 || ~15.1.0"
   },
   "peerDependenciesMeta": {
     "markdown-it-enhancer": {
