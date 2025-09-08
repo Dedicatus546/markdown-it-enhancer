@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-task-lists-for-enhancer",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A markdown-it plugin to create GitHub-style task lists",
   "type": "module",
   "files": [
@@ -29,7 +29,7 @@
     "test": "vitest"
   },
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.0.0"
+    "markdown-it-enhancer": "workspace:~15.0.0 || workspace:~15.1.0"
   },
   "peerDependenciesMeta": {
     "markdown-it-enhancer": {
