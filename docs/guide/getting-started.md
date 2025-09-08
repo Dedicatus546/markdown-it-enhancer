@@ -1,10 +1,10 @@
 # Getting Started
 
-## Try It Online
+<!-- ## Try It Online
 
 You can try Markdown-It-Enhancer directly in your browser on [StackBlitz](https://vitepress.new).
 
-## Installation
+## Installation -->
 
 ### Prerequisites
 

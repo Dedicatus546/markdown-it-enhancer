@@ -14,6 +14,7 @@ export default defineConfig({
         link: "/guide/what-is-markdown-it-enhancer",
       },
       { text: "Getting Started", link: "/guide/getting-started" },
+      { text: "Breaking Change", link: "/guide/breaking-change" },
     ],
 
     socialLinks: [
