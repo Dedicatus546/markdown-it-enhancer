@@ -21,6 +21,7 @@
   "devDependencies": {
     "@eslint/js": "catalog:lint",
     "@sindresorhus/slugify": "catalog:test",
+    "@stylistic/eslint-plugin": "catalog:lint",
     "@types/node": "catalog:types",
     "@vitest/coverage-istanbul": "catalog:test",
     "@vitest/ui": "catalog:test",
@@ -29,7 +30,6 @@
     "eslint-plugin-simple-import-sort": "catalog:lint",
     "globals": "catalog:lint",
     "jiti": "catalog:lint",
-    "@stylistic/eslint-plugin": "catalog:lint",
     "markdown-it-attrs-for-enhancer": "workspace:*",
     "markdown-it-enhancer": "workspace:*",
     "markdown-it-enhancer-test-toolkit": "workspace:*",
@@ -48,5 +48,5 @@
   "engines": {
     "node": ">=20"
   },
-  "packageManager": "pnpm@10.15.0"
+  "packageManager": "pnpm@10.15.1"
 }
