@@ -14,7 +14,7 @@ export default tseslint.config([
     "**/*.js",
   ]),
   {
-    files: ["packages/**/*.ts"],
+    files: ["packages/**/*.ts", "docs/.vitepress/**/*.ts"],
   },
   {
     plugins: {
