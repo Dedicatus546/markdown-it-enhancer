@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-for-inline-for-enhancer",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Inline tokens iterator for markdown-it markdown parser.",
   "keywords": [
     "markdown-it-plugin",
@@ -26,7 +26,7 @@
     "test": "vitest"
   },
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.0.0 || workspace:~15.1.0"
+    "markdown-it-enhancer": "workspace:~15.0.0 || ~15.1.0"
   },
   "peerDependenciesMeta": {
     "markdown-it-enhancer": {
