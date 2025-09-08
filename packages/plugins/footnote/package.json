@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-footnote-for-enhancer",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Footnotes for markdown-it markdown parser.",
   "keywords": [
     "markdown-it-plugin",
@@ -27,7 +27,7 @@
     "src/"
   ],
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.0.0 || workspace:~15.1.0"
+    "markdown-it-enhancer": "workspace:~15.0.0 || ~15.1.0"
   },
   "peerDependenciesMeta": {
     "markdown-it-enhancer": {
