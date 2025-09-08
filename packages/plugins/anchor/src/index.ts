@@ -20,9 +20,9 @@ const defaultOptions: MarkdownItAnchorNormalizedOptions = {
   getTokensText,
 };
 
-export const anchor: MarkdownItPlugin<[MarkdownItAnchorOptions]> = (
+export const anchor: MarkdownItPlugin<[options?: MarkdownItAnchorOptions]> = (
   md,
-  options,
+  options = {},
 ) => {
   const normalizedOptions = Object.assign({}, defaultOptions, options);
 
