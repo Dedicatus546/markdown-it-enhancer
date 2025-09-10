@@ -40,10 +40,6 @@ export const anchor: MarkdownItPlugin<[options?: MarkdownItAnchorOptions]> = (
       if (token.type !== "heading_open") {
         continue;
       }
-      console.log(
-        "Number(token.tag.substring(1))",
-        Number(token.tag.substring(1)),
-      );
 
       if (!isLevelSelected(Number(token.tag.substring(1)))) {
         continue;
