@@ -10,20 +10,6 @@ This is a fork from [markdown-it](https://github.com/markdown-it/markdown-it), t
 - Using vite to bundle, vitest to test.
 - Async support. include parser rule, render rule, plugins, `highlight` function.
 
-## Version
-
-In order to sync the update of upstream, the patch version of this fork would start with 100.
-
-Example:
-
-- markdown-it@14.1.0 -> markdown-it-enhancer@14.1.1000
-- markdown-it@14.1.1 -> markdown-it-enhancer@14.1.1001
-
-When There are some fix in this fork. It will:
-
-- markdown-it-enhancer@14.1.1000 -> markdown-it-enhancer@14.1.1010
-- markdown-it-enhancer@14.1.1010 -> markdown-it-enhancer@14.1.1020
-
 ## Install
 
 ```bash
@@ -160,18 +146,22 @@ md.render('md content', {
 There are some plugins that migrate to markdown-it-enhancer.
 
 - [markdown-it-katex](https://github.com/waylonflinn/markdown-it-katex) -> [markdown-it-katex-for-enhancer
-](https://github.com/Dedicatus546/markdown-it-katex-for-enhancer)
-- [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs) -> [markdown-it-attrs-for-enhancer](https://github.com/Dedicatus546/markdown-it-attrs-for-enhancer)
-- [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-anchor) -> [markdown-it-anchor-for-enhancer](https://github.com/Dedicatus546/markdown-it-anchor-for-enhancer)
-- [markdown-it-implicit-figures](https://github.com/arve0/markdown-it-implicit-figures) -> [markdown-it-implicit-figures-for-enhancer](https://github.com/Dedicatus546/markdown-it-implicit-figures-for-enhancer)
-- [markdown-it-sup](https://github.com/markdown-it/markdown-it-sup) -> [markdown-it-sup-for-enhancer](https://github.com/Dedicatus546/markdown-it-sup-for-enhancer)
+](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/katex)
+- [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs) -> [markdown-it-attrs-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/attrs)
+- [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-anchor) -> [markdown-it-anchor-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/anchor)
+- [markdown-it-implicit-figures](https://github.com/arve0/markdown-it-implicit-figures) -> [markdown-it-implicit-figures-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/implicit-figures)
+- [markdown-it-sup](https://github.com/markdown-it/markdown-it-sup) -> [markdown-it-sup-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/sup)
 - [markdown-it-emoji](https://github.com/markdown-it/markdown-it-emoji) -> [markdown-it-emoji-for-enhancer
-](https://github.com/Dedicatus546/markdown-it-emoji-for-enhancer)
-- [markdown-it-task-lists](https://github.com/revin/markdown-it-task-lists) -> [markdown-it-task-lists-for-enhancer](https://github.com/Dedicatus546/markdown-it-task-lists-for-enhancer)
-- [markdown-it-container](https://github.com/markdown-it/markdown-it-container) -> [markdown-it-container-for-enhancer](https://github.com/Dedicatus546/markdown-it-container-for-enhancer)
-- [markdown-it-sub](https://github.com/markdown-it/markdown-it-sub) -> [markdown-it-sub-for-enhancer](https://github.com/Dedicatus546/markdown-it-sub-for-enhancer)
-- [markdown-it-abbr](https://github.com/markdown-it/markdown-it-abbr) -> [markdown-it-abbr-for-enhancer](https://github.com/Dedicatus546/markdown-it-abbr-for-enhancer)
-- [markdown-it-for-inline](https://github.com/markdown-it/markdown-it-for-inline) -> [markdown-it-for-inline-for-enhancer](https://github.com/Dedicatus546/markdown-it-for-inline-for-enhancer)
+](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/emoji)
+- [markdown-it-task-lists](https://github.com/revin/markdown-it-task-lists) -> [markdown-it-task-lists-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/task-lists)
+- [markdown-it-container](https://github.com/markdown-it/markdown-it-container) -> [markdown-it-container-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/container)
+- [markdown-it-sub](https://github.com/markdown-it/markdown-it-sub) -> [markdown-it-sub-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/sub)
+- [markdown-it-abbr](https://github.com/markdown-it/markdown-it-abbr) -> [markdown-it-abbr-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/abbr)
+- [markdown-it-for-inline](https://github.com/markdown-it/markdown-it-for-inline) -> [markdown-it-for-inline-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/for-inline)
+- [markdown-it-deflist]() -> [markdown-it-deflist-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/deflist)
+- [markdown-it-footnote]() -> [markdown-it-footnote-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/footnote)
+- [markdown-it-ins]() -> [markdown-it-ins-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/ins)
+- [markdown-it-mark]() -> [markdown-it-mark-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/mark)
 
 ## Test Toolkit
 
