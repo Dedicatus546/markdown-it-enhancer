@@ -121,13 +121,13 @@ export const escapeUTF8: (data: string) => string = /* #__PURE__ */ getEscaper(
  */
 export const escapeAttribute: (data: string) => string
 /* #__PURE__ */ = getEscaper(
-  /["&\u00A0]/g,
-  new Map([
-    [34, "&quot;"],
-    [38, "&amp;"],
-    [160, "&nbsp;"],
-  ]),
-);
+    /["&\u00A0]/g,
+    new Map([
+      [34, "&quot;"],
+      [38, "&amp;"],
+      [160, "&nbsp;"],
+    ]),
+  );
 
 /**
  * Encodes all characters that have to be escaped in HTML text,

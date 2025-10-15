@@ -16,11 +16,11 @@ export const linkAfterHeader = makePermalink<
   LinkAfterHeaderPermalinkOptions,
   PermalinkNormalizedBaseOptions
   & Required<
-      Pick<
-        LinkAfterHeaderPermalinkOptions,
+    Pick<
+      LinkAfterHeaderPermalinkOptions,
         "style" | "space" | "wrapper" | "placement"
-      >
     >
+  >
 >(
   (slug, opts, anchorOpts, state, idx) => {
     if (
