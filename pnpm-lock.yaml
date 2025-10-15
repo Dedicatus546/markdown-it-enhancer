@@ -113,6 +113,9 @@ importers:
       jiti:
         specifier: catalog:lint
         version: 2.5.1
+      markdown-it-anchor-for-enhancer:
+        specifier: workspace:*
+        version: link:packages/plugins/anchor
       markdown-it-attrs-for-enhancer:
         specifier: workspace:*
         version: link:packages/plugins/attrs
@@ -193,7 +196,7 @@ importers:
   packages/plugins/anchor:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
         version: link:../../core
 
   packages/plugins/attrs:
@@ -205,43 +208,43 @@ importers:
   packages/plugins/container:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
         version: link:../../core
 
   packages/plugins/deflist:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
         version: link:../../core
 
   packages/plugins/emoji:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
         version: link:../../core
 
   packages/plugins/footnote:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
         version: link:../../core
 
   packages/plugins/for-inline:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
         version: link:../../core
 
   packages/plugins/implicit-figures:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
         version: link:../../core
 
   packages/plugins/ins:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
         version: link:../../core
 
   packages/plugins/katex:
@@ -250,31 +253,49 @@ importers:
         specifier: catalog:prod
         version: 0.16.22
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
+        version: link:../../core
+
+  packages/plugins/link-attributes:
+    dependencies:
+      markdown-it-enhancer:
+        specifier: workspace:~15.1.0
+        version: link:../../core
+
+  packages/plugins/magic-link:
+    dependencies:
+      markdown-it-enhancer:
+        specifier: workspace:~15.1.0
         version: link:../../core
 
   packages/plugins/mark:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
         version: link:../../core
 
   packages/plugins/sub:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
         version: link:../../core
 
   packages/plugins/sup:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
+        version: link:../../core
+
+  packages/plugins/table-of-contents:
+    dependencies:
+      markdown-it-enhancer:
+        specifier: workspace:~15.1.0
         version: link:../../core
 
   packages/plugins/task-lists:
     dependencies:
       markdown-it-enhancer:
-        specifier: workspace:~15.0.0
+        specifier: workspace:~15.0.0 || ~15.1.0
         version: link:../../core
 
   packages/punycode: {}

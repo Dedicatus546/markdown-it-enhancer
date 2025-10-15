@@ -30,6 +30,7 @@
     "eslint-plugin-simple-import-sort": "catalog:lint",
     "globals": "catalog:lint",
     "jiti": "catalog:lint",
+    "markdown-it-anchor-for-enhancer": "workspace:*",
     "markdown-it-attrs-for-enhancer": "workspace:*",
     "markdown-it-enhancer": "workspace:*",
     "markdown-it-enhancer-test-toolkit": "workspace:*",
