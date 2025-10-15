@@ -1,7 +1,7 @@
 {
   "name": "markdown-it-magic-link-for-enhancer",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Makes links and `@mentions` in markdown beautiful and interactive.",
   "author": "Par9uet <par9uet@qq.com>",
   "license": "MIT",
