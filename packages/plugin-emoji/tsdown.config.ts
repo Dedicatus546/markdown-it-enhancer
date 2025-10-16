@@ -6,7 +6,9 @@ export default defineConfig({
     "src/full.ts",
     "src/light.ts",
   ],
-  dts: true,
+  dts: {
+    sourcemap: true,
+  },
   sourcemap: true,
   target: "node20",
   alias: {

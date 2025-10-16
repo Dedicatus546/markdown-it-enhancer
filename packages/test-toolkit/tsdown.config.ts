@@ -4,7 +4,9 @@ export default defineConfig({
   entry: [
     "src/index.ts",
   ],
-  dts: true,
+  dts: {
+    sourcemap: true,
+  },
   sourcemap: true,
   target: "node20",
   alias: {

@@ -7,7 +7,9 @@ export default defineConfig({
     "src/utils.ts",
     "src/ucmicro.ts",
   ],
-  dts: true,
+  dts: {
+    sourcemap: true,
+  },
   sourcemap: true,
   target: "node20",
   alias: {
