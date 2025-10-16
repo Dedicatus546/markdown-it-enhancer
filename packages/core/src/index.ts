@@ -344,3 +344,4 @@ export type {
 } from "./rules_inline/state_inline";
 export * from "./token";
 export { default as Token } from "./token";
+export * from "./types";
