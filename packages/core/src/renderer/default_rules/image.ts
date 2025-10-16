@@ -1,6 +1,6 @@
 import { RendererFn } from "../renderer";
 
-export const image: RendererFn<"sync"> = (
+export const image: RendererFn = (
   tokens,
   idx,
   options,

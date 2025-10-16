@@ -1,7 +1,7 @@
 import { escapeHtml } from "../../common/utils";
 import { RendererFn } from "../renderer";
 
-export const code_inline: RendererFn<"sync"> = (
+export const code_inline: RendererFn = (
   tokens,
   idx,
   _options,

@@ -6,7 +6,7 @@ import {
 import type { TokenAttr } from "../../token";
 import type { RendererFn } from "../renderer";
 
-export const fence: RendererFn<"async"> = async (
+export const fence: RendererFn = async (
   tokens,
   idx,
   options,

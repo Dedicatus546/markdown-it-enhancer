@@ -22,31 +22,27 @@ import {
   text,
 } from "./default_rules";
 
-export type RendererFn<Async extends "sync" | "async" | "all" = "all"> = (
+export type RendererFn = (
   tokens: Array<Token>,
   idx: number,
   options: MarkdownItOptions,
   env: MarkdownItEnv,
   slf: Renderer,
-) => Async extends "async"
-  ? PromiseLike<string>
-  : Async extends "sync"
-    ? string
-    : Awaitable<string>;
+) => Awaitable<string>;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface RendererExtendsRules {}
 
 interface RendererDefaultRules {
-  code_inline: RendererFn<"sync">
-  code_block: RendererFn<"sync">
-  fence: RendererFn<"async">
-  image: RendererFn<"sync">
-  hardbreak: RendererFn<"sync">
-  softbreak: RendererFn<"sync">
-  text: RendererFn<"sync">
-  html_block: RendererFn<"sync">
-  html_inline: RendererFn<"sync">
+  code_inline: RendererFn
+  code_block: RendererFn
+  fence: RendererFn
+  image: RendererFn
+  hardbreak: RendererFn
+  softbreak: RendererFn
+  text: RendererFn
+  html_block: RendererFn
+  html_inline: RendererFn
 }
 
 type RendererRules = RendererDefaultRules & RendererExtendsRules;

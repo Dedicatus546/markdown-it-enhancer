@@ -1,4 +1,4 @@
 import type { RendererFn } from "../renderer";
 
-export const html_inline: RendererFn<"sync"> = (tokens, idx) =>
+export const html_inline: RendererFn = (tokens, idx) =>
   tokens[idx].content;
