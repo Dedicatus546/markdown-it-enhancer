@@ -1,13 +1,12 @@
 # markdown-it-enhancer
 
 [![NPM version](https://img.shields.io/npm/v/markdown-it-enhancer.svg?style=flat)](https://www.npmjs.org/package/markdown-it-enhancer)
-[![Coverage Status](https://coveralls.io/repos/Dedicatus546/markdown-it-enhancer/badge.svg?branch=main&service=github)](https://coveralls.io/github/Dedicatus546/markdown-it-enhancer?branch=main)
+<!-- [![Coverage Status](https://coveralls.io/repos/Dedicatus546/markdown-it-enhancer/badge.svg?branch=main&service=github)](https://coveralls.io/github/Dedicatus546/markdown-it-enhancer?branch=main) -->
 
 This is a fork from [markdown-it](https://github.com/markdown-it/markdown-it), there are some changes in this fork:
 
 - ESM only.
 - Source code migrate to TypeScript, now you don't need to install `@types/markdown-it`.
-- Using vite to bundle, vitest to test.
 - Async support. include parser rule, render rule, plugins, `highlight` function.
 
 ## Install
@@ -158,10 +157,13 @@ There are some plugins that migrate to markdown-it-enhancer.
 - [markdown-it-sub](https://github.com/markdown-it/markdown-it-sub) -> [markdown-it-sub-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/sub)
 - [markdown-it-abbr](https://github.com/markdown-it/markdown-it-abbr) -> [markdown-it-abbr-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/abbr)
 - [markdown-it-for-inline](https://github.com/markdown-it/markdown-it-for-inline) -> [markdown-it-for-inline-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/for-inline)
-- [markdown-it-deflist]() -> [markdown-it-deflist-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/deflist)
-- [markdown-it-footnote]() -> [markdown-it-footnote-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/footnote)
-- [markdown-it-ins]() -> [markdown-it-ins-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/ins)
-- [markdown-it-mark]() -> [markdown-it-mark-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/mark)
+- [markdown-it-deflist](https://github.com/markdown-it/markdown-it-deflist) -> [markdown-it-deflist-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/deflist)
+- [markdown-it-footnote](https://github.com/markdown-it/markdown-it-footnote) -> [markdown-it-footnote-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/footnote)
+- [markdown-it-ins](https://github.com/markdown-it/markdown-it-ins) -> [markdown-it-ins-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/ins)
+- [markdown-it-mark](https://github.com/markdown-it/markdown-it-mark) -> [markdown-it-mark-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/mark)
+- [markdown-it-link-attributes](https://github.com/crookedneighbor/markdown-it-link-attributes) -> [markdown-it-link-attributes-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/link-attributes)
+- [markdown-it-magic-link](https://github.com/antfu/markdown-it-magic-link) -> [markdown-it-magic-link-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/magic-link)
+- [markdown-it-table-of-contents](https://github.com/cmaas/markdown-it-table-of-contents) -> [markdown-it-table-of-contents-for-enhancer](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/plugins/table-of-contents)
 
 ## Test Toolkit
 
