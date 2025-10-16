@@ -1,0 +1,41 @@
+{
+  "name": "markdown-it-ins-for-enhancer",
+  "version": "4.0.3",
+  "description": "<ins> tag for markdown-it markdown parser.",
+  "type": "module",
+  "keywords": [
+    "markdown-it-plugin",
+    "markdown-it",
+    "markdown-it-enhancer",
+    "markdown",
+    "insert",
+    "ins"
+  ],
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "vitest"
+  },
+  "peerDependencies": {
+    "markdown-it-enhancer": "workspace:~15.0.0 || ~15.1.0"
+  },
+  "peerDependenciesMeta": {
+    "markdown-it-enhancer": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

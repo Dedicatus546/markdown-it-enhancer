@@ -1,0 +1,46 @@
+{
+  "name": "markdown-it-attrs-for-enhancer",
+  "version": "5.1.0",
+  "description": "Add classes, identifiers and attributes to your markdown with {} curly brackets, similar to pandoc's header attributes",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "build:dev": "vite build --watch",
+    "test": "vitest"
+  },
+  "keywords": [
+    "commonmark",
+    "markdown",
+    "markdown-it",
+    "markdown-it-plugin",
+    "attributes",
+    "classes",
+    "ids",
+    "identifiers",
+    "curly brackets",
+    "pandoc",
+    "header_attributes"
+  ],
+  "peerDependencies": {
+    "markdown-it-enhancer": "workspace:~15.1.0"
+  },
+  "peerDependenciesMeta": {
+    "markdown-it-enhancer": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

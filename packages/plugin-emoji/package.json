@@ -1,0 +1,49 @@
+{
+  "name": "markdown-it-emoji-for-enhancer",
+  "version": "4.0.2",
+  "description": "Emoji plugin for markdown-it markdown parser.",
+  "keywords": [
+    "markdown-it-plugin",
+    "markdown-it",
+    "markdown-it-enhancer",
+    "markdown",
+    "emoji",
+    "emojies",
+    "emoticon",
+    "emoticons"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./full": {
+      "import": "./dist/full.js"
+    },
+    "./light": {
+      "import": "./dist/light.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "build:dev": "vite build --watch",
+    "test": "vitest"
+  },
+  "peerDependencies": {
+    "markdown-it-enhancer": "workspace:~15.0.0 || ~15.1.0"
+  },
+  "peerDependenciesMeta": {
+    "markdown-it-enhancer": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

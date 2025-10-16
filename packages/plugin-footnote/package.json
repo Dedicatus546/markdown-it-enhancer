@@ -1,0 +1,40 @@
+{
+  "name": "markdown-it-footnote-for-enhancer",
+  "version": "5.0.2",
+  "description": "Footnotes for markdown-it markdown parser.",
+  "keywords": [
+    "markdown-it-plugin",
+    "markdown-it",
+    "markdown-it-enhancer",
+    "markdown",
+    "footnotes"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "build:dev": "vite build --watch",
+    "test": "vitest"
+  },
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "peerDependencies": {
+    "markdown-it-enhancer": "workspace:~15.0.0 || ~15.1.0"
+  },
+  "peerDependenciesMeta": {
+    "markdown-it-enhancer": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
