@@ -2,14 +2,13 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    globals: true,
-    include: ["packages/**/*.test.ts"],
+    projects: ["packages/*"],
     coverage: {
       enabled: true,
-      include: ["src/**/*.ts"],
-      reporter: ["html", "lcov"],
+      include: ["packages/**/*.ts"],
+      exclude: [],
+      reporter: ["lcov"],
       provider: "istanbul",
     },
-    ui: true,
   },
 });
