@@ -1,5 +1,5 @@
 import { forInline } from "markdown-it-for-inline-for-enhancer";
-import { assert, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { MarkdownIt, type MarkdownItPlugin, type Token } from "../src";
 
@@ -84,31 +84,29 @@ describe("API", () => {
   it("force hardbreaks", async () => {
     const md = new MarkdownIt({ breaks: true });
 
-    assert.strictEqual(await md.render("a\nb"), "<p>a<br>\nb</p>\n");
+    expect(await md.render("a\nb")).toBe("<p>a<br>\nb</p>\n");
     md.set({ xhtmlOut: true });
-    assert.strictEqual(await md.render("a\nb"), "<p>a<br />\nb</p>\n");
+    expect(await md.render("a\nb")).toBe("<p>a<br />\nb</p>\n");
   });
 
   it("xhtmlOut enabled", async () => {
     const md = new MarkdownIt({ xhtmlOut: true });
 
-    assert.strictEqual(await md.render("---"), "<hr />\n");
-    assert.strictEqual(
-      await md.render("![]()"),
+    expect(await md.render("---")).toBe("<hr />\n");
+    expect(await md.render("![]()")).toBe(
       "<p><img src=\"\" alt=\"\" /></p>\n",
     );
-    assert.strictEqual(await md.render("a  \\\nb"), "<p>a  <br />\nb</p>\n");
+    expect(await md.render("a  \\\nb")).toBe("<p>a  <br />\nb</p>\n");
   });
 
   it("xhtmlOut disabled", async () => {
     const md = new MarkdownIt();
 
-    assert.strictEqual(await md.render("---"), "<hr>\n");
-    assert.strictEqual(
-      await md.render("![]()"),
+    expect(await md.render("---")).toBe("<hr>\n");
+    expect(await md.render("![]()")).toBe(
       "<p><img src=\"\" alt=\"\"></p>\n",
     );
-    assert.strictEqual(await md.render("a  \\\nb"), "<p>a  <br>\nb</p>\n");
+    expect(await md.render("a  \\\nb")).toBe("<p>a  <br>\nb</p>\n");
   });
 
   it("bulk enable/disable rules in different chains", () => {
@@ -129,7 +127,7 @@ describe("API", () => {
       inline: md.inline.ruler.getRules("").length + 2,
     };
 
-    assert.deepEqual(was, now);
+    expect(was).toStrictEqual(now);
 
     // Enable the same rules back
     md.enable(["block", "inline", "code", "fence", "emphasis", "entity"]);
@@ -140,7 +138,7 @@ describe("API", () => {
       inline: md.inline.ruler.getRules("").length,
     };
 
-    assert.deepEqual(was, back);
+    expect(was).toStrictEqual(back);
   });
 
   it("bulk enable/disable with errors control", () => {
@@ -156,10 +154,10 @@ describe("API", () => {
     const md = new MarkdownIt();
 
     md.disable("emphasis");
-    assert(await md.renderInline("_foo_"), "_foo_");
+    expect(await md.renderInline("_foo_")).toBe("_foo_");
 
     md.enable("emphasis");
-    assert(await md.renderInline("_foo_"), "<em>foo</em>");
+    expect(await md.renderInline("_foo_")).toBe("<em>foo</em>");
   });
 
   it("input type check", async () => {
@@ -367,11 +365,11 @@ describe("Url normalization", () => {
     const md = new MarkdownIt({ linkify: true });
 
     md.normalizeLink = function (url) {
-      assert(url.match(/example\.com/), "wrong url passed");
+      expect(url.match(/example\.com/)).toBeTruthy();
       return "LINK";
     };
     md.normalizeLinkText = function (url) {
-      assert(url.match(/example\.com/), "wrong url passed");
+      expect(url.match(/example\.com/)).toBeTruthy();
       return "TEXT";
     };
 
