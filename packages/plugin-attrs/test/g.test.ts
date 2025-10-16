@@ -795,8 +795,6 @@ function describeTestsWithOptions(
         expected += "</tr>\n";
         expected += "</tbody>\n";
         expected += "</table>\n";
-        console.log(await md.render(replaceDelimiters(src, options)));
-        console.log(expected);
         await expect(md.render(replaceDelimiters(src, options))).resolves.toBe(
           expected,
         );
