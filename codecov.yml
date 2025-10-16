@@ -1,0 +1,35 @@
+flags:
+  core:
+    paths:
+      - packages/core
+    carryforward: true
+  entities:
+    paths:
+      - packages/entities
+    carryforward: true
+  linkify-it:
+    paths:
+      - packages/linkify-it
+    carryforward: true
+  md-url:
+    paths:
+      - packages/md-url
+    carryforward: true
+  plugin-abbr:
+    paths:
+      - packages/plugin-abbr
+    carryforward: true
+  plugin-anchor:
+    paths:
+      - packages/plugin-anchor
+    carryforward: true
+  plugin-attrs:
+    paths:
+      - packages/plugin-attrs
+    carryforward: true
+
+
+comment:
+  layout: "reach,diff,flags,tree"
+  behavior: default
+  require_changes: false
