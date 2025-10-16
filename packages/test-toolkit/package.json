@@ -2,27 +2,23 @@
   "name": "markdown-it-enhancer-test-toolkit",
   "version": "1.0.0",
   "description": "Tests generator for markdown-it markdown parser",
+  "type": "module",
+  "author": "Par9uet <par9uet@qq.com>",
+  "license": "MIT",
   "keywords": [
     "markdown-it",
-    "markdown-it-enhancer"
+    "markdown-it-enhancer",
+    "markdown-it-test"
   ],
-  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js"
     }
   },
-  "author": {
-    "name": "Par9uet",
-    "email": "qq1607611087@gmail.com"
-  },
-  "type": "module",
-  "repository": "Dedicatus546/markdown-it-testgen-for-enhancer",
-  "license": "MIT",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "test": "vitest"
+    "build": "tsdown"
   },
   "files": [
     "dist/",
@@ -49,6 +45,5 @@
   },
   "engines": {
     "node": ">=20"
-  },
-  "packageManager": "pnpm@10.14.0"
+  }
 }

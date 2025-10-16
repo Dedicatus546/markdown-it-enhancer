@@ -2,6 +2,9 @@
   "name": "markdown-it-abbr-for-enhancer",
   "version": "3.1.0",
   "description": "<abbr> tag for markdown-it markdown parser.",
+  "type": "module",
+  "author": "Par9uet <par9uet@qq.com>",
+  "license": "MIT",
   "keywords": [
     "markdown-it-plugin",
     "markdown-it",
@@ -10,22 +13,20 @@
     "abbreviation",
     "abbr"
   ],
-  "license": "MIT",
-  "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js"
     }
   },
+  "scripts": {
+    "build": "tsdown"
+  },
   "files": [
     "dist/",
     "src/"
   ],
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "test": "vitest"
-  },
   "peerDependencies": {
     "markdown-it-enhancer": "workspace:~15.1.0"
   },

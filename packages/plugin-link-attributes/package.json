@@ -3,29 +3,28 @@
   "version": "5.0.0",
   "description": "A markdown-it plugin to configure the attributes for links",
   "type": "module",
-  "main": "./dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js"
-    }
-  },
-  "scripts": {
-    "build": "vite build",
-    "build:dev": "vite build --watch",
-    "test": "vitest"
-  },
-  "files": [
-    "dist/",
-    "src/"
-  ],
+  "author": "Par9uet <par9uet@qq.com>",
+  "license": "MIT",
   "keywords": [
     "markdown",
     "markdown-it",
     "markdown-it-enhancer",
     "markdown-it-plugin"
   ],
-  "author": "Par9uet <par9uet@qq.com>",
-  "license": "MIT",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsdown"
+  },
+  "files": [
+    "dist/",
+    "src/"
+  ],
   "peerDependencies": {
     "markdown-it-enhancer": "workspace:~15.1.0"
   },

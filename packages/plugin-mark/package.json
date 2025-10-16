@@ -2,24 +2,24 @@
   "name": "markdown-it-mark-for-enhancer",
   "version": "5.0.2",
   "description": "<mark> tag for markdown-it markdown parser.",
+  "type": "module",
+  "author": "Par9uet <par9uet@qq.com>",
+  "license": "MIT",
   "keywords": [
     "markdown-it-plugin",
     "markdown-it",
     "markdown",
     "mark"
   ],
-  "license": "MIT",
-  "type": "module",
-  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js"
     }
   },
   "scripts": {
-    "build": "vite build",
-    "build:dev": "vite build --watch",
-    "test": "vitest"
+    "build": "tsdown"
   },
   "files": [
     "dist/",

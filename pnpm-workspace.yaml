@@ -1,8 +1,6 @@
 packages:
   # 包含所有 packages 目录下的项目
   - "packages/*"
-  - "packages/plugins/*"
-  - "!packages/plugins"
 
 onlyBuiltDependencies:
   - "esbuild"
@@ -10,8 +8,6 @@ onlyBuiltDependencies:
 catalogs:
   types:
     "@types/js-yaml": ^4.0.9
-    "@types/linkify-it": ^5.0.0
-    "@types/mdurl": ^2.0.0
     "@types/node": ^24.3.1
   lint:
     "@eslint/js": ^9.35.0
@@ -25,9 +21,7 @@ catalogs:
     js-yaml: ^4.1.0
     katex: ^0.16.22
   build:
-    vite: ^7.1.4
-    vite-plugin-dts: ^4.5.4
-    rimraf: ^6.0.1
+    tsdown: ^0.15.7
   test:
     cheerio: ^1.1.2
     "@vitest/coverage-istanbul": ^3.2.4

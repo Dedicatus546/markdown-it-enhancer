@@ -1,4 +1,6 @@
 import fs from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { anchor } from "markdown-it-anchor-for-enhancer";
 import { attributes } from "markdown-it-attrs-for-enhancer";
@@ -6,6 +8,9 @@ import { MarkdownIt } from "markdown-it-enhancer";
 import { describe, expect, it } from "vitest";
 
 import { tableOfContents } from "../src";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const resolveFixturesPath = (path: string) => join(__dirname, path);
 
 const markdownItAnchorOpts = { tabIndex: false as const, uniqueSlugStartIndex: 2 };
 
@@ -15,45 +20,45 @@ const defaultMarker = "[[toc]]";
 const defaultListType = "ul";
 
 // Fixtures
-const simpleMarkdown = fs.readFileSync("test/fixtures/simple.md", "utf-8");
-const simpleWithFormatting = fs.readFileSync("test/fixtures/simple-with-markdown-formatting.md", "utf-8");
-const simpleWithFormattingHTML = fs.readFileSync("test/fixtures/simple-with-markdown-formatting.html", "utf-8");
-const simpleDefaultHTML = fs.readFileSync("test/fixtures/simple-default.html", "utf-8");
-const simple1LevelHTML = fs.readFileSync("test/fixtures/simple-1-level.html", "utf-8");
-const simpleWithAnchorsHTML = fs.readFileSync("test/fixtures/simple-with-anchors.html", "utf-8");
-const simpleWithHeaderFooterHTML = fs.readFileSync("test/fixtures/simple-with-header-footer.html", "utf-8");
-const simpleWithTransformLink = fs.readFileSync("test/fixtures/simple-with-transform-link.html", "utf-8");
-const simpleWithHeadingLink = fs.readFileSync("test/fixtures/simple-with-heading-links.md", "utf-8");
-const simpleWithHeadingLinkHTML = fs.readFileSync("test/fixtures/simple-with-heading-links.html", "utf-8");
-const simpleWithDuplicateHeadings = fs.readFileSync("test/fixtures/simple-with-duplicate-headings.md", "utf-8");
-const simpleWithDuplicateHeadingsHTML = fs.readFileSync("test/fixtures/simple-with-duplicate-headings.html", "utf-8");
+const simpleMarkdown = fs.readFileSync(resolveFixturesPath("./fixtures/simple.md"), "utf-8");
+const simpleWithFormatting = fs.readFileSync(resolveFixturesPath("./fixtures/simple-with-markdown-formatting.md"), "utf-8");
+const simpleWithFormattingHTML = fs.readFileSync(resolveFixturesPath("./fixtures/simple-with-markdown-formatting.html"), "utf-8");
+const simpleDefaultHTML = fs.readFileSync(resolveFixturesPath("./fixtures/simple-default.html"), "utf-8");
+const simple1LevelHTML = fs.readFileSync(resolveFixturesPath("./fixtures/simple-1-level.html"), "utf-8");
+const simpleWithAnchorsHTML = fs.readFileSync(resolveFixturesPath("./fixtures/simple-with-anchors.html"), "utf-8");
+const simpleWithHeaderFooterHTML = fs.readFileSync(resolveFixturesPath("./fixtures/simple-with-header-footer.html"), "utf-8");
+const simpleWithTransformLink = fs.readFileSync(resolveFixturesPath("./fixtures/simple-with-transform-link.html"), "utf-8");
+const simpleWithHeadingLink = fs.readFileSync(resolveFixturesPath("./fixtures/simple-with-heading-links.md"), "utf-8");
+const simpleWithHeadingLinkHTML = fs.readFileSync(resolveFixturesPath("./fixtures/simple-with-heading-links.html"), "utf-8");
+const simpleWithDuplicateHeadings = fs.readFileSync(resolveFixturesPath("./fixtures/simple-with-duplicate-headings.md"), "utf-8");
+const simpleWithDuplicateHeadingsHTML = fs.readFileSync(resolveFixturesPath("./fixtures/simple-with-duplicate-headings.html"), "utf-8");
 const emptyMarkdown = defaultMarker;
-const emptyMarkdownHtml = fs.readFileSync("test/fixtures/empty.html", "utf-8");
+const emptyMarkdownHtml = fs.readFileSync(resolveFixturesPath("./fixtures/empty.html"), "utf-8");
 
-const multiLevelMarkdown = fs.readFileSync("test/fixtures/multi-level.md", "utf-8");
-const multiLevel1234HTML = fs.readFileSync("test/fixtures/multi-level-1234.html", "utf-8");
-const multiLevel23HTML = fs.readFileSync("test/fixtures/multi-level-23.html", "utf-8");
-const strangeOrderMarkdown = fs.readFileSync("test/fixtures/strange-order.md", "utf-8");
-const strangeOrderHTML = fs.readFileSync("test/fixtures/strange-order.html", "utf-8");
+const multiLevelMarkdown = fs.readFileSync(resolveFixturesPath("./fixtures/multi-level.md"), "utf-8");
+const multiLevel1234HTML = fs.readFileSync(resolveFixturesPath("./fixtures/multi-level-1234.html"), "utf-8");
+const multiLevel23HTML = fs.readFileSync(resolveFixturesPath("./fixtures/multi-level-23.html"), "utf-8");
+const strangeOrderMarkdown = fs.readFileSync(resolveFixturesPath("./fixtures/strange-order.md"), "utf-8");
+const strangeOrderHTML = fs.readFileSync(resolveFixturesPath("./fixtures/strange-order.html"), "utf-8");
 
-const customAttrsMarkdown = fs.readFileSync("test/fixtures/custom-attrs.md", "utf-8");
-const customAttrsHTML = fs.readFileSync("test/fixtures/custom-attrs.html", "utf-8");
-const customAttrsWithAnchorsHTML = fs.readFileSync("test/fixtures/custom-attrs-with-anchors.html", "utf-8");
+const customAttrsMarkdown = fs.readFileSync(resolveFixturesPath("./fixtures/custom-attrs.md"), "utf-8");
+const customAttrsHTML = fs.readFileSync(resolveFixturesPath("./fixtures/custom-attrs.html"), "utf-8");
+const customAttrsWithAnchorsHTML = fs.readFileSync(resolveFixturesPath("./fixtures/custom-attrs-with-anchors.html"), "utf-8");
 
-const fullExampleMarkdown = fs.readFileSync("test/fixtures/full-example.md", "utf-8");
-const fullExampleHTML = fs.readFileSync("test/fixtures/full-example.html", "utf-8");
-const fullExampleCustomContainerHTML = fs.readFileSync("test/fixtures/full-example-custom-container.html", "utf-8");
+const fullExampleMarkdown = fs.readFileSync(resolveFixturesPath("./fixtures/full-example.md"), "utf-8");
+const fullExampleHTML = fs.readFileSync(resolveFixturesPath("./fixtures/full-example.html"), "utf-8");
+const fullExampleCustomContainerHTML = fs.readFileSync(resolveFixturesPath("./fixtures/full-example-custom-container.html"), "utf-8");
 
-const basicMarkdown = fs.readFileSync("test/fixtures/basic.md", "utf-8");
-const basicHTML = fs.readFileSync("test/fixtures/basic.html", "utf-8");
+const basicMarkdown = fs.readFileSync(resolveFixturesPath("./fixtures/basic.md"), "utf-8");
+const basicHTML = fs.readFileSync(resolveFixturesPath("./fixtures/basic.html"), "utf-8");
 
-const anchorsSpecialCharsMarkdown = fs.readFileSync("test/fixtures/anchors-special-chars.md", "utf-8");
-const anchorsSpecialCharsHTML = fs.readFileSync("test/fixtures/anchors-special-chars.html", "utf-8");
+const anchorsSpecialCharsMarkdown = fs.readFileSync(resolveFixturesPath("./fixtures/anchors-special-chars.md"), "utf-8");
+const anchorsSpecialCharsHTML = fs.readFileSync(resolveFixturesPath("./fixtures/anchors-special-chars.html"), "utf-8");
 
-const omitMarkdown = fs.readFileSync("test/fixtures/omit.md", "utf-8");
-const omitHTML = fs.readFileSync("test/fixtures/omit.html", "utf-8");
+const omitMarkdown = fs.readFileSync(resolveFixturesPath("./fixtures/omit.md"), "utf-8");
+const omitHTML = fs.readFileSync(resolveFixturesPath("./fixtures/omit.html"), "utf-8");
 
-const headingWithFormattingHTML = fs.readFileSync("test/fixtures/heading-with-formatting.html", "utf-8");
+const headingWithFormattingHTML = fs.readFileSync(resolveFixturesPath("./fixtures/heading-with-formatting.html"), "utf-8");
 
 const slugify = (s: string) => encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-"));
 

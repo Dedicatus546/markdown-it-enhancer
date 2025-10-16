@@ -1,11 +1,10 @@
 {
   "name": "markdown-it-enhancer",
   "version": "15.1.0",
-  "description": "Markdown-it - modern pluggable markdown parser.",
-  "author": {
-    "name": "Par9uet",
-    "email": "qq1607611087@gmail.com"
-  },
+  "description": "Markdown-it-enhancer - modern pluggable markdown parser.",
+  "type": "module",
+  "author": "Par9uet <par9uet@qq.com>",
+  "license": "MIT",
   "keywords": [
     "markdown",
     "parser",
@@ -14,10 +13,8 @@
     "markdown-it-plugin",
     "markdown-it-enhancer"
   ],
-  "repository": "Dedicatus546/markdown-it-enhancer",
-  "license": "MIT",
-  "type": "module",
-  "main": "dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js"
@@ -33,9 +30,7 @@
     }
   },
   "scripts": {
-    "test": "vitest --open",
-    "build": "vite build",
-    "build:dev": "vite build --watch"
+    "build": "tsdown"
   },
   "files": [
     "dist/",
@@ -43,13 +38,12 @@
   ],
   "dependencies": {
     "entities-for-enhancer": "workspace:~6.0.0",
-    "punycode.js-for-enhancer": "workspace:~3.0.0",
     "linkify-it-for-enhancer": "workspace:~6.0.0",
     "mdurl-for-enhancer": "workspace:~3.0.0",
+    "punycode.js-for-enhancer": "workspace:~3.0.0",
     "uc.micro-for-enhancer": "workspace:~3.0.0"
   },
   "engines": {
     "node": ">=20"
-  },
-  "packageManager": "pnpm@10.14.0"
+  }
 }

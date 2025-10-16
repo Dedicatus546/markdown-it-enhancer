@@ -2,25 +2,25 @@
   "name": "mdurl-for-enhancer",
   "version": "3.0.0",
   "description": "URL utilities for markdown-it",
-  "license": "MIT",
   "type": "module",
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "test": "vitest"
-  },
-  "files": [
-    "dist/",
-    "src"
-  ],
-  "main": "./dist/index.js",
+  "author": "Par9uet <par9uet@qq.com>",
+  "license": "MIT",
+  "keywords": [],
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js"
     }
   },
+  "scripts": {
+    "build": "tsdown"
+  },
+  "files": [
+    "dist/",
+    "src"
+  ],
   "engines": {
     "node": ">=20"
-  },
-  "packageManager": "pnpm@10.14.0"
+  }
 }

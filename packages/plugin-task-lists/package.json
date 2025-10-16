@@ -3,16 +3,8 @@
   "version": "3.0.2",
   "description": "A markdown-it plugin to create GitHub-style task lists",
   "type": "module",
-  "files": [
-    "dist/",
-    "src/"
-  ],
-  "main": "./dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js"
-    }
-  },
+  "author": "Par9uet <par9uet@qq.com>",
+  "license": "MIT",
   "keywords": [
     "markdown",
     "markdown-it",
@@ -23,11 +15,20 @@
     "todo",
     "checkbox"
   ],
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "test": "vitest"
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
   },
+  "scripts": {
+    "build": "tsdown"
+  },
+  "files": [
+    "dist/",
+    "src/"
+  ],
   "peerDependencies": {
     "markdown-it-enhancer": "workspace:~15.0.0 || ~15.1.0"
   },

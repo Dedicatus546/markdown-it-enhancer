@@ -2,21 +2,22 @@
   "name": "markdown-it-enhancer-repo",
   "version": "1.0.0",
   "description": "Markdown-it - modern pluggable markdown parser.",
-  "license": "MIT",
   "type": "module",
+  "author": "Par9uet <par9uet@qq.com>",
+  "license": "MIT",
   "scripts": {
     "lint": "eslint --fix",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "type-check": "tsc --noEmit",
-    "rm:dist": "rimraf -g ./packages/*/dist/ ./packages/plugins/*/dist/",
-    "build:base": "pnpm --filter ./packages/{uc-micro,shared,md-url,punycode,entities} build",
-    "build:linkify-it": "pnpm --filter ./packages/linkify-it build",
-    "build:test-toolkit": "pnpm --filter ./packages/test-toolkit build",
-    "build:core": "pnpm --filter ./packages/core build",
-    "build:plugins": "pnpm --filter ./packages/plugins/* build",
-    "build": "pnpm rm:dist & pnpm build:base & pnpm build:linkify-it & pnpm build:core & pnpm build:test-toolkit & pnpm build:plugins"
+    "build:base": "pnpm --stream --filter ./packages/{uc-micro,shared,md-url,punycode,entities} build",
+    "build:linkify-it": "pnpm --stream --filter ./packages/linkify-it build",
+    "build:test-toolkit": "pnpm --stream --filter ./packages/test-toolkit build",
+    "build:core": "pnpm --stream --filter ./packages/core build",
+    "build:plugins": "pnpm --stream --filter ./packages/plugin-* build",
+    "build": "pnpm build:base & pnpm build:linkify-it & pnpm build:core & pnpm build:test-toolkit & pnpm build:plugins",
+    "test": "vitest"
   },
   "devDependencies": {
     "@eslint/js": "catalog:lint",
@@ -37,16 +38,14 @@
     "markdown-it-for-inline-for-enhancer": "workspace:*",
     "markdown-it-implicit-figures-for-enhancer": "workspace:*",
     "markdown-it-katex-for-enhancer": "workspace:*",
-    "rimraf": "catalog:build",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:lint",
-    "vite": "catalog:build",
-    "vite-plugin-dts": "catalog:build",
     "vitepress": "catalog:doc",
-    "vitest": "catalog:test"
+    "vitest": "catalog:test",
+    "tsdown": "catalog:build"
   },
   "engines": {
     "node": ">=20"
   },
-  "packageManager": "pnpm@10.15.1"
+  "packageManager": "pnpm@10.18.3"
 }

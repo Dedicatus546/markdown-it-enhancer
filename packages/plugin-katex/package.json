@@ -3,21 +3,8 @@
   "version": "3.0.2",
   "description": "Fast math support for markdown-it with KaTeX",
   "type": "module",
-  "main": "./dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js"
-    }
-  },
-  "scripts": {
-    "build": "vite build",
-    "build:dev": "vite build --watch",
-    "test": "vitest"
-  },
-  "files": [
-    "dist/",
-    "src/"
-  ],
+  "author": "Par9uet <par9uet@qq.com>",
+  "license": "MIT",
   "keywords": [
     "markdown",
     "KaTeX",
@@ -27,7 +14,20 @@
     "markdown-it",
     "markdown-it-enhancer"
   ],
-  "license": "MIT",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsdown"
+  },
+  "files": [
+    "dist/",
+    "src/"
+  ],
   "dependencies": {
     "katex": "catalog:prod"
   },
