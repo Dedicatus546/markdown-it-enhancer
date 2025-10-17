@@ -15,6 +15,8 @@ export default defineConfig({
       },
       { text: "Getting Started", link: "/guide/getting-started" },
       { text: "Breaking Change", link: "/guide/breaking-change" },
+      { text: "Create Plugin", link: "/guide/create-plugin" },
+      { text: "Built-in Plugins", link: "/guide/build-in-plugins" },
     ],
 
     socialLinks: [

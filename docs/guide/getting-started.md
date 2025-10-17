@@ -26,14 +26,6 @@ $ pnpm add markdown-it-enhancer
 $ yarn add markdown-it-enhancer
 ```
 
-```sh [yarn (pnp)]
-$ yarn add markdown-it-enhancer
-```
-
-```sh [bun]
-$ bun add markdown-it-enhancer
-```
-
 :::
 
 ::: tip NOTE
