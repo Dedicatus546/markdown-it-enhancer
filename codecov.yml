@@ -4,112 +4,118 @@ coverage:
     patch: true
     changes: true
 
-flags:
-  core:
-    paths:
-      - packages/core
-    carryforward: true
-  entities:
-    paths:
-      - packages/entities
-    carryforward: true
-  linkify-it:
-    paths:
-      - packages/linkify-it
-    carryforward: true
-  md-url:
-    paths:
-      - packages/md-url
-    carryforward: true
-  punycode:
-    paths:
-      - packages/punycode
-    carryforward: true
-  shared:
-    paths:
-      - packages/shared
-    carryforward: true
-  test-toolkit:
-    paths:
-      - packages/test-toolkit
-    carryforward: true
-  uc-micro:
-    paths:
-      - packages/uc-micro
-    carryforward: true
-  plugin-abbr:
-    paths:
-      - packages/plugin-abbr
-    carryforward: true
-  plugin-anchor:
-    paths:
-      - packages/plugin-anchor
-    carryforward: true
-  plugin-attrs:
-    paths:
-      - packages/plugin-attrs
-    carryforward: true
-  plugin-container:
-    paths:
-      - packages/plugin-container
-    carryforward: true
-  plugin-deflist:
-    paths:
-      - packages/plugin-deflist
-    carryforward: true
-  plugin-emoji:
-    paths:
-      - packages/plugin-emoji
-    carryforward: true
-  plugin-footnote:
-    paths:
-      - packages/plugin-footnote
-    carryforward: true
-  plugin-for-inline:
-    paths:
-      - packages/plugin-for-inline
-    carryforward: true
-  plugin-implicit-figures:
-    paths:
-      - packages/plugin-implicit-figures
-    carryforward: true
-  plugin-ins:
-    paths:
-      - packages/plugin-ins
-    carryforward: true
-  plugin-katex:
-    paths:
-      - packages/plugin-katex
-    carryforward: true
-  plugin-link-attributes:
-    paths:
-      - packages/plugin-link-attributes
-    carryforward: true
-  plugin-magic-link:
-    paths:
-      - packages/plugin-magic-link
-    carryforward: true
-  plugin-mark:
-    paths:
-      - packages/plugin-mark
-    carryforward: true
-  plugin-sub:
-    paths:
-      - packages/plugin-sub
-    carryforward: true
-  plugin-sup:
-    paths:
-      - packages/plugin-sup
-    carryforward: true
-  plugin-table-of-contents:
-    paths:
-      - packages/plugin-table-of-contents
-    carryforward: true
-  plugin-task-lists:
-    paths:
-      - packages/plugin-task-lists
-    carryforward: true
-
+component_management:
+  default_rules:  # default rules that will be inherited by all components
+    statuses:
+      - type: project # in this case every component that doens't have a status defined will have a project type one
+        target: auto
+        branches:
+          - "!main"
+  individual_components:
+    - component_id: core
+      name: core
+      paths:
+        - packages/core/**
+    - component_id: entities
+      name: entities
+      paths:
+        - packages/entities/**
+    - component_id: linkify-it
+      name: linkify-it
+      paths:
+        - packages/linkify-it/**
+    - component_id: md-url
+      name: md-url
+      paths:
+        - packages/md-url/**
+    - component_id: punycode
+      name: punycode
+      paths:
+        - packages/punycode/**
+    - component_id: shared
+      name: shared
+      paths:
+        - packages/shared/**
+    - component_id: test-toolkit
+      name: test-toolkit
+      paths:
+        - packages/test-toolkit/**
+    - component_id: uc-micro
+      name: uc-micro
+      paths:
+        - packages/uc-micro/**
+    - component_id: plugin-abbr
+      name: plugin-abbr
+      paths:
+        - packages/plugin-abbr/**
+    - component_id: plugin-anchor
+      name: plugin-anchor
+      paths:
+        - packages/plugin-anchor/**
+    - component_id: plugin-attrs
+      name: plugin-attrs
+      paths:
+        - packages/plugin-attrs/**
+    - component_id: plugin-container
+      name: plugin-container
+      paths:
+        - packages/plugin-container/**
+    - component_id: plugin-deflist
+      name: plugin-deflist
+      paths:
+        - packages/plugin-deflist/**
+    - component_id: plugin-emoji
+      name: plugin-emoji
+      paths:
+        - packages/plugin-emoji/**
+    - component_id: plugin-footnote
+      name: plugin-footnote
+      paths:
+        - packages/plugin-footnote/**
+    - component_id: plugin-for-inline
+      name: plugin-for-inline
+      paths:
+        - packages/plugin-for-inline/**
+    - component_id: plugin-implicit-figures
+      name: plugin-implicit-figures
+      paths:
+        - packages/plugin-implicit-figures/**
+    - component_id: plugin-ins
+      name: plugin-ins
+      paths:
+        - packages/plugin-ins/**
+    - component_id: plugin-katex
+      name: plugin-katex
+      paths:
+        - packages/plugin-katex/**
+    - component_id: plugin-link-attributes
+      name: plugin-link-attributes
+      paths:
+        - packages/plugin-link-attributes/**
+    - component_id: plugin-magic-link
+      name: plugin-magic-link
+      paths:
+        - packages/plugin-magic-link/**
+    - component_id: plugin-mark
+      name: plugin-mark
+      paths:
+        - packages/plugin-mark/**
+    - component_id: plugin-sub
+      name: plugin-sub
+      paths:
+        - packages/plugin-sub/**
+    - component_id: plugin-sup
+      name: plugin-sup
+      paths:
+        - packages/plugin-sup/**
+    - component_id: plugin-table-of-contents
+      name: plugin-table-of-contents
+      paths:
+        - packages/plugin-table-of-contents/**
+    - component_id: plugin-task-lists
+      name: plugin-task-lists
+      paths:
+        - packages/plugin-task-lists/**
 
 comment:
   layout: "reach,diff,flags,tree"
