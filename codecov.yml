@@ -21,6 +21,22 @@ flags:
     paths:
       - packages/md-url
     carryforward: true
+  punycode:
+    paths:
+      - packages/punycode
+    carryforward: true
+  shared:
+    paths:
+      - packages/shared
+    carryforward: true
+  test-toolkit:
+    paths:
+      - packages/test-toolkit
+    carryforward: true
+  uc-micro:
+    paths:
+      - packages/uc-micro
+    carryforward: true
   plugin-abbr:
     paths:
       - packages/plugin-abbr
@@ -32,6 +48,66 @@ flags:
   plugin-attrs:
     paths:
       - packages/plugin-attrs
+    carryforward: true
+  plugin-container:
+    paths:
+      - packages/plugin-container
+    carryforward: true
+  plugin-deflist:
+    paths:
+      - packages/plugin-deflist
+    carryforward: true
+  plugin-emoji:
+    paths:
+      - packages/plugin-emoji
+    carryforward: true
+  plugin-footnote:
+    paths:
+      - packages/plugin-footnote
+    carryforward: true
+  plugin-for-inline:
+    paths:
+      - packages/plugin-for-inline
+    carryforward: true
+  plugin-implicit-figures:
+    paths:
+      - packages/plugin-implicit-figures
+    carryforward: true
+  plugin-ins:
+    paths:
+      - packages/plugin-ins
+    carryforward: true
+  plugin-katex:
+    paths:
+      - packages/plugin-katex
+    carryforward: true
+  plugin-link-attributes:
+    paths:
+      - packages/plugin-link-attributes
+    carryforward: true
+  plugin-magic-link:
+    paths:
+      - packages/plugin-magic-link
+    carryforward: true
+  plugin-mark:
+    paths:
+      - packages/plugin-mark
+    carryforward: true
+  plugin-sub:
+    paths:
+      - packages/plugin-sub
+    carryforward: true
+  plugin-sup:
+    paths:
+      - packages/plugin-sup
+    carryforward: true
+  plugin-table-of-contents:
+    paths:
+      - packages/plugin-table-of-contents
+    carryforward: true
+  plugin-task-lists:
+    paths:
+      - packages/plugin-task-lists
     carryforward: true
 
 
