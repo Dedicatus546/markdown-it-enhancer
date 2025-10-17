@@ -1,9 +1,9 @@
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { MarkdownIt } from "@markdown-it-enhancer/core";
+import { load } from "@markdown-it-enhancer/test-toolkit";
 import katex from "katex";
-import { MarkdownIt } from "markdown-it-enhancer";
-import { load } from "markdown-it-enhancer-test-toolkit";
 import { expect, it } from "vitest";
 
 import { math } from "../src";

@@ -1,4 +1,4 @@
-import { MarkdownIt, RendererFn, Token } from "markdown-it-enhancer";
+import { MarkdownIt, RendererFn, Token } from "@markdown-it-enhancer/core";
 
 export type TableOfContentsOptions = {
   includeLevel?: Array<number>
@@ -33,7 +33,7 @@ export interface TocItem {
   parent: TocItem | null
 }
 
-declare module "markdown-it-enhancer" {
+declare module "@markdown-it-enhancer/core" {
   interface RendererExtendsRules {
     toc_open: RendererFn
     toc_close: RendererFn

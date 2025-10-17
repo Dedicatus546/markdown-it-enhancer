@@ -1,4 +1,4 @@
-import { MarkdownIt, MarkdownItPlugin, RendererFn, type Token } from "markdown-it-enhancer";
+import { MarkdownIt, MarkdownItPlugin, RendererFn, type Token } from "@markdown-it-enhancer/core";
 
 import { LinkAttributesListItem, LinkAttributesNormalizedOptions, LinkAttributesOptions } from "./types";
 

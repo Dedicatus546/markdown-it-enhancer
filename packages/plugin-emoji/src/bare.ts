@@ -1,11 +1,11 @@
-import type { MarkdownItPlugin, RendererFn } from "markdown-it-enhancer";
+import type { MarkdownItPlugin, RendererFn } from "@markdown-it-enhancer/core";
 
 import { normalizeOptions } from "./normalize_opts";
 import { emoji_html } from "./render";
 import { emoji_replace } from "./replace";
 import type { EmojiOptions } from "./types";
 
-declare module "markdown-it-enhancer" {
+declare module "@markdown-it-enhancer/core" {
   export interface RendererExtendsRules {
     emoji: RendererFn
   }

@@ -1,6 +1,6 @@
 {
-  "name": "markdown-it-enhancer",
-  "version": "15.1.0",
+  "name": "@markdown-it-enhancer/core",
+  "version": "1.0.0",
   "description": "Markdown-it-enhancer - modern pluggable markdown parser.",
   "type": "module",
   "author": "Par9uet <par9uet@qq.com>",
@@ -37,11 +37,11 @@
     "src/"
   ],
   "dependencies": {
-    "entities-for-enhancer": "workspace:~6.0.0",
-    "linkify-it-for-enhancer": "workspace:~6.0.0",
-    "mdurl-for-enhancer": "workspace:~3.0.0",
-    "punycode.js-for-enhancer": "workspace:~3.0.0",
-    "uc.micro-for-enhancer": "workspace:~3.0.0"
+    "@markdown-it-enhancer/entities": "workspace:~1.0.0",
+    "@markdown-it-enhancer/linkify-it": "workspace:~1.0.0",
+    "@markdown-it-enhancer/mdurl": "workspace:~1.0.0",
+    "@markdown-it-enhancer/punycode.js": "workspace:~1.0.0",
+    "@markdown-it-enhancer/uc.micro": "workspace:~1.0.0"
   },
   "engines": {
     "node": ">=20"

@@ -1,4 +1,4 @@
-import type { Token, TokenAttr } from "markdown-it-enhancer";
+import type { Token, TokenAttr } from "@markdown-it-enhancer/core";
 
 export const isLevelSelectedNumber = (selection: number) => (level: number) =>
   level >= selection;

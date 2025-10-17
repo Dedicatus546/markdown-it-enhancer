@@ -1,7 +1,7 @@
 import { relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { load } from "markdown-it-enhancer-test-toolkit";
+import { load } from "@markdown-it-enhancer/test-toolkit";
 import { describe, expect, it } from "vitest";
 
 import { MarkdownIt } from "../src";

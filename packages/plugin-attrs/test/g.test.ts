@@ -1,6 +1,6 @@
-import { MarkdownIt } from "markdown-it-enhancer";
-import { implicitFigures } from "markdown-it-implicit-figures-for-enhancer";
-import { math } from "markdown-it-katex-for-enhancer";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
+import { implicitFigures } from "@markdown-it-enhancer/plugin-implicit-figures";
+import { math } from "@markdown-it-enhancer/plugin-katex";
 import { describe, expect, it } from "vitest";
 
 import { attributes } from "../src";

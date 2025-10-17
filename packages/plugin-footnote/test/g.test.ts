@@ -1,8 +1,8 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { MarkdownIt, MarkdownItEnv } from "markdown-it-enhancer";
-import { load } from "markdown-it-enhancer-test-toolkit";
+import { MarkdownIt, MarkdownItEnv } from "@markdown-it-enhancer/core";
+import { load } from "@markdown-it-enhancer/test-toolkit";
 import { describe, expect, it } from "vitest";
 
 import { footnote } from "../src";

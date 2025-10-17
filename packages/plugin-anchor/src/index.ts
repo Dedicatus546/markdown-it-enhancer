@@ -1,4 +1,4 @@
-import type { MarkdownItPlugin } from "markdown-it-enhancer";
+import type { MarkdownItPlugin } from "@markdown-it-enhancer/core";
 
 import {
   MarkdownItAnchorNormalizedOptions,

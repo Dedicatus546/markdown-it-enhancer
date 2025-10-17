@@ -1,4 +1,4 @@
-import type { StateInlineRuleFn } from "markdown-it-enhancer";
+import type { StateInlineRuleFn } from "@markdown-it-enhancer/core";
 
 // Process footnote references ([^...])
 export const footnote_ref: StateInlineRuleFn = (state, silent) => {

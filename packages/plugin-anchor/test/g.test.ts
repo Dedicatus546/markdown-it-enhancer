@@ -1,5 +1,5 @@
-import { attributes } from "markdown-it-attrs-for-enhancer";
-import { MarkdownIt, Token } from "markdown-it-enhancer";
+import { MarkdownIt, Token } from "@markdown-it-enhancer/core";
+import { attributes } from "@markdown-it-enhancer/plugin-attrs";
 import { describe, expect, it } from "vitest";
 
 import {

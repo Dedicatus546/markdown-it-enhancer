@@ -1,4 +1,4 @@
-import type { MarkdownItPlugin, StateInlineRuleFn } from "markdown-it-enhancer";
+import type { MarkdownItPlugin, StateInlineRuleFn } from "@markdown-it-enhancer/core";
 
 // same as UNESCAPE_MD_RE plus a space
 const UNESCAPE_RE = /\\([ \\!"#$%&'()*+,./:;<=>?@[\]^_`{|}~-])/g;

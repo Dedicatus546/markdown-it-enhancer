@@ -1,5 +1,5 @@
 {
-  "name": "markdown-it-enhancer-test-toolkit",
+  "name": "@markdown-it-enhancer/test-toolkit",
   "version": "1.0.0",
   "description": "Tests generator for markdown-it markdown parser",
   "type": "module",
@@ -25,18 +25,18 @@
     "src/"
   ],
   "dependencies": {
-    "markdown-it-enhancer-utils": "workspace:~1.1.0",
+    "@markdown-it-enhancer/shared": "workspace:~1.0.0",
     "js-yaml": "catalog:prod"
   },
   "devDependencies": {
     "@types/js-yaml": "catalog:types"
   },
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.0.0",
+    "@markdown-it-enhancer/core": "workspace:~1.0.0",
     "vitest": ">=3"
   },
   "peerDependenciesMeta": {
-    "markdown-it-enhancer": {
+    "@markdown-it-enhancer/core": {
       "optional": true
     },
     "vitest": {

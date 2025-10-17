@@ -1,4 +1,4 @@
-import { MarkdownIt } from "markdown-it-enhancer";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { linkAttributes } from "../src";

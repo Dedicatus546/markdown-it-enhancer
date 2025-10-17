@@ -1,4 +1,4 @@
-import { MarkdownIt } from "markdown-it-enhancer";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
 import { expect, it } from "vitest";
 
 import MarkdownItMagicLink from "../src";

@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 
+import { MarkdownIt } from "@markdown-it-enhancer/core";
 import { CheerioAPI, load } from "cheerio";
-import { MarkdownIt } from "markdown-it-enhancer";
 import { beforeAll, describe, expect, it } from "vitest";
 
 import { taskLists } from "../src";

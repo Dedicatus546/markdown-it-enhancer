@@ -3,8 +3,8 @@
 // https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments
 // https://github.com/blog/1825-task-lists-in-all-markdown-documents
 
-import type { MarkdownItPlugin, TokenAttr } from "markdown-it-enhancer";
-import { Token } from "markdown-it-enhancer";
+import type { MarkdownItPlugin, TokenAttr } from "@markdown-it-enhancer/core";
+import { Token } from "@markdown-it-enhancer/core";
 
 import type { TaskListsNormalizedOptions, TaskListsOptions } from "./types";
 

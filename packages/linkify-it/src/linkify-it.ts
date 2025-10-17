@@ -4,7 +4,7 @@ import {
   isObject,
   isRegExp,
   isString,
-} from "markdown-it-enhancer-utils";
+} from "@markdown-it-enhancer/shared";
 
 import { defaultOptions, defaultSchemas, tlds_2ch_src_re } from "./constants";
 import { Match } from "./match";

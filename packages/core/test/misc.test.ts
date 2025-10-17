@@ -1,4 +1,4 @@
-import { forInline } from "markdown-it-for-inline-for-enhancer";
+import { forInline } from "@markdown-it-enhancer/plugin-for-inline";
 import { describe, expect, it } from "vitest";
 
 import { MarkdownIt, type MarkdownItPlugin, type Token } from "../src";

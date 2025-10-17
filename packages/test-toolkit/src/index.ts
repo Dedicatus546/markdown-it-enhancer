@@ -1,9 +1,9 @@
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
+import { MarkdownIt } from "@markdown-it-enhancer/core";
+import { isArray, isFunction, isString } from "@markdown-it-enhancer/shared";
 import yaml from "js-yaml";
-import { MarkdownIt } from "markdown-it-enhancer";
-import { isArray, isFunction, isString } from "markdown-it-enhancer-utils";
 import { describe, expect, it } from "vitest";
 
 import type { ParsedData } from "./types";

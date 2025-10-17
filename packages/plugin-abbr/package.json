@@ -1,6 +1,6 @@
 {
-  "name": "markdown-it-abbr-for-enhancer",
-  "version": "3.1.0",
+  "name": "@markdown-it-enhancer/plugin-abbr",
+  "version": "1.0.0",
   "description": "<abbr> tag for markdown-it markdown parser.",
   "type": "module",
   "author": "Par9uet <par9uet@qq.com>",
@@ -27,11 +27,14 @@
     "dist/",
     "src/"
   ],
+  "dependencies": {
+    "@markdown-it-enhancer/uc.micro": "workspace:~1.0.0"
+  },
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.1.0"
+    "@markdown-it-enhancer/core": "workspace:~1.0.0"
   },
   "peerDependenciesMeta": {
-    "markdown-it-enhancer": {
+    "@markdown-it-enhancer/core": {
       "optional": true
     }
   },

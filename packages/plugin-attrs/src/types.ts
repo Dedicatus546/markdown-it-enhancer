@@ -1,4 +1,4 @@
-import type { Token, TokenAttr, TokenNestingType } from "markdown-it-enhancer";
+import type { Token, TokenAttr, TokenNestingType } from "@markdown-it-enhancer/core";
 
 export interface AttributeOptions {
   leftDelimiter?: string

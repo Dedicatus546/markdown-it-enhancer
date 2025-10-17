@@ -31,18 +31,19 @@
     "eslint-plugin-simple-import-sort": "catalog:lint",
     "globals": "catalog:lint",
     "jiti": "catalog:lint",
-    "markdown-it-anchor-for-enhancer": "workspace:*",
-    "markdown-it-attrs-for-enhancer": "workspace:*",
-    "markdown-it-enhancer": "workspace:*",
-    "markdown-it-enhancer-test-toolkit": "workspace:*",
-    "markdown-it-for-inline-for-enhancer": "workspace:*",
-    "markdown-it-implicit-figures-for-enhancer": "workspace:*",
-    "markdown-it-katex-for-enhancer": "workspace:*",
+    "lerna": "^9.0.0",
+    "@markdown-it-enhancer/core": "workspace:*",
+    "@markdown-it-enhancer/test-toolkit": "workspace:*",
+    "@markdown-it-enhancer/plugin-anchor": "workspace:*",
+    "@markdown-it-enhancer/plugin-attrs": "workspace:*",
+    "@markdown-it-enhancer/plugin-for-inline": "workspace:*",
+    "@markdown-it-enhancer/plugin-implicit-figures": "workspace:*",
+    "@markdown-it-enhancer/plugin-katex": "workspace:*",
+    "tsdown": "catalog:build",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:lint",
     "vitepress": "catalog:doc",
-    "vitest": "catalog:test",
-    "tsdown": "catalog:build"
+    "vitest": "catalog:test"
   },
   "engines": {
     "node": ">=20"

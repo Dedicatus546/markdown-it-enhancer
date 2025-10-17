@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
-import { MarkdownIt } from "markdown-it-enhancer";
-import { generate } from "markdown-it-enhancer-test-toolkit";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
+import { generate } from "@markdown-it-enhancer/test-toolkit";
 import { describe, expect, it } from "vitest";
 
 import { emoji as emoji_bare } from "../src/bare";

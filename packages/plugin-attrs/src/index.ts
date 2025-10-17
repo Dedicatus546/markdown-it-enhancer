@@ -2,7 +2,7 @@ import type {
   MarkdownItPlugin,
   StateCoreRuleFn,
   Token,
-} from "markdown-it-enhancer";
+} from "@markdown-it-enhancer/core";
 
 import { patterns as patternsConfig } from "./patterns";
 import type {

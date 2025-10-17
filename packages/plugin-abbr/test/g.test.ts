@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 
-import { MarkdownIt } from "markdown-it-enhancer";
-import { generate } from "markdown-it-enhancer-test-toolkit";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
+import { generate } from "@markdown-it-enhancer/test-toolkit";
 import { describe } from "vitest";
 
 import { abbr } from "../src";

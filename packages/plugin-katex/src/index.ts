@@ -7,7 +7,6 @@ It differs in that it takes (a subset of) LaTeX as input and relies on KaTeX
 for rendering output.
 */
 
-import katex from "katex";
 import {
   MarkdownItPlugin,
   RendererFn,
@@ -15,11 +14,12 @@ import {
   StateInline,
   StateInlineRuleFn,
   Token,
-} from "markdown-it-enhancer";
+} from "@markdown-it-enhancer/core";
+import katex from "katex";
 
 import type { IsValidDelimResult, MathOptions } from "./types";
 
-declare module "markdown-it-enhancer" {
+declare module "@markdown-it-enhancer/core" {
   export interface RendererExtendsRules {
     math_block: RendererFn
     math_inline: RendererFn

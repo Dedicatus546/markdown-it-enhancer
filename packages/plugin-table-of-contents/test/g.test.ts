@@ -2,9 +2,9 @@ import fs from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { anchor } from "markdown-it-anchor-for-enhancer";
-import { attributes } from "markdown-it-attrs-for-enhancer";
-import { MarkdownIt } from "markdown-it-enhancer";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
+import { anchor } from "@markdown-it-enhancer/plugin-anchor";
+import { attributes } from "@markdown-it-enhancer/plugin-attrs";
 import { describe, expect, it } from "vitest";
 
 import { tableOfContents } from "../src";

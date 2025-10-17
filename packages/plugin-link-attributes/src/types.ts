@@ -1,4 +1,4 @@
-import { RendererFn } from "markdown-it-enhancer";
+import { RendererFn } from "@markdown-it-enhancer/core";
 
 type Arrayable<T> = Array<T> | T;
 
@@ -12,7 +12,7 @@ export type LinkAttributesOptions = Arrayable<LinkAttributesListItem>;
 
 export type LinkAttributesNormalizedOptions = Array<LinkAttributesListItem>;
 
-declare module "markdown-it-enhancer" {
+declare module "@markdown-it-enhancer/core" {
   interface RendererExtendsRules {
     link_open?: RendererFn
   }

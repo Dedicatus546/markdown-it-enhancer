@@ -1,4 +1,4 @@
-import { Any, Cc, P, Z } from "uc.micro-for-enhancer";
+import { Any, Cc, P, Z } from "@markdown-it-enhancer/uc.micro";
 
 import type { CreateRegExpResult } from "./types";
 

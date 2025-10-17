@@ -2,7 +2,7 @@ import type {
   MarkdownItPlugin,
   StateCoreRuleFn,
   Token,
-} from "markdown-it-enhancer";
+} from "@markdown-it-enhancer/core";
 
 export const forInline: MarkdownItPlugin<
   [

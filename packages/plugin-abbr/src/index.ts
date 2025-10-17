@@ -4,11 +4,11 @@ import type {
   MarkdownItPlugin,
   StateBlockRuleFn,
   StateCoreRuleFn,
-} from "markdown-it-enhancer";
-import { P, Z } from "markdown-it-enhancer/ucmicro";
-import { arrayReplaceAt, escapeRE } from "markdown-it-enhancer/utils";
+} from "@markdown-it-enhancer/core";
+import { arrayReplaceAt, escapeRE } from "@markdown-it-enhancer/core/utils";
+import { P, Z } from "@markdown-it-enhancer/uc.micro";
 
-declare module "markdown-it-enhancer" {
+declare module "@markdown-it-enhancer/core" {
   export interface MarkdownItEnv {
     abbreviations?: Record<string, string>
   }

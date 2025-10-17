@@ -1,4 +1,4 @@
-import type { StateCore } from "markdown-it-enhancer";
+import type { StateCore } from "@markdown-it-enhancer/core";
 
 import type {
   MarkdownItAnchorNormalizedOptions,

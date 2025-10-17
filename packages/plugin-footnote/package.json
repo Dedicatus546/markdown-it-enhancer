@@ -1,6 +1,6 @@
 {
-  "name": "markdown-it-footnote-for-enhancer",
-  "version": "5.0.2",
+  "name": "@markdown-it-enhancer/plugin-footnote",
+  "version": "1.0.0",
   "description": "Footnotes for markdown-it markdown parser.",
   "type": "module",
   "author": "Par9uet <par9uet@qq.com>",
@@ -27,10 +27,10 @@
     "src/"
   ],
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.0.0 || ~15.1.0"
+    "@markdown-it-enhancer/core": "workspace:~1.0.0"
   },
   "peerDependenciesMeta": {
-    "markdown-it-enhancer": {
+    "@markdown-it-enhancer/core": {
       "optional": true
     }
   },

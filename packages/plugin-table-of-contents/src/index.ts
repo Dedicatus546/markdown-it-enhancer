@@ -7,7 +7,7 @@
 * Step 3: Turn the nested tree into HTML code.
 */
 
-import { MarkdownIt, MarkdownItPlugin, StateBlockRuleFn, Token } from "markdown-it-enhancer";
+import { MarkdownIt, MarkdownItPlugin, StateBlockRuleFn, Token } from "@markdown-it-enhancer/core";
 
 import type { HeadlineItem, TableOfContentsNormalizedOptions, TableOfContentsOptions, TocItem } from "./types";
 

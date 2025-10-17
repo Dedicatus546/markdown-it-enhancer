@@ -1,9 +1,9 @@
-import { decodeHTML } from "entities-for-enhancer";
-import { decode, encode, format, parse } from "mdurl-for-enhancer";
-import { toASCII, toUnicode } from "punycode.js-for-enhancer";
+import { decodeHTML } from "@markdown-it-enhancer/entities";
+import { decode, encode, format, parse } from "@markdown-it-enhancer/mdurl";
+import { toASCII, toUnicode } from "@markdown-it-enhancer/punycode.js";
+import { P, S } from "@markdown-it-enhancer/uc.micro";
 
 import { Awaitable } from "../types";
-import { P, S } from "../ucmicro";
 
 const toString = (obj: unknown) => {
   return Object.prototype.toString.call(obj);

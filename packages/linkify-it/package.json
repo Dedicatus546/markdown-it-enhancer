@@ -1,6 +1,6 @@
 {
-  "name": "linkify-it-for-enhancer",
-  "version": "6.0.0",
+  "name": "@markdown-it-enhancer/linkify-it",
+  "version": "1.0.0",
   "description": "Links recognition library with FULL unicode support",
   "type": "module",
   "author": "Par9uet <par9uet@qq.com>",
@@ -26,8 +26,8 @@
     "src"
   ],
   "dependencies": {
-    "uc.micro-for-enhancer": "workspace:~3.0.0",
-    "markdown-it-enhancer-utils": "workspace:~1.1.0"
+    "@markdown-it-enhancer/uc.micro": "workspace:~1.0.0",
+    "@markdown-it-enhancer/shared": "workspace:~1.0.0"
   },
   "engines": {
     "node": ">=20"

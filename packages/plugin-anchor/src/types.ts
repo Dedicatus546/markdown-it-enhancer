@@ -1,4 +1,4 @@
-import type { StateCore, Token } from "markdown-it-enhancer";
+import type { StateCore, Token } from "@markdown-it-enhancer/core";
 
 export type Placement = "after" | "before";
 

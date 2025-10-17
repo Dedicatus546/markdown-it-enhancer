@@ -1,5 +1,5 @@
-import type { StateCoreRuleFn } from "markdown-it-enhancer";
-import { Token } from "markdown-it-enhancer";
+import type { StateCoreRuleFn } from "@markdown-it-enhancer/core";
+import { Token } from "@markdown-it-enhancer/core";
 
 // Glue footnote tokens to end of token stream
 export const footnote_tail: StateCoreRuleFn = (state) => {

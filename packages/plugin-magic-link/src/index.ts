@@ -1,4 +1,4 @@
-import type { MarkdownIt } from "markdown-it-enhancer";
+import type { MarkdownIt } from "@markdown-it-enhancer/core";
 
 const reCapture = /^\{([^{}\n]*?)\}([^[\]{}()]|$)/i;
 const reHtmlProtocol = /^https?:\/\//i;

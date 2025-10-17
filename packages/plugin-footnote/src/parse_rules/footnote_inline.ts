@@ -1,5 +1,5 @@
-import type { StateInlineRuleFn, Token } from "markdown-it-enhancer";
-import { parseLinkLabel } from "markdown-it-enhancer/helpers";
+import type { StateInlineRuleFn, Token } from "@markdown-it-enhancer/core";
+import { parseLinkLabel } from "@markdown-it-enhancer/core/helpers";
 
 // Process inline footnotes (^[...])
 export const footnote_inline: StateInlineRuleFn = async (state, silent) => {

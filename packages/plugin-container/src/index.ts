@@ -5,11 +5,11 @@ import {
   type RendererFn,
   type StateBlockRuleFn,
   TokenNesting,
-} from "markdown-it-enhancer";
+} from "@markdown-it-enhancer/core";
 
 import { ContainerNormalizedOptions, ContainerOptions } from "./types";
 
-declare module "markdown-it-enhancer" {
+declare module "@markdown-it-enhancer/core" {
   export interface RendererExtendsRules {
     [ruleName: `container_${string}_open`]: RendererFn
     [ruleName: `container_${string}_close`]: RendererFn

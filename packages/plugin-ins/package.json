@@ -1,6 +1,6 @@
 {
-  "name": "markdown-it-ins-for-enhancer",
-  "version": "4.0.3",
+  "name": "@markdown-it-enhancer/plugin-ins",
+  "version": "1.0.0",
   "description": "<ins> tag for markdown-it markdown parser.",
   "type": "module",
   "author": "Par9uet <par9uet@qq.com>",
@@ -28,10 +28,10 @@
     "src/"
   ],
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.0.0 || ~15.1.0"
+    "@markdown-it-enhancer/core": "workspace:~1.0.0"
   },
   "peerDependenciesMeta": {
-    "markdown-it-enhancer": {
+    "@markdown-it-enhancer/core": {
       "optional": true
     }
   },

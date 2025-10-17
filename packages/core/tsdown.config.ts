@@ -5,7 +5,6 @@ export default defineConfig({
     "src/index.ts",
     "src/helpers.ts",
     "src/utils.ts",
-    "src/ucmicro.ts",
   ],
   dts: {
     sourcemap: true,

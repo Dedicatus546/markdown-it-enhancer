@@ -1,4 +1,4 @@
-import type { RendererFn } from "markdown-it-enhancer";
+import type { RendererFn } from "@markdown-it-enhancer/core";
 
 export interface ContainerOptions {
   validate?: (src: string, markup: string) => boolean

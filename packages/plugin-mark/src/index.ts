@@ -4,9 +4,9 @@ import {
   type StateInline,
   type StateInlineRuleFn,
   TokenNesting,
-} from "markdown-it-enhancer";
+} from "@markdown-it-enhancer/core";
 
-declare module "markdown-it-enhancer" {
+declare module "@markdown-it-enhancer/core" {
   export interface Delimiter {
     jump: number
   }

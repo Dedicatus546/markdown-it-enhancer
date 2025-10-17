@@ -1,4 +1,4 @@
-import { LinkifyIt } from "linkify-it-for-enhancer";
+import { LinkifyIt } from "@markdown-it-enhancer/linkify-it";
 
 import {
   isString,

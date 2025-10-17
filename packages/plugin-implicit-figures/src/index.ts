@@ -3,7 +3,7 @@ import type {
   StateCoreRuleFn,
   Token,
   TokenAttr,
-} from "markdown-it-enhancer";
+} from "@markdown-it-enhancer/core";
 
 import {
   ImplicitFiguresNormalizedOptions,

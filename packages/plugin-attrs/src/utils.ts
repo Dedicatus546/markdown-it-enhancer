@@ -1,4 +1,4 @@
-import { type Token, type TokenAttr, TokenNesting } from "markdown-it-enhancer";
+import { type Token, type TokenAttr, TokenNesting } from "@markdown-it-enhancer/core";
 
 import { AttributeNormalizedOptions, AttributeOptions } from "./types";
 

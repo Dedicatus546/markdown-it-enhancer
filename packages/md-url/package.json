@@ -1,6 +1,6 @@
 {
-  "name": "mdurl-for-enhancer",
-  "version": "3.0.0",
+  "name": "@markdown-it-enhancer/mdurl",
+  "version": "1.0.0",
   "description": "URL utilities for markdown-it",
   "type": "module",
   "author": "Par9uet <par9uet@qq.com>",

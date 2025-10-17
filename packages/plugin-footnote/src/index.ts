@@ -1,4 +1,4 @@
-import type { MarkdownItPlugin, RendererFn, Token } from "markdown-it-enhancer";
+import type { MarkdownItPlugin, RendererFn, Token } from "@markdown-it-enhancer/core";
 
 import {
   footnote_def,
@@ -17,7 +17,7 @@ import {
   footnote_ref as footnote_ref_render,
 } from "./render_rules";
 
-declare module "markdown-it-enhancer" {
+declare module "@markdown-it-enhancer/core" {
   export interface MarkdownItEnv {
     footnotes?: {
       refs?: Record<string, number>

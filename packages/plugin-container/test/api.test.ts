@@ -1,4 +1,4 @@
-import { MarkdownIt, TokenNesting } from "markdown-it-enhancer";
+import { MarkdownIt, TokenNesting } from "@markdown-it-enhancer/core";
 import { describe, expect, it } from "vitest";
 
 import { container } from "../src";

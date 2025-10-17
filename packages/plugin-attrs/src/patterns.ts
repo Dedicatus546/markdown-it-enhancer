@@ -1,4 +1,4 @@
-import { type Token, TokenNesting } from "markdown-it-enhancer";
+import { type Token, TokenNesting } from "@markdown-it-enhancer/core";
 
 import type { AttributeNormalizedOptions, PatternsResult } from "./types";
 import {
@@ -11,7 +11,7 @@ import {
   removeDelimiter,
 } from "./utils";
 
-declare module "markdown-it-enhancer" {
+declare module "@markdown-it-enhancer/core" {
   export interface TokenMeta {
     colsnum?: number
   }

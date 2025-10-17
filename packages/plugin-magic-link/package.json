@@ -1,6 +1,6 @@
 {
-  "name": "markdown-it-magic-link-for-enhancer",
-  "version": "1.0.1",
+  "name": "@markdown-it-enhancer/plugin-magic-link",
+  "version": "1.0.0",
   "description": "Makes links and `@mentions` in markdown beautiful and interactive.",
   "type": "module",
   "author": "Par9uet <par9uet@qq.com>",
@@ -24,10 +24,10 @@
     "src/"
   ],
   "peerDependencies": {
-    "markdown-it-enhancer": "workspace:~15.1.0"
+    "@markdown-it-enhancer/core": "workspace:~1.0.0"
   },
   "peerDependenciesMeta": {
-    "markdown-it-enhancer": {
+    "@markdown-it-enhancer/core": {
       "optional": true
     }
   },
