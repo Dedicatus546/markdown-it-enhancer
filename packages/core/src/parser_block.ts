@@ -41,10 +41,6 @@ const _rules = [
   ["paragraph", r_paragraph],
 ] as const;
 
-interface ParserBlock {
-  State: typeof StateBlock
-}
-
 class ParserBlock {
   /**
    * ParserBlock#ruler -> Ruler
@@ -158,7 +154,5 @@ class ParserBlock {
     await this.tokenize(state, state.line, state.lineMax);
   }
 }
-
-ParserBlock.prototype.State = StateBlock;
 
 export default ParserBlock;

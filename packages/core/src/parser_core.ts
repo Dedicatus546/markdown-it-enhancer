@@ -28,11 +28,7 @@ const _rules = [
   ["text_join", r_text_join],
 ] as const;
 
-interface Core {
-  State: typeof StateCore
-}
-
-class Core {
+class ParserCore {
   /**
    * Core#ruler -> Ruler
    *
@@ -60,6 +56,4 @@ class Core {
   }
 }
 
-Core.prototype.State = StateCore;
-
-export default Core;
+export default ParserCore;
