@@ -11,16 +11,23 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "type-check": "tsc --noEmit",
-    "build:base": "pnpm --stream --filter './packages/{uc-micro,shared,md-url,punycode,entities}' build",
-    "build:linkify-it": "pnpm --stream --filter './packages/linkify-it' build",
-    "build:test-toolkit": "pnpm --stream --filter './packages/test-toolkit' build",
-    "build:core": "pnpm --stream --filter './packages/core' build",
-    "build:plugins": "pnpm --stream --filter './packages/plugin-*' build",
+    "build:base": "pnpm --stream --filter ./packages/{uc-micro,shared,md-url,punycode,entities} build",
+    "build:linkify-it": "pnpm --stream --filter ./packages/linkify-it build",
+    "build:test-toolkit": "pnpm --stream --filter ./packages/test-toolkit build",
+    "build:core": "pnpm --stream --filter ./packages/core build",
+    "build:plugins": "pnpm --stream --filter ./packages/plugin-* build",
     "build": "pnpm build:base & pnpm build:linkify-it & pnpm build:core & pnpm build:test-toolkit & pnpm build:plugins",
     "test": "vitest"
   },
   "devDependencies": {
     "@eslint/js": "catalog:lint",
+    "@markdown-it-enhancer/core": "workspace:*",
+    "@markdown-it-enhancer/plugin-anchor": "workspace:*",
+    "@markdown-it-enhancer/plugin-attrs": "workspace:*",
+    "@markdown-it-enhancer/plugin-for-inline": "workspace:*",
+    "@markdown-it-enhancer/plugin-implicit-figures": "workspace:*",
+    "@markdown-it-enhancer/plugin-katex": "workspace:*",
+    "@markdown-it-enhancer/test-toolkit": "workspace:*",
     "@sindresorhus/slugify": "catalog:test",
     "@stylistic/eslint-plugin": "catalog:lint",
     "@types/node": "catalog:types",
@@ -32,13 +39,6 @@
     "globals": "catalog:lint",
     "jiti": "catalog:lint",
     "lerna": "^9.0.0",
-    "@markdown-it-enhancer/core": "workspace:*",
-    "@markdown-it-enhancer/test-toolkit": "workspace:*",
-    "@markdown-it-enhancer/plugin-anchor": "workspace:*",
-    "@markdown-it-enhancer/plugin-attrs": "workspace:*",
-    "@markdown-it-enhancer/plugin-for-inline": "workspace:*",
-    "@markdown-it-enhancer/plugin-implicit-figures": "workspace:*",
-    "@markdown-it-enhancer/plugin-katex": "workspace:*",
     "tsdown": "catalog:build",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:lint",
@@ -48,5 +48,6 @@
   "engines": {
     "node": ">=20"
   },
-  "packageManager": "pnpm@10.18.3"
+  "packageManager": "pnpm@10.18.3",
+  "dependencies": {}
 }

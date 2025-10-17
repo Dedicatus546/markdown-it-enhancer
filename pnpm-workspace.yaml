@@ -22,6 +22,7 @@ catalogs:
     katex: ^0.16.22
   build:
     tsdown: ^0.15.7
+    lerna: ^9.0.0
   test:
     cheerio: ^1.1.2
     "@vitest/coverage-istanbul": ^3.2.4
