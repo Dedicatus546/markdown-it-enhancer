@@ -1,5 +1,5 @@
 import { type StateBlockRuleFn, Token } from "@markdown-it-enhancer/core";
-import { isSpace } from "@markdown-it-enhancer/core/utils";
+import { isSpace } from "@markdown-it-enhancer/shared";
 
 // Process footnote block definition
 export const footnote_def: StateBlockRuleFn = async (

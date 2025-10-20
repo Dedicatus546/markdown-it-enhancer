@@ -1,6 +1,7 @@
 // Process escaped chars and hardbreaks
 
-import { isSpace } from "../common/utils";
+import { isSpace } from "@markdown-it-enhancer/shared";
+
 import StateInline from "./state_inline";
 
 const ESCAPED: Array<number> = [];

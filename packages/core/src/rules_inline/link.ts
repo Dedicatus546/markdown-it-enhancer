@@ -1,7 +1,8 @@
 // Process [link](<to> "stuff")
 
+import { isSpace, normalizeReference } from "@markdown-it-enhancer/shared";
+
 import { MarkdownItEnv } from "..";
-import { isSpace, normalizeReference } from "../common/utils";
 import {
   parseLinkDestination,
   parseLinkLabel,

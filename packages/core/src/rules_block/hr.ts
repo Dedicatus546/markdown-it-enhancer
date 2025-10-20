@@ -1,6 +1,7 @@
 // Horizontal rule
 
-import { isSpace } from "../common/utils";
+import { isSpace } from "@markdown-it-enhancer/shared";
+
 import { StateBlockRuleFn } from "../ruler";
 
 const hr: StateBlockRuleFn = (state, startLine, _endLine, silent = false) => {

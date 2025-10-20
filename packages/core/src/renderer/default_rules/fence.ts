@@ -2,7 +2,8 @@ import {
   escapeHtml,
   resolvePromiseLike,
   unescapeAll,
-} from "../../common/utils";
+} from "@markdown-it-enhancer/shared";
+
 import type { TokenAttr } from "../../token";
 import type { RendererFn } from "../renderer";
 

@@ -1,13 +1,14 @@
 // Process ![image](<src> "title")
 
-import { isSpace, normalizeReference } from "../common/utils";
+import { isSpace, normalizeReference } from "@markdown-it-enhancer/shared";
+
+import { MarkdownItEnv } from "..";
 import {
   parseLinkDestination,
   parseLinkLabel,
   parseLinkTitle,
 } from "../helpers";
 import { ParseLinkDestinationResult } from "../helpers/parse_link_destination";
-import { MarkdownItEnv } from "../index";
 import Token, { TokenAttr } from "../token";
 import StateInline from "./state_inline";
 

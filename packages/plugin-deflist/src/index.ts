@@ -5,7 +5,7 @@ import type {
   StateBlock,
   StateBlockRuleFn,
 } from "@markdown-it-enhancer/core";
-import { isSpace } from "@markdown-it-enhancer/core/utils";
+import { isSpace } from "@markdown-it-enhancer/shared";
 
 //
 export const deflist: MarkdownItPlugin = (md) => {

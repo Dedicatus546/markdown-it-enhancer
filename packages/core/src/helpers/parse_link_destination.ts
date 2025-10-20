@@ -1,7 +1,7 @@
 // Parse link destination
 //
 
-import { unescapeAll } from "../common/utils";
+import { unescapeAll } from "@markdown-it-enhancer/shared";
 
 export interface ParseLinkDestinationResult {
   ok: boolean

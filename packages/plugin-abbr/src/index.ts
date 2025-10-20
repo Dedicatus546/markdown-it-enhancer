@@ -5,7 +5,7 @@ import type {
   StateBlockRuleFn,
   StateCoreRuleFn,
 } from "@markdown-it-enhancer/core";
-import { arrayReplaceAt, escapeRE } from "@markdown-it-enhancer/core/utils";
+import { arrayReplaceAt, escapeRE } from "@markdown-it-enhancer/shared";
 import { P, Z } from "@markdown-it-enhancer/uc.micro";
 
 declare module "@markdown-it-enhancer/core" {

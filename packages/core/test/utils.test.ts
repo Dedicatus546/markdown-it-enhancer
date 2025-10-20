@@ -1,5 +1,3 @@
-import { describe, expect, it } from "vitest";
-
 import {
   escapeRE,
   fromCodePoint,
@@ -7,7 +5,8 @@ import {
   isValidEntityCode,
   isWhiteSpace,
   unescapeMd,
-} from "../src/common/utils";
+} from "@markdown-it-enhancer/shared";
+import { describe, expect, it } from "vitest";
 
 describe("Utils", () => {
   it("fromCodePoint", () => {

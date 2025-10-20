@@ -4,8 +4,9 @@
  * Tokenizes paragraph content.
  **/
 
+import { resolvePromiseLike } from "@markdown-it-enhancer/shared";
+
 import { type MarkdownIt, MarkdownItEnv } from ".";
-import { resolvePromiseLike } from "./common/utils";
 import Ruler, { RuleResult } from "./ruler";
 import r_autolink from "./rules_inline/autolink";
 import r_backticks from "./rules_inline/backticks";

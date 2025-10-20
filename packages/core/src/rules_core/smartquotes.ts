@@ -1,7 +1,8 @@
 // Convert straight quotation marks to typographic ones
 //
 
-import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "../common/utils";
+import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "@markdown-it-enhancer/shared";
+
 import Token from "../token";
 import StateCore from "./state_core";
 

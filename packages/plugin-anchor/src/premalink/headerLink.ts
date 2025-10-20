@@ -21,7 +21,7 @@ export const headerLink = makePermalink<
     Object.entries(opts.renderAttrs(slug, state)).forEach(([key, value]) => {
       linkOpenToken.attrPush([key, `${value}`]);
     });
-    linkOpenToken.attrs = mergeDuplicateClassAttrs(linkOpenToken.attrs);
+    linkOpenToken.attrs = mergeDuplicateClassAttrs(linkOpenToken.attrs ?? []);
     linkTokens.push(linkOpenToken);
 
     if (opts.safariReaderFix) {

@@ -4,8 +4,9 @@
  * Block-level tokenizer.
  **/
 
+import { resolvePromiseLike } from "@markdown-it-enhancer/shared";
+
 import { type MarkdownIt, MarkdownItEnv } from ".";
-import { resolvePromiseLike } from "./common/utils";
 import Ruler, { RuleResult } from "./ruler";
 import r_blockquote from "./rules_block/blockquote";
 import r_code from "./rules_block/code";

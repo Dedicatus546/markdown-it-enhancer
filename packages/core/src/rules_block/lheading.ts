@@ -1,6 +1,7 @@
 // lheading (---, ===)
 
-import { resolvePromiseLike } from "../common/utils";
+import { resolvePromiseLike } from "@markdown-it-enhancer/shared";
+
 import { StateBlockRuleFn } from "../ruler";
 
 const lheading: StateBlockRuleFn = async (state, startLine, endLine) => {

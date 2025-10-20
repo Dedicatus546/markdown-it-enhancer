@@ -1,19 +1,19 @@
 import { LinkifyIt } from "@markdown-it-enhancer/linkify-it";
-
 import {
   isString,
   normalizeLink,
   normalizeLinkText,
   resolvePromiseLike,
   validateLink,
-} from "./common/utils";
+} from "@markdown-it-enhancer/shared";
+import { Awaitable } from "@markdown-it-enhancer/shared/types";
+
 import ParserBlock from "./parser_block";
 import ParserCore from "./parser_core";
 import ParserInline from "./parser_inline";
 import { isValidPresetName, Preset, PresetName, presets } from "./presets";
 import Renderer from "./renderer";
 import StateCore from "./rules_core/state_core";
-import { Awaitable } from "./types";
 
 export { default as ParserBlock } from "./parser_block";
 export { default as ParserCore } from "./parser_core";
@@ -344,4 +344,4 @@ export type {
 } from "./rules_inline/state_inline";
 export * from "./token";
 export { default as Token } from "./token";
-export * from "./types";
+export * from "@markdown-it-enhancer/shared/types";

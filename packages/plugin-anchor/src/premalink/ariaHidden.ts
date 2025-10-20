@@ -28,7 +28,7 @@ export const ariaHidden = makePermalink<
     Object.entries(opts.renderAttrs(slug, state)).forEach(([key, value]) => {
       linkOpenToken.attrPush([key, `${value}`]);
     });
-    linkOpenToken.attrs = mergeDuplicateClassAttrs(linkOpenToken.attrs);
+    linkOpenToken.attrs = mergeDuplicateClassAttrs(linkOpenToken.attrs ?? []);
 
     const htmlInlineToken = new state.Token("html_inline", "", 0);
     htmlInlineToken.content = opts.symbol;

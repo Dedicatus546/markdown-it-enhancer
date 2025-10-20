@@ -1,6 +1,7 @@
 // heading (#, ##, ...)
 
-import { isSpace } from "../common/utils";
+import { isSpace } from "@markdown-it-enhancer/shared";
+
 import { StateBlockRuleFn } from "../ruler";
 
 const heading: StateBlockRuleFn = (

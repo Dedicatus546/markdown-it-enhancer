@@ -19,14 +19,8 @@
     ".": {
       "import": "./dist/index.js"
     },
-    "./utils": {
-      "import": "./dist/utils.js"
-    },
     "./helpers": {
       "import": "./dist/helpers.js"
-    },
-    "./ucmicro": {
-      "import": "./dist/ucmicro.js"
     }
   },
   "scripts": {
@@ -41,7 +35,8 @@
     "@markdown-it-enhancer/linkify-it": "workspace:~1.0.0",
     "@markdown-it-enhancer/mdurl": "workspace:~1.0.0",
     "@markdown-it-enhancer/punycode.js": "workspace:~1.0.0",
-    "@markdown-it-enhancer/uc.micro": "workspace:~1.0.0"
+    "@markdown-it-enhancer/uc.micro": "workspace:~1.0.0",
+    "@markdown-it-enhancer/shared": "workspace:~1.0.0"
   },
   "engines": {
     "node": ">=20"

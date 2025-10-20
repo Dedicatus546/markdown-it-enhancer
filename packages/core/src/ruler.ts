@@ -1,7 +1,8 @@
+import { Awaitable } from "@markdown-it-enhancer/shared/types";
+
 import StateBlock from "./rules_block/state_block";
 import StateCore from "./rules_core/state_core";
 import StateInline from "./rules_inline/state_inline";
-import { Awaitable } from "./types";
 
 export interface Rule<T> {
   name: string

@@ -3,7 +3,7 @@
 // Note: In theory, it could be faster to parse :smile: in inline chain and
 // leave only shortcuts here. But, who care...
 import { MarkdownIt, StateCoreRuleFn, Token } from "@markdown-it-enhancer/core";
-import { arrayReplaceAt } from "@markdown-it-enhancer/core/utils";
+import { arrayReplaceAt } from "@markdown-it-enhancer/shared";
 import { Cc, P, Z } from "@markdown-it-enhancer/uc.micro";
 
 import type { EmojiNormalizedOptions } from "./types";

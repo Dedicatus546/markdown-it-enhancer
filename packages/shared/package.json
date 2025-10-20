@@ -10,6 +10,9 @@
   "exports": {
     ".": {
       "import": "./dist/index.js"
+    },
+    "./types": {
+      "import": "./dist/types.js"
     }
   },
   "scripts": {
@@ -19,6 +22,12 @@
     "dist/",
     "src/"
   ],
+  "dependencies": {
+    "@markdown-it-enhancer/entities": "workspace:~1.0.0",
+    "@markdown-it-enhancer/mdurl": "workspace:~1.0.0",
+    "@markdown-it-enhancer/punycode.js": "workspace:~1.0.0",
+    "@markdown-it-enhancer/uc.micro": "workspace:~1.0.0"
+  },
   "engines": {
     "node": ">=20"
   }

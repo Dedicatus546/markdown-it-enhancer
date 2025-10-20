@@ -5,7 +5,8 @@
  * transformations.
  **/
 
-import { resolvePromiseLike } from "./common/utils";
+import { resolvePromiseLike } from "@markdown-it-enhancer/shared";
+
 import Ruler from "./ruler";
 import r_block from "./rules_core/block";
 import r_inline from "./rules_core/inline";

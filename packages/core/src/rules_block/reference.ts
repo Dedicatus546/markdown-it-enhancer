@@ -2,7 +2,8 @@ import {
   isSpace,
   normalizeReference,
   resolvePromiseLike,
-} from "../common/utils";
+} from "@markdown-it-enhancer/shared";
+
 import { parseLinkDestination, parseLinkTitle } from "../helpers";
 import { StateBlockRuleFn } from "../ruler";
 

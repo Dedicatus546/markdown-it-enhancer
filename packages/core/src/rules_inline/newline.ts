@@ -1,6 +1,7 @@
 // Proceess '\n'
 
-import { isSpace } from "../common/utils";
+import { isSpace } from "@markdown-it-enhancer/shared";
+
 import StateInline from "./state_inline";
 
 export default function newline(state: StateInline, silent: boolean = false) {

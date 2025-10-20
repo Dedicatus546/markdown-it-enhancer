@@ -1,7 +1,7 @@
 // Core state object
 //
 
-import type { MarkdownIt, MarkdownItEnv } from "../index";
+import type { MarkdownIt, MarkdownItEnv } from "..";
 import Token from "../token";
 
 interface StateCore {

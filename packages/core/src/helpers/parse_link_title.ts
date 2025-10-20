@@ -1,7 +1,7 @@
 // Parse link title
 //
 
-import { unescapeAll } from "../common/utils";
+import { unescapeAll } from "@markdown-it-enhancer/shared";
 
 export interface ParseLinkTitleResult {
   // if `true`, this is a valid link title

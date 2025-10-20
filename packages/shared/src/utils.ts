@@ -3,17 +3,35 @@ import { decode, encode, format, parse } from "@markdown-it-enhancer/mdurl";
 import { toASCII, toUnicode } from "@markdown-it-enhancer/punycode.js";
 import { P, S } from "@markdown-it-enhancer/uc.micro";
 
-import { Awaitable } from "../types";
+import { Awaitable } from "./types";
 
-const toString = (obj: unknown) => {
+export const toString = (obj: unknown): string => {
   return Object.prototype.toString.call(obj);
 };
 
-const isString = (obj: unknown): obj is string => {
+export const isString = (obj: unknown): obj is string => {
   return toString(obj) === "[object String]";
 };
 
-const arrayReplaceAt = <T>(
+export const isObject = (obj: unknown): obj is object => {
+  return toString(obj) === "[object Object]";
+};
+
+export const isRegExp = (obj: unknown): obj is RegExp => {
+  return toString(obj) === "[object RegExp]";
+};
+
+export const isFunction = (
+  obj: unknown,
+): obj is (...args: unknown[]) => unknown => {
+  return toString(obj) === "[object Function]";
+};
+
+export const isArray = (obj: unknown): obj is Array<unknown> => {
+  return toString(obj) === "[object Array]";
+};
+
+export const arrayReplaceAt = <T>(
   src: Array<T>,
   pos: number,
   newElements: Array<T>,
@@ -21,7 +39,7 @@ const arrayReplaceAt = <T>(
   return src.toSpliced(pos, 1, ...newElements);
 };
 
-const isValidEntityCode = (c: number) => {
+export const isValidEntityCode = (c: number) => {
   /* eslint no-bitwise:0 */
   // broken sequence
   if (c >= 0xd800 && c <= 0xdfff) {
@@ -54,7 +72,7 @@ const isValidEntityCode = (c: number) => {
   return true;
 };
 
-const fromCodePoint = (c: number) => {
+export const fromCodePoint = (c: number) => {
   if (c > 0xffff) {
     c -= 0x10000;
     const surrogate1 = 0xd800 + (c >> 10);
@@ -74,7 +92,7 @@ const UNESCAPE_ALL_RE = new RegExp(
 
 const DIGITAL_ENTITY_TEST_RE = /^#((?:x[a-f0-9]{1,8}|[0-9]{1,8}))$/i;
 
-const replaceEntityPattern = (match: string, name: string) => {
+export const replaceEntityPattern = (match: string, name: string) => {
   if (
     name.charCodeAt(0) === 0x23
     && /* # */ DIGITAL_ENTITY_TEST_RE.test(name)
@@ -105,14 +123,14 @@ const replaceEntityPattern = (match: string, name: string) => {
   return str.replace(ENTITY_RE, replaceEntityPattern);
 } */
 
-const unescapeMd = (str: string) => {
+export const unescapeMd = (str: string) => {
   if (str.indexOf("\\") < 0) {
     return str;
   }
   return str.replace(UNESCAPE_MD_RE, "$1");
 };
 
-const unescapeAll = (str: string) => {
+export const unescapeAll = (str: string) => {
   if (str.indexOf("\\") < 0 && str.indexOf("&") < 0) {
     return str;
   }
@@ -141,7 +159,7 @@ const replaceUnsafeChar = (ch: string) => {
   return HTML_REPLACEMENTS[ch as keyof typeof HTML_REPLACEMENTS];
 };
 
-const escapeHtml = (str: string) => {
+export const escapeHtml = (str: string) => {
   if (HTML_ESCAPE_TEST_RE.test(str)) {
     return str.replace(HTML_ESCAPE_REPLACE_RE, replaceUnsafeChar);
   }
@@ -150,11 +168,11 @@ const escapeHtml = (str: string) => {
 
 const REGEXP_ESCAPE_RE = /[.?*+^$[\]\\(){}|-]/g;
 
-const escapeRE = (str: string) => {
+export const escapeRE = (str: string) => {
   return str.replace(REGEXP_ESCAPE_RE, "\\$&");
 };
 
-const isSpace = (code: number) => {
+export const isSpace = (code: number) => {
   switch (code) {
     case 0x09:
     case 0x20:
@@ -164,7 +182,7 @@ const isSpace = (code: number) => {
 };
 
 // Zs (unicode class) || [\t\f\v\r\n]
-const isWhiteSpace = (code: number) => {
+export const isWhiteSpace = (code: number) => {
   if (code >= 0x2000 && code <= 0x200a) {
     return true;
   }
@@ -186,7 +204,7 @@ const isWhiteSpace = (code: number) => {
 };
 
 // Currently without astral characters support.
-const isPunctChar = (ch: string) => {
+export const isPunctChar = (ch: string) => {
   return P.test(ch) || S.test(ch);
 };
 
@@ -197,7 +215,7 @@ const isPunctChar = (ch: string) => {
 //
 // Don't confuse with unicode punctuation !!! It lacks some chars in ascii range.
 //
-const isMdAsciiPunct = (ch: number) => {
+export const isMdAsciiPunct = (ch: number) => {
   switch (ch) {
     case 0x21 /* ! */:
     case 0x22 /* " */:
@@ -239,7 +257,7 @@ const isMdAsciiPunct = (ch: number) => {
 
 // Hepler to unify [reference labels].
 //
-const normalizeReference = (str: string) => {
+export const normalizeReference = (str: string) => {
   // Trim and collapse whitespace
   //
   str = str.trim().replace(/\s+/g, " ");
@@ -295,7 +313,7 @@ const normalizeReference = (str: string) => {
 // bundled size (e.g. a browser build).
 //
 
-const resolvePromiseLike = async <T>(p: Awaitable<T>) => {
+export const resolvePromiseLike = async <T>(p: Awaitable<T>) => {
   const val = await Promise.resolve(p);
   return val;
 };
@@ -311,7 +329,7 @@ const resolvePromiseLike = async <T>(p: Awaitable<T>) => {
 const BAD_PROTO_RE = /^(vbscript|javascript|file|data):/;
 const GOOD_DATA_RE = /^data:image\/(gif|png|jpeg|webp);/;
 
-const validateLink = (url: string) => {
+export const validateLink = (url: string) => {
   // url should be normalized at this point, and existing entities are decoded
   const str = url.trim().toLowerCase();
 
@@ -320,7 +338,7 @@ const validateLink = (url: string) => {
 
 const RECODE_HOSTNAME_FOR: string[] = ["http:", "https:", "mailto:"];
 
-const normalizeLink = (url: string) => {
+export const normalizeLink = (url: string) => {
   const parsed = parse(url, true);
 
   if (parsed.hostname) {
@@ -343,7 +361,7 @@ const normalizeLink = (url: string) => {
   return encode(format(parsed));
 };
 
-const normalizeLinkText = (url: string) => {
+export const normalizeLinkText = (url: string) => {
   const parsed = parse(url, true);
 
   if (parsed.hostname) {
@@ -365,24 +383,4 @@ const normalizeLinkText = (url: string) => {
 
   // add '%' to exclude list because of https://github.com/markdown-it/markdown-it/issues/720
   return decode(format(parsed), decode.defaultChars + "%");
-};
-
-export {
-  arrayReplaceAt,
-  escapeHtml,
-  escapeRE,
-  fromCodePoint,
-  isMdAsciiPunct,
-  isPunctChar,
-  isSpace,
-  isString,
-  isValidEntityCode,
-  isWhiteSpace,
-  normalizeLink,
-  normalizeLinkText,
-  normalizeReference,
-  resolvePromiseLike,
-  unescapeAll,
-  unescapeMd,
-  validateLink,
 };

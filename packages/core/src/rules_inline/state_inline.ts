@@ -1,7 +1,8 @@
 // Inline parser state
 
-import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "../common/utils";
-import { type MarkdownIt, MarkdownItEnv } from "../index";
+import { isMdAsciiPunct, isPunctChar, isWhiteSpace } from "@markdown-it-enhancer/shared";
+
+import { type MarkdownIt, MarkdownItEnv } from "..";
 import Token, { TokenNesting, type TokenNestingType } from "../token";
 
 export interface Delimiter {

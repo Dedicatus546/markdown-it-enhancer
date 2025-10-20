@@ -1,4 +1,5 @@
-import { Awaitable } from "../types";
+import { Awaitable } from "@markdown-it-enhancer/shared/types";
+
 import commonmarkPreset from "./commonmark";
 import defaultPreset from "./default";
 import zeroPreset from "./zero";

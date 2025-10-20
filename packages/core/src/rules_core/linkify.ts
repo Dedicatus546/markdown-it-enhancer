@@ -3,7 +3,8 @@
 // Currently restricted by `md.validateLink()` to http/https/ftp
 //
 
-import { arrayReplaceAt } from "../common/utils";
+import { arrayReplaceAt } from "@markdown-it-enhancer/shared";
+
 import Token from "../token";
 import StateCore from "./state_core";
 

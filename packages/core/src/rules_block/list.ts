@@ -1,6 +1,7 @@
 // Lists
 
-import { isSpace, resolvePromiseLike } from "../common/utils";
+import { isSpace, resolvePromiseLike } from "@markdown-it-enhancer/shared";
+
 import { StateBlockRuleFn } from "../ruler";
 import Token from "../token";
 import StateBlock from "./state_block";

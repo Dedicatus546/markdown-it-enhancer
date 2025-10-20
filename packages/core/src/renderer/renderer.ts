@@ -6,10 +6,11 @@
  * rules if you create plugin and adds new token types.
  **/
 
+import { escapeHtml, resolvePromiseLike } from "@markdown-it-enhancer/shared";
+import { Awaitable } from "@markdown-it-enhancer/shared/types";
+
 import { MarkdownItEnv, MarkdownItOptions } from "..";
-import { escapeHtml, resolvePromiseLike } from "../common/utils";
 import Token, { TokenNesting } from "../token";
-import { Awaitable } from "../types";
 import {
   code_block,
   code_inline,

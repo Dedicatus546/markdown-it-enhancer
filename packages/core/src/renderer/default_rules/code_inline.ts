@@ -1,4 +1,5 @@
-import { escapeHtml } from "../../common/utils";
+import { escapeHtml } from "@markdown-it-enhancer/shared";
+
 import { RendererFn } from "../renderer";
 
 export const code_inline: RendererFn = (

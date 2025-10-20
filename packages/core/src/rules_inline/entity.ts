@@ -1,8 +1,8 @@
 // Process html entity - &#123;, &#xAF;, &quot;, ...
 
 import { decodeHTML } from "@markdown-it-enhancer/entities";
+import { fromCodePoint, isValidEntityCode } from "@markdown-it-enhancer/shared";
 
-import { fromCodePoint, isValidEntityCode } from "../common/utils";
 import StateInline from "./state_inline";
 
 const DIGITAL_RE = /^&#((?:x[a-f0-9]{1,6}|[0-9]{1,7}));/i;

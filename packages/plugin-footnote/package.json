@@ -26,6 +26,9 @@
     "dist/",
     "src/"
   ],
+  "dependencies": {
+    "@markdown-it-enhancer/shared": "workspace:~1.0.0"
+  },
   "peerDependencies": {
     "@markdown-it-enhancer/core": "workspace:~1.0.0"
   },
