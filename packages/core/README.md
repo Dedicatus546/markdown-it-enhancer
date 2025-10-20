@@ -1,6 +1,6 @@
-# markdown-it-enhancer
+# @markdown-it-enhancer/core
 
-[![NPM version](https://img.shields.io/npm/v/markdown-it-enhancer.svg?style=flat)](https://www.npmjs.org/package/markdown-it-enhancer)
+[![NPM version](https://img.shields.io/npm/v/@markdown-it-enhancer/core.svg?style=flat)](https://www.npmjs.org/package/@markdown-it-enhancer/core)
 [![Coverage Status](https://codecov.io/gh/Dedicatus546/markdown-it-enhancer/branch/main/graph/badge.svg?component=core)](https://app.codecov.io/github/Dedicatus546/markdown-it-enhancer/tree/main?components%5B0%5D=core)
 
 This is a fork from [markdown-it](https://github.com/markdown-it/markdown-it), there are some changes in this fork:
