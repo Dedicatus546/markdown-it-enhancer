@@ -1,5 +1,5 @@
 {
-  "name": "@markdown-it-enhancer/plugin-attributes",
+  "name": "@markdown-it-enhancer/plugin-link-attributes",
   "version": "1.0.0",
   "description": "A markdown-it plugin to configure the attributes for links",
   "type": "module",
