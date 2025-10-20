@@ -7,8 +7,8 @@ There are some breaking change in Markdown-It-Enhancer. If you want to migrate y
 In Markdown-It, plugin's initialization is sync, but in Markdown-It-Enhancer, you must call `MarkdownIt.prototype.isReady` to ensure that async plugin's initialization has been completed.
 
 ```typescript
-import { MarkdownIt } from "markdown-it-enhancer";
-import { anchor } from "markdown-it-anchor-for-enahncer";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
+import { anchor } from "@markdown-it-enhancer/plugin-anchor";
 
 const md = new MarkdownIt();
 
@@ -24,8 +24,8 @@ const result = await md.render('# h1\nHello world!');
 `MarkdownIt.prototype.use` would return itself, so you could call `MarkdownIt.prototype.isReady` by chain style.
 
 ```typescript
-import { MarkdownIt } from "markdown-it-enhancer";
-import { anchor } from "markdown-it-anchor-for-enahncer";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
+import { anchor } from "@markdown-it-enhancer/-plugin-anchor";
 
 const md = new MarkdownIt();
 
@@ -43,7 +43,7 @@ you could call `MarkdownIt.prototype.use` repeatedly. Just remember that call `M
 In Markdown-It, parser rule is sync, but in Markdown-It-Enhancer, it could be async or sync.
 
 ```typescript
-import { MarkdownIt } from "markdown-it-enhancer";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
 
 const md = new MarkdownIt();
 
@@ -67,12 +67,12 @@ You could check [StateBlockRuleFn](), [StateInlineRuleFn]() and [StateCoreRuleFn
 In Markdown-It, renderer rule is sync, but in Markdown-It-Enhancer, it could be async or sync.
 
 ```typescript
-import { MarkdownIt, type RendererFn } from "markdown-it-enhancer";
+import { MarkdownIt, type RendererFn } from "@markdown-it-enhancer/core";
 
 const md = new MarkdownIt();
 
 // Extend RendererExtendsRules so we could get a correct type hint.
-declare module "markdown-it-enhancer" {
+declare module "@markdown-it-enhancer/core" {
   interface RendererExtendsRules {
     test: RendererFn
   }
