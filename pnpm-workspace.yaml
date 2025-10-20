@@ -8,29 +8,29 @@ onlyBuiltDependencies:
 catalogs:
   types:
     "@types/js-yaml": ^4.0.9
-    "@types/node": ^24.3.1
+    "@types/node": ^24.8.1
   lint:
-    "@eslint/js": ^9.35.0
-    eslint: ^9.35.0
+    "@eslint/js": ^9.38.0
+    eslint: ^9.38.0
     eslint-plugin-simple-import-sort: ^12.1.1
-    globals: ^16.3.0
-    jiti: ^2.5.1
-    typescript-eslint: ^8.42.0
-    "@stylistic/eslint-plugin": ^5.3.1
+    globals: ^16.4.0
+    jiti: ^2.6.1
+    typescript-eslint: ^8.46.1
+    "@stylistic/eslint-plugin": ^5.5.0
   prod:
     js-yaml: ^4.1.0
-    katex: ^0.16.22
+    katex: ^0.16.25
   build:
-    tsdown: ^0.15.7
+    tsdown: ^0.15.8
     lerna: ^9.0.0
   test:
     cheerio: ^1.1.2
     "@vitest/coverage-istanbul": ^3.2.4
     "@vitest/ui": ^3.2.4
     vitest: ^3.2.4
-    "@sindresorhus/slugify": ^2.2.1
+    "@sindresorhus/slugify": ^3.0.0
   doc:
     vitepress: "2.0.0-alpha.9"
 
 catalog:
-  typescript: ^5.9.2
+  typescript: ^5.9.3
