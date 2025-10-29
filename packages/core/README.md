@@ -12,15 +12,15 @@ This is a fork from [markdown-it](https://github.com/markdown-it/markdown-it), t
 ## Install
 
 ```bash
-npm install @markdown-it-enchacer/core
-# yarn add @markdown-it-enchacer/core
-# pnpm add @markdown-it-enchacer/core
+npm install @markdown-it-enhancer/core
+# yarn add @markdown-it-enhancer/core
+# pnpm add @markdown-it-enhancer/core
 ```
 
 ## Async Parser Rule
 
 ```javascript
-import { MarkdownIt } from "@markdown-it-enchancer/core";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
 
 // delay s seconds.
 const delay = (s) => {
@@ -46,7 +46,7 @@ md.block.ruler.push(
 ## Async render rule
 
 ```javascript
-import { MarkdownIt } from "@markdown-it-enchancer/core";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
 
 // delay s seconds.
 const delay = (s) => {
@@ -70,7 +70,7 @@ md.renderer.rules.test = async (tokens, idx, options, env, renderer) => {
 ## Async plugin
 
 ```javascript
-import { MarkdownIt } from "@markdown-it-enchancer/core";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
 
 // delay s seconds.
 const delay = (s) => {
@@ -115,7 +115,7 @@ await md.isReady();
 ## Async `highlight` function
 
 ```javascript
-import { MarkdownIt } from "@markdown-it-enchancer/core";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
 
 // delay s seconds.
 const delay = (s) => {
@@ -142,7 +142,7 @@ const md = new MarkdownIt({
 Env support `maxAutoCompletedCells` property. See [#1000](https://github.com/markdown-it/markdown-it/issues/1000)
 
 ```javascript
-import { MarkdownIt } from "@markdown-it-enchancer/core";
+import { MarkdownIt } from "@markdown-it-enhancer/core";
 
 const md = new MarkdownIt();
 
