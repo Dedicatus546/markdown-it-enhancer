@@ -188,7 +188,5 @@ There are some plugins that migrate to markdown-it-enhancer.
 - [@mdit-vue/plugin-toc](https://github.com/mdit-vue/mdit-vue/tree/main/packages/plugin-toc) -> [@mdit-vue-for-enhancer/plugin-toc](https://github.com/Dedicatus546/mdit-vue/tree/for-enhancer/packages/plugin-toc)
 - [@mdit-vue/shared](https://github.com/mdit-vue/mdit-vue/tree/main/packages/shared) -> [@mdit-vue-for-enhancer/shared](https://github.com/Dedicatus546/mdit-vue/tree/for-enhancer/packages/shared)
 - [@mdit-vue/types](https://github.com/mdit-vue/mdit-vue/tree/main/packages/types) -> [@mdit-vue-for-enhancer/types](https://github.com/Dedicatus546/mdit-vue/tree/for-enhancer/packages/types)
-
 - [unplugin-vue-markdown](https://github.com/unplugin/unplugin-vue-markdown) -> [unplugin-vue-markdown-for-enhancer](https://github.com/Dedicatus546/unplugin-vue-markdown/tree/for-enhancer)
-
 - [@shikijs/markdown-it](https://github.com/shikijs/shiki/tree/main/packages/markdown-it) -> [shikijs-markdown-it-for-enhancer](https://github.com/Dedicatus546/shiki/tree/main/packages/markdown-it-enhancer)
