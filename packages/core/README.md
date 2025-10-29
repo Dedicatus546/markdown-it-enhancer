@@ -39,7 +39,7 @@ md.block.ruler.push(
   async (_state, _startLine, _endLine, _slient) => {
     // async operation
     await delay(3);
-  },
+  }
 );
 ```
 
@@ -83,19 +83,30 @@ const delay = (s) => {
 
 const md = new MarkdownIt();
 
-md
-  .use(async (md, arg1, arg2) => {
-  // some async operation
+md.use(
+  async (md, arg1, arg2) => {
+    // some async operation
     await delay(3);
-  }, 'arg1', 'arg2')
-  .use(async (md, arg1, arg2) => {
-  // some async operation
-    await delay(3);
-  }, 'arg1', 'arg2')
-  .use(async (md, arg1, arg2) => {
-  // some async operation
-    await delay(3);
-  }, 'arg1', 'arg2');
+  },
+  "arg1",
+  "arg2"
+)
+  .use(
+    async (md, arg1, arg2) => {
+      // some async operation
+      await delay(3);
+    },
+    "arg1",
+    "arg2"
+  )
+  .use(
+    async (md, arg1, arg2) => {
+      // some async operation
+      await delay(3);
+    },
+    "arg1",
+    "arg2"
+  );
 
 // you must exec `await md.isReady()` to ensure the initializations of all plugins are success.
 await md.isReady();
@@ -120,11 +131,11 @@ const md = new MarkdownIt({
     // async operation
     await delay(3);
     return "highlight function";
-  }
+  },
 });
 ```
 
-## Others
+## Env
 
 ### maxAutoCompletedCells
 
@@ -135,8 +146,8 @@ import { MarkdownIt } from "@markdown-it-enchancer/core";
 
 const md = new MarkdownIt();
 
-md.render('md content', {
-  maxAutoCompletedCells: 100
+md.render("md content", {
+  maxAutoCompletedCells: 100,
 });
 ```
 
@@ -166,3 +177,18 @@ There are some plugins that migrate to markdown-it-enhancer.
 ## Test Toolkit
 
 - [markdown-it-testgen](https://github.com/markdown-it/markdown-it-testgen) -> [@markdown-it-enhancer/test-toolkit](https://github.com/Dedicatus546/markdown-it-enhancer/tree/main/packages/test-toolkit)
+
+## Others
+
+- [@mdit-vue/plugin-component](https://github.com/mdit-vue/mdit-vue/tree/main/packages/plugin-component) -> [@mdit-vue-for-enhancer/plugin-component](https://github.com/Dedicatus546/mdit-vue/tree/for-enhancer/packages/plugin-component)
+- [@mdit-vue/plugin-frontmatter](https://github.com/mdit-vue/mdit-vue/tree/main/packages/plugin-frontmatter) -> [@mdit-vue-for-enhancer/plugin-frontmatter](https://github.com/Dedicatus546/mdit-vue/tree/for-enhancer/packages/plugin-frontmatter)
+- [@mdit-vue/plugin-headers](https://github.com/mdit-vue/mdit-vue/tree/main/packages/plugin-headers) -> [@mdit-vue-for-enhancer/plugin-headers](https://github.com/Dedicatus546/mdit-vue/tree/for-enhancer/packages/plugin-headers)
+- [@mdit-vue/plugin-sfc](https://github.com/mdit-vue/mdit-vue/tree/main/packages/plugin-sfc) -> [@mdit-vue-for-enhancer/plugin-sfc](https://github.com/Dedicatus546/mdit-vue/tree/for-enhancer/packages/plugin-sfc)
+- [@mdit-vue/plugin-title](https://github.com/mdit-vue/mdit-vue/tree/main/packages/plugin-title) -> [@mdit-vue-for-enhancer/plugin-title](https://github.com/Dedicatus546/mdit-vue/tree/for-enhancer/packages/plugin-title)
+- [@mdit-vue/plugin-toc](https://github.com/mdit-vue/mdit-vue/tree/main/packages/plugin-toc) -> [@mdit-vue-for-enhancer/plugin-toc](https://github.com/Dedicatus546/mdit-vue/tree/for-enhancer/packages/plugin-toc)
+- [@mdit-vue/shared](https://github.com/mdit-vue/mdit-vue/tree/main/packages/shared) -> [@mdit-vue-for-enhancer/shared](https://github.com/Dedicatus546/mdit-vue/tree/for-enhancer/packages/shared)
+- [@mdit-vue/types](https://github.com/mdit-vue/mdit-vue/tree/main/packages/types) -> [@mdit-vue-for-enhancer/types](https://github.com/Dedicatus546/mdit-vue/tree/for-enhancer/packages/types)
+
+- [unplugin-vue-markdown](https://github.com/unplugin/unplugin-vue-markdown) -> [unplugin-vue-markdown-for-enhancer](https://github.com/Dedicatus546/unplugin-vue-markdown/tree/for-enhancer)
+
+- [@shikijs/markdown-it](https://github.com/shikijs/shiki/tree/main/packages/markdown-it) -> [shikijs-markdown-it-for-enhancer](https://github.com/Dedicatus546/shiki/tree/main/packages/markdown-it-enhancer)
